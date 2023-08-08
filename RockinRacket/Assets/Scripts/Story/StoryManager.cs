@@ -19,7 +19,10 @@ public class StoryManager : MonoBehaviour
         } 
     }
 
-
-
+    //probably return like ink file or something
+    public bool GetDialogue()
+    {
+        return true;
+    }
     
 }

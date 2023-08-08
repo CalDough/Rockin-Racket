@@ -52,9 +52,24 @@ public class GameStateManager : MonoBehaviour
         GameManager.Instance.globalFame += FameToGain;
         GameManager.Instance.globalMoney += MoneyToGain;
         AudioManager.Instance.StopConcert();
+        LocateConcertUIAndEndConcert();
         
     }
-    
+    public void LocateConcertUIAndEndConcert()
+    {
+        // Find an object with the ConcertUI script
+        ConcertUI concertUI = FindObjectOfType<ConcertUI>();
+
+        // If the script was found on an object, call the EndConcert method
+        if (concertUI != null)
+        {
+            concertUI.EndConcert();
+        }
+        else
+        {
+            Debug.LogWarning("No GameObject with the ConcertUI script was found!");
+        }
+    }
     
     
     
@@ -329,6 +344,7 @@ public class GameStateManager : MonoBehaviour
         {
             Debug.Log("ConcertOver");
             this.ConcertActive = false;
+            EndConcert();
         }
     }
 

@@ -55,7 +55,7 @@ public class GameEventManager : MonoBehaviour
         GameEvent.OnEventStart += HandleEventStart;
         GameEvent.OnEventFail += HandleEventFail;
         GameEvent.OnEventCancel += HandleEventCancel;
-        GameEvent.OnEventComplete += HandleEventCancel;
+        GameEvent.OnEventComplete += HandleEventComplete;
         GameEvent.OnEventMiss += HandleEventMiss;
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         
@@ -67,7 +67,7 @@ public class GameEventManager : MonoBehaviour
         GameEvent.OnEventStart -= HandleEventStart;
         GameEvent.OnEventFail -= HandleEventFail;
         GameEvent.OnEventCancel -= HandleEventCancel;
-        GameEvent.OnEventComplete -= HandleEventCancel;
+        GameEvent.OnEventComplete -= HandleEventComplete;
         GameEvent.OnEventMiss -= HandleEventMiss;
         GameStateEvent.OnGameStateStart -= HandleGameStateStart;
         GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
@@ -93,7 +93,7 @@ public class GameEventManager : MonoBehaviour
     public void HandleEventComplete(object sender, GameEventArgs e)
     {
         Debug.Log("Event Completed: " + e.eventObject);
-        GameEvents.Remove(e.eventObject);
+        //GameEvents.Remove(e.eventObject);
         completedEvents.Add(e.eventObject);
     }
 
@@ -223,7 +223,27 @@ public class GameEventManager : MonoBehaviour
     public void InstantiateGameEvents()
     {
         Debug.Log("Creating");
-        GameObject eventsParent = new GameObject("All Concert Events"); // create new parent object
+        
+        // Try to find the existing EventContainer
+        GameObject eventsParent = GameObject.Find("EventContainer");
+        
+        // If the EventContainer doesn't exist, create it
+        if (eventsParent == null)
+        {
+            // Locate the canvas
+            Canvas canvas = GameObject.FindObjectOfType<Canvas>();
+
+            // If the canvas doesn't exist, print an error and return
+            if (canvas == null)
+            {
+                Debug.LogError("No canvas exists in the scene.");
+                return;
+            }
+            
+            eventsParent = new GameObject("EventContainer");
+            eventsParent.transform.SetParent(canvas.transform, false); // Setting the parent to be the canvas
+        }
+
         if(GameEventSO.EventPrefabs.Count == 0)
         {
             return;
@@ -231,6 +251,7 @@ public class GameEventManager : MonoBehaviour
         foreach(GameObject prefab in GameEventSO.EventPrefabs)
         {
             GameObject instantiatedObject = Instantiate(prefab);
+            instantiatedObject.transform.localPosition = eventsParent.transform.position;
             GameEvent GameEvent = instantiatedObject.GetComponent<GameEvent>();
 
             // If the GameEvent component doesn't exist, delete the object

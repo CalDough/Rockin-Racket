@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    This script goes unused right now, its for testing
+*/
 public class UIEvent 
 {
     public static event EventHandler<UIEventArgs> UserInterfaceChanged;

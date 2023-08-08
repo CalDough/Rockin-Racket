@@ -53,12 +53,22 @@ public class AudioManager : MonoBehaviour
             SoundObjects.Clear();
             ConcertSounds.Clear();
 
+            // Find or create the AudioSources parent object
+            GameObject audioSourcesParent = GameObject.Find("AudioSources");
+            if (audioSourcesParent == null)
+            {
+                audioSourcesParent = new GameObject("AudioSources");
+            }
+
             for (int i = 0; i < numBandPositions; i++)
             {
                 for (int j = 0; j < numRoles; j++)
                 {
                     // Create a new GameObject for this track
                     GameObject newGO = new GameObject("FMOD_SoundObject_" + (i + 1) + (j == 0 ? "_Primary" : "_Secondary"));
+
+                    // Set its parent to the AudioSources parent
+                    newGO.transform.parent = audioSourcesParent.transform;
 
                     // Add the FMOD Studio Event Emitter component to the GameObject
                     StudioEventEmitter eventEmitter = newGO.AddComponent<StudioEventEmitter>();

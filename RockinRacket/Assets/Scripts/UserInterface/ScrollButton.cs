@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ScrollButton : MonoBehaviour
 {
-    private int index;
+    [SerializeField] private int index;
     private IScrollSelector Selector;
 
     public void Setup(int index, IScrollSelector Selector)

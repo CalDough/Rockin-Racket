@@ -14,7 +14,7 @@ public abstract class ScrollSelector<T> : MonoBehaviour, IScrollSelector
         CreateButtons();
     }
 
-    public void CreateButtons()
+    virtual public void CreateButtons()
     {
         foreach (Transform child in ContentHolder)
         {

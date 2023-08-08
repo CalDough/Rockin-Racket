@@ -5,11 +5,16 @@ using System;
 
 public class GameEvent : MonoBehaviour 
 {
+    
+
+
     public static event EventHandler<GameEventArgs> OnEventStart; //Starting of an event
     public static event EventHandler<GameEventArgs> OnEventFail; //Fail of an event
     public static event EventHandler<GameEventArgs> OnEventMiss; //Miss of an event, due to game state change
     public static event EventHandler<GameEventArgs> OnEventCancel; //Cancelation of an event, such as items used
     public static event EventHandler<GameEventArgs> OnEventComplete; //Successful events
+    public static event EventHandler<GameEventArgs> OnEventOpen;
+    public static event EventHandler<GameEventArgs> OnEventClose;
 
     public static void EventStart(GameEvent eventData)
     {
@@ -35,7 +40,17 @@ public class GameEvent : MonoBehaviour
     {
         OnEventComplete?.Invoke(null, new GameEventArgs(eventData));
     }
-    
+
+    public static void EventOpened(GameEvent eventData)
+    {
+        OnEventOpen?.Invoke(null, new GameEventArgs(eventData));
+    }
+
+    public static void EventClosed(GameEvent eventData)
+    {
+        OnEventClose?.Invoke(null, new GameEventArgs(eventData));
+    }
+
     public float songActivationTime = 0;
     public int activationNumber = 0;  
 
@@ -57,6 +72,7 @@ public class GameEvent : MonoBehaviour
             durationCoroutine = StartCoroutine(EventDurationCountdown());
         }
         EventStart(this);
+        
     }
 
     public virtual void End()
@@ -66,6 +82,7 @@ public class GameEvent : MonoBehaviour
             StopCoroutine(durationCoroutine);
         }
         EventFail(this);
+        EventClosed(this);
     }
 
     public virtual void Miss()
@@ -75,6 +92,7 @@ public class GameEvent : MonoBehaviour
             StopCoroutine(durationCoroutine);
         }
         EventMiss(this);
+        EventClosed(this);
     }
 
     public virtual void Complete()
@@ -84,8 +102,19 @@ public class GameEvent : MonoBehaviour
             StopCoroutine(durationCoroutine);
         }
         EventComplete(this);
+        EventClosed(this);
     }
 
+    public virtual void OpenEvent()
+    {
+        EventOpened(this);
+    }
+
+    public virtual void CloseEvent()
+    {
+        EventClosed(this);
+    }
+    
     //Since this is based on Time.deltaTime; it will actually already be affected by
     // the pausing of the time scale = 0, but maybe useful to keep the code around
     //

@@ -123,6 +123,7 @@ public class GameLoadHandler : MonoBehaviour
     public void MainMenu()
     {
         UserInterfaceManager.Instance.SwitchSceneIndex(MainID);
+        CloseMenu();
     }
 
     public void ToggleMenu()
