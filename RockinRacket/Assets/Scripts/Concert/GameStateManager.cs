@@ -60,10 +60,12 @@ public class GameStateManager : MonoBehaviour
         songSlotsAvailable = 0;
         MoneyToGain = 0;
         FameToGain = 0;
+        
     }
 
-
-
+    //
+    //MAKE THIS A BUTTON ON THE END CONCERT SCREEN INSTEAD OF AUTO ENDING!!!
+    //
     //Needs to calculate money from total attendees or have an event to signal end
     public void EndConcert()
     {
@@ -237,7 +239,7 @@ public class GameStateManager : MonoBehaviour
             
             GameState intermissionState = new GameState(); 
             intermissionState.GameType = GameModeType.Intermission;
-            intermissionState.Duration = 20f;
+            intermissionState.Duration = 15f;
             intermissionState.UseDuration = true;
             GameStates.AddAfter(songNode, intermissionState);
             
@@ -249,7 +251,7 @@ public class GameStateManager : MonoBehaviour
         {
             sceneIntroState = new GameState(); 
             sceneIntroState.GameType = GameModeType.SceneIntro; 
-            sceneIntroState.Duration = 15;
+            sceneIntroState.Duration = 10;
             sceneIntroState.UseDuration = true;
         }
         GameStates.AddFirst(sceneIntroState);
@@ -260,7 +262,7 @@ public class GameStateManager : MonoBehaviour
         {
             sceneOutroState = new GameState(); 
             sceneOutroState.GameType = GameModeType.SceneOutro; 
-            sceneOutroState.Duration = 15;
+            sceneOutroState.Duration = 10;
             sceneOutroState.UseDuration = true;
         }
         GameStates.AddLast(sceneOutroState);
@@ -524,6 +526,7 @@ public class GameStateManager : MonoBehaviour
         if(ConcertActive == true){return;}
         if(SelectedVenue == null){return;}
         Debug.Log("Loading Concert Data");
+        LoadVenue();
         LoadGameStatesFromLists();
         if(CanStartLevel != true)
         { return;}

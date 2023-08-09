@@ -58,6 +58,7 @@ public class GameEventManager : MonoBehaviour
         intermissionNumber = 0;
         currentTime = 0;
         pastTime = 0;
+        totalDifficulty = 0;
         completedEvents.Clear();
         failedEvents.Clear();
         missedEvents.Clear();

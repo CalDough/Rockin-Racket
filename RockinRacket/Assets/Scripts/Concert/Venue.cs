@@ -10,7 +10,8 @@ public class Venue : ScriptableObject
     public int SongSlots;
     public List<Environment> environments;
     public VenueSize venueSize;
-
+    [Header("Guest Animal Settings")]
+    [Header("Use INT ID from the Animal")]
     public List<int> setGuests; //sorry but have to have this as an ID system for easier serialization
 
     [SerializeField] public List<GameState> StagedGameStates;
