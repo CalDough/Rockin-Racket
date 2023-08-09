@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameEventManager : MonoBehaviour
 {
@@ -19,17 +20,18 @@ public class GameEventManager : MonoBehaviour
     
 
     //Staged events are loaded from the venue and story
-    [SerializeField] private List<GameEvent> stagedEvents;  
+    [SerializeField] private List<GameObject> stagedEvents;  
     //Random events are loaded from settings such as Character Moods, Venue Enviroment, Gear Quality
-    [SerializeField] private List<GameEvent> randomEvents;  
+    [SerializeField] private List<GameObject> randomEvents;  
 
     //Concert Events only happen during the concert, all these events will automatically end once the GameState changes and will count as a miss
-    [SerializeField] private List<GameEvent> GameEvents;  
+    [SerializeField] private List<GameObject> GameEvents;  
     
     //intermission Events only happen during the intermission for selling items, etc, they are generally easier and do not punish concert status
-    [SerializeField] private List<GameEvent> intermissionEvents;  
+    [SerializeField] private List<GameObject> intermissionEvents;  
 
-
+    [SerializeField] private List<GameObject> InstanceGameEvents;  
+    [SerializeField] private List<GameObject> InstanceIntermissionEvents;  
     [Header("Event Tester")]
     [SerializeField] private GameEventContainer GameEventSO;  
 
@@ -49,6 +51,23 @@ public class GameEventManager : MonoBehaviour
             DontDestroyOnLoad(this);
         } 
     }
+
+    public void CleanUp()
+    {
+        songNumber = 0;
+        intermissionNumber = 0;
+        currentTime = 0;
+        pastTime = 0;
+        completedEvents.Clear();
+        failedEvents.Clear();
+        missedEvents.Clear();
+        cancelledEvents.Clear();
+        stagedEvents.Clear();
+        randomEvents.Clear();
+        GameEvents.Clear();
+        intermissionEvents.Clear();
+    }
+
 
     void Start()
     {
@@ -105,7 +124,7 @@ public class GameEventManager : MonoBehaviour
     
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
     {
-        Debug.Log("State Started: " + e.stateType);
+        //Debug.Log("State Started: " + e.stateType);
         switch(e.stateType)
         {
             case GameModeType.Song:
@@ -122,7 +141,7 @@ public class GameEventManager : MonoBehaviour
     private void HandleGameStateEnd(object sender, GameStateEventArgs e)
     {
         // Handle the game state end here
-        Debug.Log("Game state ended: " + e.state.GameType);
+        //Debug.Log("Game state ended: " + e.state.GameType);
         switch(e.stateType)
         {
             case GameModeType.Song:
@@ -143,14 +162,20 @@ public class GameEventManager : MonoBehaviour
     public void SetEventTimes()
     {
         List<GameState> allSongs = GameStateManager.Instance.GetAllStateOfType(GameModeType.Song);
-
+        List<GameState> allIntermission = GameStateManager.Instance.GetAllStateOfType(GameModeType.Intermission);
         // Calculate total song duration
         float totalDuration = 0f;
+        float totalIntDuration = 0f;
         foreach (var song in allSongs)
         {
             totalDuration += song.Song.Duration;
         }
 
+        foreach (var intermission in allIntermission)
+        {
+            totalIntDuration += intermission.Duration;
+        }
+        Debug.Log("intermission Length " + totalIntDuration);
         int numberOfEvents = GameEvents.Count;
         int currentEventIndex = 0;
 
@@ -171,50 +196,67 @@ public class GameEventManager : MonoBehaviour
             float lastTimestamp = 0;
             for (int i = 0; i < eventsForThisSong; i++)
             {
+                if(currentEventIndex >= GameEvents.Count) 
+                {
+                    Debug.LogWarning("currentEventIndex exceeded GameEvents.Count!");   return; 
+                }
                 // Calculate a random timestamp for this event, between lastTimestamp and maxEventTime * (i + 1)
                 float eventTime = UnityEngine.Random.Range(lastTimestamp, maxEventTime * (i + 1));
                 lastTimestamp = eventTime;
 
-                GameEvents[currentEventIndex].songActivationTime = eventTime;
-                GameEvents[currentEventIndex].activationNumber = s;
+                if(InstanceGameEvents[currentEventIndex].TryGetComponent<GameEvent>(out GameEvent gm))
+                {gm.songActivationTime = Mathf.FloorToInt(eventTime);   gm.activationNumber = s;}
+                else
+                {Debug.LogError("Failed to get GameEvent component from GameObject at index: " + currentEventIndex);}
                 currentEventIndex++;
             }
         }
         /*
-        // Distribute any remaining events
-        int remainingEvents = numberOfEvents - currentEventIndex;
-        if (remainingEvents > 0)
+        for (int s = 1; s < allIntermission.Count+1; s++)
         {
-            // Sort the songs by duration in descending order
-            allSongs.Sort((a, b) => b.Song.songDuration.CompareTo(a.Song.songDuration));
+            GameState intermissionState = allIntermission[s-1];
+            float intDuration = intermissionState.Duration;
+            float tenPercent = intDuration * 0.10f;
+            float maxTime = intDuration - tenPercent;
 
-            int songIndex = 0;
-            while (remainingEvents > 0)
+            // Calculate the number of events for this song based on its proportion of total duration
+            int eventsForThisSong = Mathf.RoundToInt((intDuration / totalDuration) * numberOfEvents);
+
+            Debug.Log("Intermission Length " + intDuration + " song events " + eventsForThisSong);
+
+            float maxEventTime = maxTime / eventsForThisSong;
+            float lastTimestamp = 0;
+            for (int i = 0; i < eventsForThisSong; i++)
             {
-                GameState longestSong = allSongs[songIndex % allSongs.Count];
-                float songDuration = longestSong.Song.songDuration;
-                float tenPercentOfSong = songDuration * 0.10f;
-                float maxTime = songDuration - tenPercentOfSong;
+                if(currentEventIndex >= intermissionEvents.Count) 
+                {
+                    Debug.LogWarning("currentEventIndex exceeded GameEvents.Count!");   return; 
+                }
+                // Calculate a random timestamp for this event, between lastTimestamp and maxEventTime * (i + 1)
+                float eventTime = UnityEngine.Random.Range(lastTimestamp, maxEventTime * (i + 1));
+                lastTimestamp = eventTime;
 
-                // Add an event at a random time within the allowable range
-                float eventTime = UnityEngine.Random.Range(tenPercentOfSong, maxTime);
-                GameEvents[currentEventIndex].songActivationTime = eventTime;
-                GameEvents[currentEventIndex].songNumber = songIndex % allSongs.Count;
+                if(InstanceIntermissionEvents[currentEventIndex].TryGetComponent<GameEvent>(out GameEvent gm))
+                {gm.songActivationTime = Mathf.FloorToInt(eventTime);   gm.activationNumber = s;}
+                else
+                {Debug.LogError("Failed to get GameEvent component from GameObject at index: " + currentEventIndex);}
                 currentEventIndex++;
-                remainingEvents--;
-                songIndex++;
             }
         }
         */
     }
+       
 
     public void MissAllActiveEvents()
     {
-        foreach (GameEvent GameEvent in GameEvents)
+        foreach (GameObject GameEvent in GameEvents)
         {
-            if (GameEvent.isActiveEvent)
+            if (GameEvent.TryGetComponent<GameEvent>(out GameEvent gm))
             {
-                GameEvent.Miss();
+                if(gm.isActiveEvent)
+                {
+                    gm.Miss();
+                }
             }
         }
     }
@@ -243,35 +285,49 @@ public class GameEventManager : MonoBehaviour
             eventsParent = new GameObject("EventContainer");
             eventsParent.transform.SetParent(canvas.transform, false); // Setting the parent to be the canvas
         }
-
-        if(GameEventSO.EventPrefabs.Count == 0)
-        {
-            return;
-        }
-        foreach(GameObject prefab in GameEventSO.EventPrefabs)
+        if(GameEvents.Count == 0)
+        {return;}
+        foreach(GameObject prefab in GameEvents)
         {
             GameObject instantiatedObject = Instantiate(prefab);
             instantiatedObject.transform.localPosition = eventsParent.transform.position;
-            GameEvent GameEvent = instantiatedObject.GetComponent<GameEvent>();
-
-            // If the GameEvent component doesn't exist, delete the object
-            if (GameEvent == null)
+            if(instantiatedObject.TryGetComponent<GameEvent>(out GameEvent gm))
+            {
+                gm.isActiveEvent = false;
+            }
+            else
             {
                 Debug.LogWarning("GameObject " + instantiatedObject.name + " does not contain a GameEvent component. It will be destroyed.");
                 Destroy(instantiatedObject);
                 continue;
             }
-            GameEvent.isActiveEvent = false;
             instantiatedObject.transform.parent = eventsParent.transform;
-            // Add the GameEvent to the GameEvents list
-            GameEvents.Add(GameEvent);
+            InstanceGameEvents.Add(instantiatedObject);
         }
+        foreach(GameObject prefab in intermissionEvents)
+        {
+            GameObject instantiatedObject = Instantiate(prefab);
+            instantiatedObject.transform.localPosition = eventsParent.transform.position;
+            if(instantiatedObject.TryGetComponent<GameEvent>(out GameEvent gm))
+            {
+                gm.isActiveEvent = false;
+            }
+            else
+            {
+                Debug.LogWarning("GameObject " + instantiatedObject.name + " does not contain a GameEvent component. It will be destroyed.");
+                Destroy(instantiatedObject);
+                continue;
+            }
+            instantiatedObject.transform.parent = eventsParent.transform;
+            InstanceIntermissionEvents.Add(instantiatedObject);
+        }
+        
     }
 
     void Update()
     {
         // terrible
-        if (GameStateManager.Instance.CurrentGameState.GameType == GameModeType.Song)
+        if (GameStateManager.Instance.ConcertActive && GameStateManager.Instance.CurrentGameState.GameType == GameModeType.Song || GameStateManager.Instance.CurrentGameState.GameType == GameModeType.Intermission)
         {
             currentTime += Time.deltaTime;
             if (currentTime >= pastTime + .5f)
@@ -303,19 +359,56 @@ public class GameEventManager : MonoBehaviour
         
         GameEvents.Clear();
         GetStageEvents(); //These events are core to the stage, story, or whatever, so we can ignore totalDifficulty when adding
-        List<GameEvent> eventPool = new List<GameEvent>();
+        List<GameObject> eventPool = new List<GameObject>();
 
         //Make a pool of events that we can use in each song section
         //Some events have higher priority
         GetBandSkillEvents();
         GetBandMoodEvents();
         GetAttendeeEvents();
+
         
+        foreach(GameObject gm in this.GameEventSO.EventPrefabs)
+        {
+            eventPool.Add(gm);
+        }
+        /*
+        if(GameEventSO.EventPrefabs.Count == 0)
+        {
+            return;
+        }
+        foreach(GameObject prefab in GameEventSO.EventPrefabs)
+        {
+            GameObject instantiatedObject = Instantiate(prefab);
+            instantiatedObject.transform.localPosition = eventsParent.transform.position;
+            GameEvent GameEvent = instantiatedObject.GetComponent<GameEvent>();
+
+            // If the GameEvent component doesn't exist, delete the object
+            if (GameEvent == null)
+            {
+                Debug.LogWarning("GameObject " + instantiatedObject.name + " does not contain a GameEvent component. It will be destroyed.");
+                Destroy(instantiatedObject);
+                continue;
+            }
+            GameEvent.isActiveEvent = false;
+            instantiatedObject.transform.parent = eventsParent.transform;
+            // Add the GameEvent to the GameEvents list
+            GameEvents.Add(GameEvent);
+        }
+        */
+        foreach(GameObject prefab in GameEventSO.EventPrefabs)
+        {
+            GameEvent GameEvent = prefab.GetComponent<GameEvent>();
+            if (GameEvent == null)
+            {continue;}
+            
+            eventPool.Add(prefab);
+        }
         //Since intermission and concert events are similar, but one involves music, and one involves guests, or other things
         //it makes sense that they may share from the same pool of events, so they need to be slightly separated
         //this area does for easier testing
-        List<GameEvent> GameEventPool = eventPool.FindAll(e => e.eventType == EventType.Song || e.eventType == EventType.All);
-        List<GameEvent> intermissionEventPool = eventPool.FindAll(e => e.eventType == EventType.Intermission || e.eventType == EventType.All);
+        List<GameObject> GameEventPool = eventPool.FindAll(e => e.GetComponent<GameEvent>().eventType == EventType.Song || e.GetComponent<GameEvent>().eventType == EventType.All);
+        List<GameObject> intermissionEventPool = eventPool.FindAll(e => e.GetComponent<GameEvent>().eventType == EventType.Intermission || e.GetComponent<GameEvent>().eventType == EventType.All);
         int GameEventsToAdd = totalDifficulty / 10;
 
         int intermissionTime = GameStateManager.Instance.GetAllStateOfType(GameModeType.Intermission).Count * 20;
@@ -330,7 +423,7 @@ public class GameEventManager : MonoBehaviour
         return true;
     }
 
-    private void AddEventsToConcert(List<GameEvent> eventPool, int eventsToAdd, List<GameEvent> eventList)
+    private void AddEventsToConcert(List<GameObject> eventPool, int eventsToAdd, List<GameObject> eventList)
     {
         int currentEventsAdded = 0;
         while(currentEventsAdded < eventsToAdd)
@@ -338,7 +431,8 @@ public class GameEventManager : MonoBehaviour
             // Shuffle eventPool
             for(int i = 0; i < eventPool.Count; i++)
             {
-                GameEvent temp = eventPool[i];
+                
+                GameObject temp = eventPool[i];
                 int randomIndex = UnityEngine.Random.Range(i, eventPool.Count);
                 eventPool[i] = eventPool[randomIndex];
                 eventPool[randomIndex] = temp;

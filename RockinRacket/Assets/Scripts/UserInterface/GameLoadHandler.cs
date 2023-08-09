@@ -124,6 +124,7 @@ public class GameLoadHandler : MonoBehaviour
     {
         UserInterfaceManager.Instance.SwitchSceneIndex(MainID);
         CloseMenu();
+        if(GameStateManager.Instance.ConcertActive){GameStateManager.Instance.EndConcertEarly();}
     }
 
     public void ToggleMenu()

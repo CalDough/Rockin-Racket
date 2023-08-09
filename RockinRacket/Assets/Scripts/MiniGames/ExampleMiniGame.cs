@@ -96,7 +96,7 @@ public class ExampleMiniGame : MonoBehaviour
     private void HandleGameStateEnd(object sender, GameStateEventArgs e)
     {
         // Handle the game state end here
-        Debug.Log("Game state ended: " + e.state.GameType);
+        //Debug.Log("Game state ended: " + e.state.GameType);
         switch(e.stateType)
         {
             case GameModeType.Song:

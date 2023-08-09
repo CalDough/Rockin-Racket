@@ -62,7 +62,7 @@ public class ConcertUI :  ScrollSelector<GameEvent>
 
     public void HandleEventStart(object sender, GameEventArgs e)
     {
-        Debug.Log("UI Event Started: " + e.eventObject);
+        //Debug.Log("UI Event Started: " + e.eventObject);
         this.Items.Add(e.eventObject);
         
         CreateButton(currentIndex);
@@ -127,7 +127,7 @@ public class ConcertUI :  ScrollSelector<GameEvent>
     private void HandleGameStateEnd(object sender, GameStateEventArgs e)
     {
         // Handle the game state end here
-        Debug.Log("Game state ended: " + e.state.GameType);
+        //ebug.Log("Game state ended: " + e.state.GameType);
         switch(e.stateType)
         {
             case GameModeType.Song:

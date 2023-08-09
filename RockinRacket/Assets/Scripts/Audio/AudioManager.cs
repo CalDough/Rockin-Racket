@@ -7,8 +7,8 @@ public class AudioManager : MonoBehaviour
 {
     public SongData songData;
 
-    List<StudioEventEmitter> ConcertSounds = new List<StudioEventEmitter>();
-    List<GameObject> SoundObjects = new List<GameObject>();
+    [SerializeField] List<StudioEventEmitter> ConcertSounds = new List<StudioEventEmitter>();
+    [SerializeField] List<GameObject> SoundObjects = new List<GameObject>();
     
     public static AudioManager Instance { get; private set; }
 
@@ -34,7 +34,12 @@ public class AudioManager : MonoBehaviour
         TimeEvents.OnGameResumed -= ResumeConcert; 
     }
     
-    
+    public void CleanUp()
+    {
+        StopConcert();
+        ConcertSounds.Clear();
+        SoundObjects.Clear();
+    }
 
     public void CreateSoundObjects()
     {
@@ -124,7 +129,7 @@ public class AudioManager : MonoBehaviour
         GameObject secondaryGO = SoundObjects[2 * i + 1];
 
         // Check if the band position is not empty
-        if (bandPositions[i].IsActivePosition != false)
+        if (bandPositions[i].IsActivePosition == true)
         {
             // Check if the track paths are not null or empty before setting the EventReference
             if (!string.IsNullOrEmpty(trackDataList[i].PrimaryTrackPath))

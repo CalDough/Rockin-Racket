@@ -45,16 +45,51 @@ public class GameStateManager : MonoBehaviour
         } 
     }
 
-    
+    public void ResetVariables()
+    {
+        CanStartLevel = false;
+        ConcertActive = false;
+        InspectorGameStates.Clear();
+        SelectedMenuSongs.Clear();
+        GameStatesFromVenue.Clear();
+        GameStatesFromStory.Clear();
+        GameStates.Clear();
+        CurrentGameState = new GameState();
+        levelTime = 0;
+        totalTime = 0;
+        songSlotsAvailable = 0;
+        MoneyToGain = 0;
+        FameToGain = 0;
+    }
+
+
+
     //Needs to calculate money from total attendees or have an event to signal end
     public void EndConcert()
     {
         GameManager.Instance.globalFame += FameToGain;
         GameManager.Instance.globalMoney += MoneyToGain;
+        CanStartLevel = false;
+        ConcertActive = false;
         AudioManager.Instance.StopConcert();
         LocateConcertUIAndEndConcert();
+        GameEventManager.Instance.CleanUp();
+        AudioManager.Instance.CleanUp();
+        ResetVariables();
         
     }
+
+    public void EndConcertEarly()
+    {
+        CanStartLevel = false;
+        ConcertActive = false;
+        AudioManager.Instance.StopConcert();
+        LocateConcertUIAndEndConcert();
+        GameEventManager.Instance.CleanUp();
+        AudioManager.Instance.CleanUp();
+        ResetVariables();
+    }
+
     public void LocateConcertUIAndEndConcert()
     {
         // Find an object with the ConcertUI script
@@ -488,15 +523,17 @@ public class GameStateManager : MonoBehaviour
         
         if(ConcertActive == true){return;}
         if(SelectedVenue == null){return;}
-
+        Debug.Log("Loading Concert Data");
         LoadGameStatesFromLists();
         if(CanStartLevel != true)
         { return;}
         ModifyGameStates();
+        Debug.Log("Songs Loaded, Creating Concert States");
         GameEventManager.Instance.LoadEvents();
         GameEventManager.Instance.InstantiateGameEvents();
         GameEventManager.Instance.SetEventTimes();
         CopyGameStatesToInspector();
+        Debug.Log("Events Loaded Starting");
         CurrentGameState = GameStates.First.Value;
         CurrentGameState.StartState();
         ConcertActive = true;
