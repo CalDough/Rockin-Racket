@@ -20,6 +20,7 @@ public class BandManageUI : MonoBehaviour
     public float transitionDuration = 0.5f;
     private bool isTransitioning = false;
 
+    public DialogueReader SceneReader;
     // Start is called before the first frame update
     void Start()
     {
@@ -137,6 +138,7 @@ public class BandManageUI : MonoBehaviour
         //while dialogue or cutscene is active, I think it would be easier to keep it the same member until that finishes to swap
         if(StoryManager.Instance.GetDialogue() == true)
         {
+            SceneReader.DialogueStarted();
             CanChangeMember = true;
             DialoguePanel.SetActive(true);
         }
