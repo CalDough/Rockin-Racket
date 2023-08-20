@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-
+/*
+    This script is for a test feature for an overworld level system like in mario. Ignore for now.
+*/
 public class LevelLocation : MonoBehaviour
 {
 

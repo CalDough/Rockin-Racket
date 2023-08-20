@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-    This script goes unused right now, its for testing
+    This script goes unused right now, its for testing. It will most likely be deleted.
 */
 public class UIEvent 
 {

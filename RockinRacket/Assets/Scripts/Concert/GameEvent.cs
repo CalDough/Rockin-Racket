@@ -2,7 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+/*
+    This script is meant to be put on a game object that will have an accompanying mini-game script.
+    See Example Mini Game script for reference. 
+    There are a lot of Event possibilities:
+    1. Event Start: The event just started so it will get enabled
+    2. Event Fail: You failed the event by not doing it or you failed in the event
+    3. Event Miss: This should only be called on events that don't punish you for not doing them or they automatically resolve due to something
+    4. Event Cancel: The concert game state changed from Song to Something else so you get a freebie and the event is missed
+    5. Event Complete: The event was completed so it gives rewards or stops its negative effect
+    6. Event Open: The player opens the event via UI so it should show the UI game
+    7. Event Close: Opposite of above
 
+*/
 public class GameEvent : MonoBehaviour 
 {
     

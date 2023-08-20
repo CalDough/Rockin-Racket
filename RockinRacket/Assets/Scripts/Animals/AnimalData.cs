@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/*
+    This script contains an animal scriptable object
+    These are attendees of concerts
+    The Animal Class can load these objects so we can easily make them in the Editor
 
+*/
 [CreateAssetMenu(fileName = "AnimalData", menuName = "ScriptableObjects/AnimalData", order = 1)]
 public class AnimalData : ScriptableObject
 {

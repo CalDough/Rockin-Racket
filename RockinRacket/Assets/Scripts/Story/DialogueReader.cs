@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine;
-
+/*
+    This script is for a test feature for opening Ink files and reading dialogue, and selecting choices
+    Watch https://www.youtube.com/watch?v=KSRpcftVyKg&list=PL3viUl9h9k78KsDxXoAzgQ1yRjhm7p8kl
+    series to help understand and complete interaction in script/ink 
+*/
 public class DialogueReader : MonoBehaviour
 {
 

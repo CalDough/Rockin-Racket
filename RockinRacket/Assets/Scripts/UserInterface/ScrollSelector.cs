@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+    This script is for the scrollable object with a list of data to display. 
+    Each object is a button to allow players to inform this script on which button was selected.
+*/
 public abstract class ScrollSelector<T> : MonoBehaviour, IScrollSelector
 {
     public GameObject ButtonPrefab;

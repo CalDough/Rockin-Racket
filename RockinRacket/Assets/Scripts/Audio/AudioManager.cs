@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+/*
+    This script is a singleton which manages the audio across scenes and in the concert
+    It should be recoded. It takes data from Band Manager and the Concerts Current track and sets FMOD emitters to play sounds
+    Upon leaving a concert it destroys the Sound Objects.
 
+*/
 public class AudioManager : MonoBehaviour
 {
     public SongData songData;
@@ -43,7 +48,6 @@ public class AudioManager : MonoBehaviour
 
     public void CreateSoundObjects()
     {
-        // Define the number of band positions and roles
         int numBandPositions = 5;
         int numRoles = 2;  // Primary and Secondary
 
@@ -79,17 +83,14 @@ public class AudioManager : MonoBehaviour
                     StudioEventEmitter eventEmitter = newGO.AddComponent<StudioEventEmitter>();
                     ConcertSounds.Add(eventEmitter);
 
-                    // Initially disable the GameObject
                     newGO.SetActive(false);
-
-                    // Store it in the list
                     SoundObjects.Add(newGO);
                 }
             }
         }
         else
         {
-            // If the list has the right length, ensure all objects are disabled and event emitters' EventReferences are null
+            // If the list has the right length ensure all objects are disabled and event emitters' EventReferences are null
             for (int i = 0; i < numBandPositions * numRoles; i++)
             {
                 SoundObjects[i].SetActive(false);
@@ -100,9 +101,7 @@ public class AudioManager : MonoBehaviour
 
     public void EnableSoundObjectsBasedOnBandPositions(SongData songData)
     {
-        // Get the BandManager instance
         BandManager bandManager = BandManager.Instance;
-
         // Get the band positions
         List<BandPosition> bandPositions = new List<BandPosition>
         {
@@ -154,7 +153,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            // Disable the GameObjects
+            // Disable the GameObjects since they are not playing sounds
             primaryGO.SetActive(false);
             secondaryGO.SetActive(false);
         }
@@ -269,6 +268,7 @@ public class AudioManager : MonoBehaviour
             emitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         }
     }
+    
     public void PauseConcert()
     {
         foreach(StudioEventEmitter emitter in this.ConcertSounds)

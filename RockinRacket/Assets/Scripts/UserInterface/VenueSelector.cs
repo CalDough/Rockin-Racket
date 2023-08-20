@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+/*
+    This script is a test UI script for selecting a venue or level. It will then bring you to a song selection screen.
+*/
 
 public class VenueSelector : ScrollSelector<Venue>
 {

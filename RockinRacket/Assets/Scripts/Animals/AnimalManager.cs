@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+/*
+    This script is a singleton which manages Animals and Concert Attendees across scenes
+    It has lists for animals to load upon starting a file, Animals for the current Concert, and All Animals that have a chance to attend
 
+*/
 public class AnimalManager : MonoBehaviour
 {
     private string saveFolderPath = "Player/SaveFiles/";

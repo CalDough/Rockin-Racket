@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+/*
+    This script is a test UI script for the Band Management scene. It allows going through the band members to display their skills, items etc, and
+    changing out their items or clothes.
+    It will also allow the player to talk to the animal and activate any cutscenes or dialogue the StoryManager has queued for them.
+*/
 
 public class BandManageUI : MonoBehaviour
 {

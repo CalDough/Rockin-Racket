@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+/*
+    This script is a test UI script for the concert.
+*/
 
 public class ConcertUI :  ScrollSelector<GameEvent>
 {

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+/*
+    This script is sorta a singleton. It really should not be or it should be put outside of a canvas element and upon loading a scene finds
+    the object that has the transition animation. I was too lazy to do that, so if you get errors when scene swapping, they can be ignored for now.
+    When changing scenes, This script should be called with the correct  scene name or build index.
+*/
 
 public class UserInterfaceManager : MonoBehaviour
 {

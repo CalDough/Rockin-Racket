@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+/*
+    This script is a test UI script for the Shop Scene.
+*/
 
 public class ShopUI : ScrollSelector<Item>
 {

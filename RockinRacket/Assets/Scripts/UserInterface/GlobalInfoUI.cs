@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
+/*
+    This script is a test UI script for the displaying variables on the Hub screen and Shop
+*/
 public class GlobalInfoUI : MonoBehaviour
 {
     

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+    This script is for a test feature for an overworld level system like in mario. Ignore for now.
+*/
 [CreateAssetMenu(fileName = "Level Data", menuName = "ScriptableObjects/Level Data")]
 public class LevelData : ScriptableObject
 {

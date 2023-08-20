@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+/*
+    This script is a singleton which manages data that is very general or unfit for any specialized script.
+    
+*/
 
 public class GameManager : MonoBehaviour
 {

@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+/*
+    This script is a test UI script for the Inventory Scene
+*/
 public class InventoryUI : ScrollSelector<Item>
 {
     public Item SelectedItem;

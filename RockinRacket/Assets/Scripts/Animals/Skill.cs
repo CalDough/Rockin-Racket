@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+/*
+    This script is for animals and items to help work with code involving skills and for what they affect
+    
+*/
 [Serializable]
 public class Skill 
 {

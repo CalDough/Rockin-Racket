@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-
+/*
+    This script is a test UI script the Pause Menu and Main Menu
+*/
 public class GameLoadHandler : MonoBehaviour
 {      
     public int MainID = 0;

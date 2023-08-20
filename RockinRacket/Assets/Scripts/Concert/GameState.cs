@@ -2,7 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+    This script is meant to help define what a concert state is. It defines what the state is for, how long, which songs/dialogue will occur.
+    Insertion is the most confusing part. You can create a game state for a venue to have a pre-defined song, cutscene, or whatever. 
+    Example for insertion:
+        InsertionType = GamemodeType.Song
+        GameType = Intermission.
+        NumberOfStates = 1;
+        InsertAfter = true;
+    Including this into a list in the GameStateManager would insert the GameState after it finds the first song and it would set the variables accordingly
+    See GameStateManager for further info.
+*/
 [System.Serializable]
 public class GameState
 {
@@ -39,6 +49,7 @@ public class GameState
     }
 }
 
+//This has overloaded function options but probably doesnt need it
 public class GameStateEvent
 {
     public static event EventHandler<GameStateEventArgs> OnGameStateEnd;

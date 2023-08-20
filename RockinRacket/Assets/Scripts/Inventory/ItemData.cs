@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+    This script is a scriptable object for easily making items in the editor and placing it onto a shop, inventory, or event reward
+*/
 
 [CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Item", order = 1)]
 public class ItemData : ScriptableObject

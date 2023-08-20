@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using Ink.Runtime;
+/*
+    This script is a singleton which manages the Story of the game. Either the ink file will contain the boolean data for what
+    cutscenes, progress, and dialogue have been activated or this script will. 
+    Other Managers and scripts will be able to access this manager to obtain a bool whether an story event has happened or can happen.
+    This script can also contain an GameEventContainer for concertevents that relate to the story.
+    Most interaction to ink/story elements will occur through this script.
 
+*/
 public class StoryManager : MonoBehaviour
 {
     public static StoryManager Instance { get; private set; }

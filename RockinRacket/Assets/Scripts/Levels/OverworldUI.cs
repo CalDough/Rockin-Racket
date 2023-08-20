@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+/*
+    This script is for a test feature for an overworld level system like in mario. Ignore for now.
+*/
 public class OverworldUI : MonoBehaviour
 {
     [Header("Text Mesh Pro References")]

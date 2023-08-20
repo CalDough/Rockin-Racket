@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+/*
+    This script is a test UI script for Selecting Songs after the player has selected a Venue to play at.
+*/
 
 public class SongSelector : ScrollSelector<SongData>
 {

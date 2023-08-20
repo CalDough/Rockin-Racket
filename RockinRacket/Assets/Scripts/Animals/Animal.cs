@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+/*
+    This script contains an animal object in code
+    These are attendees of concerts
+    
 
+*/
 [Serializable]
 public class Animal 
 {

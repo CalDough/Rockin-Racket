@@ -3,7 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+/*
+    This script is a singleton which manages the Game Events that happen during a level.
+    See Game Event for how an event works.
+    Upon an event ending through one of the ways, it will be disabled and put in one of the 4 lists so we can inform players at the end of a
+    level what they missed, and got done.
+    Events are currently set up to be divided among songs equally. Total events are determined by difficulty/10 = # of events
+    Events can be sourced from other scripts that contain GameEventContainers and we will try to include some events with priority
+    before others. These events would be venue events, story events, and band events.
+    While using the Timeline feature in unity would be awesome, you can't randomly set and save timelines through scripts.
 
+    To prevent massive update lag every frame, events check once a second to see if the time they are supposed to activate has occured.
+    Events subscribe to the OnSecondPassed and update of this script.
+
+    All events are created at the start of a scene so the concert can play smoothly without instantion lag
+
+    Currently starting concerts does require activating the correct order of functions to load/find events, instantiate, set the correct song timer, then start concert
+
+*/
 public class GameEventManager : MonoBehaviour
 {
     public event Action<float> OnSecondPassed;
@@ -141,7 +158,6 @@ public class GameEventManager : MonoBehaviour
     
     private void HandleGameStateEnd(object sender, GameStateEventArgs e)
     {
-        // Handle the game state end here
         //Debug.Log("Game state ended: " + e.state.GameType);
         switch(e.stateType)
         {
@@ -213,6 +229,7 @@ public class GameEventManager : MonoBehaviour
             }
         }
         /*
+        Ignore this it was for some fancy feature
         for (int s = 1; s < allIntermission.Count+1; s++)
         {
             GameState intermissionState = allIntermission[s-1];

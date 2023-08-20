@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+/*
+    This script is a singleton which manages the raccoon band
+    It has the 5 Band Positions which are set to each of the Raccoons
+    Players will be able to view what instruments the Raccoons are good at and what equipment they have for each song
+    If a song doesn't need all 5 raccoons, then a position can be disabled
+    Current role of a position helps determine which instrument to display on scene
 
+*/
 public class BandManager : MonoBehaviour
 {
     public BandPosition Manager = new BandPosition(); 

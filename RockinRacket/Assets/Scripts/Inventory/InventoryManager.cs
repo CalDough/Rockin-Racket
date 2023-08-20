@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 /*
+    This script is a singleton.
     Inventory which manages the following:
     1. Checking for items
     2. Checking for items types
@@ -8,7 +9,7 @@ using UnityEngine;
     4. Selling items to NPC
     5. Removing items
     6. Getting list of all items based on type
-
+    The other script InventorySaver will manage reloading/saving the inventory to help shorten this one.
 */
 public class InventoryManager : MonoBehaviour
 {

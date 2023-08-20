@@ -1,7 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
+    This script is a scriptable object that holds data for each Song.
+    Each song should have at least 1 position with filled track data.
+    Track Data has a Primary and Secondary String path, which holds a path to an FMOD event
+    When setting Track Data, you can set an Attribute to let the visual scripts know what instrument type the Raccoon should be using/holding
+    Other variables such as Difficulty and Song Type help other systems such as Event and Animal Manager determine what guests want to show up
+*/
 [CreateAssetMenu(fileName = "New Song", menuName = "ScriptableObjects/Song", order = 1)]
 public class SongData : ScriptableObject
 {

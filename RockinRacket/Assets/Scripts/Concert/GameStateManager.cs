@@ -1,7 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/*
+    This script is a singleton which manages the Game State of a concert that happens during a level.
+    See Game State  for how a GameState works.
 
+    This script basically requires a SelectedVenue to properly function.
+    It contains some code for UI features. 
+    When a concert begins through StartConcert()
+    A venue with any pre-defined game states are fully loaded. 
+    It will load all gamestates, related song data, dialogue into the manager.
+    Then this script calls GameEventManager to figure out what events we want the player to experience for the venue and concert.
+
+    Some variables and lists are meant to be for debugging/inspector viewing such as InspectorGameStates, CurrentGameState
+
+*/
 public class GameStateManager : MonoBehaviour
 {
     

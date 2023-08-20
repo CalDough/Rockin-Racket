@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+/*
+    This script is a singleton, see InventoryManager for more clarification on items.
+*/
 public class InventorySaver : MonoBehaviour
 {
     [SerializeField] private InventoryManager inventory;

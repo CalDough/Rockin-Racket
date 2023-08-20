@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
     Item class which can be created in code or based off the ItemData scriptable object
-
-
+    Items really only need a unique ID, to function, all else can be empty for testing purposes
+    Items will affect things such as BandManager and each Band Role such as skill/mood/instrument, StoryManager for owning Key Items for progression, Upgrades, and Money
 */
 [System.Serializable]
 public class Item
