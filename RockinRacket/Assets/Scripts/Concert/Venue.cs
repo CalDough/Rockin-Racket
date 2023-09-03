@@ -32,7 +32,9 @@ public class Venue : ScriptableObject
     
     public int SceneIndex;
 }
-
+/*
+    I was planning on having Venue size determine max occupancy of Attendees and stuff
+*/
 [System.Serializable]
 public enum VenueSize
 {
@@ -41,7 +43,9 @@ public enum VenueSize
     Medium,
     Large
 }
-
+/*
+    I was planning on having enviroment determine potential mini-games that could occur
+*/
 [System.Serializable]
 public enum Environment
 {

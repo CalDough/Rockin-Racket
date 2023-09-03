@@ -5,8 +5,12 @@ using System;
 /*
     This script contains an animal object in code
     These are attendees of concerts
-    
-
+    Classes like AnimalManager will use the Load function to load Animals from a list of scriptable objects 
+    Variables like BandInterest, Frugality, CarryOverChance, Mood are still being determined for their complete interactions
+    BandInterest is used to see if an animal will try to attend
+    Frugality is used to check if a ticket price is too high
+    CarryOverChance will check if they continue to follow you into the next concert no matter what
+    Mood is how happy/excited they are, which would affect stuff like mini-games involving them or events
 */
 [Serializable]
 public class Animal 

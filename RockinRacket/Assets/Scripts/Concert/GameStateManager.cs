@@ -17,18 +17,24 @@ using UnityEngine;
 */
 public class GameStateManager : MonoBehaviour
 {
-    
+    //This list doesn't actually do anything, its just easier to convert linked list to a list to view in the inspector
     [SerializeField] public List<GameState> InspectorGameStates;
-
-    [SerializeField] public List<GameState> SelectedMenuSongs;
-    //Populate GameStates linked list from Venue first
-    [SerializeField] public List<GameState> GameStatesFromVenue;
-    //Current Story states are added after
-    [SerializeField] public List<GameState> GameStatesFromStory;
-
-    [SerializeField] public LinkedList<GameState> GameStates;
-
+    
+     //This helps view whats going on in the inspector such as current state and its variables
     [field:SerializeField] public GameState CurrentGameState { get; private set; }
+
+    
+    [SerializeField] public List<GameState> GameStatesFromVenue; // #1 Populate GameStates linked list from Venue first
+
+    [SerializeField] public List<GameState> SelectedMenuSongs; //#2 GameStates added from the song selection menu
+    
+    [SerializeField] public List<GameState> GameStatesFromStory; //#3 Current Story states are added after, this might go unused
+
+    //This is the final list of all the gamestates that will occur in the concert
+    //It is coded as a linked list instead of a queue or list, so it is easier to insert states through the code and avoid null list entries
+    //If it is a queue, then
+    [SerializeField] public LinkedList<GameState> GameStates; 
+
 
     public bool CanStartLevel = false;
     public bool ConcertActive = false;
@@ -58,26 +64,51 @@ public class GameStateManager : MonoBehaviour
         } 
     }
 
+
+    /*
+        If the concert is active, and our current Game State is not an infinite state like Cutscene, or dialogue
+        We wait until the variable levelTime is greater than or equal to the GameStates time
+        Then we change Game States
+    */
+    void Update()
+    {
+        if(ConcertActive)
+        {
+            totalTime+= Time.deltaTime;
+            if(CurrentGameState.UseDuration)
+            {
+                if(levelTime < CurrentGameState.Duration)
+                {
+                    levelTime+= Time.deltaTime;
+                }
+                else
+                {
+                    levelTime = 0;
+                    EndCurrentGameState();
+                }
+            }
+        }
+    }
+
     public void ResetVariables()
     {
         CanStartLevel = false;
         ConcertActive = false;
-        InspectorGameStates.Clear();
         SelectedMenuSongs.Clear();
         GameStatesFromVenue.Clear();
         GameStatesFromStory.Clear();
-        GameStates.Clear();
         CurrentGameState = new GameState();
         levelTime = 0;
         totalTime = 0;
         songSlotsAvailable = 0;
         MoneyToGain = 0;
         FameToGain = 0;
-        
+        GameStates.Clear();
+        InspectorGameStates.Clear();
     }
 
     //
-    //MAKE THIS A BUTTON ON THE END CONCERT SCREEN INSTEAD OF AUTO ENDING!!!
+    //MAKE THIS A BUTTON ON THE END CONCERT UI SCREEN INSTEAD OF AUTO ENDING!!!
     //
     //Needs to calculate money from total attendees or have an event to signal end
     public void EndConcert()
@@ -94,6 +125,7 @@ public class GameStateManager : MonoBehaviour
         
     }
 
+    //This occurs when the scene changes through the pause menu
     public void EndConcertEarly()
     {
         CanStartLevel = false;
@@ -105,82 +137,62 @@ public class GameStateManager : MonoBehaviour
         ResetVariables();
     }
 
+    // Concert UI script will do stuff like show the player's results and disable the musical UI
     public void LocateConcertUIAndEndConcert()
     {
-        // Find an object with the ConcertUI script
-        ConcertUI concertUI = FindObjectOfType<ConcertUI>();
+        ConcertUI concertUI = FindObjectOfType<ConcertUI>(); // Find an object with the ConcertUI script
 
         // If the script was found on an object, call the EndConcert method
         if (concertUI != null)
-        {
-            concertUI.EndConcert();
-        }
+        { concertUI.EndConcert(); }
         else
-        {
-            Debug.LogWarning("No GameObject with the ConcertUI script was found!");
-        }
+        { Debug.LogWarning("No GameObject with the ConcertUI script was found!"); }
     }
     
-    
-    
-    
     /*
-        Gets songs set from venue and story into the queue then players selected songs to fill remaining song slots
+       This function checks and adds songs to the Gamestates list
+       1. we get songs from the Venue that will always play
+       2. we get songs from the story, if it is like a story mission to play that song
+       3. we get any remaining songs that the player selected
+       4. If the venue supports that many songs, we can start the next functions
     */
     public void LoadGameStatesFromLists()
     {
+
         if(ConcertActive){return;}
-        
         //if(CurrentStatus != ConcertStatus.CanStart){return;}
         if(SelectedVenue == null){return;}
-        // Initialize the GameStates linked list
+        // Initialize a new list for GameStates
         GameStates = new LinkedList<GameState>();
-
-        // Counters for the songs
         int songsCount = 0;
 
-        // Add GameStates from Venue
         foreach (GameState state in GameStatesFromVenue)
         {
             if (state.GetGameModeType() == GameModeType.Song)
             {
-                
                 songsCount++;
-                
-                
                 if(state.Song != null)
                 {  
                     if(state.Duration <= state.Song.Duration)
-                    {
-                        state.Duration = state.Song.Duration;
-                    }
-                        
+                    {state.Duration = state.Song.Duration;} 
                     state.UseDuration = true;
                     GameStates.AddLast(state);
                 }
             }
         }
 
-
         if (songsCount > SelectedVenue.SongSlots)
         { CanStartLevel = false; Debug.LogWarning("To many venue songs!"); return;}
 
-        // Add GameStates from Story
         foreach (GameState state in GameStatesFromStory)
         {
             if (state.GetGameModeType() == GameModeType.Song)
             {
-                
                 songsCount++;
-                
-            
                 if(state.Song != null)
                 {  
                     if(state.Duration <= state.Song.Duration)
-                    {
-                        state.Duration = state.Song.Duration;
-                    }
-                        
+                    {state.Duration = state.Song.Duration;}
                     state.UseDuration = true;
                     GameStates.AddLast(state);
                 }
@@ -190,22 +202,15 @@ public class GameStateManager : MonoBehaviour
         if (songsCount > SelectedVenue.SongSlots)
         { CanStartLevel = false; Debug.LogWarning("To many story songs!"); return;}
 
-        // Add selected songs
         foreach (GameState state in SelectedMenuSongs)
         {
             if (state.GetGameModeType() == GameModeType.Song)
             {
-                
                 songsCount++;
-                
-                
                 if(state.Song != null)
                 {  
                     if(state.Duration <= state.Song.Duration)
-                    {
-                        state.Duration = state.Song.Duration;
-                    }
-                        
+                    {state.Duration = state.Song.Duration;}
                     state.UseDuration = true;
                     GameStates.AddLast(state);
                 }
@@ -213,14 +218,11 @@ public class GameStateManager : MonoBehaviour
         }
 
         // Check if we haven't exceeded the maximum number of songs
-        if (songsCount <= SelectedVenue.SongSlots)
-        {CanStartLevel = true;}
-        else if (songsCount <= 0)
-        {CanStartLevel = false;Debug.LogWarning("The total number of songs is 0!");}
-        else
-        { CanStartLevel = false; Debug.LogWarning("The total number of songs exceeds the maximum limit for this venue!");}
+        if (songsCount <= SelectedVenue.SongSlots) { CanStartLevel = true; }
+        else if (songsCount <= 0) { CanStartLevel = false;Debug.LogWarning("The total number of songs is 0!"); }
+        else { CanStartLevel = false; Debug.LogWarning("The total number of songs exceeds the maximum limit for this venue!"); }
 
-        Debug.LogWarning("The total number of songs:" + songsCount);
+        Debug.Log("The total number of songs:" + songsCount);
 
     }
 
@@ -229,7 +231,7 @@ public class GameStateManager : MonoBehaviour
         1. after every song in GameStates, we add an intermission GameState
         2. Checks for a custom intro scene data in the lists, if there isnt, we have a short intro
         3. Checks for a custom outro scene data in the lists, if there isnt, we have a short outro
-        4. loop through venue and story list to add cutscenes and specific dialogue for the level
+        4. loop through venue and story list to add cutscenes and specific dialogue for the level if there is any scenes for it
     */
     public void ModifyGameStates()
     {
@@ -308,30 +310,22 @@ public class GameStateManager : MonoBehaviour
             return false;
         }
         songSlotsAvailable = SelectedVenue.SongSlots;
+
         foreach (GameState state in SelectedMenuSongs)
         {
-            if (state.GetGameModeType() == GameModeType.Song )
-            {
-                songSlotsAvailable--;
-            }
+            if (state.GetGameModeType() == GameModeType.Song ){ songSlotsAvailable--; }
         }
 
         // Subtract for each song in GameStatesFromVenue
         foreach (GameState state in GameStatesFromVenue)
         {
-            if (state.GetGameModeType() == GameModeType.Song )
-            {
-                songSlotsAvailable--;
-            }
+            if (state.GetGameModeType() == GameModeType.Song ){ songSlotsAvailable--; }
         }
 
         // Subtract for each song in GameStatesFromStory
         foreach (GameState state in GameStatesFromStory )
         {
-            if (state.GetGameModeType() == GameModeType.Song )
-            {
-                songSlotsAvailable--;
-            }
+            if (state.GetGameModeType() == GameModeType.Song ){ songSlotsAvailable--; }
         }
 
         // Return true if currentSongs > 0, false otherwise
@@ -347,28 +341,59 @@ public class GameStateManager : MonoBehaviour
         foreach (GameState state in GameStatesFromVenue)
         {
             if (state.GetGameModeType() == type)
-            {
-                return state;
-            }
+            { return state; }
         }
 
         // If not found in GameStatesFromVenue, check in GameStatesFromStory
         foreach (GameState state in GameStatesFromStory)
         {
             if (state.GetGameModeType() == type)
-            {
-                return state;
-            }
+            { return state; }
         }
 
         // If not found in either list, return null
         return null;
     }
 
-    //WIP
+    //Make sure  LoadVenue, and events are set before starting level
+    public void StartConcert()
+    {
+        
+        if(ConcertActive == true){return;}
+        if(SelectedVenue == null){return;}
+        
+
+        Debug.Log("Loading Concert Data");
+        LoadVenue();
+        LoadGameStatesFromLists();
+        if(CanStartLevel != true)
+        { return;}
+        
+        Debug.Log("Song States Loaded, Creating Concert States");
+        ModifyGameStates();
+        
+        
+        Debug.Log("Events Loaded Starting");
+        GameEventManager.Instance.LoadEvents();
+        GameEventManager.Instance.InstantiateGameEvents();
+        GameEventManager.Instance.SetEventTimes();
+        
+        
+        Debug.Log("Starting");
+        CopyGameStatesToInspector();
+        CurrentGameState = GameStates.First.Value;
+        CurrentGameState.StartState();
+        ConcertActive = true;
+
+    }
+
+    //WIP 
+    //Initializing a concert should begin here, but I have yet to refactor things out of other functions to set it up
+    // Currently StartConcert is taking the role of this function
     public void InitializeGame(List<GameState> gameStateList)
     {
         if(ConcertActive){return;}
+
         GameStates = new LinkedList<GameState>(gameStateList);
         LinkedListNode<GameState> node = GameStates.First;
 
@@ -398,8 +423,9 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    //Used to add a gamestate into the linked list
+    // Used to add a gamestate into the linked list
     // Note if you use after 0 occurrenceCount, it will never insert
+    // Example: Insert Cutscene after Target: Song, Number 2, After. This will insert a cutscene after the 2nd song.
     public void InsertGameStateAroundOccurrences(GameState stateToInsert, GameModeType targetType, int numberOfOccurrences, bool insertAfter)
     {
         LinkedListNode<GameState> targetNode = GameStates.First;
@@ -444,7 +470,7 @@ public class GameStateManager : MonoBehaviour
             Debug.LogWarning("No available song slot for: " + song.SongName);
         }
     }
-
+    
     public void RemoveCustomSongs()
     {
         this.SelectedMenuSongs.Clear();
@@ -532,30 +558,6 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    //Make sure  LoadVenue, and events are set before starting level
-    public void StartConcert()
-    {
-        
-        if(ConcertActive == true){return;}
-        if(SelectedVenue == null){return;}
-        Debug.Log("Loading Concert Data");
-        LoadVenue();
-        LoadGameStatesFromLists();
-        if(CanStartLevel != true)
-        { return;}
-        ModifyGameStates();
-        Debug.Log("Songs Loaded, Creating Concert States");
-        GameEventManager.Instance.LoadEvents();
-        GameEventManager.Instance.InstantiateGameEvents();
-        GameEventManager.Instance.SetEventTimes();
-        CopyGameStatesToInspector();
-        Debug.Log("Events Loaded Starting");
-        CurrentGameState = GameStates.First.Value;
-        CurrentGameState.StartState();
-        ConcertActive = true;
-
-    }
-
     public void LoadVenue()
     {
         if(ConcertActive){return;}
@@ -570,6 +572,7 @@ public class GameStateManager : MonoBehaviour
 
     }
 
+    //This isn't used for anything other than letting the Unity Inspector and the InspectorGameStates be visible to us
     public void CopyGameStatesToInspector()
     {
         // Make sure to clear the InspectorGameStates list before copying
@@ -579,26 +582,6 @@ public class GameStateManager : MonoBehaviour
         foreach (GameState gameState in GameStates)
         {
             InspectorGameStates.Add(gameState);
-        }
-    }
-
-    void Update()
-    {
-        if(ConcertActive)
-        {
-            totalTime+= Time.deltaTime;
-            if(CurrentGameState.UseDuration)
-            {
-                if(levelTime < CurrentGameState.Duration)
-                {
-                    levelTime+= Time.deltaTime;
-                }
-                else
-                {
-                    levelTime = 0;
-                    EndCurrentGameState();
-                }
-            }
         }
     }
 

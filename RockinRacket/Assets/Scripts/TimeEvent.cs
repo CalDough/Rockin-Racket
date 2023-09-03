@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 /*
-    This script is for events related to pausing/closing the game, and resetting levels. Other scripts that are affected by these events should
-    subscribe to this script or call the script at appropriate times.
+    This script is for events related to pausing/closing the game, and resetting levels. 
+    Other scripts that are affected by these events should subscribe to this script or call the script at appropriate times.
 */
 
 public static class TimeEvents 

@@ -98,6 +98,8 @@ public class GameStateEventArgs : EventArgs
     }
 }
 
+// emits and holds time means that there is no gameplay during this Game Mode,
+// its purely just waiting for a cutscene for a specified duration before alerting other scripts for when it starts and stops
 [System.Serializable]
 public enum GameModeType
 {

@@ -10,8 +10,12 @@ using FMODUnity;
 */
 public class AudioManager : MonoBehaviour
 {
-    public SongData songData;
 
+    //public SongData songData;
+
+    //The only reason these are separate is since in the future, ConcertSounds can also include the stuff like
+    // Ambience, background noise, etc
+    // SoundObjects refers to the 10 objects that corrospond to the SongData's 5 Tracks each with Primary and Secondary stuff like Vocals and Instrument
     [SerializeField] List<StudioEventEmitter> ConcertSounds = new List<StudioEventEmitter>();
     [SerializeField] List<GameObject> SoundObjects = new List<GameObject>();
     
@@ -39,6 +43,43 @@ public class AudioManager : MonoBehaviour
         TimeEvents.OnGameResumed -= ResumeConcert; 
     }
     
+    public void StartConcert()
+    {
+        if(GameStateManager.Instance.CurrentGameState.Song != null)
+        {
+            EnableSoundObjectsBasedOnBandPositions(GameStateManager.Instance.CurrentGameState.Song);
+        }
+        foreach(StudioEventEmitter emitter in this.ConcertSounds)
+        {
+            emitter.Play();
+        }
+    }
+
+    public void StopConcert()
+    {
+        foreach(StudioEventEmitter emitter in this.ConcertSounds)
+        {
+            emitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        }
+    }
+    
+    public void PauseConcert()
+    {
+        foreach(StudioEventEmitter emitter in this.ConcertSounds)
+        {
+            emitter.EventInstance.setPaused(true);
+        }
+    }
+
+    public void ResumeConcert()
+    {
+        foreach(StudioEventEmitter emitter in this.ConcertSounds)
+        {
+            emitter.EventInstance.setPaused(false);
+        }
+    }
+
+    //Called at the end of a concert to help setup for the next concert
     public void CleanUp()
     {
         StopConcert();
@@ -46,6 +87,11 @@ public class AudioManager : MonoBehaviour
         SoundObjects.Clear();
     }
 
+    /*
+    This function generates 10 objects with FMOD emitters to handle the Song Data
+    Since there 4 band members, each with Vocal and Instrument, There are 2 game objects per Band Member.
+    The 9th/10 Objects/ 5th Track data is for audio which wouldn't fit a band member playing it, but is needed for the song
+    */
     public void CreateSoundObjects()
     {
         int numBandPositions = 5;
@@ -180,9 +226,17 @@ public class AudioManager : MonoBehaviour
         {backgroundSecondaryGO.SetActive(false);}
     }
 
+    
+    
+
+    /*
+    
+    This function checks each of the Sound Track Paths on the Song Data
+    Since there 4 band members, each with Vocal and Instrument, There are 2 game objects per Band Member
+    The band members without any sound for the song have their object disabled to help debug currently
+    
     public void EnableSoundObjects()
     {
-
         // Get the corresponding track data
         List<TrackData> trackDataList = new List<TrackData>
         {
@@ -199,29 +253,26 @@ public class AudioManager : MonoBehaviour
             GameObject primaryGO = SoundObjects[2 * i];
             GameObject secondaryGO = SoundObjects[2 * i + 1];
 
-            // Check if the band position is not empty
-            
-            
-                // Check if the track paths are not null or empty before setting the EventReference
-                if (!string.IsNullOrEmpty(trackDataList[i].PrimaryTrackPath))
-                {
-                    primaryGO.SetActive(true);
-                    primaryGO.GetComponent<StudioEventEmitter>().EventReference = FMODUnity.EventReference.Find(trackDataList[i].PrimaryTrackPath);
-                }
-                else
-                {
-                    primaryGO.SetActive(false);
-                }
+            // Check if the track paths are not null or empty before setting the EventReference
+            if (!string.IsNullOrEmpty(trackDataList[i].PrimaryTrackPath))
+            {
+                primaryGO.SetActive(true);
+                primaryGO.GetComponent<StudioEventEmitter>().EventReference = FMODUnity.EventReference.Find(trackDataList[i].PrimaryTrackPath);
+            }
+            else
+            {
+                primaryGO.SetActive(false);
+            }
 
-                if (!string.IsNullOrEmpty(trackDataList[i].SecondaryTrackPath))
-                {
-                    secondaryGO.SetActive(true);
-                    secondaryGO.GetComponent<StudioEventEmitter>().EventReference = FMODUnity.EventReference.Find(trackDataList[i].SecondaryTrackPath);
-                }
-                else
-                {
-                    secondaryGO.SetActive(false);
-                }
+            if (!string.IsNullOrEmpty(trackDataList[i].SecondaryTrackPath))
+            {
+                secondaryGO.SetActive(true);
+                secondaryGO.GetComponent<StudioEventEmitter>().EventReference = FMODUnity.EventReference.Find(trackDataList[i].SecondaryTrackPath);
+            }
+            else
+            {
+                secondaryGO.SetActive(false);
+            }
         }
 
         // Handle the background sound separately
@@ -248,45 +299,6 @@ public class AudioManager : MonoBehaviour
             backgroundSecondaryGO.SetActive(false);
         }
     }
-
-    public void StartConcert()
-    {
-        if(GameStateManager.Instance.CurrentGameState.Song != null)
-        {
-            EnableSoundObjectsBasedOnBandPositions(GameStateManager.Instance.CurrentGameState.Song);
-        }
-        foreach(StudioEventEmitter emitter in this.ConcertSounds)
-        {
-            emitter.Play();
-        }
-    }
-
-    public void StopConcert()
-    {
-        foreach(StudioEventEmitter emitter in this.ConcertSounds)
-        {
-            emitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        }
-    }
-    
-    public void PauseConcert()
-    {
-        foreach(StudioEventEmitter emitter in this.ConcertSounds)
-        {
-            emitter.EventInstance.setPaused(true);
-        }
-    }
-
-    public void ResumeConcert()
-    {
-        foreach(StudioEventEmitter emitter in this.ConcertSounds)
-        {
-            emitter.EventInstance.setPaused(false);
-        }
-    }
-
-    
-
-
+    */
 
 }

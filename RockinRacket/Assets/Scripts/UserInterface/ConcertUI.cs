@@ -6,7 +6,7 @@ using UnityEngine;
     This script is a test UI script for the concert.
 */
 
-public class ConcertUI :  ScrollSelector<GameEvent>
+public class ConcertUI :  ScrollSelector<MiniGame>
 {
     public int currentIndex = 0;
     //public Dictionary<int, ScrollButton> ButtonDict = new Dictionary<int, ScrollButton>();
@@ -14,6 +14,8 @@ public class ConcertUI :  ScrollSelector<GameEvent>
 
     
     public GameObject FinishConcertButton;
+
+    public GameObject StartConcertButton;
 
     public TextMeshProUGUI InfoTextBox; 
     
@@ -26,6 +28,12 @@ public class ConcertUI :  ScrollSelector<GameEvent>
         ConcertCompletionTextBox.gameObject.SetActive(true);
     }
 
+    
+    public void StartConcert()
+    {
+        GameStateManager.Instance.StartConcert();
+        StartConcertButton.SetActive(false);
+    }
 
     public override void OnButtonClick(int index)
     {
@@ -39,11 +47,11 @@ public class ConcertUI :  ScrollSelector<GameEvent>
 
     void OnDestroy()
     {
-        GameEvent.OnEventStart -= HandleEventStart;
-        GameEvent.OnEventFail -= HandleEventFail;
-        GameEvent.OnEventCancel -= HandleEventCancel;
-        GameEvent.OnEventComplete -= HandleEventComplete;
-        GameEvent.OnEventMiss -= HandleEventMiss;
+        GameEvents.OnEventStart -= HandleEventStart;
+        GameEvents.OnEventFail -= HandleEventFail;
+        GameEvents.OnEventCancel -= HandleEventCancel;
+        GameEvents.OnEventComplete -= HandleEventComplete;
+        GameEvents.OnEventMiss -= HandleEventMiss;
         GameStateEvent.OnGameStateStart -= HandleGameStateStart;
         GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
     }
@@ -52,21 +60,22 @@ public class ConcertUI :  ScrollSelector<GameEvent>
     void Start()
     {   
         AudioManager.Instance.CreateSoundObjects();
-        GameStateManager.Instance.StartConcert();
 
-        GameEvent.OnEventStart += HandleEventStart;
-        GameEvent.OnEventFail += HandleEventFail;
-        GameEvent.OnEventCancel += HandleEventCancel;
-        GameEvent.OnEventComplete += HandleEventComplete;
-        GameEvent.OnEventMiss += HandleEventMiss;
+        GameEvents.OnEventStart += HandleEventStart;
+        GameEvents.OnEventFail += HandleEventFail;
+        GameEvents.OnEventCancel += HandleEventCancel;
+        GameEvents.OnEventComplete += HandleEventComplete;
+        GameEvents.OnEventMiss += HandleEventMiss;
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
     }
 
+
+
     public void HandleEventStart(object sender, GameEventArgs e)
     {
         //Debug.Log("UI Event Started: " + e.eventObject);
-        this.Items.Add(e.eventObject);
+        this.Items.Add(e.EventObject);
         
         CreateButton(currentIndex);
         currentIndex += 1;
@@ -75,25 +84,25 @@ public class ConcertUI :  ScrollSelector<GameEvent>
     public void HandleEventFail(object sender, GameEventArgs e)
     {
         //Debug.Log("Event Fail: " + e.eventObject);
-        FindGameEventInListAndHide(e.eventObject);
+        FindGameEventInListAndHide(e.EventObject);
     }
 
     public void HandleEventCancel(object sender, GameEventArgs e)
     {
         //Debug.Log("Event Cancelled: " + e.eventObject);
-        FindGameEventInListAndHide(e.eventObject);
+        FindGameEventInListAndHide(e.EventObject);
     }
 
     public void HandleEventComplete(object sender, GameEventArgs e)
     {
         //Debug.Log("Event Completed: " + e.eventObject);
-        FindGameEventInListAndHide(e.eventObject);
+        FindGameEventInListAndHide(e.EventObject);
     }
 
     public void HandleEventMiss(object sender, GameEventArgs e)
     {
         //Debug.Log("Event Missed: " + e.eventObject);
-        FindGameEventInListAndHide(e.eventObject);
+        FindGameEventInListAndHide(e.EventObject);
     }
     
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
@@ -172,9 +181,9 @@ public class ConcertUI :  ScrollSelector<GameEvent>
         }
     }
     
-    public void FindGameEventInListAndHide(GameEvent game)
+    public void FindGameEventInListAndHide(MiniGame game)
     {
-        Debug.Log("Items count" + Items.Count);
+        //Debug.Log("Items count" + Items.Count);
         int index = Items.IndexOf(game);
         if (index != -1)
         {
