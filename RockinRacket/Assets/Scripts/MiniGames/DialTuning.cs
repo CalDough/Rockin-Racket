@@ -8,8 +8,12 @@ public class DialTuning : MiniGame
     public List<RectTransform> positionObjects; // List of points where dials will be instantiated
     public List<Dial> dials = new List<Dial>(); // List of instantiated dials
 
-    private void Start()
+    void Start()
     {
+        
+        GameStateEvent.OnGameStateStart += HandleGameStateStart;
+        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+
         foreach (RectTransform positionObject in positionObjects)
         {
             GameObject dialObject = Instantiate(dialPrefab, positionObject.position, Quaternion.identity, positionObject);
