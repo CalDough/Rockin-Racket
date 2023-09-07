@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-/*
-    It really should not be or it should be put outside of a canvas element and upon loading a scene finds
-    the object that has the transition animation. I was too lazy to do that, so if you get errors when scene swapping, they can be ignored for now.
-    When changing scenes, This script should be called with the correct  scene name or build index.
-*/
+
+
+    /*
+    Ok a lot of the functions below are just overloaded function variations
+    Simply, there is switching scenes based on index or name
+    There is switching scenes based on custom parameters like different transitions which will spawn, timing, and different loading screen
+    There is switching scenes based on a scriptable object, which can set the parameters outside of code and place onto buttons or stuff
+
+    Other functions below those play the animator or load the final scene asyc so that if it is a large scene, 
+    the player gets to look at a loading screen instead of frozen level 
+
+    Below that are two classes to handle using an event to call this class instead of making this class a singleton
+    Example use if the GameLoadHandler which manages the main menu and pause screen which needs to call scenechange for settings and going to the main menu
+
+    When a scene is loaded, it will also create a animator to play the loading animation.
+    */
 
 public class SceneLoader : MonoBehaviour
 {
@@ -35,22 +46,6 @@ public class SceneLoader : MonoBehaviour
         Debug.Log("Scene changing to " + e.SceneIndex);
         StartCoroutine(LoadSceneIndexAsync(e.SceneIndex, e.AnimatorPrefab, e.TransitionTime, e.LoadingSceneName));
     }
-
-
-    /*
-    Ok a lot of the functions below are just overloaded function variations
-    Simply, there is switching scenes based on index or name
-    There is switching scenes based on custom parameters like different transitions which will spawn, timing, and different loading screen
-    There is switching scenes based on a scriptable object, which can set the parameters outside of code and place onto buttons or stuff
-
-    Other functions below those play the animator or load the final scene asyc so that if it is a large scene, 
-    the player gets to look at a loading screen instead of frozen level 
-
-    Below that are two classes to handle using an event to call this class instead of making this class a singleton
-    Example use if the GameLoadHandler which manages the main menu and pause screen which needs to call scenechange for settings and going to the main menu
-
-    */
-
 
     public void SwitchSceneIndex(int SceneIndex)
     {
