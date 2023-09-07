@@ -31,7 +31,7 @@ public class MiniGame : MonoBehaviour
     public bool isActiveEvent = false; //Other classes like GameEventManager use this bool to check for active events
 
     public EventType eventType = EventType.Song;
-    private Coroutine durationCoroutine = null;
+    public Coroutine durationCoroutine = null;
 
 
     public virtual void Activate()
@@ -95,7 +95,7 @@ public class MiniGame : MonoBehaviour
     }
     
     // Since this is based on Time.deltaTime it will actually already be affected by the pausing of the time scale = 0
-    private IEnumerator EventDurationCountdown()
+    public virtual IEnumerator EventDurationCountdown()
     {
         while (remainingDuration > 0)
         {
@@ -143,7 +143,7 @@ public class MiniGame : MonoBehaviour
     }
 
     // We are using custom event tick system through the 
-    void CheckActivationTime(float currentTime)
+    public virtual void CheckActivationTime(float currentTime)
     {
         if (!isActiveEvent && currentTime >= songActivationTime && activationNumber == GameEventManager.Instance.songNumber)
         {
