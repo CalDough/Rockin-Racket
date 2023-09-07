@@ -61,7 +61,8 @@ public class VenueSelector : ScrollSelector<Venue>
         if(SelectedVenue != null)
         {
             GameStateManager.Instance.SelectedVenue = SelectedVenue;
-            UserInterfaceManager.Instance.SwitchSceneIndex(SongSelectionIndex);
+
+            CustomSceneEvent.CustomTransitionCalled(SongSelectionIndex);
         }
         
     }
