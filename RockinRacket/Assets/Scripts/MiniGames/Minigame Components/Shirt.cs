@@ -17,6 +17,16 @@ public class Shirt : MonoBehaviour
 
     public void OnDrag(PointerEventData eventData)
     {
+        Debug.Log("Shirt is being dragged");
+    }
 
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Debug.Log("No longer being dragged");
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("Pointer Down");
     }
 }
