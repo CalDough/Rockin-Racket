@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
+using System;
+
 /*
     This script is a singleton which manages data that is very general or unfit for any specialized script.
     
@@ -9,6 +12,8 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
+    
+    [Header("Global Variables Settings")]
     public int globalFame; //Player Score
     public int globalMoney; //Currency for shops, items
     public int praise; //Multiplies fame and money potentials for next level
@@ -17,8 +22,10 @@ public class GameManager : MonoBehaviour
     public float difficultyModifier; 
 
 
+    [Header("SaveFile Settings")]
     private string saveFolderPath = "Player/SaveFiles/";
     private string saveFileName = "GameData.json";
+
 
     public static GameManager Instance { get; private set; }
 
@@ -120,6 +127,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Difficulty set to " + mode.ToString() + ". Modifier is now " + difficultyModifier);
     }
+
 
     [System.Serializable]
     private class GameData

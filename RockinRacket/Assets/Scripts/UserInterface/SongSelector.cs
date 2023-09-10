@@ -107,7 +107,8 @@ public class SongSelector : ScrollSelector<SongData>
         if(allSongs.Count > 0)
         {
         //if(GameStateManager.Instance.SelectedVenue.SceneIndex;
-        UserInterfaceManager.Instance.SwitchSceneIndex(DefaultConcertSceneIndex);
+        
+        CustomSceneEvent.CustomTransitionCalled(DefaultConcertSceneIndex);
         //GameStateManager.Instance.StartConcert();
         }
     }
