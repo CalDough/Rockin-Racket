@@ -16,10 +16,14 @@ public class TShirtCannon : MiniGame
 {
     [Header("Object References")]
     [SerializeField] Sprite cannon;
-    [SerializeField] Sprite shirt;
+    [SerializeField] GameObject shirt;
 
     [Header("Cannon Pressure Bar")]
-    [SerializeField] GameObject border;
+    [SerializeField] CannonBar cannonBar;
+    [SerializeField] int maxPressure;
+    [SerializeField] int pressureIncrement;
+
+    float localPressureValue = 0;
 
 
     public override void Activate() 
@@ -36,8 +40,65 @@ public class TShirtCannon : MiniGame
         // Calling the Cinemachine camera switcher
         CinemachineGameEvents.instance.e_SwitchToTShirtCam.Invoke();
 
+        // Setting our variables for the cannon pressure bar
+        cannonBar.SetMaxValue(maxPressure);
+        cannonBar.SetValue(0);
+        CycleCannonBar();
     }
 
+    private void Update()
+    {
+        // Yes, this is the old input system... it will be changed later
+        PlayerClick();
+    }
+
+    // This method cycles the pressure bar back and forth
+    private void CycleCannonBar()
+    {
+
+        while(IsCompleted == false)
+        {
+            if (localPressureValue < maxPressure)
+            {
+                localPressureValue += pressureIncrement;
+            }
+            else if (localPressureValue > 0)
+            {
+                localPressureValue -= pressureIncrement;
+            }
+        }
+    }
+
+    private void PlayerClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Red Range
+            if (localPressureValue <  maxPressure / 3)
+            {
+                Debug.Log("Red");
+                FireShirt(500);
+            }
+            else if (localPressureValue < (maxPressure / 3) * 2)
+            {
+                Debug.Log("Yellow");
+                FireShirt(5);
+            }
+            else if (localPressureValue < maxPressure)
+            {
+                Debug.Log("Green - T-Shirt fires successfully");
+                FireShirt(100);
+            }
+        }
+    }
+
+    private void FireShirt(int pressure)
+    {
+        Vector3 pos = Input.mousePosition;
+        pos.z = Camera.main.nearClipPlane;
+        GameObject shirtInstance = Instantiate(shirt, pos, Quaternion.identity);
+        shirtInstance.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, pressure));
+    }
 
 
 
