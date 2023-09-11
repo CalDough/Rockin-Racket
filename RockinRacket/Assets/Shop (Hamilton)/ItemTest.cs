@@ -9,7 +9,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Test Item", order = 1)]
 public class ItemTest : ScriptableObject
 {
-    public enum Minigame { Guitar, Microphone, Pocpcorn, Fire };
+    public enum Minigame { Guitar, Microphone, Popcorn, Fire };
     public enum Type { Instrument, Stage, Minigame };
 
     public int ID;
