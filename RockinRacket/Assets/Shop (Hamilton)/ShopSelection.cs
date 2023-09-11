@@ -12,19 +12,20 @@ public class ShopSelection : MonoBehaviour
     public TMP_Text buyText;
     public Sprite defaultSprite;
 
-    //private bool isFixed;
+    private ItemOption selectedItemOption;
 
 
-    public void SelectItem(ItemTest item)
+    public void SelectItem(ItemOption itemOption)
     {
-        print("HIT");
-        image.sprite = item.Sprite;
-        nameText.text = item.ItemName;
-        descriptionText.text = item.Description;
-        buyText.text = "$" + item.Cost.ToString();
+        selectedItemOption = itemOption;
+        image.sprite = itemOption.item.Sprite;
+        nameText.text = itemOption.item.ItemName;
+        descriptionText.text = itemOption.item.Description;
+        buyText.text = "$" + itemOption.item.Cost.ToString();
     }
-    public void DeselectItem()
+    public void BuyItem()
     {
+        selectedItemOption.setBought(true);
         image.sprite = defaultSprite;
         nameText.text = "Item Name";
         descriptionText.text = "Item Description";

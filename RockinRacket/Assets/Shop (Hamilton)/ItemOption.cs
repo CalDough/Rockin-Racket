@@ -15,6 +15,8 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     public Image Highlight;
     public Image ItemImage;
 
+    private bool isBought;
+
     //[SerializeField] private Graphic graphic;
 
     private void Awake()
@@ -26,21 +28,29 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //print("Mouse Enter " + item.ItemName);
-        Highlight.color = new Color(255, 255, 255, 255);
-        
+        if (!isBought)
+            //print("Mouse Enter " + item.ItemName);
+            Highlight.color = new Color(255, 255, 255, 255);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //print("Mouse Exit " + item.ItemName);
-        Highlight.color = new Color(255, 255, 255, 0);
+        if (!isBought)
+            //print("Mouse Exit " + item.ItemName);
+            Highlight.color = new Color(255, 255, 255, 0);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //print("Mouse Down " + item.ItemName);
-        //selection.setFixed(true);
-        selection.SelectItem(item);
+        if (!isBought)
+            //print("Mouse Down " + item.ItemName);
+            //selection.setFixed(true);
+            selection.SelectItem(this);
+    }
+
+    public void setBought(bool bought)
+    {
+        isBought = bought;
+        ItemImage.color = new Color(0, 0, 0, 255);
     }
 }
