@@ -37,19 +37,38 @@ public class TShirtCannon : MiniGame
         }
         GameEvents.EventStart(this);
 
-        // Calling the Cinemachine camera switcher
-        CinemachineGameEvents.instance.e_SwitchToTShirtCam.Invoke();
-
         // Setting our variables for the cannon pressure bar
         cannonBar.SetMaxValue(maxPressure);
         cannonBar.SetValue(0);
         CycleCannonBar();
     }
 
+    public override void OpenEvent()
+    {
+        base.OpenEvent();
+
+        // Calling the Cinemachine camera switcher
+        CinemachineGameEvents.instance.e_SwitchToTShirtCam.Invoke();
+    }
+
+    // End/Complete
+    public override void CloseEvent()
+    {
+        base.CloseEvent();
+        CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
+    }
+
+    // Miss
+    public override void End()
+    {
+        base.End();
+        CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
+    }
+
     private void Update()
     {
         // Yes, this is the old input system... it will be changed later
-        PlayerClick();
+        //PlayerClick();
     }
 
     // This method cycles the pressure bar back and forth

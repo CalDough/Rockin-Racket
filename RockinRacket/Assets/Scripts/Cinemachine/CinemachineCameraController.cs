@@ -25,11 +25,13 @@ public class CinemachineCameraController : MonoBehaviour
 
     private void SwitchToBandCamera()
     {
-        cinemachineAnimator.Play("Default Concert View");
+        //cinemachineAnimator.Play("Default Concert View");
+        cinemachineAnimator.SetTrigger("MinigameOver");
     }
 
     private void SwitchToTShirtCannonCamera()
     {
-        cinemachineAnimator.Play("T-Shirt Cannon Cam");
+        //cinemachineAnimator.Play("T-Shirt Cannon Cam");
+        cinemachineAnimator.SetTrigger("StartTCannon");
     }
 }
