@@ -36,9 +36,6 @@ public class GameEventManager : MonoBehaviour
     [SerializeField] private List<MiniGame> cancelledMiniGames;  
     
 
-
-
-
     //These are the final lists of the prefabs for the mini-games, these have been loaded from staged,random and the Scriptable objects
     //Concert Events only happen during the concert, all these events will automatically end once the GameState changes and will count as a miss
     //intermission Events only happen during the intermission for selling items, etc, they are generally easier and do not punish concert status
@@ -58,6 +55,7 @@ public class GameEventManager : MonoBehaviour
 
     [Header("Empty Scriptable Objects")]
     //Leave these as empty scriptable objects so other scripts can access them and add to them
+    //You can add stuff into the immune one before a concert though
     //Staged events are loaded from the venue and story
     [SerializeField] private GameEventContainer stagedMiniGames;  
     //Random events are loaded from settings such as Character Moods, Venue Enviroment, Gear Quality
@@ -260,7 +258,7 @@ public class GameEventManager : MonoBehaviour
 
     }
 
-    //#1 on order
+    //Call on start of a concert to create the lists for mini-games will may occur based on the band and stuff
     public void LoadEvents()
     {
         concertMiniGames.Clear();
@@ -320,6 +318,7 @@ public class GameEventManager : MonoBehaviour
         }
     }
 
+    //Removes mini-games if they are in the Immune scriptable object
     private void PruneList(List<GameObject> miniGamesList)
     {
         for (int i = miniGamesList.Count - 1; i >= 0; i--)
@@ -333,7 +332,9 @@ public class GameEventManager : MonoBehaviour
 
 
 
-    //#2 on order
+    // Called at the start of every song and intermission state
+    //Creates the mini-games and then sets their times to occur somewhere between 10% to 90% of the way into a song
+    // total minigames created is based on (song difficulty + venue difficulty) * modifiers / 15 = total # for that state
     public void StartState(GameModeType stateType)
     {
         Debug.Log("Creating Game Events");
@@ -421,6 +422,7 @@ public class GameEventManager : MonoBehaviour
         }
     }
 
+    //Gets a mini-game from the list and if none are available we reuse some
     private GameObject SelectAndRemoveMiniGame(ref List<GameObject> availableMiniGames, List<GameObject> sourceMiniGamesList)
     {
         // prioritize IsOneTimeMiniGame
@@ -468,7 +470,5 @@ public class GameEventManager : MonoBehaviour
         return null;
     }
 
-    
-    //#3 on order
     
 }

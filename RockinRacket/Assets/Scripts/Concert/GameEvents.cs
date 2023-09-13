@@ -49,13 +49,6 @@ public static class GameEvents
     }
 }
 
-[System.Serializable]
-public enum EventType
-{
-    Song, // Song Game States Only
-    Intermission, // Intermission Game States Only
-}
-
 public class GameEventArgs : EventArgs
 {
     public MiniGame EventObject { get; private set; }
