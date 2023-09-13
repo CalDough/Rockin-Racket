@@ -14,43 +14,54 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     public ItemTest item;
     public Image Highlight;
     public Image ItemImage;
+    public Image soldImage;
 
-    private bool isBought;
-
-    //[SerializeField] private Graphic graphic;
+    private bool forSale;
 
     private void Awake()
     {
-        //Highlight.sprite = item.Sprite;
-        ItemImage.sprite = item.Sprite;
+        ItemImage.sprite = item.sprite;
         Highlight.color = new Color(255, 255, 255, 0);
+        forSale = true;
+        UpdateIsSold();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isBought)
-            //print("Mouse Enter " + item.ItemName);
+        if (forSale)
             Highlight.color = new Color(255, 255, 255, 255);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!isBought)
-            //print("Mouse Exit " + item.ItemName);
+        if (forSale)
             Highlight.color = new Color(255, 255, 255, 0);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!isBought)
-            //print("Mouse Down " + item.ItemName);
-            //selection.setFixed(true);
+        if (forSale)
             selection.SelectItem(this);
     }
-
-    public void setBought(bool bought)
+    public void AddToCart()
     {
-        isBought = bought;
-        ItemImage.color = new Color(0, 0, 0, 255);
+        // TODO does this work?
+        ItemImage.color = new Color(255, 255, 255, 100);
+    }
+    public void RemoveFromCart()
+    {
+        ItemImage.color = new Color(255, 255, 255, 255);
+    }
+    public void BuyItem()
+    {
+        this.forSale = false;
+        UpdateIsSold();
+    }
+    public void UpdateIsSold()
+    {
+        if (forSale)
+            soldImage.color = new Color(255, 255, 255, 0);
+        else
+            soldImage.color = new Color(255, 255, 255, 255);
     }
 }

@@ -13,12 +13,12 @@ public class ItemTest : ScriptableObject
     public enum Type { Instrument, Stage, Minigame };
 
     public int ID;
-    public string ItemName;
-    public Sprite Sprite;
-    public Type ItemType;
-    public string Description;
-    public int Cost;
-    public double ScoreMultiplier = 1;
+    public string itemName;
+    public Sprite sprite;
+    public Type itemType;
+    public string description;
+    public int cost;
+    public double scoreMultiplier = 1;
 
 
     public List<Minigames> MinigameBonuses;

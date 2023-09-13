@@ -6,37 +6,39 @@ using TMPro;
 
 public class ShopSelection : MonoBehaviour
 {
+    public Receipt receipt;
+    public Sprite defaultSprite;
+
     public Image image;
     public TMP_Text nameText;
     public TMP_Text descriptionText;
-    public TMP_Text buyText;
-    public Sprite defaultSprite;
+    public TMP_Text costText;
+    public TMP_Text cartButtonText;
 
     private ItemOption selectedItemOption;
-
 
     public void SelectItem(ItemOption itemOption)
     {
         selectedItemOption = itemOption;
-        image.sprite = itemOption.item.Sprite;
-        nameText.text = itemOption.item.ItemName;
-        descriptionText.text = itemOption.item.Description;
-        buyText.text = "$" + itemOption.item.Cost.ToString();
+        UpdateSelection();
     }
-    public void BuyItem()
+    public void CartBtnPressed()
     {
-        selectedItemOption.setBought(true);
-        image.sprite = defaultSprite;
-        nameText.text = "Item Name";
-        descriptionText.text = "Item Description";
-        buyText.text = "";
+        if (receipt.IsInCart(selectedItemOption))
+            receipt.RemoveFromCart(selectedItemOption);
+        else
+            receipt.AddToCart(selectedItemOption);
+        UpdateSelection();
     }
-
-    //public bool IsFixed()
-    //{
-    //    return isFixed;
-    //}
-    //public void setFixed(bool fix) {
-    //    isFixed = fix;
-    //}
+    public void UpdateSelection()
+    {
+        image.sprite = selectedItemOption.item.sprite;
+        nameText.text = selectedItemOption.item.itemName;
+        descriptionText.text = selectedItemOption.item.description;
+        costText.text = "$" + selectedItemOption.item.cost.ToString();
+        if (receipt.IsInCart(selectedItemOption))
+            cartButtonText.text = "Remove From Cart";
+        else
+            cartButtonText.text = "Add To Cart";
+    }
 }
