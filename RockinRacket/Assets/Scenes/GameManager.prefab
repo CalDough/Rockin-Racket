@@ -105,9 +105,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InspectorGameStates: []
-  SelectedMenuSongs: []
-  GameStatesFromVenue: []
-  GameStatesFromStory: []
   <CurrentGameState>k__BackingField:
     GameType: 0
     <IgnoreInList>k__BackingField: 0
@@ -119,6 +116,9 @@ MonoBehaviour:
     NumberOfStates: 0
     InsertionType: 0
     InsertAfter: 1
+  GameStatesFromVenue: []
+  SelectedMenuSongs: []
+  GameStatesFromStory: []
   CanStartLevel: 0
   ConcertActive: 0
   SelectedVenue: {fileID: 0}
@@ -144,15 +144,21 @@ MonoBehaviour:
   currentTime: 0
   pastTime: 0
   <totalDifficulty>k__BackingField: 0
-  completedEvents: []
-  failedEvents: []
-  missedEvents: []
-  cancelledEvents: []
-  stagedEvents: []
-  randomEvents: []
-  GameEvents: []
-  intermissionEvents: []
-  GameEventSO: {fileID: 11400000, guid: 315171cdc5bfa6c418748cf233f10f16, type: 2}
+  completedMiniGames: []
+  failedMiniGames: []
+  missedMiniGames: []
+  cancelledMiniGames: []
+  concertMiniGames: []
+  intermissionMiniGames: []
+  instanceConcertMiniGames: []
+  instanceIntermissionMiniGames: []
+  usedUniqueMiniGames: []
+  ConcertMiniGameSO: {fileID: 11400000, guid: 315171cdc5bfa6c418748cf233f10f16, type: 2}
+  IntermissionMiniGameSO: {fileID: 11400000, guid: aa766fcc73522b34cb4e7a5075f8517f,
+    type: 2}
+  stagedMiniGames: {fileID: 11400000, guid: c96418e2f66904044ab0808e865e561b, type: 2}
+  randomMiniGames: {fileID: 11400000, guid: 5cbee18615a55c84085aa69be512da87, type: 2}
+  ImmuneMiniGames: {fileID: 11400000, guid: 33d76c34f0ad6ba42a3498f427b2820a, type: 2}
 --- !u!114 &5475585675384719616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d69482d4ab3eb419a08f724afc2b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songData: {fileID: 0}
+  ConcertSounds: []
+  SoundObjects: []
 --- !u!114 &2358554731181390131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fd6e63216c32041902a5a10644387f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainDialogueFile: {fileID: 0}
 --- !u!114 &5360306945087856594
 MonoBehaviour:
   m_ObjectHideFlags: 0

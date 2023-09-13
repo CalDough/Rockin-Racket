@@ -20,17 +20,18 @@ public class MiniGame : MonoBehaviour
     public GameObject Panels; //This is the UI panel in the canvas that houses the actual event stuff
     public bool IsCompleted = false;
 
-    // Refactor later, These two variables determine which song and what time in that song this event 
-    // will check for and to set itself to active. Currently does not support intermissions.
-    public float songActivationTime = 0;
+    public GameModeType gameType = GameModeType.Song;
+    public float activationTime = 0;
     public int activationNumber = 0;  
 
     public float duration; //Time till the event automatically ends
     public float remainingDuration;  //Helper float for duration calculation
+
     public bool infiniteDuration; //True if the event does not expire
     public bool isActiveEvent = false; //Other classes like GameEventManager use this bool to check for active events
+    public bool isUniqueEvent = false; //One only during a state
+    public bool isOneTimeEvent = false; //Once only during a concert
 
-    public EventType eventType = EventType.Song;
     public Coroutine durationCoroutine = null;
 
 
@@ -145,7 +146,15 @@ public class MiniGame : MonoBehaviour
     // We are using custom event tick system through the 
     public virtual void CheckActivationTime(float currentTime)
     {
-        if (!isActiveEvent && currentTime >= songActivationTime && activationNumber == GameEventManager.Instance.songNumber)
+        //If the event is not active or the game type is not correct, ignore
+        if(GameStateManager.Instance.CurrentGameState.GameType != this.gameType || isActiveEvent || IsCompleted)
+        {return;}
+        else if(this.gameType == GameModeType.Song && activationNumber == GameEventManager.Instance.songNumber && currentTime >= activationTime)
+        {
+            GameEventManager.Instance.OnSecondPassed -= CheckActivationTime;
+            Activate();
+        }
+        else if(this.gameType == GameModeType.Intermission && activationNumber == GameEventManager.Instance.intermissionNumber && currentTime >= activationTime)
         {
             GameEventManager.Instance.OnSecondPassed -= CheckActivationTime;
             Activate();

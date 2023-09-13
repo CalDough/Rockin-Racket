@@ -375,8 +375,6 @@ public class GameStateManager : MonoBehaviour
         
         Debug.Log("Events Loaded Starting");
         GameEventManager.Instance.LoadEvents();
-        GameEventManager.Instance.InstantiateGameEvents();
-        GameEventManager.Instance.SetEventTimes();
         
         
         Debug.Log("Starting");

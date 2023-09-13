@@ -85,8 +85,9 @@ public class SceneLoader : MonoBehaviour
     private IEnumerator LoadSceneAsync(string sceneName, GameObject animatorPrefab, float? customTransitionTime, string customLoadingSceneName)
     {
         PlayTransition(animatorPrefab, customTransitionTime);
+        
         yield return new WaitForSeconds(customTransitionTime ?? transitionTime);
-
+        
         SceneManager.LoadScene(customLoadingSceneName ?? loadingSceneName);
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
@@ -119,32 +120,31 @@ public class SceneLoader : MonoBehaviour
 
         if (animatorPrefab)
         {
-            // Find the canvas in the scene
             Canvas canvas = FindObjectOfType<Canvas>();
             if (canvas == null)
             {
                 Debug.LogError("No canvas found in the scene.");
                 return;
             }
-
-            // Instantiate the transition prefab as a child of the canvas 
-            // object is at the bottom of the canvas
             GameObject transitionObj = Instantiate(animatorPrefab, canvas.transform);
+            transitionObj.SetActive(false);  
+
             transition = transitionObj.GetComponent<Animator>();
 
             if (transition)
             {
-                // animator needs time to be initialized 
-                StartCoroutine(TriggerTransitionStart(transition));
+                StartCoroutine(ActivateAndTriggerTransition(transitionObj, transition));
             }
         }
     }
-    
-    private IEnumerator TriggerTransitionStart(Animator transitionAnimator)
+    private IEnumerator ActivateAndTriggerTransition(GameObject transitionObj, Animator transitionAnimator)
     {
-        yield return null; // wait for one frame to ensure the animator has initialized
-        transitionAnimator.SetTrigger("Start");
+        yield return new WaitForSeconds(0.1f); //small delay to ensure things are ready
+        transitionObj.SetActive(true); 
+        yield return null; 
+        transitionAnimator.SetTrigger("Start"); 
     }
+
     
     private void PlayReverseTransition(GameObject animatorPrefab)
     {

@@ -54,7 +54,6 @@ public enum EventType
 {
     Song, // Song Game States Only
     Intermission, // Intermission Game States Only
-    All, // Both Game States 
 }
 
 public class GameEventArgs : EventArgs

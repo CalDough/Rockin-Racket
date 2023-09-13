@@ -36,24 +36,34 @@ public class GameEventManager : MonoBehaviour
     [SerializeField] private List<MiniGame> cancelledMiniGames;  
     
 
-    //Staged events are loaded from the venue and story
-    [SerializeField] private List<GameObject> stagedMiniGames;  
-    //Random events are loaded from settings such as Character Moods, Venue Enviroment, Gear Quality
-    [SerializeField] private List<GameObject> randomMiniGames;  
 
+
+
+    //These are the final lists of the prefabs for the mini-games, these have been loaded from staged,random and the Scriptable objects
     //Concert Events only happen during the concert, all these events will automatically end once the GameState changes and will count as a miss
-    [SerializeField] private List<GameObject> concertMiniGames;  
-    
     //intermission Events only happen during the intermission for selling items, etc, they are generally easier and do not punish concert status
+    [SerializeField] private List<GameObject> concertMiniGames;  
     [SerializeField] private List<GameObject> intermissionMiniGames;  
 
-    [SerializeField] private List<GameObject> InstanceMiniGames;  
-    [SerializeField] private List<GameObject> InstanceIntermissionMiniGames;  
+    //These are the lists of the mini-games that have been spawned in the level
+    [SerializeField] private List<GameObject> instanceConcertMiniGames = new List<GameObject>();  
+    [SerializeField] private List<GameObject> instanceIntermissionMiniGames = new List<GameObject>();  
 
-    [Header("Event Tester")]
+    [SerializeField] private List<GameObject> usedUniqueMiniGames  = new List<GameObject>();
+
+    [Header("Event Scriptable Objects")]
     //Plug in event prefabs into this scriptable object to have them happen in testing
-    [SerializeField] private GameEventContainer GameEventSO;  
+    [SerializeField] private GameEventContainer ConcertMiniGameSO;  
+    [SerializeField] private GameEventContainer IntermissionMiniGameSO;  
 
+    [Header("Empty Scriptable Objects")]
+    //Leave these as empty scriptable objects so other scripts can access them and add to them
+    //Staged events are loaded from the venue and story
+    [SerializeField] private GameEventContainer stagedMiniGames;  
+    //Random events are loaded from settings such as Character Moods, Venue Enviroment, Gear Quality
+    [SerializeField] private GameEventContainer randomMiniGames;  
+    // This is filled by story manager, inventory/upgrade manager to remove duplicate story mini-games or equipment based ones
+    [SerializeField] private GameEventContainer ImmuneMiniGames;
 
     public static GameEventManager Instance { get; private set; }
 
@@ -83,11 +93,15 @@ public class GameEventManager : MonoBehaviour
         failedMiniGames.Clear();
         missedMiniGames.Clear();
         cancelledMiniGames.Clear();
-        stagedMiniGames.Clear();
-        randomMiniGames.Clear();
+
+        stagedMiniGames.MiniGamesPrefabs.Clear();
+        randomMiniGames.MiniGamesPrefabs.Clear();
+        ImmuneMiniGames.MiniGamesPrefabs.Clear();
+
         concertMiniGames.Clear();
         intermissionMiniGames.Clear();
-        InstanceMiniGames.Clear();
+        instanceConcertMiniGames.Clear();
+        instanceIntermissionMiniGames.Clear();
     }
 
 
@@ -152,9 +166,11 @@ public class GameEventManager : MonoBehaviour
         {
             case GameModeType.Song:
                 this.songNumber++;
+                StartState(GameModeType.Song);
                 break;
             case GameModeType.Intermission:
                 this.intermissionNumber++;
+                StartState(GameModeType.Intermission);
                 break;
             default:
                 break;
@@ -180,9 +196,6 @@ public class GameEventManager : MonoBehaviour
         MissAllActiveEvents();
     }
 
-    
-       
-
     public void MissAllActiveEvents()
     {
         foreach (GameObject GameEvent in concertMiniGames)
@@ -195,9 +208,17 @@ public class GameEventManager : MonoBehaviour
                 }
             }
         }
+        foreach (GameObject GameEvent in instanceIntermissionMiniGames)
+        {
+            if (GameEvent.TryGetComponent(out MiniGame minigame))
+            {
+                if(minigame.isActiveEvent)
+                {
+                    minigame.Miss();
+                }
+            }
+        }
     }
-
-    
 
     void Update()
     {
@@ -215,29 +236,7 @@ public class GameEventManager : MonoBehaviour
 
     
 
-    private void AddEventsToConcert(List<GameObject> eventPool, int eventsToAdd, List<GameObject> eventList)
-    {
-        int currentEventsAdded = 0;
-        while(currentEventsAdded < eventsToAdd)
-        {
-            // Shuffle eventPool
-            for(int i = 0; i < eventPool.Count; i++)
-            {
-                
-                GameObject temp = eventPool[i];
-                int randomIndex = UnityEngine.Random.Range(i, eventPool.Count);
-                eventPool[i] = eventPool[randomIndex];
-                eventPool[randomIndex] = temp;
-            }
-
-            // Add events from shuffled pool to eventList until we meet the required count or exhaust the pool
-            for(int i = 0; i < eventPool.Count && currentEventsAdded < eventsToAdd; i++)
-            {
-                eventList.Add(eventPool[i]);
-                currentEventsAdded++;
-            }
-        }
-    }
+    
 
     //All of these functions should use data from the venue, band, and attendees to get specific events related to them
     //It may be easier to calculate those events from a different class
@@ -260,108 +259,90 @@ public class GameEventManager : MonoBehaviour
     {
 
     }
+
     //#1 on order
-    public bool LoadEvents()
+    public void LoadEvents()
     {
-        Debug.Log("Loading Events");
-        // Calculate total difficulty
-        totalDifficulty = 0;
-        totalDifficulty += GameStateManager.Instance.SelectedVenue.Difficulty;
-
-        foreach(GameState SongState in GameStateManager.Instance.GetAllSongs())
-        {
-            totalDifficulty += SongState.Song.Difficulty;
-        }
-    
-        totalDifficulty = (int)(totalDifficulty * GameManager.Instance.difficultyModifier);
-
-        // Call other functions to initialize the concert
-
-        //AnimalManager.Instance.InitializeAttendees();
-        
         concertMiniGames.Clear();
-        GetStageEvents(); //These events are core to the stage, story, or whatever, so we can ignore totalDifficulty when adding
-        List<GameObject> eventPool = new List<GameObject>();
+        intermissionMiniGames.Clear();
 
-        //Make a pool of events that we can use in each song section
-        //Some events have higher priority for gameplay, like instruments
-
-        /*
+        //All of these will check for their respective things and add it to the stagedMiniGames or randomMiniGames lists
+        GetStageEvents();
         GetBandSkillEvents();
         GetBandMoodEvents();
         GetAttendeeEvents();
-        */
 
-        /*
-        if(GameEventSO.EventPrefabs.Count == 0)
-        {
-            return;
-        }
-        foreach(GameObject prefab in GameEventSO.EventPrefabs)
-        {
-            GameObject instantiatedObject = Instantiate(prefab);
-            instantiatedObject.transform.localPosition = eventsParent.transform.position;
-            GameEvent GameEvent = instantiatedObject.GetComponent<GameEvent>();
 
-            // If the GameEvent component doesn't exist, delete the object
-            if (GameEvent == null)
-            {
-                Debug.LogWarning("GameObject " + instantiatedObject.name + " does not contain a GameEvent component. It will be destroyed.");
-                Destroy(instantiatedObject);
-                continue;
-            }
-            GameEvent.isActiveEvent = false;
-            instantiatedObject.transform.parent = eventsParent.transform;
-            // Add the GameEvent to the GameEvents list
-            GameEvents.Add(GameEvent);
-        }
-        */
-        //Testing code for getting events from the scriptable object
-        foreach(GameObject prefab in GameEventSO.MiniGamesPrefabs)
+        // Load from stagedMiniGames
+        foreach(GameObject prefab in stagedMiniGames.MiniGamesPrefabs)
         {
-            prefab.TryGetComponent(out MiniGame miniGame);
-            if (miniGame == null)
-            {continue;}
-            
-            eventPool.Add(prefab);
+            AddMiniGameToCorrectList(prefab);
         }
 
-        //Since intermission and concert events are similar, but one involves music, and one involves guests, or other things
-        //it makes sense that they may share from the same pool of events, so they need to be slightly separated
-        List<GameObject> GameEventPool = eventPool.FindAll(e => e.GetComponent<MiniGame>().eventType == EventType.Song || e.GetComponent<MiniGame>().eventType == EventType.All);
-        //List<GameObject> intermissionEventPool = eventPool.FindAll(e => e.GetComponent<MiniGame>().eventType == EventType.Intermission || e.GetComponent<MiniGame>().eventType == EventType.All);
-        
-        int GameEventsToAdd = totalDifficulty / 10;
-
-        int intermissionTime = GameStateManager.Instance.GetAllStateOfType(GameModeType.Intermission).Count * 20;
-        //int intermissionEventsToAdd = (int)((intermissionTime * GameManager.Instance.difficultyModifier) / 10);
-
-        if(eventPool.Count > 0)
+        // Load from randomMiniGames
+        foreach(GameObject prefab in randomMiniGames.MiniGamesPrefabs)
         {
-        AddEventsToConcert(GameEventPool, GameEventsToAdd, concertMiniGames);
-        //AddEventsToConcert(intermissionEventPool, intermissionEventsToAdd, intermissionMiniGames);
+            AddMiniGameToCorrectList(prefab);
         }
 
-        // If everything is successful, return true
-        Debug.Log("Events Added:" + eventPool.Count + " Sized Pool of Events");
-        return true;
+        // Load from ConcertMiniGameSO
+        foreach(GameObject prefab in ConcertMiniGameSO.MiniGamesPrefabs)
+        {
+            AddMiniGameToCorrectList(prefab);
+        }
+
+        // Load from IntermissionMiniGameSO
+        foreach(GameObject prefab in IntermissionMiniGameSO.MiniGamesPrefabs)
+        {
+            AddMiniGameToCorrectList(prefab);
+        }
+
+        //If we gave the player immunity to a mini-game from items or something, we can check for it here
+        PruneList(concertMiniGames);
+        PruneList(intermissionMiniGames);
+
     }
-    
+
+    private void AddMiniGameToCorrectList(GameObject prefab)
+    {
+        prefab.TryGetComponent(out MiniGame miniGame);
+
+        if (miniGame == null)
+        {return;}
+
+        if (miniGame.gameType == GameModeType.Song)
+        {
+            concertMiniGames.Add(prefab);
+        }
+        else if (miniGame.gameType == GameModeType.Intermission)
+        {
+            intermissionMiniGames.Add(prefab);
+        }
+    }
+
+    private void PruneList(List<GameObject> miniGamesList)
+    {
+        for (int i = miniGamesList.Count - 1; i >= 0; i--)
+        {
+            if (ImmuneMiniGames.MiniGamesPrefabs.Contains(miniGamesList[i]))
+            {
+                miniGamesList.RemoveAt(i);
+            }
+        }
+    }
+
+
+
     //#2 on order
-    public void InstantiateGameEvents()
+    public void StartState(GameModeType stateType)
     {
         Debug.Log("Creating Game Events");
-        
-        // Try to find the existing EventContainer
         GameObject eventsParent = GameObject.Find("EventContainer");
         
-        // If the EventContainer doesn't exist, create it
         if (eventsParent == null)
         {
-            // Locate the canvas
             Canvas canvas = GameObject.FindObjectOfType<Canvas>();
 
-            // If the canvas doesn't exist, print an error and return
             if (canvas == null)
             {
                 Debug.LogError("No canvas exists in the scene.");
@@ -369,140 +350,125 @@ public class GameEventManager : MonoBehaviour
             }
             
             eventsParent = new GameObject("EventContainer");
-            eventsParent.transform.SetParent(canvas.transform, false); // Setting the parent to be the canvas
+            eventsParent.transform.SetParent(canvas.transform, false); 
         }
 
-        if(concertMiniGames.Count == 0)
-        {return;}
-
-        foreach(GameObject prefab in concertMiniGames)
-        {
-            GameObject instantiatedObject = Instantiate(prefab);
-            instantiatedObject.transform.localPosition = eventsParent.transform.position;
-            if(instantiatedObject.TryGetComponent(out MiniGame miniGame))
-            {
-                miniGame.isActiveEvent = false;
-            }
-            else
-            {
-                Debug.LogWarning("GameObject " + instantiatedObject.name + " does not contain a GameEvent component. It will be destroyed.");
-                Destroy(instantiatedObject);
-                continue;
-            }
-            instantiatedObject.transform.parent = eventsParent.transform;
-            InstanceMiniGames.Add(instantiatedObject);
-        }
-
-        foreach(GameObject prefab in intermissionMiniGames)
-        {
-            GameObject instantiatedObject = Instantiate(prefab);
-            instantiatedObject.transform.localPosition = eventsParent.transform.position;
-            if(instantiatedObject.TryGetComponent(out MiniGame miniGame))
-            {
-                miniGame.isActiveEvent = false;
-            }
-            else
-            {
-                Debug.LogWarning("GameObject " + instantiatedObject.name + " does not contain a GameEvent component. It will be destroyed.");
-                Destroy(instantiatedObject);
-                continue;
-            }
-            instantiatedObject.transform.parent = eventsParent.transform;
-            InstanceIntermissionMiniGames.Add(instantiatedObject);
-        }
+        int venueDifficulty = 10;
+        if(GameStateManager.Instance.SelectedVenue != null)
+        { venueDifficulty = GameStateManager.Instance.SelectedVenue.Difficulty;}
         
+        int songDifficulty = 10;
+        if(GameStateManager.Instance.CurrentGameState.Song != null)
+        { songDifficulty = GameStateManager.Instance.CurrentGameState.Song.Difficulty;}
+        
+        float difficultyModifier = GameManager.Instance.difficultyModifier;
+
+        totalDifficulty = (venueDifficulty + songDifficulty);
+
+        int numberOfMiniGames = Mathf.FloorToInt((totalDifficulty * difficultyModifier) / 15);
+
+        List<GameObject> availableMiniGames;
+        if (stateType == GameModeType.Song)
+        {availableMiniGames = new List<GameObject>(concertMiniGames); }
+        else
+        {availableMiniGames = new List<GameObject>(intermissionMiniGames); }
+
+        float stateDuration = GameStateManager.Instance.CurrentGameState.Duration;
+        
+        // cancel spawning events if duration is 0, dont want to bug system
+        if(stateDuration <= 0)
+        { return;}
+
+        float minActivationTime = stateDuration * 0.1f;
+        float maxActivationTime = stateDuration * 0.9f;
+
+        for (int i = 0; i < numberOfMiniGames; i++)
+        {
+            GameObject selectedMiniGame = null;
+            if(stateType == GameModeType.Song)
+            {
+                selectedMiniGame = SelectAndRemoveMiniGame(ref availableMiniGames, concertMiniGames);
+            }
+            else
+            {
+                selectedMiniGame = SelectAndRemoveMiniGame(ref availableMiniGames, intermissionMiniGames);
+            }
+
+            if (selectedMiniGame == null)
+            {break;}
+
+            // instantiate and configure the mini-game
+            GameObject miniGameInstance = Instantiate(selectedMiniGame); 
+            MiniGame miniGame = miniGameInstance.GetComponent<MiniGame>();
+
+            miniGameInstance.transform.SetParent(eventsParent.transform);
+            miniGameInstance.transform.localPosition = Vector3.zero;
+            miniGameInstance.transform.localRotation = Quaternion.identity;
+            miniGameInstance.transform.localScale = Vector3.one;
+
+            miniGame.activationTime = Mathf.Round(UnityEngine.Random.Range(minActivationTime, maxActivationTime)* 2) / 2;
+
+            if(stateType == GameModeType.Song)
+            {
+                miniGame.activationNumber = songNumber;
+                instanceConcertMiniGames.Add(miniGameInstance);
+            }
+            else
+            {
+                miniGame.activationNumber = intermissionNumber;
+                instanceIntermissionMiniGames.Add(miniGameInstance);
+            }
+        }
     }
 
-    //#3 on order
-    public void SetEventTimes()
+    private GameObject SelectAndRemoveMiniGame(ref List<GameObject> availableMiniGames, List<GameObject> sourceMiniGamesList)
     {
-        List<GameState> allSongs = GameStateManager.Instance.GetAllStateOfType(GameModeType.Song);
-        List<GameState> allIntermission = GameStateManager.Instance.GetAllStateOfType(GameModeType.Intermission);
-
-        // Calculate total song duration
-        float totalDuration = 0f;
-        float totalIntDuration = 0f;
-        foreach (var song in allSongs)
+        // prioritize IsOneTimeMiniGame
+        GameObject oneTimeMiniGame = availableMiniGames.Find(mg => 
         {
-            totalDuration += song.Song.Duration;
+            mg.TryGetComponent(out MiniGame miniGame);
+            return miniGame != null && miniGame.isOneTimeEvent;
+        });
+
+        if (oneTimeMiniGame != null)
+        {
+            availableMiniGames.Remove(oneTimeMiniGame);
+            return oneTimeMiniGame;
         }
 
-        foreach (var intermission in allIntermission)
+        //select a game that's not unique or hasn't been used yet
+        GameObject suitableMiniGame = availableMiniGames.Find(mg => 
         {
-            totalIntDuration += intermission.Duration;
+            mg.TryGetComponent(out MiniGame miniGame);
+            return miniGame != null && (!miniGame.isUniqueEvent || (miniGame.isUniqueEvent && !this.usedUniqueMiniGames.Contains(mg)));
+        });
+
+        if (suitableMiniGame != null)
+        {
+            availableMiniGames.Remove(suitableMiniGame);
+            if (suitableMiniGame.GetComponent<MiniGame>().isUniqueEvent)
+                usedUniqueMiniGames.Add(suitableMiniGame);
+            return suitableMiniGame;
         }
 
-        Debug.Log("intermission Length " + totalIntDuration);
-        int numberOfEvents = concertMiniGames.Count;
-        int currentEventIndex = 0;
-
-        //This might cause off by 1 error later but to simplfy the logic in the editor, we count songs by 1,2,3 etc instead of song 0
-        for (int s = 1; s < allSongs.Count+1; s++)
+        // If we've reached this point, it means we have run out of mini-games and need to reuse
+        GameObject reusableMiniGame = sourceMiniGamesList.Find(mg => 
         {
-            GameState songState = allSongs[s-1];
-            float songDuration = songState.Song.Duration;
-            float tenPercentOfSong = songDuration * 0.10f;
-            float maxTime = songDuration - tenPercentOfSong;
+            mg.TryGetComponent(out MiniGame miniGame);
+            return miniGame != null && !miniGame.isUniqueEvent && !miniGame.isOneTimeEvent;
+        });
 
-            // Calculate the number of events for this song based on its proportion of total duration
-            int eventsForThisSong = Mathf.RoundToInt((songDuration / totalDuration) * numberOfEvents);
-
-            Debug.Log("Song Length " + songDuration + " song events " + eventsForThisSong);
-
-            float maxEventTime = maxTime / eventsForThisSong;
-            float lastTimestamp = 0;
-            for (int i = 0; i < eventsForThisSong; i++)
-            {
-                if(currentEventIndex >= concertMiniGames.Count) 
-                {
-                    Debug.LogWarning("currentEventIndex exceeded GameEvents.Count!");   return; 
-                }
-                // Calculate a random timestamp for this event, between lastTimestamp and maxEventTime * (i + 1)
-                float eventTime = UnityEngine.Random.Range(lastTimestamp, maxEventTime * (i + 1));
-                lastTimestamp = eventTime;
-
-                if(InstanceMiniGames[currentEventIndex].TryGetComponent(out MiniGame miniGame))
-                {miniGame.songActivationTime = Mathf.FloorToInt(eventTime);   miniGame.activationNumber = s;}
-                else
-                {Debug.LogError("Failed to get GameEvent component from GameObject at index: " + currentEventIndex);}
-                currentEventIndex++;
-            }
-        }
-        /*
-        Ignore this it was for some fancy feature
-        Currently intermissions do not get active events because this isn't working
-
-        for (int s = 1; s < allIntermission.Count+1; s++)
+        if (reusableMiniGame != null)
         {
-            GameState intermissionState = allIntermission[s-1];
-            float intDuration = intermissionState.Duration;
-            float tenPercent = intDuration * 0.10f;
-            float maxTime = intDuration - tenPercent;
-
-            // Calculate the number of events for this song based on its proportion of total duration
-            int eventsForThisSong = Mathf.RoundToInt((intDuration / totalDuration) * numberOfEvents);
-
-            Debug.Log("Intermission Length " + intDuration + " song events " + eventsForThisSong);
-
-            float maxEventTime = maxTime / eventsForThisSong;
-            float lastTimestamp = 0;
-            for (int i = 0; i < eventsForThisSong; i++)
-            {
-                if(currentEventIndex >= intermissionEvents.Count) 
-                {
-                    Debug.LogWarning("currentEventIndex exceeded GameEvents.Count!");   return; 
-                }
-                // Calculate a random timestamp for this event, between lastTimestamp and maxEventTime * (i + 1)
-                float eventTime = UnityEngine.Random.Range(lastTimestamp, maxEventTime * (i + 1));
-                lastTimestamp = eventTime;
-
-                if(InstanceIntermissionEvents[currentEventIndex].TryGetComponent<GameEvent>(out GameEvent gm))
-                {gm.songActivationTime = Mathf.FloorToInt(eventTime);   gm.activationNumber = s;}
-                else
-                {Debug.LogError("Failed to get GameEvent component from GameObject at index: " + currentEventIndex);}
-                currentEventIndex++;
-            }
+            // no need to remove this from the availableMiniGames 
+            return reusableMiniGame;
         }
-        */
+
+        // if there's no suitable mini-game at all 
+        return null;
     }
+
+    
+    //#3 on order
+    
 }
