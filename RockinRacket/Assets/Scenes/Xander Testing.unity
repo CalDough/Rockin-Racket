@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276807, g: 0.21589197, b: 0.29782572, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2689,7 +2689,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282575808}
-  m_LocalRotation: {x: 0.13828081, y: -0.03530328, z: 0.0049323156, w: 0.9897514}
+  m_LocalRotation: {x: 0.1382808, y: -0.03530332, z: 0.0049323193, w: 0.9897514}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4761,7 +4761,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.020656625, y: -0.9574898, z: 0.08319138, w: 0.27543756}
+  m_LocalRotation: {x: 0.1382808, y: -0.03530332, z: 0.0049323193, w: 0.9897514}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5875,7 +5875,7 @@ GameObject:
   - component: {fileID: 561801329}
   - component: {fileID: 561801328}
   m_Layer: 0
-  m_Name: TShirt Cannon Cam
+  m_Name: TSC Minigame Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6076,12 +6076,12 @@ MonoBehaviour:
   - {fileID: 282575809}
   - {fileID: 561801328}
   m_Instructions:
-  - m_FullHash: 319861260
+  - m_FullHash: 0
     m_VirtualCamera: {fileID: 282575809}
     m_ActivateAfter: 0
     m_MinDuration: 0
   - m_FullHash: 319861260
-    m_VirtualCamera: {fileID: 561801328}
+    m_VirtualCamera: {fileID: 282575809}
     m_ActivateAfter: 0
     m_MinDuration: 0
   - m_FullHash: -851694063
@@ -12349,6 +12349,12 @@ PrefabInstance:
     - target: {fileID: 2358382766841986131, guid: c2bda2e7f4b2da643beb589108bf15fe,
         type: 3}
       propertyPath: GameEventSO
+      value: 
+      objectReference: {fileID: 11400000, guid: b0f6be3bf92c1424cb25870317a7dbad,
+        type: 2}
+    - target: {fileID: 2358382766841986131, guid: c2bda2e7f4b2da643beb589108bf15fe,
+        type: 3}
+      propertyPath: ConcertMiniGameSO
       value: 
       objectReference: {fileID: 11400000, guid: b0f6be3bf92c1424cb25870317a7dbad,
         type: 2}

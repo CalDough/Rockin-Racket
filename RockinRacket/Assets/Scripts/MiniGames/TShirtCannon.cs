@@ -41,12 +41,14 @@ public class TShirtCannon : MiniGame
         cannonBar.SetMaxValue(maxPressure);
         cannonBar.SetValue(0);
         CycleCannonBar();
+
+        Debug.Log("Activated");
     }
 
     public override void OpenEvent()
     {
         base.OpenEvent();
-
+        Debug.Log("Event Opened");
         // Calling the Cinemachine camera switcher
         CinemachineGameEvents.instance.e_SwitchToTShirtCam.Invoke();
     }
