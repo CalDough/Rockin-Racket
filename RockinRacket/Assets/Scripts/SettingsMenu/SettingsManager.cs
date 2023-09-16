@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // TextMeshPro namespace
-using FMODUnity; // FMOD namespace
+using TMPro; 
+using FMODUnity; 
 using System.IO;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
-
+/*
+    This handles the User's interaction with the game settings such as Contrast, Brightness, Gamma, Audio Levels, and FPS.
+    It has functions to save and load these settings.
+    Other scripts will read from the saved settings to modify the sound levels, UI size, or screen settings.
+*/
 public class SettingsManager : MonoBehaviour
 {
     private string saveFolderPath = "Player/";
@@ -30,9 +34,19 @@ public class SettingsManager : MonoBehaviour
     public Slider ambientVolumeSlider;
     public Slider textSizeSlider;
 
+    //Im figuring out a better way for text scaling for other scenes
+    //multiplying by a scaler value to change size is not good, its just to see if its possible
     private float previousTextSize = 1f;
 
-    private GameSettings currentSettings = new GameSettings();
+    private FMOD.Studio.VCA masterVCA;
+    private FMOD.Studio.VCA musicVCA;
+    private FMOD.Studio.VCA voiceVCA;
+    private FMOD.Studio.VCA soundeffectVCA;
+    private FMOD.Studio.VCA ambientVCA;
+
+    //This is a serialized script with data that we read and write from
+    //It is below this script
+    private GameSettings currentSettings = new GameSettings(); 
 
     private void Awake()
     {
@@ -44,18 +58,27 @@ public class SettingsManager : MonoBehaviour
     
     private void Start()
     {
+        
         LoadSettings();
+        
+        masterVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
+        musicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
+        voiceVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Voice");
+        soundeffectVCA = FMODUnity.RuntimeManager.GetVCA("vca:/SoundEffects");
+        ambientVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Ambient");
+
+
         ApplySettings();
         
         globalVolume = FindObjectOfType<Volume>();
         if (!globalVolume.profile.TryGet(out colorAdjustments))
         {
-            Debug.LogError("No Color Adjustments found on Volume.");
+            Debug.Log("No Color Adjustments found on Volume");
         }
         
         if (!globalVolume.profile.TryGet(out liftGammaGain))
         {
-            Debug.LogError("No Lift, Gamma, Gain adjustments found on Volume.");
+            Debug.Log("No Lift, Gamma, Gain adjustments found on Volume");
         }
     }
 
@@ -124,14 +147,12 @@ public class SettingsManager : MonoBehaviour
             Debug.Log("Gamma Changed");
         }
 
-        // FMOD volume settings
-        // I have no clue how this works, either we are using VCA or Buses to control audio
-        // Further research is needed and audio management talk is needed
-        //RuntimeManager.GetVCA("vca:/Master").setVolume(currentSettings.masterVolume);
-        //RuntimeManager.GetVCA("vca:/Music").setVolume(currentSettings.musicVolume);
-        //RuntimeManager.GetVCA("vca:/Voice").setVolume(currentSettings.voiceVolume);
-        //RuntimeManager.GetVCA("vca:/SoundEffects").setVolume(currentSettings.soundEffectsVolume);
-        //RuntimeManager.GetVCA("vca:/Ambient").setVolume(currentSettings.ambientVolume);
+        masterVCA.setVolume(currentSettings.masterVolume);
+        musicVCA.setVolume(currentSettings.musicVolume);
+        voiceVCA.setVolume(currentSettings.voiceVolume);
+        soundeffectVCA.setVolume(currentSettings.soundEffectsVolume);
+        ambientVCA.setVolume(currentSettings.ambientVolume);
+
 
         TextMeshProUGUI[] allTexts = FindObjectsOfType<TextMeshProUGUI>();
         foreach (var text in allTexts)
@@ -157,6 +178,12 @@ public class SettingsManager : MonoBehaviour
             liftGammaGain.gamma.value = new Vector4(gammaValue, gammaValue, gammaValue, gammaValue);
             Debug.Log("Gamma Changed");
         }
+
+        masterVCA.setVolume(masterVolumeSlider.value);
+        musicVCA.setVolume(musicVolumeSlider.value);
+        voiceVCA.setVolume(voiceVolumeSlider.value);
+        soundeffectVCA.setVolume(soundEffectsVolumeSlider.value);
+        ambientVCA.setVolume(ambientVolumeSlider.value);
 
         TextMeshProUGUI[] allTexts = FindObjectsOfType<TextMeshProUGUI>();
         foreach (var text in allTexts)

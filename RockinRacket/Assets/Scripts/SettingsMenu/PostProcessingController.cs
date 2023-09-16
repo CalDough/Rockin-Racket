@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+/*
+    This will be placed on the Global volume in each scene and will modify that scenes cameras and colors based
+    on user settings. Currently it only adjusts Gamma, Brightness, Contrast.
 
+*/
 public class PostProcessingController : MonoBehaviour
 {
     [SerializeField]
@@ -16,18 +20,18 @@ public class PostProcessingController : MonoBehaviour
     {
         if (globalVolume == null)
         {
-            Debug.LogError("Global Volume not assigned!");
+            Debug.Log("Global Volume not assigned!");
             return;
         }
 
         if (!globalVolume.profile.TryGet(out colorAdjustments))
         {
-            Debug.LogWarning("No Color Adjustments found!");
+            Debug.Log("No Color Adjustments found!");
         }
         
         if (!globalVolume.profile.TryGet(out liftGammaGain))
         {   
-            Debug.LogWarning("No Lift, Gamma, Gain adjustments found!");
+            Debug.Log("No Lift, Gamma, Gain adjustments found!");
         }
     }
 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9033410670614625037
+--- !u!114 &-8746366556596972905
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/TipToe-KeyBoard
+  m_Name: event:/Instruments/TipToe-PrimaryGuitarBass
   m_EditorClassIdentifier: 
-  Path: event:/TipToe-KeyBoard
+  Path: event:/Instruments/TipToe-PrimaryGuitarBass
   Guid:
-    Data1: 2110882843
-    Data2: 1216086443
-    Data3: -746033788
-    Data4: -81687248
+    Data1: 1969254748
+    Data2: 1217059614
+    Data3: 738393791
+    Data4: -472557006
   Banks:
   - {fileID: -2327079825113636093}
   IsStream: 1
@@ -27,60 +27,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-7673985842873815054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/TipToe-SecondaryGuitar
-  m_EditorClassIdentifier: 
-  Path: event:/TipToe-SecondaryGuitar
-  Guid:
-    Data1: -141908198
-    Data2: 1255255815
-    Data3: 1250255542
-    Data4: -1773819827
-  Banks:
-  - {fileID: -2327079825113636093}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-6901497241309508034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music
-  m_EditorClassIdentifier: 
-  Path: event:/Music
-  Guid:
-    Data1: 741846196
-    Data2: 1240708596
-    Data3: 256356489
-    Data4: 1244840939
-  Banks:
-  - {fileID: 3974240884462126279}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 202368
 --- !u!114 &-6735729076162339787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,11 +42,66 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638290162957746753
+  lastModified: 638304760228356397
   FileSizes:
   - Name: Desktop
-    Value: 1042
+    Value: 1346
   Exists: 1
+--- !u!114 &-6152803792437838188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Full Tracks/Music
+  m_EditorClassIdentifier: 
+  Path: event:/Full Tracks/Music
+  Guid:
+    Data1: 741846196
+    Data2: 1240708596
+    Data3: 256356489
+    Data4: 1244840939
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -1108512020941406539}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 202368
+--- !u!114 &-4911533819155468420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/TipToe-Drum
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/TipToe-Drum
+  Guid:
+    Data1: -327920843
+    Data2: 1087892199
+    Data3: -485843807
+    Data4: 429283577
+  Banks:
+  - {fileID: -2327079825113636093}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-2327079825113636093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,12 +117,12 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/TipToe Song.bank
   Name: TipToe Song
   StudioPath: bank:/TipToe Song
-  lastModified: 638290162958275343
+  lastModified: 638304760290658842
   FileSizes:
   - Name: Desktop
-    Value: 7356736
+    Value: 7356832
   Exists: 1
---- !u!114 &-2317707278547561265
+--- !u!114 &-1108512020941406539
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,51 +131,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/TipToe-Bass
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music/Instruments Working
   m_EditorClassIdentifier: 
-  Path: event:/TipToe-Bass
-  Guid:
-    Data1: 1257263755
-    Data2: 1152667862
-    Data3: 339194531
-    Data4: 1828706029
-  Banks:
-  - {fileID: -2327079825113636093}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-711168870417790477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/TipToe-PrimaryGuitarBass
-  m_EditorClassIdentifier: 
-  Path: event:/TipToe-PrimaryGuitarBass
-  Guid:
-    Data1: 1969254748
-    Data2: 1217059614
-    Data3: 738393791
-    Data4: -472557006
-  Banks:
-  - {fileID: -2327079825113636093}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
+  Name: Instruments Working
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3564346016
+    data2: 857248305
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Working
+  - Broke
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,20 +165,20 @@ MonoBehaviour:
   - {fileID: 3974240884462126279}
   - {fileID: -2327079825113636093}
   EditorEvents:
-  - {fileID: -6901497241309508034}
-  - {fileID: -7673985842873815054}
-  - {fileID: -9033410670614625037}
-  - {fileID: 3154463644305824634}
-  - {fileID: -711168870417790477}
-  - {fileID: -2317707278547561265}
+  - {fileID: -6152803792437838188}
+  - {fileID: 7252620451804980105}
+  - {fileID: 5745854035425086508}
+  - {fileID: -4911533819155468420}
+  - {fileID: -8746366556596972905}
+  - {fileID: 1973548165981256887}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3974240884462126279}
   StringsBanks:
   - {fileID: -6735729076162339787}
-  cacheTime: 638290162958275343
+  cacheTime: 638304760290658842
   cacheVersion: 131603
---- !u!114 &3154463644305824634
+--- !u!114 &1973548165981256887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,14 +188,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/TipToe-Drum
+  m_Name: event:/Instruments/TipToe-Bass
   m_EditorClassIdentifier: 
-  Path: event:/TipToe-Drum
+  Path: event:/Instruments/TipToe-Bass
   Guid:
-    Data1: -327920843
-    Data2: 1087892199
-    Data3: -485843807
-    Data4: 429283577
+    Data1: 1257263755
+    Data2: 1152667862
+    Data3: 339194531
+    Data4: 1828706029
   Banks:
   - {fileID: -2327079825113636093}
   IsStream: 1
@@ -247,8 +220,62 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638290162957736777
+  lastModified: 638304760228321669
   FileSizes:
   - Name: Desktop
-    Value: 2665472
+    Value: 2666560
   Exists: 1
+--- !u!114 &5745854035425086508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/TipToe-KeyBoard
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/TipToe-KeyBoard
+  Guid:
+    Data1: 2110882843
+    Data2: 1216086443
+    Data3: -746033788
+    Data4: -81687248
+  Banks:
+  - {fileID: -2327079825113636093}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7252620451804980105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/TipToe-SecondaryGuitar
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/TipToe-SecondaryGuitar
+  Guid:
+    Data1: -141908198
+    Data2: 1255255815
+    Data3: 1250255542
+    Data4: -1773819827
+  Banks:
+  - {fileID: -2327079825113636093}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
