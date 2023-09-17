@@ -50,6 +50,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     // Debug Variables
     bool[] successfulShots;
 
+
     public override void Activate() 
     {
         isActiveEvent = true;
@@ -60,11 +61,11 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
             durationCoroutine = StartCoroutine(EventDurationCountdown());
         }
         GameEvents.EventStart(this);
-
+        
         // Setting our variables for the cannon pressure bar
         cannonBar.SetMaxValue(maxPressure);
         cannonBar.SetValue(0);
-        CycleCannonBar();
+        //CycleCannonBar();
 
         // Setting the number of remaining t-shirts left to be shot and our text object
         remainingShots = 0;
@@ -72,26 +73,30 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
 
         // Setting the value for our debug array
         successfulShots = new bool[maxNumShots];
-
+        
         Debug.Log("Activated");
     }
 
     public override void OpenEvent()
     {
-        base.OpenEvent();
+        GameEvents.EventOpened(this); 
+        HandleOpening();
         Debug.Log("Event Opened");
         // Calling the Cinemachine camera switcher
+        
         CinemachineGameEvents.instance.e_SwitchToTShirtCam.Invoke();
 
         // Grabbing the current camera for object reference
-        currentCamera = Camera.current.GetComponent<Camera>();
-        Transform start = currentCamera.transform;
+        currentCamera = Camera.main;
+        start = currentCamera.transform;
+        
     }
 
     // End/Complete
     public override void CloseEvent()
     {
-        base.CloseEvent();
+        GameEvents.EventClosed(this); 
+        HandleClosing();
         CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
     }
 
@@ -99,7 +104,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     public override void End()
     {
         base.End();
-        CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
+        //CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
     }
 
     private void Update()
@@ -136,9 +141,10 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
      */
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!isActiveEvent) {return;}
+        
         string currentPressure = "";
 
-        // First we need to obtain the pressure at the time that the player clicked
         if (localPressureValue < maxPressure / 3)
         {
             Debug.Log("Red");
@@ -155,22 +161,23 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
             currentPressure = "Good";
         }
 
-        // Then we need to determine what the player is actually shooting at...
-        // To detect if the t-shirt will find an audience memeber, we are using a raycast to find the audience by tag
-        RaycastHit hit;
-        if (Physics.Raycast(currentCamera.transform.position, currentCamera.transform.forward, out hit, cannonRange))
+        // Cast a ray from the camera's position through the mouse's position on the screen
+        Ray ray = currentCamera.ScreenPointToRay(eventData.position);
+        RaycastHit hit; 
+
+        if (Physics.Raycast(ray, out hit, cannonRange))
         {
             GameObject target = hit.transform.gameObject;
 
-            if (target.tag.Equals("Audience"))
+            if (target.CompareTag("Audience")) 
             {
                 Debug.Log("Shot lands successfully");
-                FireShirt(true, currentPressure, target);
+                //FireShirt(true, currentPressure, target);
             }
             else
             {
                 Debug.Log("Shot misses...");
-                FireShirt(false, currentPressure, target);
+                //FireShirt(false, currentPressure, target);
             }
         }
     }
