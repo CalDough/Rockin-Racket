@@ -208,12 +208,19 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         // These to three statements are used to safeguard the raycasting from any NULL errors
-        if (!isActiveEvent) {return;}
+        if (!isActiveEvent) {
+            Debug.Log("<color=red>Event not active</color>");
+            return;
+        }
 
-        if (isEventOpen) { return; }
+        //if (isEventOpen) {
+        //    Debug.Log("<color=red>Event not open</color>");
+        //    return; 
+        //}
 
         if (currentCamera == null)
         {
+            Debug.Log("<color=red>Current Camera is NULL</color>");
             currentCamera = Camera.main;
             cameraMain = currentCamera;
         }
@@ -244,9 +251,16 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         Ray ray = currentCamera.ScreenPointToRay(eventData.position);
         RaycastHit hit; 
 
+        // TODO - Fix raycast bug
+        
         if (Physics.Raycast(ray, out hit, cannonRange))
         {
             GameObject target = hit.transform.gameObject;
+
+            // Debug Statement
+            Debug.Log("<color=orange>Raycast is fired</color>");
+            Debug.DrawRay(cameraMain.transform.position, cameraMain.transform.TransformDirection(Vector3.forward) * hit.distance, Color.red, 1000);
+            Debug.Log("Did Hit" + hit.transform.gameObject.tag);
 
             // TODO - Play a sound when the shirt is fired
 
@@ -271,7 +285,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     private void FireShirt(bool hitsAudience, string pressure, GameObject target)
     {
         // Setting the value for our debug array and then incrementing the remainingShots variable
-        successfulShots[remainingShots] = hitsAudience;
+        //successfulShots[remainingShots] = hitsAudience;
         remainingShots++;
         shotCounterText.text = "Remaining Shirts: " + (maxNumShots - remainingShots);
         // If the player is out, the game ends and we send the appropriate variables back to the game manager
@@ -285,22 +299,28 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
             End();
         }
 
+        // Triggering our method in the Audience class
+        if (hitsAudience)
+        {
+            target.GetComponent<Audience>().PlayTCMReaction(pressure);
+        }
+
         if (hitsAudience && pressure.Equals("Good"))
         {
             /*
              * TODO - Get audience class from target to trigger T-Shirt animation
              */
-            currentFame += fameIncrementer * fameComboMultiplier;
+            //currentFame += fameIncrementer * fameComboMultiplier;
         }
         else if (hitsAudience && pressure.Equals("Weak"))
         {
             // TODO - Call audience class and play animation once created
-            currentFame -= fameDecrementer * fameComboMultiplier;
+            //currentFame -= fameDecrementer * fameComboMultiplier;
         }
         else if (hitsAudience && pressure.Equals("Bad"))
         {
             // TODO - Call audience class and play animation once created
-            currentFame -= fameDecrementer * fameComboMultiplier;
+            //currentFame -= fameDecrementer * fameComboMultiplier;
 
         }
         else
