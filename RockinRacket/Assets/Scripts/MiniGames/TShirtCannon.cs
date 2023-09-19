@@ -15,6 +15,11 @@ using TMPro;
  * Additional classes that are connected with this minigame are: Shirt.cs, ....
  */
 
+// When shirts run out game is over
+// Talk to Hamilton about buying shirts to shoot at the concert
+
+// No shooting through air, play animation when it hits surface or audience member
+
 public class TShirtCannon : MiniGame, IPointerDownHandler
 {
     // Public Variables
@@ -123,12 +128,12 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
 
     private void Update()
     {
-        // This method is called only when a shirt firing animation needs played
-        if (fireShirt)
-        {
-            fireShirt = false;
-            FireShirtAnimationHelper();
-        }
+        //// This method is called only when a shirt firing animation needs played
+        //if (fireShirt)
+        //{
+        //    fireShirt = false;
+        //    FireShirtAnimationHelper();
+        //}
     }
 
     /*
@@ -243,26 +248,5 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         }
     }
 
-    /*
-     * This method shoots a shirt prefab in an arc from the cannon to the object the player shot at
-     */
-    private void FireShirtAnimationHelper()
-    {
-        // Declaring variables for our shot calculations
-        float startTime = Time.time;
-        float totalMovementTime = 1.0f;
-
-        // Calculations for shooting our t-shirt from the cannon to whatever the target
-        Vector3 arcCenter = (start.position + end.position) * .5F;
-        arcCenter -= new Vector3(0, 1, 0);
-
-        Vector3 startRelativeCenter = start.position - arcCenter;
-        Vector3 endRelativeCenter = end.position - arcCenter;
-
-        float fractionComplete = (Time.time - startTime) / totalMovementTime;
-
-        GameObject shirtInstance = Instantiate(shirt, start.position, Quaternion.identity);
-        shirtInstance.transform.position = Vector3.Slerp(startRelativeCenter, endRelativeCenter, fractionComplete);
-        transform.position += arcCenter;
-    }
+    
 }
