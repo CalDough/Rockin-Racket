@@ -59,7 +59,6 @@ public class ConcertUI :  ScrollSelector<MiniGame>
     // Start is called before the first frame update
     void Start()
     {   
-        AudioManager.Instance.CreateSoundObjects();
 
         GameEvents.OnEventStart += HandleEventStart;
         GameEvents.OnEventFail += HandleEventFail;

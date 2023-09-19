@@ -117,10 +117,9 @@ public class GameStateManager : MonoBehaviour
         GameManager.Instance.globalMoney += MoneyToGain;
         CanStartLevel = false;
         ConcertActive = false;
-        AudioManager.Instance.StopConcert();
+        ConcertAudioEvent.ConcertEnd();
         LocateConcertUIAndEndConcert();
         GameEventManager.Instance.CleanUp();
-        AudioManager.Instance.CleanUp();
         ResetVariables();
         
     }
@@ -130,10 +129,9 @@ public class GameStateManager : MonoBehaviour
     {
         CanStartLevel = false;
         ConcertActive = false;
-        AudioManager.Instance.StopConcert();
+        ConcertAudioEvent.ConcertEnd();
         LocateConcertUIAndEndConcert();
         GameEventManager.Instance.CleanUp();
-        AudioManager.Instance.CleanUp();
         ResetVariables();
     }
 
@@ -526,7 +524,6 @@ public class GameStateManager : MonoBehaviour
         {
             case GameModeType.Song:
                 // Initialize your Song state here
-                AudioManager.Instance.StartConcert();
                 break;
             case GameModeType.SceneIntro:
                 // Initialize your SceneIntro state here
@@ -545,7 +542,6 @@ public class GameStateManager : MonoBehaviour
         {
             case GameModeType.Song:
                 // Handle end of your Song state here
-                AudioManager.Instance.StopConcert();
                 break;
             case GameModeType.SceneIntro:
                 // Handle end of your SceneIntro state here

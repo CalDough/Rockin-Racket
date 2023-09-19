@@ -263,13 +263,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Panels: {fileID: 2044143230226848267}
   IsCompleted: 0
-  songActivationTime: 0
+  gameType: 3
+  activationTime: 0
   activationNumber: 0
   duration: 25
   remainingDuration: 0
   infiniteDuration: 0
   isActiveEvent: 0
-  eventType: 0
+  isUniqueEvent: 0
+  isOneTimeEvent: 0
   dialPrefab: {fileID: 7069585394635021124, guid: 782e54c3be4f1cf4fb31bfb77e26f572,
     type: 3}
   positionObjects:
@@ -280,6 +282,9 @@ MonoBehaviour:
   - {fileID: 9175006733798336988}
   - {fileID: 2282891278466508763}
   dials: []
+  randomMember: 1
+  ConcertPositionTarget: 1
+  BrokenLevelChange: 1
 --- !u!1 &2818773575204732747
 GameObject:
   m_ObjectHideFlags: 0

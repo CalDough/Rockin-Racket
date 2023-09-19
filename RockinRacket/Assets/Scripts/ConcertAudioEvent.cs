@@ -7,6 +7,8 @@ public static class ConcertAudioEvent
 {
     public static event EventHandler<ConcertAudioEventArgs> OnAudioBroken; 
     public static event EventHandler<ConcertAudioEventArgs> OnAudioFixed; 
+    
+    public static event EventHandler<ConcertAudioEventArgs> OnConcertEnd; 
 
     public static void AudioBroken(MiniGame eventData, float brokenValue, int concertPosition, bool affectInstrument)
     {
@@ -18,6 +20,10 @@ public static class ConcertAudioEvent
         OnAudioFixed?.Invoke(null, new ConcertAudioEventArgs( eventData,  brokenValue,  concertPosition,  affectInstrument));
     }
 
+    public static void ConcertEnd()
+    {
+        OnConcertEnd?.Invoke(null, new ConcertAudioEventArgs( ));
+    }
 }
 
 public class ConcertAudioEventArgs : EventArgs
@@ -26,6 +32,11 @@ public class ConcertAudioEventArgs : EventArgs
     public float BrokenValue { get; set; }
     public int ConcertPosition { get; set; }
     public bool AffectInstrument { get; set; }
+
+    public ConcertAudioEventArgs()
+    {
+
+    }
 
     public ConcertAudioEventArgs(MiniGame eventData, float brokenValue, int concertPosition, bool affectInstrument)
     {

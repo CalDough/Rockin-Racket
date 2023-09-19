@@ -8,9 +8,29 @@ public class DialTuning : MiniGame
     public List<RectTransform> positionObjects; // List of points where dials will be instantiated
     public List<Dial> dials = new List<Dial>(); // List of instantiated dials
 
+    public bool randomMember = false;
+    public int ConcertPositionTarget = 1;
+    public float BrokenLevelChange = 1;
+
+    public override void Activate()
+    {
+        base.Activate();
+        ConcertAudioEvent.AudioBroken(this, BrokenLevelChange, ConcertPositionTarget, true);
+    }
+
+    public override void Complete()
+    {
+        base.Complete();
+        ConcertAudioEvent.AudioFixed(this, BrokenLevelChange, ConcertPositionTarget, true);
+    }
+
+
     void Start()
     {
-        
+        if(randomMember == true)
+        {
+            ConcertPositionTarget = Random.Range(1, 6); 
+        }
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
 

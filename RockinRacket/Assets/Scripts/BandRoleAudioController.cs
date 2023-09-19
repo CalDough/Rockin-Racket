@@ -6,11 +6,13 @@ using FMOD.Studio;
 
 public class BandRoleAudioController : MonoBehaviour
 {
-    private FMOD.Studio.EventInstance voiceInstance;
-    public StudioEventEmitter voiceEmitter;
+
 
     private FMOD.Studio.EventInstance instrumentInstance;
     public StudioEventEmitter instrumentEmitter;
+
+    private FMOD.Studio.EventInstance voiceInstance;
+    public StudioEventEmitter voiceEmitter;
 
     public string instrumentEvent;
     public string voiceEvent;
@@ -25,10 +27,15 @@ public class BandRoleAudioController : MonoBehaviour
     [Range(-0,5)]
     public float voiceBrokenValue = 0;
 
-    public Attribute PrimaryRole;
-    public string PrimaryTrackPath;
-    public Attribute SecondaryRole;
-    public string SecondaryTrackPath;
+
+    public void ResetAudio()
+    {
+        this.instrumentEvent = "";
+        this.voiceEvent = "";
+        this.instrumentBrokenValue = 0;
+        this.voiceBrokenValue = 0;
+    }
+
 
     public void SetInstrumentBrokeLevel()
     {
@@ -50,24 +57,24 @@ public class BandRoleAudioController : MonoBehaviour
         switch(ConcertPosition)
         {
             case 1:
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionOne.PrimaryTrackPath;
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionOne.SecondaryTrackPath;
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionOne.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionOne.SecondaryTrackPath;
                 break;
             case 2:
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionTwo.PrimaryTrackPath;
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionTwo.SecondaryTrackPath;
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionTwo.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionTwo.SecondaryTrackPath;
                 break;
             case 3:
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionThree.PrimaryTrackPath;
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionThree.SecondaryTrackPath;
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionThree.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionThree.SecondaryTrackPath;
                 break;
             case 4:
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionFour.PrimaryTrackPath;
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionFour.SecondaryTrackPath;
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionFour.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionFour.SecondaryTrackPath;
                 break;
             case 5:
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Background.PrimaryTrackPath;
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Background.SecondaryTrackPath;
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Background.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Background.SecondaryTrackPath;
                 break;
             default:
                 break;
@@ -129,6 +136,7 @@ public class BandRoleAudioController : MonoBehaviour
         instrumentEmitter.EventInstance.setPaused(false);
     }
 
+    
 
     void Start()
     {
@@ -138,6 +146,8 @@ public class BandRoleAudioController : MonoBehaviour
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
         ConcertAudioEvent.OnAudioBroken += AudioBroken;
         ConcertAudioEvent.OnAudioFixed += AudioFixed;
+        
+        ConcertAudioEvent.OnConcertEnd += ConcertEnd;
     }
 
     void OnDestroy()
@@ -148,6 +158,8 @@ public class BandRoleAudioController : MonoBehaviour
         GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
         ConcertAudioEvent.OnAudioBroken -= AudioBroken;
         ConcertAudioEvent.OnAudioFixed -= AudioFixed;
+        
+        ConcertAudioEvent.OnConcertEnd -= ConcertEnd;
     }
 
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
@@ -170,6 +182,7 @@ public class BandRoleAudioController : MonoBehaviour
         {
             case GameModeType.Song:
                 StopSounds();
+                ResetAudio();
                 break;
             case GameModeType.Intermission:
                 break;
@@ -202,16 +215,19 @@ public class BandRoleAudioController : MonoBehaviour
 
         if(e.AffectInstrument)
         {
-            instrumentBrokenValue += e.BrokenValue;
+            instrumentBrokenValue -= e.BrokenValue;
             SetInstrumentBrokeLevel();
         }
         else
         {
-            voiceBrokenValue += e.BrokenValue;
+            voiceBrokenValue -= e.BrokenValue;
             SetInstrumentBrokeLevel();
         }
     }
 
-
+    public void ConcertEnd(object sender, ConcertAudioEventArgs e)
+    {
+        this.StopSounds();
+    }
 
 }
