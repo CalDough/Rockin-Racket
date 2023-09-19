@@ -23,10 +23,35 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: -6938598405615807274}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-6938598405615807274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TipToe-PrimaryGuitarBass/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-6735729076162339787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,10 +67,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638307124749749419
+  lastModified: 638307266404222626
   FileSizes:
   - Name: Desktop
-    Value: 1346
+    Value: 1400
   Exists: 1
 --- !u!114 &-6152803792437838188
 MonoBehaviour:
@@ -75,6 +100,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 202368
+--- !u!114 &-5251905012576179882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TipToe-Drum/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-4911533819155468420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,7 +147,8 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: -5251905012576179882}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -117,10 +167,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/TipToe Song.bank
   Name: TipToe Song
   StudioPath: bank:/TipToe Song
-  lastModified: 638307124750034610
+  lastModified: 638307266404917023
   FileSizes:
   - Name: Desktop
-    Value: 7356832
+    Value: 7358624
   Exists: 1
 --- !u!114 &-1108512020941406539
 MonoBehaviour:
@@ -176,7 +226,7 @@ MonoBehaviour:
   - {fileID: 3974240884462126279}
   StringsBanks:
   - {fileID: -6735729076162339787}
-  cacheTime: 638307124750034610
+  cacheTime: 638307266404917023
   cacheVersion: 131603
 --- !u!114 &1973548165981256887
 MonoBehaviour:
@@ -201,7 +251,8 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: 5613827931032737522}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -220,10 +271,58 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638307124749726088
+  lastModified: 638307266404182942
   FileSizes:
   - Name: Desktop
     Value: 2666560
+  Exists: 1
+--- !u!114 &5247033245263421656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TipToe-SecondaryGuitar/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &5613827931032737522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TipToe-Bass/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
 --- !u!114 &5745854035425086508
 MonoBehaviour:
@@ -248,7 +347,8 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: 8949052944186919727}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -275,7 +375,32 @@ MonoBehaviour:
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: 5247033245263421656}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &8949052944186919727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TipToe-KeyBoard/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
