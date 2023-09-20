@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class ItemOption : MonoBehaviour, 
+public class ItemOption : MonoBehaviour,
 IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     public ShopSelection selection;
@@ -21,21 +21,20 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     private void Awake()
     {
         ItemImage.sprite = item.sprite;
-        Highlight.color = new Color(255, 255, 255, 0);
-        forSale = true;
+        //Highlight.color = new Color(1f, 1f, 1f, 0f);
         UpdateIsSold();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (forSale)
-            Highlight.color = new Color(255, 255, 255, 255);
+            Highlight.color = new Color(1f, 1f, 1f, 1f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (forSale)
-            Highlight.color = new Color(255, 255, 255, 0);
+            Highlight.color = new Color(1f, 1f, 1f, 0f);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -45,23 +44,27 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     }
     public void AddToCart()
     {
-        // TODO does this work?
-        ItemImage.color = new Color(255, 255, 255, 100);
+        // TODO this doesnt work
+        ItemImage.color = new Color(1f, 1f, 1f, .7f);
     }
     public void RemoveFromCart()
     {
-        ItemImage.color = new Color(255, 255, 255, 255);
+        ItemImage.color = new Color(1f, 1f, 1f, 1f);
     }
     public void BuyItem()
     {
         this.forSale = false;
+        // add item to inventory
+        Inventory.AddItem(item);
         UpdateIsSold();
     }
     public void UpdateIsSold()
     {
+        print("item in inventory: " + Inventory.ContainsItem(item));
+        forSale = !Inventory.ContainsItem(item);
         if (forSale)
-            soldImage.color = new Color(255, 255, 255, 0);
+            soldImage.color = new Color(1f, 1f, 1f, 0f);
         else
-            soldImage.color = new Color(255, 255, 255, 255);
+            soldImage.color = new Color(1f, 1f, 1f, 1f);
     }
 }
