@@ -44,11 +44,11 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     }
     public void AddToCart()
     {
-        // TODO this doesnt work
         ItemImage.color = new Color(1f, 1f, 1f, .7f);
     }
     public void RemoveFromCart()
     {
+        if (forSale)
         ItemImage.color = new Color(1f, 1f, 1f, 1f);
     }
     public void BuyItem()
@@ -60,7 +60,6 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     }
     public void UpdateIsSold()
     {
-        print("item in inventory: " + Inventory.ContainsItem(item));
         forSale = !Inventory.ContainsItem(item);
         if (forSale)
             soldImage.color = new Color(1f, 1f, 1f, 0f);

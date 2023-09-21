@@ -1,17 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System;
 
 public class Inventory : MonoBehaviour
 {
+    //[SerializeField] private 
+
+    private string saveFolderPath = "Player/SaveFiles/";
+    private string saveFileName = "InventoryData.json";
+
     private static List<ItemTest> items = new();
     //public List<ItemTest> Items { get => items; set => items = value; }
 
-    public static void AddItem(ItemTest item) { items.Add(item); }
+    public static void AddItem(ItemTest item) { items.Add(item); print(items.Count);  }
     public static void RemoveItem(ItemTest item) { items.Remove(item); }
     public static List<ItemTest> GetItems() { return items; }
     public static bool ContainsItem(ItemTest item) { return items.Contains(item); }
+
+    public static List<GameObject> ItemMinigames(MiniGame minigame)
+    {
+        List<GameObject> minigamesToSpawn = new();
+        foreach (ItemTest item in items)
+        {
+            if (item.minigameToSpawn)
+                minigamesToSpawn.Add(item.minigameToSpawn);
+        }
+        return minigamesToSpawn;
+    }
+
+    //public static 
+
+    public void Save()
+    {
+        if (!Directory.Exists(saveFolderPath))
+        {
+            Directory.CreateDirectory(saveFolderPath);
+        }
+
+        //string json = JsonUtility.ToJson(new SerializableItemList(items), prettyPrint: true);
+
+        //File.WriteAllText(saveFolderPath + saveFileName, json);
+
+        Debug.Log($"Inventory saved successfully. {items.Count} items saved.");
+    }
 }
+
+//[System.Serializable]
+//public class SerializableItemList
+//{
+//    public List<ItemTest> items;
+
+//    public SerializableItemList(List<ItemTest> itemObjects)
+//    {
+//        //items = itemObjects;
+//    }
+//}
 /*
     This script is a singleton.
     Inventory which manages the following:

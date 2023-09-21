@@ -52,7 +52,7 @@ public class InventorySaver : MonoBehaviour
             string json = File.ReadAllText(filePath);
             SerializableItemList serializableItemList = JsonUtility.FromJson<SerializableItemList>(json);
 
-            inventory.Items = serializableItemList.items;
+            //inventory.Items = serializableItemList.items;
 
             // Load sprites for each item
             foreach (Item item in inventory.Items)
