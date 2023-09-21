@@ -9,7 +9,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Test Item", order = 1)]
 public class ItemTest : ScriptableObject
 {
-    public enum Minigame { Guitar, Microphone, Popcorn, Fire, TShirt };
+    public enum MinigameEnum { Guitar, Microphone, Popcorn, Fire, TShirt };
     public enum Type { Instrument, Stage, Minigame };
 
     public int ID;
@@ -21,20 +21,7 @@ public class ItemTest : ScriptableObject
     public double scoreMultiplier = 1;
     public GameObject minigameToSpawn;
 
-
-    public List<Minigames> MinigameBonuses;
-
-    [System.Serializable]
-    public class Minigames
-    {
-        public Minigames(Minigame minigame, double frequency = 1, double difficulty = 1)
-        {
-            minigameName = minigame;
-            freqMod = frequency;
-            diffMod = difficulty;
-        }
-        public Minigame minigameName;
-        public double freqMod;
-        public double diffMod;
-    }
+    public MinigameEnum MinigameBonus;
+    public double freqMod;
+    public double diffMod;
 }

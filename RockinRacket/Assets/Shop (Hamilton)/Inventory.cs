@@ -6,7 +6,6 @@ using System;
 
 public class Inventory : MonoBehaviour
 {
-    //[SerializeField] private 
 
     private string saveFolderPath = "Player/SaveFiles/";
     private string saveFileName = "InventoryData.json";
@@ -28,6 +27,18 @@ public class Inventory : MonoBehaviour
                 minigamesToSpawn.Add(item.minigameToSpawn);
         }
         return minigamesToSpawn;
+    }
+
+    public static double MinigameDifficultyMod(ItemTest.MinigameEnum minigame)
+    {
+        foreach (ItemTest item in items)
+        {
+            if (item.MinigameBonus == minigame)
+            {
+                return item.diffMod;
+            }
+        }
+        return 1;
     }
 
     //public static 
