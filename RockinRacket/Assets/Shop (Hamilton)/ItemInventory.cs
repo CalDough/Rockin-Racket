@@ -15,7 +15,7 @@ public class ItemInventory
     private static List<ItemTest> items = new();
     //public List<ItemTest> Items { get => items; set => items = value; }
 
-    public static void AddItem(ItemTest item) { items.Add(item); Debug.Log(items.Count); }
+    public static void AddItem(ItemTest item) { items.Add(item); }
     public static void RemoveItem(ItemTest item) { items.Remove(item); }
     public static List<ItemTest> GetItems() { return items; }
     public static bool ContainsItem(ItemTest item) { return items.Contains(item); }
@@ -59,19 +59,23 @@ public class ItemInventory
         Debug.Log($"Inventory saved successfully. {items.Count} items saved.");
     }
 
-    public static void Load()
+    public static List<string> Load()
     {
         Directory.CreateDirectory(saveFolderPath);
 
         string filePath = saveFolderPath + saveFileName;
 
         List<string> itemStrings = new();
-        if (!File.Exists(filePath))
-            itemStrings = new(File.ReadAllLines(filePath));
+        itemStrings = new(File.ReadAllLines(filePath));
 
-        
+        Debug.Log($"Inventory loaded successfully. {itemStrings.Count} items loaded.");
+        return itemStrings;
+    }
 
-        Debug.Log($"Inventory loaded successfully. {items.Count} items loaded.");
+    public static void ResetItems()
+    {
+        string filePath = saveFolderPath + saveFileName;
+        File.WriteAllText(filePath, "");
     }
 }
 

@@ -62,8 +62,21 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         forSale = !ItemInventory.ContainsItem(item);
         if (forSale)
+        {
             soldImage.color = new Color(1f, 1f, 1f, 0f);
+            ItemImage.color = new Color(1f, 1f, 1f, 1f);
+        }
         else
+        {
             soldImage.color = new Color(1f, 1f, 1f, 1f);
+            ItemImage.color = new Color(1f, 1f, 1f, .7f);
+        }
+    }
+    public void ResetItem()
+    {
+        this.forSale = true;
+        // remove item from inventory
+        ItemInventory.RemoveItem(item);
+        UpdateIsSold();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
     This script is a scriptable object for easily making items in the editor and placing it onto a shop, inventory, or event reward
 */
 
-[CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Test Item", order = 1)]
+[CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Test Item", order = 0)]
 public class ItemTest : ScriptableObject
 {
     public enum MinigameEnum { Guitar, Microphone, Popcorn, Fire, TShirt };
