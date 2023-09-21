@@ -32,6 +32,7 @@ public class Receipt : MonoBehaviour
         }
         selectedItemOptions.Clear();
         UpdateText();
+        ItemInventory.Save();
     }
     public bool IsInCart(ItemOption item)
     {

@@ -55,12 +55,12 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         this.forSale = false;
         // add item to inventory
-        Inventory.AddItem(item);
+        ItemInventory.AddItem(item);
         UpdateIsSold();
     }
     public void UpdateIsSold()
     {
-        forSale = !Inventory.ContainsItem(item);
+        forSale = !ItemInventory.ContainsItem(item);
         if (forSale)
             soldImage.color = new Color(1f, 1f, 1f, 0f);
         else

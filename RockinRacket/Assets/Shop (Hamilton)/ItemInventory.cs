@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text;
 using System.IO;
 using System;
+using UnityEditor;
 
-public class Inventory : MonoBehaviour
+public class ItemInventory
 {
-
-    private string saveFolderPath = "Player/SaveFiles/";
-    private string saveFileName = "InventoryData.json";
+    //private string saveFolderPath = "Player/SaveFiles/";
+    private static string saveFolderPath = "Assets/Shop (Hamilton)/";
+    private static string saveFileName = "Items.txt";
 
     private static List<ItemTest> items = new();
     //public List<ItemTest> Items { get => items; set => items = value; }
 
-    public static void AddItem(ItemTest item) { items.Add(item); print(items.Count);  }
+    public static void AddItem(ItemTest item) { items.Add(item); Debug.Log(items.Count); }
     public static void RemoveItem(ItemTest item) { items.Remove(item); }
     public static List<ItemTest> GetItems() { return items; }
     public static bool ContainsItem(ItemTest item) { return items.Contains(item); }
@@ -34,27 +36,42 @@ public class Inventory : MonoBehaviour
         foreach (ItemTest item in items)
         {
             if (item.MinigameBonus == minigame)
-            {
                 return item.diffMod;
-            }
         }
         return 1;
     }
 
-    //public static 
-
-    public void Save()
+    public static void Save()
     {
-        if (!Directory.Exists(saveFolderPath))
-        {
-            Directory.CreateDirectory(saveFolderPath);
-        }
+        Directory.CreateDirectory(saveFolderPath);
 
-        //string json = JsonUtility.ToJson(new SerializableItemList(items), prettyPrint: true);
+        string filePath = saveFolderPath + saveFileName;
 
-        //File.WriteAllText(saveFolderPath + saveFileName, json);
+        if (!File.Exists(filePath))
+            File.WriteAllText(filePath, "");
+        
+        List<string> itemStrings = new();
+        foreach (ItemTest item in items)
+            itemStrings.Add(item.name);
+
+        File.WriteAllLines(filePath, itemStrings);
 
         Debug.Log($"Inventory saved successfully. {items.Count} items saved.");
+    }
+
+    public static void Load()
+    {
+        Directory.CreateDirectory(saveFolderPath);
+
+        string filePath = saveFolderPath + saveFileName;
+
+        List<string> itemStrings = new();
+        if (!File.Exists(filePath))
+            itemStrings = new(File.ReadAllLines(filePath));
+
+        
+
+        Debug.Log($"Inventory loaded successfully. {items.Count} items loaded.");
     }
 }
 
