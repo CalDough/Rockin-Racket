@@ -24,7 +24,7 @@ public class Audience : MonoBehaviour
     public void PlayTCMReaction(string pressure)
     {
         // Temporary Debug Statement
-        Debug.Log("<color=green>PlayTCMReaction called with pressure value</color" + pressure);
+        Debug.Log("<color=green>PlayTCMReaction called with pressure value</color>" + pressure);
 
         // To set the blend tree, we first need to set the int value that controls it
         switch (pressure)
@@ -39,7 +39,7 @@ public class Audience : MonoBehaviour
                 anim.SetInteger("TCM_Mood", 5);
                 break;
             default:
-                Debug.Log("<color=red>INVALID PRESSURE GIVEN IN AUDIENCE.CS</color");
+                Debug.Log("<color=red>INVALID PRESSURE GIVEN IN AUDIENCE.CS</color>");
                 break;
         }
 

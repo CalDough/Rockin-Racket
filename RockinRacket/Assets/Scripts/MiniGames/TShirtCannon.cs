@@ -15,10 +15,6 @@ using TMPro;
  * Additional classes that are connected with this minigame are: Shirt.cs, ....
  */
 
-// When shirts run out game is over
-// Talk to Hamilton about buying shirts to shoot at the concert
-
-// No shooting through air, play animation when it hits surface or audience member
 
 public class TShirtCannon : MiniGame, IPointerDownHandler
 {
@@ -52,6 +48,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     private Camera currentCamera;
     private bool isEventOpen = false;
     private bool cyclePressureBar = false;
+    private bool pressureIncreasing = true;
 
     // Debug Variables
     bool[] successfulShots;
@@ -163,42 +160,32 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         cyclePressureBar = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // The cannon pressure bar is only cycled when this 'gatekeeping' boolean is triggered
         if (cyclePressureBar)
         {
-            //CycleCannonBar();
-
-            if (localPressureValue < maxPressure)
+            if (pressureIncreasing)
             {
                 localPressureValue += (Time.deltaTime * pressureIncrementMulitplier);
+                cannonBar.SetValue((int)localPressureValue);
+
+                if (localPressureValue >= maxPressure)
+                {
+                    pressureIncreasing = false;
+                }
             }
-            else if (localPressureValue > 0)
+            else
             {
                 localPressureValue -= (Time.deltaTime * pressureIncrementMulitplier);
+                cannonBar.SetValue((int)localPressureValue);
+
+                if (localPressureValue<= 0)
+                {
+                    pressureIncreasing = true;
+                }
             }
         }
-    }
-
-    /*
-     * This method cycles the pressure bar back and forth
-     * 
-     * ... Possibly going to be depreciated
-     */
-    private void CycleCannonBar()
-    {
-        //while(IsCompleted == false)
-        //{
-        //    if (localPressureValue < maxPressure)
-        //    {
-        //        localPressureValue += pressureIncrement;
-        //    }
-        //    else if (localPressureValue > 0)
-        //    {
-        //        localPressureValue -= pressureIncrement;
-        //    }
-        //}
     }
 
     /*
@@ -251,16 +238,19 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         // Cast a ray from the camera's position through the mouse's position on the screen
         Ray ray = currentCamera.ScreenPointToRay(eventData.position);
         RaycastHit hit;
+        //hit = Physics2D.GetRayIntersection(ray, 20);
+        Ray rayTwo = Camera.main.ScreenPointToRay(Input.mousePosition);
+
 
         // TODO - Fix raycast bug
 
-        if (Physics.Raycast(ray, out hit, cannonRange))
+        if (Physics.Raycast(rayTwo, out hit, cannonRange))
         {
             GameObject target = hit.transform.gameObject;
 
             // Debug Statement
             Debug.Log("<color=orange>Raycast is fired</color>");
-            Debug.DrawRay(cameraMain.transform.position, cameraMain.transform.TransformDirection(Vector3.forward) * hit.distance, Color.red, 1000);
+            Debug.DrawRay(rayTwo.origin, rayTwo.direction * hit.distance, Color.red, 1000);
             Debug.Log("Did Hit" + hit.transform.gameObject.tag);
 
             // TODO - Play a sound when the shirt is fired
@@ -268,12 +258,13 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
             // Detecting what the player hits
             if (target.CompareTag("Audience"))
             {
-                Debug.Log("<color=green>Shot lands successfully</green>");
+                Debug.Log("<color=green>Shot lands successfully</color>");
                 FireShirt(true, currentPressure, target);
             }
             else
             {
                 Debug.Log("<color=orange>Shot misses...</color>");
+                Debug.Log("Did Hit" + hit.transform.gameObject.name);
                 FireShirt(false, currentPressure, target);
             }
         }
@@ -297,13 +288,13 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
 
             // TODO - Send values to game manager script once fame implementation is finalized
 
-            End();
+            base.Complete();
         }
 
         // Triggering our method in the Audience class
         if (hitsAudience)
         {
-            target.GetComponent<Audience>().PlayTCMReaction(pressure);
+            target.GetComponentInParent<Audience>().PlayTCMReaction(pressure);
         }
 
         if (hitsAudience && pressure.Equals("Good"))
