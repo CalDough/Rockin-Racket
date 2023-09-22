@@ -20,7 +20,7 @@ public class ItemOptionLoader : MonoBehaviour
 
     public void ResetItems()
     {
-        ItemInventory.ResetItems();
+        ItemInventory.ResetInventory();
         foreach (ItemOption itemOption in shopItems)
             itemOption.ResetItem();
     }

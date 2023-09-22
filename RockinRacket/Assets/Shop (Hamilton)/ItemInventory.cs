@@ -72,7 +72,7 @@ public class ItemInventory
         return itemStrings;
     }
 
-    public static void ResetItems()
+    public static void ResetInventory()
     {
         string filePath = saveFolderPath + saveFileName;
         File.WriteAllText(filePath, "");

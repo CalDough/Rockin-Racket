@@ -52,9 +52,17 @@ public class Receipt : MonoBehaviour
             cost += itemOption.item.cost;
         }
         stringBuilder.AppendLine();
-        stringBuilder.Append("Total Cost: $");
-        stringBuilder.Append(cost);
+        if (cost > 0)
+        {
+            stringBuilder.Append("Total Cost: $");
+            stringBuilder.Append(cost);
+        }
 
         cartText.text = stringBuilder.ToString();
+    }
+    public void ResetReceipt()
+    {
+        selectedItemOptions = new();
+        UpdateText();
     }
 }
