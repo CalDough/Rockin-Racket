@@ -10,6 +10,8 @@ using TMPro;
 /*
  * This is the class file for the T-Shirt Cannon minigame. You can find the design document here: https://docs.google.com/document/d/1x7XgZG1N7djPAnV18wTUN5dq9bY9pOokqpf27cqf6ww/edit
  * 
+ * NOTE: Here is the updated design document: https://docs.google.com/document/d/1BIFCALaLvl-oxMP8eftEsNlz9snuA1UFpEYQF-54G1c/edit?usp=sharing
+ * 
  * This minigame utilizes a separate camera from the main scene. You can find the related classes in CinemachineCameraController.cs and CinemachineGameEvents.cs
  * 
  * Additional classes that are connected with this minigame are: Shirt.cs, ....
@@ -75,8 +77,8 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         cannonBar.SetValue(0);
 
         // Setting the T-Shirt ammo counter and initializing the UI element
-        remainingShots = 0;
-        shotCounterText.text = "Remaining Shirts: " + (maxNumShots - remainingShots);
+        remainingShots = maxNumShots;
+        shotCounterText.text = "Remaining Shirts: " + (remainingShots);
 
         // Setting the value for our debug array
         successfulShots = new bool[maxNumShots];
@@ -158,6 +160,22 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
 
         // Stopping the pressure bar from cycling
         cyclePressureBar = false;
+    }
+
+    /*
+     * Complete is called when the player finishes the event before time is up
+     */
+    public override void Complete()
+    {
+        isActiveEvent = false;
+        if (durationCoroutine != null)
+        {
+            StopCoroutine(durationCoroutine);
+        }
+        GameEvents.EventComplete(this);
+        GameEvents.EventClosed(this);
+        this.IsCompleted = true;
+        HandleClosing();
     }
 
     private void FixedUpdate()
@@ -278,8 +296,8 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     {
         // Setting the value for our debug array and then incrementing the remainingShots variable
         //successfulShots[remainingShots] = hitsAudience;
-        remainingShots++;
-        shotCounterText.text = "Remaining Shirts: " + (maxNumShots - remainingShots);
+        remainingShots--;
+        shotCounterText.text = "Remaining Shirts: " + remainingShots;
         // If the player is out, the game ends and we send the appropriate variables back to the game manager
         if (remainingShots <= 0)
         {
@@ -288,7 +306,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
 
             // TODO - Send values to game manager script once fame implementation is finalized
 
-            base.Complete();
+            Complete();
         }
 
         // Triggering our method in the Audience class
