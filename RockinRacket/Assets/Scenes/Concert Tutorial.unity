@@ -2403,6 +2403,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   concertUI: {fileID: 324430838}
   tutorialVenue: {fileID: 11400000, guid: cbd90dd6c9c0c8145b3de61911806105, type: 2}
+  tutorialConcertMiniGame: {fileID: 0}
+  tutorialIntermissionMiniGame: {fileID: 0}
+  stagedMiniGames: {fileID: 11400000, guid: c96418e2f66904044ab0808e865e561b, type: 2}
 --- !u!1 &269188535
 GameObject:
   m_ObjectHideFlags: 0
@@ -2819,7 +2822,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282575808}
-  m_LocalRotation: {x: 0.13828081, y: -0.03530328, z: 0.0049323156, w: 0.9897514}
+  m_LocalRotation: {x: 0.1382808, y: -0.03530332, z: 0.0049323193, w: 0.9897514}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4891,7 +4894,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.13828081, y: -0.03530328, z: 0.0049323156, w: 0.9897514}
+  m_LocalRotation: {x: 0.1382808, y: -0.03530332, z: 0.0049323193, w: 0.9897514}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5373,9 +5376,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 324430838}
-        m_TargetAssemblyTypeName: ConcertUI, Assembly-CSharp
-        m_MethodName: StartConcert
+      - m_Target: {fileID: 222511133}
+        m_TargetAssemblyTypeName: ConcertTutorial, Assembly-CSharp
+        m_MethodName: SetUpTutorial
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

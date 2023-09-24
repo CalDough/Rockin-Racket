@@ -373,7 +373,7 @@ public class GameEventManager : MonoBehaviour
 
         if(numberOfMiniGames <= 0)
         { numberOfMiniGames = 0;}
-        
+
         List<GameObject> availableMiniGames;
         if (stateType == GameModeType.Song)
         {availableMiniGames = new List<GameObject>(concertMiniGames); }
@@ -389,6 +389,9 @@ public class GameEventManager : MonoBehaviour
         float minActivationTime = stateDuration * 0.1f;
         float maxActivationTime = stateDuration * 0.9f;
 
+        // We have the number of minigames we want to spawn for this game state, so we iterate that many times
+        // and then we get a minigame from the correct list of intermission or concert games
+        // we then generate that minigame and set it up so it eventually activates during the game state
         for (int i = 0; i < numberOfMiniGames; i++)
         {
             GameObject selectedMiniGame = null;
