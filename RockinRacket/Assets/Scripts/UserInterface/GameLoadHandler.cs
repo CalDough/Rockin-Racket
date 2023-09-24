@@ -12,11 +12,12 @@ public class GameLoadHandler : MonoBehaviour
     public GameObject MenuUI;
     public InputActionAsset actionAsset;
     private InputAction pauseAction;
+    
     public void NewData()
     {
-        AnimalManager.Instance.LoadNewAnimals();
-        BandManager.Instance.LoadDefaultBand();
-        InventoryManager.Instance.LoadDefaultItems();
+        //AnimalManager.Instance.LoadNewAnimals();
+        //BandManager.Instance.LoadDefaultBand();
+        //InventoryManager.Instance.LoadDefaultItems();
         GameManager.Instance.NewGame();
 
 
@@ -29,9 +30,9 @@ public class GameLoadHandler : MonoBehaviour
 
     public void LoadAllData()
     {
-        AnimalManager.Instance.LoadAnimals();
-        BandManager.Instance.LoadBand();
-        InventorySaver.Instance.LoadInventory();
+        //AnimalManager.Instance.LoadAnimals();
+        //BandManager.Instance.LoadBand();
+        //InventorySaver.Instance.LoadInventory();
         GameManager.Instance.LoadGame();
 
 
@@ -44,9 +45,9 @@ public class GameLoadHandler : MonoBehaviour
 
     public void SaveAllData()
     {
-        AnimalManager.Instance.SaveAnimals();
-        BandManager.Instance.SaveBand();
-        InventorySaver.Instance.SaveInventory();
+        //AnimalManager.Instance.SaveAnimals();
+        //BandManager.Instance.SaveBand();
+        //InventorySaver.Instance.SaveInventory();
         GameManager.Instance.SaveGame();
         
 
@@ -62,9 +63,9 @@ public class GameLoadHandler : MonoBehaviour
 
     public void SaveAllDataAndExit()
     {
-        AnimalManager.Instance.SaveAnimals();
-        BandManager.Instance.SaveBand();
-        InventorySaver.Instance.SaveInventory();
+        //AnimalManager.Instance.SaveAnimals();
+        //BandManager.Instance.SaveBand();
+        //InventorySaver.Instance.SaveInventory();
         GameManager.Instance.SaveGame();
         
 

@@ -32,15 +32,15 @@ public class BandManageUI : MonoBehaviour
         CloseAllPanels();
                                                   // If you want to fix the ordering of the raccoons in the scene to match the code
                                                   // I chose to fix it through code instead of moving scene objects
-        Band.Add(BandManager.Instance.AnimalOne); //Vocals Raccoon
+        //Band.Add(BandManager.Instance.AnimalOne); //Vocals Raccoon
 
-        Band.Add(BandManager.Instance.AnimalTwo); //Strings Raccoon
+        //Band.Add(BandManager.Instance.AnimalTwo); //Strings Raccoon
         
-        Band.Add(BandManager.Instance.AnimalFour); //Percussion Raccoon
+        //Band.Add(BandManager.Instance.AnimalFour); //Percussion Raccoon
 
-        Band.Add(BandManager.Instance.Manager); // This would be the manager Raccoon, but there is no sprite for it
+        //Band.Add(BandManager.Instance.Manager); // This would be the manager Raccoon, but there is no sprite for it
 
-        Band.Add(BandManager.Instance.AnimalThree); //Strings Raccoon
+        //Band.Add(BandManager.Instance.AnimalThree); //Strings Raccoon
         
         
         SelectedPosition = Band[0];

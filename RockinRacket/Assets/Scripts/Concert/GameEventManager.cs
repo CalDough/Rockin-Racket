@@ -366,8 +366,14 @@ public class GameEventManager : MonoBehaviour
 
         totalDifficulty = (venueDifficulty + songDifficulty);
 
+        if(totalDifficulty <= 0)
+        { totalDifficulty = 0;}
+
         int numberOfMiniGames = Mathf.FloorToInt((totalDifficulty * difficultyModifier) / 15);
 
+        if(numberOfMiniGames <= 0)
+        { numberOfMiniGames = 0;}
+        
         List<GameObject> availableMiniGames;
         if (stateType == GameModeType.Song)
         {availableMiniGames = new List<GameObject>(concertMiniGames); }
