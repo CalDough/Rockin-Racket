@@ -512,7 +512,8 @@ MonoBehaviour:
   currentIndex: 0
   SongInfoBox: {fileID: 1831309139}
   SelectedSongInfoBox: {fileID: 107623207}
-  DefaultConcertSceneIndex: 9
+  transitionDataToConcert: {fileID: 11400000, guid: cdd579a544a9c6f4bac113d44506041a,
+    type: 2}
 --- !u!1 &200356976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,13 +1896,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UserInterfaceManager, Assembly-CSharp
-        m_MethodName: SwitchSceneIndex
-        m_Mode: 3
+      - m_Target: {fileID: 1817287420}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: SwitchScene
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: 54e02229ec4a53649b8beb95a6fdd689,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: TransitionData, Assembly-CSharp
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4219,6 +4221,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d3e91686d9a0e04f963013a227f3a74, type: 3}
+--- !u!114 &1817287420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1032257946814342773, guid: 3d3e91686d9a0e04f963013a227f3a74,
+    type: 3}
+  m_PrefabInstance: {fileID: 1817287419}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f681f84b839723d478306e1e51825e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1831309137
 GameObject:
   m_ObjectHideFlags: 0

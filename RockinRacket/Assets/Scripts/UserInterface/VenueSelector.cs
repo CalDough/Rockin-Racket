@@ -14,7 +14,7 @@ public class VenueSelector : ScrollSelector<Venue>
     public Venue SelectedVenue;
     public int currentIndex;
     public TextMeshProUGUI VenueInfoBox;
-    public int SongSelectionIndex = 8;
+    public TransitionData transitionDataToSongs;
     
     void Start()
     {
@@ -62,7 +62,7 @@ public class VenueSelector : ScrollSelector<Venue>
         {
             GameStateManager.Instance.SelectedVenue = SelectedVenue;
 
-            CustomSceneEvent.CustomTransitionCalled(SongSelectionIndex);
+            CustomSceneEvent.CustomTransitionCalled(transitionDataToSongs);
         }
         
     }

@@ -12,7 +12,7 @@ public class SongSelector : ScrollSelector<SongData>
     public int currentIndex;
     public TextMeshProUGUI SongInfoBox;
     public TextMeshProUGUI SelectedSongInfoBox;
-    public int DefaultConcertSceneIndex = 8;
+    public TransitionData transitionDataToConcert;
 
     void Start()
     {
@@ -108,7 +108,7 @@ public class SongSelector : ScrollSelector<SongData>
         {
         //if(GameStateManager.Instance.SelectedVenue.SceneIndex;
         
-        CustomSceneEvent.CustomTransitionCalled(DefaultConcertSceneIndex);
+        CustomSceneEvent.CustomTransitionCalled(transitionDataToConcert);
         //GameStateManager.Instance.StartConcert();
         }
     }
