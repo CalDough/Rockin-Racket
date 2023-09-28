@@ -33,6 +33,11 @@
 		<relationship name="timeline">
 			<destination>{a40270a9-f104-4028-8d21-0210935767af}</destination>
 		</relationship>
+		<relationship name="parameters">
+			<destination>{ad26b1ee-d66f-47ad-86de-7c01d4459642}</destination>
+			<destination>{40c7065b-eab3-45e9-8eff-3bf423b70850}</destination>
+			<destination>{22ecddf4-ea79-4937-898c-20c2f02602c7}</destination>
+		</relationship>
 		<relationship name="banks">
 			<destination>{efe9fd54-3891-40c1-9963-3c56a169d4ba}</destination>
 		</relationship>
@@ -92,6 +97,21 @@
 		</relationship>
 		<relationship name="markers">
 			<destination>{21a90fc3-9b5b-4563-991e-1230722eaeb5}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterProxy" id="{ad26b1ee-d66f-47ad-86de-7c01d4459642}">
+		<relationship name="preset">
+			<destination>{c6a8d2de-fb38-48ea-a1b9-bf724803bd88}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterProxy" id="{40c7065b-eab3-45e9-8eff-3bf423b70850}">
+		<relationship name="preset">
+			<destination>{10678163-0050-4981-bbd9-d24dce4c4ef2}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterProxy" id="{22ecddf4-ea79-4937-898c-20c2f02602c7}">
+		<relationship name="preset">
+			<destination>{4ac95e71-9107-4e6a-bb38-40e8780d8d9e}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{58cea31a-b761-4b98-8394-ef50bdb1c2f3}">
@@ -166,7 +186,7 @@
 			<value>59.89895691609977</value>
 		</property>
 		<relationship name="parameters">
-			<destination>{c9317449-b5d2-4546-a072-3e51aeacd6b1}</destination>
+			<destination>{10a6b27c-a941-4db3-991c-47d3a6c8bde2}</destination>
 		</relationship>
 		<relationship name="event">
 			<destination>{74e19b53-12a7-4fd4-9a8a-edf821c99ac9}</destination>
@@ -226,9 +246,9 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{b98a6c9e-532d-48e0-9e99-84e864626d44}" />
-	<object class="ParameterProperty" id="{c9317449-b5d2-4546-a072-3e51aeacd6b1}">
+	<object class="ParameterProperty" id="{10a6b27c-a941-4db3-991c-47d3a6c8bde2}">
 		<relationship name="parameter">
-			<destination>{c1a044c6-1f5d-40e3-9162-19067e33c896}</destination>
+			<destination>{3779d44d-948f-4b70-8218-8305137e7bbb}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{9247ba3b-460f-4f5d-b9c0-95e1b8463c0c}">
