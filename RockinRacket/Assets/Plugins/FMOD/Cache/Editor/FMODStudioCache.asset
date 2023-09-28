@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8746366556596972905
+--- !u!114 &-9039952756448759203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,25 +10,80 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Instruments/TipToe-PrimaryGuitarBass
+  m_Name: event:/Instruments/Song 2/S2_BASS
   m_EditorClassIdentifier: 
-  Path: event:/Instruments/TipToe-PrimaryGuitarBass
+  Path: event:/Instruments/Song 2/S2_BASS
   Guid:
-    Data1: 1969254748
-    Data2: 1217059614
-    Data3: 738393791
-    Data4: -472557006
+    Data1: 2034293303
+    Data2: 1277053324
+    Data3: -2021920851
+    Data4: -575126860
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -6589600843276652638}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 55503
+--- !u!114 &-8675641295577513321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/Old/TipToe-Bass
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/Old/TipToe-Bass
+  Guid:
+    Data1: 1257263755
+    Data2: 1152667862
+    Data3: 339194531
+    Data4: 1828706029
   Banks:
   - {fileID: -2327079825113636093}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 8309222615229200979}
+  - {fileID: -2021851320077047621}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-7521246625812083414
+--- !u!114 &-8342120145651229959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/dial click
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/dial click
+  Guid:
+    Data1: 1907268658
+    Data2: 1237620321
+    Data3: 1576204449
+    Data4: -1391400576
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
+--- !u!114 &-8060018444408798321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38,7 +93,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TipToe-Drum/BrokenValue
+  m_Name: parameter:/TipToe-KeyBoard/BrokenValue
   m_EditorClassIdentifier: 
   Name: BrokenValue
   StudioPath: 
@@ -52,6 +107,34 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-7557663155025240950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/Song 1/S1_Drums
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/Song 1/S1_Drums
+  Guid:
+    Data1: 1960942419
+    Data2: 1339298471
+    Data3: -118650214
+    Data4: -912602847
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3070534484525999925}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 59898
 --- !u!114 &-6938598405615807274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,11 +174,63 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638308049174826170
+  lastModified: 638315060689497589
   FileSizes:
   - Name: Desktop
-    Value: 1400
+    Value: 1926
   Exists: 1
+--- !u!114 &-6589600843276652638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/S2_BASS/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-6391701391696805579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Full Tracks/Song 2
+  m_EditorClassIdentifier: 
+  Path: event:/Full Tracks/Song 2
+  Guid:
+    Data1: -1839827517
+    Data2: 1155351036
+    Data3: -1972018286
+    Data4: 1967003257
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 1564131328201589865}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 57320
 --- !u!114 &-6152803792437838188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +259,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 202368
+--- !u!114 &-5730171430985905349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Song 1/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-5251905012576179882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +307,7 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &-4911533819155468420
+--- !u!114 &-4954872453944059879
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,25 +317,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Instruments/TipToe-Drum
+  m_Name: event:/Instruments/Old/TipToe-SecondaryGuitar
   m_EditorClassIdentifier: 
-  Path: event:/Instruments/TipToe-Drum
+  Path: event:/Instruments/Old/TipToe-SecondaryGuitar
   Guid:
-    Data1: -327920843
-    Data2: 1087892199
-    Data3: -485843807
-    Data4: 429283577
+    Data1: -141908198
+    Data2: 1255255815
+    Data3: 1250255542
+    Data4: -1773819827
   Banks:
   - {fileID: -2327079825113636093}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: -7521246625812083414}
+  - {fileID: 4043116511662481528}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-2770459630770418781
+--- !u!114 &-2429198352926970598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,7 +345,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TipToe-KeyBoard/BrokenValue
+  m_Name: parameter:/S2_GUITAR/BrokenValue
   m_EditorClassIdentifier: 
   Name: BrokenValue
   StudioPath: 
@@ -215,10 +374,58 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/TipToe Song.bank
   Name: TipToe Song
   StudioPath: bank:/TipToe Song
-  lastModified: 638314843110737251
+  lastModified: 638315060735147097
   FileSizes:
   - Name: Desktop
-    Value: 7358624
+    Value: 7358560
+  Exists: 1
+--- !u!114 &-2214695154729231258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/S1_Bass/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-2021851320077047621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TipToe-Bass/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
 --- !u!114 &-1108512020941406539
 MonoBehaviour:
@@ -246,6 +453,34 @@ MonoBehaviour:
   - Working
   - Broke
   Exists: 1
+--- !u!114 &-56675267043140745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/Old/TipToe-KeyBoard
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/Old/TipToe-KeyBoard
+  Guid:
+    Data1: 2110882843
+    Data2: 1216086443
+    Data3: -746033788
+    Data4: -81687248
+  Banks:
+  - {fileID: -2327079825113636093}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8060018444408798321}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,19 +499,78 @@ MonoBehaviour:
   - {fileID: -2327079825113636093}
   EditorEvents:
   - {fileID: -6152803792437838188}
-  - {fileID: 7252620451804980105}
-  - {fileID: 5745854035425086508}
-  - {fileID: -4911533819155468420}
-  - {fileID: -8746366556596972905}
-  - {fileID: 1973548165981256887}
+  - {fileID: -8342120145651229959}
+  - {fileID: -9039952756448759203}
+  - {fileID: -7557663155025240950}
+  - {fileID: 7544955938107424581}
+  - {fileID: 3261671787850172604}
+  - {fileID: 6423566965940004944}
+  - {fileID: 8821546457728088814}
+  - {fileID: 8811224849416878065}
+  - {fileID: -6391701391696805579}
+  - {fileID: 6747325339821763969}
+  - {fileID: 5214132945990279772}
+  - {fileID: -4954872453944059879}
+  - {fileID: -56675267043140745}
+  - {fileID: 4407805072307383970}
+  - {fileID: 3714293149311795459}
+  - {fileID: -8675641295577513321}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3974240884462126279}
   StringsBanks:
   - {fileID: -6735729076162339787}
-  cacheTime: 638314843110737251
+  cacheTime: 638315060735147097
   cacheVersion: 131603
---- !u!114 &1973548165981256887
+--- !u!114 &1564131328201589865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Song 2/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3070534484525999925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/S1_Drums/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3261671787850172604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -286,24 +580,100 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Instruments/TipToe-Bass
+  m_Name: event:/Instruments/Song 1/S1_Guitar
   m_EditorClassIdentifier: 
-  Path: event:/Instruments/TipToe-Bass
+  Path: event:/Instruments/Song 1/S1_Guitar
   Guid:
-    Data1: 1257263755
-    Data2: 1152667862
-    Data3: 339194531
-    Data4: 1828706029
+    Data1: -684916059
+    Data2: 1299745986
+    Data3: 1576386492
+    Data4: 2144318179
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3856085681348731111}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 57488
+--- !u!114 &3567271246939271093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TipToe-PrimaryGuitarBass/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3714293149311795459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/Old/TipToe-PrimaryGuitarBass
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/Old/TipToe-PrimaryGuitarBass
+  Guid:
+    Data1: 1969254748
+    Data2: 1217059614
+    Data3: 738393791
+    Data4: -472557006
   Banks:
   - {fileID: -2327079825113636093}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 6701234273058428206}
+  - {fileID: 3567271246939271093}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3856085681348731111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/S1_Guitar/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &3974240884462126279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,11 +689,91 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638307140257910287
+  lastModified: 638315060689472548
   FileSizes:
   - Name: Desktop
-    Value: 2666560
+    Value: 6809440
   Exists: 1
+--- !u!114 &4043116511662481528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/TipToe-SecondaryGuitar/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &4407805072307383970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/Old/TipToe-Drum
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/Old/TipToe-Drum
+  Guid:
+    Data1: -327920843
+    Data2: 1087892199
+    Data3: -485843807
+    Data4: 429283577
+  Banks:
+  - {fileID: -2327079825113636093}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 7845939843377450508}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5214132945990279772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/Song 1/S1_Bass
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/Song 1/S1_Bass
+  Guid:
+    Data1: 1581788411
+    Data2: 1211885679
+    Data3: -443211380
+    Data4: 621960847
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -2214695154729231258}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 57488
 --- !u!114 &5247033245263421656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,7 +822,7 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &5745854035425086508
+--- !u!114 &6423566965940004944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -382,73 +832,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Instruments/TipToe-KeyBoard
+  m_Name: event:/Instruments/Song 2/S2_DRUMS
   m_EditorClassIdentifier: 
-  Path: event:/Instruments/TipToe-KeyBoard
+  Path: event:/Instruments/Song 2/S2_DRUMS
   Guid:
-    Data1: 2110882843
-    Data2: 1216086443
-    Data3: -746033788
-    Data4: -81687248
+    Data1: 116792239
+    Data2: 1110959729
+    Data3: -1732224095
+    Data4: -1708291005
   Banks:
-  - {fileID: -2327079825113636093}
+  - {fileID: 3974240884462126279}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: -2770459630770418781}
+  - {fileID: 8068964482824588175}
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
---- !u!114 &6701234273058428206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TipToe-Bass/BrokenValue
-  m_EditorClassIdentifier: 
-  Name: BrokenValue
-  StudioPath: 
-  Min: 0
-  Max: 5
-  Default: 0
-  ID:
-    data1: 1659612302
-    data2: 112641694
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &7033735698532874261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TipToe-SecondaryGuitar/BrokenValue
-  m_EditorClassIdentifier: 
-  Name: BrokenValue
-  StudioPath: 
-  Min: 0
-  Max: 5
-  Default: 0
-  ID:
-    data1: 1659612302
-    data2: 112641694
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &7252620451804980105
+  Length: 57320
+--- !u!114 &6747325339821763969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -458,25 +860,53 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Instruments/TipToe-SecondaryGuitar
+  m_Name: event:/Full Tracks/Song 1
   m_EditorClassIdentifier: 
-  Path: event:/Instruments/TipToe-SecondaryGuitar
+  Path: event:/Full Tracks/Song 1
   Guid:
-    Data1: -141908198
-    Data2: 1255255815
-    Data3: 1250255542
-    Data4: -1773819827
+    Data1: 794700791
+    Data2: 1278609176
+    Data3: 764435361
+    Data4: -2076794871
   Banks:
-  - {fileID: -2327079825113636093}
+  - {fileID: 3974240884462126279}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 7033735698532874261}
+  - {fileID: -5730171430985905349}
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
---- !u!114 &8309222615229200979
+  Length: 59898
+--- !u!114 &7544955938107424581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Instruments/Song 2/S2_GUITAR
+  m_EditorClassIdentifier: 
+  Path: event:/Instruments/Song 2/S2_GUITAR
+  Guid:
+    Data1: 970394773
+    Data2: 1230960066
+    Data3: -727015267
+    Data4: 1940270504
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -2429198352926970598}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 55503
+--- !u!114 &7845939843377450508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -486,7 +916,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/TipToe-PrimaryGuitarBass/BrokenValue
+  m_Name: parameter:/TipToe-Drum/BrokenValue
   m_EditorClassIdentifier: 
   Name: BrokenValue
   StudioPath: 
@@ -500,6 +930,84 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &8068964482824588175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/S2_DRUMS/BrokenValue
+  m_EditorClassIdentifier: 
+  Name: BrokenValue
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &8811224849416878065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Full Tracks/Song 3
+  m_EditorClassIdentifier: 
+  Path: event:/Full Tracks/Song 3
+  Guid:
+    Data1: 946300096
+    Data2: 1252553748
+    Data3: 1782929841
+    Data4: -221189450
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8821546457728088814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/T-shirt cannon shoot
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/T-shirt cannon shoot
+  Guid:
+    Data1: -791460934
+    Data2: 1081389806
+    Data3: 1832595868
+    Data4: 887253466
+  Banks:
+  - {fileID: 3974240884462126279}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 897
 --- !u!114 &8949052944186919727
 MonoBehaviour:
   m_ObjectHideFlags: 0
