@@ -8,6 +8,7 @@ using UnityEditor;
 
 public class ItemInventory
 {
+    // CHANGE TO THIS FOR FINAL BUILD
     //private string saveFolderPath = "Player/SaveFiles/";
     private static string saveFolderPath = "Assets/Shop (Hamilton)/";
     private static string saveFileName = "Items.txt";
