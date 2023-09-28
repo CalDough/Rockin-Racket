@@ -31,6 +31,7 @@ public class GameState
     public int NumberOfStates = 0;
     public GameModeType InsertionType = GameModeType.Default;
     public bool InsertAfter = true;
+    public bool ReplaceState = false;
 
     // These are methods that subclasses need to implement.
     public void StartState()
