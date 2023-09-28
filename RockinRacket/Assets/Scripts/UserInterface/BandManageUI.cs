@@ -21,6 +21,10 @@ public class BandManageUI : MonoBehaviour
     
     public List<BandPosition> Band = new List<BandPosition>();
 
+    //Temp solution for Thursday
+    [SerializeField] public List<TextAsset> conversations = new List<TextAsset>();
+    private int convIndex = 0;
+
     public bool CanChangeMember = true;
     public float transitionDuration = 0.5f;
     private bool isTransitioning = false;
@@ -41,7 +45,7 @@ public class BandManageUI : MonoBehaviour
         Band.Add(BandManager.Instance.Manager); // This would be the manager Raccoon, but there is no sprite for it
 
         Band.Add(BandManager.Instance.AnimalThree); //Strings Raccoon
-        
+
         SelectedPosition = Band[0];
         
         DisplayInfo();
@@ -53,6 +57,12 @@ public class BandManageUI : MonoBehaviour
 
         CloseAllPanels();
 
+        convIndex--;
+        if (convIndex < 0)
+        {
+            convIndex = conversations.Count - 1;
+        }
+
         StartCoroutine(TransitionMembers(true));
     }
 
@@ -62,6 +72,13 @@ public class BandManageUI : MonoBehaviour
             return;
 
         CloseAllPanels();
+        
+
+        convIndex++;
+        if (convIndex >= conversations.Count)
+        {
+            convIndex = 0;
+        }
 
         StartCoroutine(TransitionMembers(false));
     }
@@ -139,18 +156,28 @@ public class BandManageUI : MonoBehaviour
     //Will open cutscene or dialogue menu if availiable for member, else just show some text about something?
     public void TalkToMember()
     {
-        CanChangeMember = false;
+        DialogueManager.GetInstance().StartDialogue(conversations[convIndex]);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // CanChangeMember = false;
         //while dialogue or cutscene is active, I think it would be easier to keep it the same member until that finishes to swap
-        if(StoryManager.Instance.GetDialogue() == true)
-        {
-            SceneReader.DialogueStarted();
-            CanChangeMember = true;
-            DialoguePanel.SetActive(true);
-        }
-        else
-        {
-            DialoguePanel.SetActive(false);
-        }
+        // if(StoryManager.Instance.GetDialogue() == true)
+        // {
+        //     SceneReader.DialogueStarted();
+        //     CanChangeMember = true;
+        //     DialoguePanel.SetActive(true);
+        // }
+        // else
+        // {
+        //     DialoguePanel.SetActive(false);
+        // }
 
     }
 

@@ -36,7 +36,7 @@ public class BandRoleAudioController : MonoBehaviour
         this.voiceBrokenValue = 0;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         SetInstrumentBrokeLevel();
         SetVoiceBrokeLevel();
@@ -89,6 +89,7 @@ public class BandRoleAudioController : MonoBehaviour
                 this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Background.SecondaryTrackPath;
                 break;
             default:
+                Debug.Log("Trying to affect band member not on list: " + ConcertPosition);
                 break;
         }
         if (!string.IsNullOrEmpty(instrumentEvent))
@@ -234,12 +235,25 @@ public class BandRoleAudioController : MonoBehaviour
         {
             instrumentBrokenValue -= e.BrokenValue;
             SetInstrumentBrokeLevel();
+            ResyncAudio();
         }
         else
         {
             voiceBrokenValue -= e.BrokenValue;
             SetInstrumentBrokeLevel();
         }
+    }
+
+    public void ResyncAudio()
+    {
+        int position;
+        instrumentEmitter.EventInstance.getTimelinePosition(out position);
+        int playbackPosition = (int)(GameStateManager.Instance.levelTime * 1000);
+        Debug.Log("Audio Being Resynced old "+ position +"/ new "+ playbackPosition);
+        instrumentEmitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        instrumentEmitter.EventInstance.start();
+        instrumentEmitter.EventInstance.setTimelinePosition(playbackPosition);
+
     }
 
     public void ConcertEnd(object sender, ConcertAudioEventArgs e)
@@ -258,7 +272,7 @@ public class BandRoleAudioController : MonoBehaviour
 
         int parameterCount;
         eventDescription.getParameterDescriptionCount(out parameterCount);
-        Debug.Log(parameterCount);
+        //Debug.Log(parameterCount);
     }
 
 }

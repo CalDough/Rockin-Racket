@@ -40,8 +40,8 @@ public class GameStateManager : MonoBehaviour
     public bool ConcertActive = false;
     public Venue SelectedVenue;
 
-    [SerializeField] float levelTime = 0;
-    [SerializeField] float totalTime = 0;
+    [SerializeField] public float levelTime = 0;
+    [SerializeField] public float totalTime = 0;
     [field:SerializeField] public int songSlotsAvailable{ get; private set; } = 0 ; 
 
     public int MoneyToGain = 0;
@@ -279,20 +279,26 @@ public class GameStateManager : MonoBehaviour
             sceneOutroState.UseDuration = true;
         }
         GameStates.AddLast(sceneOutroState);
-
+        foreach (GameState state in GameStatesFromVenue)
+        {
+            if (state.GetGameModeType() == GameModeType.Intermission || state.GetGameModeType() == GameModeType.BandBattle)
+            {
+                InsertGameStateAroundOccurrences(state, state.InsertionType, state.NumberOfStates, state.InsertAfter, state.ReplaceState);
+            }
+        }
         // Insert Cutscene and Dialogue GameStates from Venue and story
         foreach (GameState state in GameStatesFromVenue)
         {
             if (state.GetGameModeType() == GameModeType.Cutscene || state.GetGameModeType() == GameModeType.Dialogue)
             {
-                InsertGameStateAroundOccurrences(state, state.InsertionType, state.NumberOfStates, state.InsertAfter);
+                InsertGameStateAroundOccurrences(state, state.InsertionType, state.NumberOfStates, state.InsertAfter, state.ReplaceState);
             }
         }
         foreach (GameState state in GameStatesFromStory)
         {
             if (state.GetGameModeType() == GameModeType.Cutscene || state.GetGameModeType() == GameModeType.Dialogue)
             {
-                InsertGameStateAroundOccurrences(state, state.InsertionType, state.NumberOfStates, state.InsertAfter);
+                InsertGameStateAroundOccurrences(state, state.InsertionType, state.NumberOfStates, state.InsertAfter, state.ReplaceState);
             }
         }
     }
@@ -422,7 +428,7 @@ public class GameStateManager : MonoBehaviour
     // Used to add a gamestate into the linked list
     // Note if you use after 0 occurrenceCount, it will never insert
     // Example: Insert Cutscene after Target: Song, Number 2, After. This will insert a cutscene after the 2nd song.
-    public void InsertGameStateAroundOccurrences(GameState stateToInsert, GameModeType targetType, int numberOfOccurrences, bool insertAfter)
+    public void InsertGameStateAroundOccurrences(GameState stateToInsert, GameModeType targetType, int numberOfOccurrences, bool insertAfter, bool replaceState)
     {
         LinkedListNode<GameState> targetNode = GameStates.First;
         int occurrenceCount = 0;
@@ -434,6 +440,14 @@ public class GameStateManager : MonoBehaviour
                 occurrenceCount++;
                 if (occurrenceCount == numberOfOccurrences)
                 {
+                    if(replaceState == true)
+                    {
+                        GameStates.AddAfter(targetNode, stateToInsert);
+                        GameStates.Remove(targetNode);
+                        return;
+                    }
+
+
                     // Insert the state either before or after the target node, based on the 'insertAfter' flag
                     if (insertAfter)
                     {
