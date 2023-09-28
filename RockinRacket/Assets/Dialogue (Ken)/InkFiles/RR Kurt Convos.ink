@@ -1,15 +1,15 @@
-
+INCLUDE globals.ink
 //Naming - ex. H_H1_C1 (first letter (the H in this case) stands for the character (Haley in this case), the H1 stands for which hub it is in (Hub 1 in this case), and C1 is the dialogue choice)
+-> H1
 
 === Ending === ///This is just a place for the conversations to route back to so there are no errors
 This is a placeholder
-    * [...]
-        -> END
+->END
 
 
 === H1 ===
 = Kurt
-Kurt: "Oh, h-h-h-hey Harvey. Do you n-n-need something?"
+Kurt: "Oh, h-h-h-hey Harvey. Do you n-n-need something?" #speaker: Kurt #portrait: kurt_neutral
     * "Just checking in[."]. Are you looking for something?"
         -> K_H1_C1
     * "Yeah, I wanted to check[..."] if your bass guitar was okay?"
@@ -42,7 +42,7 @@ Kurt: "Y-y-yeah, I am. I lost that l-l-little case I put my guitar p-p-picks in.
 
 === H2 ===
 = Kurt
-Kurt: "Hi there H-h-harvey. Can I help you?"
+Kurt: "Hi there H-h-harvey. Can I help you?" #speaker: Kurt #portrait: kurt_neutral
     * "Got any advice for me[?"]? I feel like I'm starting to get the hang of being a stage manager, but I wanted to know if there was anything else to know?"
         -> K_H2_C1
     * "Is your bass okay[?"] or is there something i should know about?"
@@ -75,7 +75,7 @@ Kurt: "I d-d-don't think so. Just p-p-pay attention to both the st-st-stage and 
 
 === H3 ===
 = Kurt
-Kurt: "P-p-please don't tell me you're here t-t-to hurt me again?"
+Kurt: "P-p-please don't tell me you're here t-t-to hurt me again?" #speaker: Kurt #portrait: kurt_neutral
     * "No, I'm not[..."] Kurt. I wanted to say that I'm sorry for the pain I caused you. I know what I did was bad, but you have to believe me when I say that I changed."
         -> Kurt_option1
     * [End convo]
@@ -93,7 +93,7 @@ Kurt: "A-a-apoligizing won't heal the p-p-pain. I'm more upset with m-m-myself f
 
 === H4 ===
 = Kurt
-Kurt: "Ace said you g-g-guys could use some h-h-help."
+Kurt: "Ace said you g-g-guys could use some h-h-help." #speaker: Kurt #portrait: kurt_neutral
     * "I appreciate it[..."], but was that the only reason?"
         Kurt: "Well, I c-c-couldn't stay mad at you f-f-forever. You're our big b-b-brother."
         "Ahh come here. Let me give you a big hug."

@@ -1,17 +1,19 @@
+INCLUDE globals.ink
+
 
 //Naming - ex. H_H1_C1 (first letter (the H in this case) stands for the character (Haley in this case), the H1 stands for which hub it is in (Hub 1 in this case), and C1 is the dialogue choice)
 
+-> H1
 
 === Ending === ///This is just a place for the conversations to route back to so there are no errors
 This is a placeholder
-    * [...]
-        -> END
+->END
 
 
 
 === H1 ===
 = Ace
-Ace: "What up dude?"
+Ace: "What up dude?" #speaker: Ace #portrait: ace_neutral
     * "Not much[."], just wanted to see what you were doing."
         -> A_H1_C1
     * "About your drums[..."] They still in playing condition?"

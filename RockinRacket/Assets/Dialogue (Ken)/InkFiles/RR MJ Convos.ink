@@ -1,14 +1,15 @@
-
+INCLUDE globals.ink
 //Naming - ex. H_H1_C1 (first letter (the H in this case) stands for the character (Haley in this case), the H1 stands for which hub it is in (Hub 1 in this case), and C1 is the dialogue choice)
+
+-> H1
 
 === Ending === ///This is just a place for the conversations to route back to so there are no errors
 This is a placeholder
-    * [...]
-        -> END
+->END
 
 === H1 ===
 = MJ
-MJ: "What do you need? I'm busy."
+MJ: "What do you need? I'm busy." #speaker: MJ #portrait: mj_neutral
     * "Sorry to interrupt[..."], I just wanted to see what you got going on."
         -> M_H1_C1
     * "How's your guitar[?"]? Is it doing well?"
@@ -42,7 +43,7 @@ MJ: "I'm practicing some songs."
 
 === H2 ===
 = MJ
-MJ: "Need something?"
+MJ: "Need something?" #speaker: MJ #portrait: mj_neutral
     * "Actually, yeah. Could you[..."] lower the volume a bit?"
         -> M_H2_C1
     * "Is your guitar[..."] holding up properly?"
@@ -74,7 +75,7 @@ MJ: "Is it bothering you?"
 
 === H3 ===
 = MJ
-MJ: "Look who it is. The betrayer."
+MJ: "Look who it is. The betrayer." #speaker: MJ #portrait: mj_neutral
     * "How many times do I[..."] need to apologize and explain myself to you guys?"
         -> M_H3_C1
     * [End convo]
@@ -97,7 +98,7 @@ MJ: "At least once more for me. How could you do something like that to us? To m
 
 === H4 ===
 = MJ
-MJ: "You're one stubborn brother and stage manager. I respect that about you. I guess what I'm trying to say is that I want to work with you again."
+MJ: "You're one stubborn brother and stage manager. I respect that about you. I guess what I'm trying to say is that I want to work with you again." #speaker: MJ #portrait: mj_neutral
     * I would as well[..."] MJ, so get in here!"
         MJ: "No more ulterior motives though. Deal?"
         "Consider it done. Where do I sign?"
@@ -115,7 +116,7 @@ MJ: "You're one stubborn brother and stage manager. I respect that about you. I 
 === Convo_2 ===
 = MJ
 /// Make more MJ like
-MJ: "What do you need? I'm kinda busy shopping online."
+MJ: "What do you need? I'm kinda busy shopping online." #speaker: MJ #portrait: mj_neutral
     * "Shopping?["] What for?"
         -> M_Convo2_C1
     * "Let me know when you're done["] then. I was gonna ask you something."

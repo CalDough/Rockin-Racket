@@ -1,14 +1,15 @@
-
+INCLUDE globals.ink
 //Naming - ex. H_H1_C1 (first letter (the H in this case) stands for the character (Haley in this case), the H1 stands for which hub it is in (Hub 1 in this case), and C1 is the dialogue choice)
+
+->H1
 
 === Ending === ///This is just a place for the conversations to route back to so there are no errors
 This is a placeholder
-    * [...]
-        -> END
+->END
 
 === H1 ===
 = Haley
-Haley: "Need something Harv?"
+Haley: "Need something Harv?" #speaker: Haley #portrait: haley_neutral
  * "Yeah, I was wondering[..."] if I did alright during that performance? I feel like it was bad, but the crowd seemed to like it so I'm confused."
         -> H_H1_C1
             
@@ -39,7 +40,7 @@ Haley: "Don't worry about it. It was your first time really managing everything 
 
 === H2 ===
 = Haley
-Haley: "Hey Harv! What can I do for you?"
+Haley: "Hey Harv! What can I do for you?" #speaker: Haley #portrait: haley_neutral
  * "About that venue[..."], was it good or what?"
         -> H_H2_C1
  * "Is your mic[..."] still in working condition?"
@@ -72,7 +73,7 @@ Haley: "I'll admit, it was a lot better than I thought it would be."
 
 === H3 ===
 = Haley
-Haley: "What do you want Harvey?"
+Haley: "What do you want Harvey?" #speaker: Haley #portrait: haley_neutral
  * "Can we please talk[?"]? I know I screwed up."
         -> H_H3_C1
             
@@ -93,7 +94,7 @@ Haley: "What is there to talk about? Maybe about how you were just using us?"
 
 === H4 ===
 = Haley
-Haley: "I thought long and hard about doing this, but it seems like everyone else wants you back too, so who am I to disagree? Want to officially rejoin the band Harvey?"
+Haley: "I thought long and hard about doing this, but it seems like everyone else wants you back too, so who am I to disagree? Want to officially rejoin the band Harvey?" #speaker: Haley #portrait: haley_neutral
     * "Heck yeah I do.["] Thank you so much sis!"
         Haley: "Just please promise me you won't use us again like that?"
         "You have my word."
