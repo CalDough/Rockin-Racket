@@ -1021,11 +1021,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1125919623}
+      objectReference: {fileID: 11500000, guid: 46f02abeca624ce68874afdbb77c9be0,
+        type: 3}
     - target: {fileID: 3454660324374942187, guid: 10721799f99a9b44786b7dc2996c98bf,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Button_Continue
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4025558110246161496, guid: 10721799f99a9b44786b7dc2996c98bf,
         type: 3}
@@ -1212,10 +1213,15 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: MakeChoice
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2121630790646597436, guid: 10721799f99a9b44786b7dc2996c98bf, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3687073074603693552, guid: 10721799f99a9b44786b7dc2996c98bf,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 791186749}
   m_SourcePrefab: {fileID: 100100000, guid: 10721799f99a9b44786b7dc2996c98bf, type: 3}
 --- !u!224 &454665069 stripped
 RectTransform:
@@ -1369,6 +1375,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484344299}
   m_CullTransparentMesh: 1
+--- !u!1 &791186747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3687073074603693552, guid: 10721799f99a9b44786b7dc2996c98bf,
+    type: 3}
+  m_PrefabInstance: {fileID: 454665068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &791186749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791186747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c3219d6252f4d5ca40d1638477d909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeedMultiplier: 1
 --- !u!1 &901119779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2279,6 +2304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2500356c77d71aa4bbd912c5127d0f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputEnabled: 0
 --- !u!4 &1280956213
 Transform:
   m_ObjectHideFlags: 0
