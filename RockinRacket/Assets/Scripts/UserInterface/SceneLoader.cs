@@ -28,6 +28,7 @@ public class SceneLoader : MonoBehaviour
     public float transitionTime = 1f;
     public string loadingSceneName = "LoadingScene";
     private Animator transition;
+    private bool isPrefabReady = false;
 
     void Awake()
     {
@@ -84,7 +85,7 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(string sceneName, GameObject animatorPrefab, float? customTransitionTime, string customLoadingSceneName)
     {
-        PlayTransition(animatorPrefab, customTransitionTime);
+        PlayTransition(animatorPrefab);
         
         yield return new WaitForSeconds(customTransitionTime ?? transitionTime);
         
@@ -93,13 +94,14 @@ public class SceneLoader : MonoBehaviour
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncOperation.isDone)
         {
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
     }
 
     private IEnumerator LoadSceneIndexAsync(int sceneIndex, GameObject animatorPrefab, float? customTransitionTime, string customLoadingSceneName)
     {
-        PlayTransition(animatorPrefab, customTransitionTime);
+        PlayTransition(animatorPrefab);
+        
         yield return new WaitForSeconds(customTransitionTime ?? transitionTime);
 
         SceneManager.LoadScene(customLoadingSceneName ?? loadingSceneName);
@@ -107,10 +109,39 @@ public class SceneLoader : MonoBehaviour
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneIndex);
         while (!asyncOperation.isDone)
         {
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
     }
 
+    private void PlayTransition(GameObject animatorPrefab)
+    {
+        if (animatorPrefab == null)
+        {
+            animatorPrefab = DefaultAnimatorPrefab;
+        }
+
+        if (animatorPrefab)
+        {
+            
+            GameObject transitionObj = Instantiate(animatorPrefab);
+            transition = transitionObj.GetComponent<Animator>();
+            transitionObj.SetActive(true);  
+
+            Canvas canvas = FindObjectOfType<Canvas>();
+            if (canvas == null)
+            {
+                Debug.LogError("No canvas found in the scene.");
+                return;
+            }
+            
+            transitionObj.transform.SetParent(canvas.transform, false);
+            if (transition)
+            {
+                transition.SetTrigger("Start");
+            }
+        }
+    }
+    /*
     private void PlayTransition(GameObject animatorPrefab, float? customTransitionTime)
     {
         if (animatorPrefab == null)
@@ -126,22 +157,28 @@ public class SceneLoader : MonoBehaviour
                 Debug.LogError("No canvas found in the scene.");
                 return;
             }
+
             GameObject transitionObj = Instantiate(animatorPrefab, canvas.transform);
             transitionObj.SetActive(false);  
-
             transition = transitionObj.GetComponent<Animator>();
 
-            if (transition)
-            {
-                StartCoroutine(ActivateAndTriggerTransition(transitionObj, transition));
-            }
+            isPrefabReady = true;
+            
+            StartCoroutine(ActivateAndTriggerTransition(transitionObj, transition));
         }
     }
+    
+    */
+
     private IEnumerator ActivateAndTriggerTransition(GameObject transitionObj, Animator transitionAnimator)
     {
-        yield return new WaitForSeconds(0.1f); //small delay to ensure things are ready
+        while(!isPrefabReady)
+        {
+            yield return null;  
+        }
+        
         transitionObj.SetActive(true); 
-        yield return null; 
+        yield return null;  
         transitionAnimator.SetTrigger("Start"); 
     }
 
@@ -155,15 +192,19 @@ public class SceneLoader : MonoBehaviour
 
         if (animatorPrefab)
         {
+            
+            GameObject transitionObj = Instantiate(animatorPrefab);
+            transition = transitionObj.GetComponent<Animator>();
+            transitionObj.SetActive(true);  
+
             Canvas canvas = FindObjectOfType<Canvas>();
             if (canvas == null)
             {
                 Debug.LogError("No canvas found in the scene.");
                 return;
             }
-            GameObject transitionObj = Instantiate(animatorPrefab, canvas.transform);
-            transition = transitionObj.GetComponent<Animator>();
-
+            
+            transitionObj.transform.SetParent(canvas.transform, false);
             if (transition)
             {
                 transition.SetTrigger("Reverse");
