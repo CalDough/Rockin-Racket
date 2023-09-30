@@ -18,6 +18,8 @@ public class BandRoleAudioController : MonoBehaviour
     public string voiceEvent;
 
     public int ConcertPosition = 0;
+    public bool isPlaying = false;
+    public bool isSinging = false;
 
     public string parameterName = "BrokenValue";
 
@@ -101,6 +103,8 @@ public class BandRoleAudioController : MonoBehaviour
                 instrumentInstance = instrumentEmitter.EventInstance;
                 
                 PrintEventParameters(instrumentEvent);
+                 ConcertAudioEvent.PlayingAudio(this.ConcertPosition, true);
+                this.isPlaying = true;
             }
         }
         else
@@ -116,6 +120,9 @@ public class BandRoleAudioController : MonoBehaviour
                 voiceEmitter.Play();
                 voiceInstance = voiceEmitter.EventInstance;
                 PrintEventParameters(voiceEvent);
+                
+                ConcertAudioEvent.PlayingAudio(this.ConcertPosition, false);
+                isSinging = true;
             }
         }
         else
@@ -140,6 +147,9 @@ public class BandRoleAudioController : MonoBehaviour
     {
         voiceEmitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         instrumentEmitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        
+        this.isPlaying = false;
+        this.isSinging = false;
     }
     
     public void PauseConcert()

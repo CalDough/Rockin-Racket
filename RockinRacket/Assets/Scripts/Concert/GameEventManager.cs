@@ -387,8 +387,10 @@ public class GameEventManager : MonoBehaviour
         { return;}
 
         float minActivationTime = stateDuration * 0.1f;
-        float maxActivationTime = stateDuration * 0.9f;
+        float maxActivationTime = stateDuration * 0.75f;
 
+        //float minActivationTimeIntermission = stateDuration * 0.1f;
+        //float maxActivationTimeIntermission = stateDuration * 0.5f;
         // We have the number of minigames we want to spawn for this game state, so we iterate that many times
         // and then we get a minigame from the correct list of intermission or concert games
         // we then generate that minigame and set it up so it eventually activates during the game state
