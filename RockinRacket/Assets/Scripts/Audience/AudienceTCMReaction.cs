@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * This class is to be used in conjunction with the Audience Prefab and may reference values from
+ * This class is to be used in conjunction with the Audience Prefab and the T-Shirt Cannon minigame and may reference values from
  * Animal.cs and AnimalManager.cs
  */
 
-public class Audience : MonoBehaviour
+public class AudienceTCMReaction : MonoBehaviour
 {
 
     // Private variables
