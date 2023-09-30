@@ -13,14 +13,15 @@ public class BandAnimationController : MonoBehaviour
     [SerializeField] string playingName = "InstrumentPlaying";
     [SerializeField] string idleName = "Idle"; 
 
+    [SerializeField] bool alwaysPlay = false;
 
     public void PlayAnimation()
     {
 
-        if (BandMember.isPlaying || BandMember.isSinging)
+        if (BandMember.isPlaying || BandMember.isSinging || alwaysPlay == true)
         {
             characterAnimator.Play(playingName);
-            //Debug.Log($"Playing animation: {playingName}");
+            Debug.Log($"Playing animation: {playingName}");
         }
         else
         {
@@ -54,7 +55,18 @@ public class BandAnimationController : MonoBehaviour
 
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
     {
-        //Testing
+        //Testing animations with alwaysPlay bool
+    
+        switch(e.stateType)
+        {
+            case GameModeType.Song:
+                if(alwaysPlay == true)
+                {PlayAnimation();}
+                break;
+            default:
+                break;
+        }
+        
     }
     
     public void HandleGameStateEnd(object sender, GameStateEventArgs e)
