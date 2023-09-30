@@ -69,7 +69,7 @@ public class DialogueManager : MonoBehaviour
             choicesText[i] = choices[i].GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        continuePressed = false; 
+        continuePressed = false;
     }
 
     private void Update()
@@ -80,7 +80,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if(currentStory.currentChoices.Count == 0 
+        if (currentStory.currentChoices.Count == 0
            && continuePressed)
         {
             ContinueStory();
@@ -107,7 +107,7 @@ public class DialogueManager : MonoBehaviour
         portraitAnimator.Play("default");
         layoutAnimator.Play("left");
 
-        ContinueStory();        
+        ContinueStory();
     }
 
     // Method that does what it says
@@ -179,7 +179,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         int index = 0;
-        for(int i = 0; i < currentChoices.Count; i++)
+        for (int i = 0; i < currentChoices.Count; i++)
         {
             choices[i].gameObject.SetActive(true);
             choicesText[i].text = currentChoices[i].text;

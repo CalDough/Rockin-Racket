@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Receipt : MonoBehaviour
+public class ShopReceipt : MonoBehaviour
 {
     public TMP_Text cartText;
 
@@ -62,6 +62,8 @@ public class Receipt : MonoBehaviour
     }
     public void ResetReceipt()
     {
+        foreach (ItemOption item in selectedItemOptions)
+            item.RemoveFromCart();
         selectedItemOptions = new();
         UpdateText();
     }
