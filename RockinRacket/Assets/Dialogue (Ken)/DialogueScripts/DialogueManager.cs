@@ -5,7 +5,6 @@ using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
 using System;
-using Ink.UnityIntegration;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -22,8 +21,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
-    [Header("Globals Ink File")]
-    [SerializeField] private InkFile globalsInkFile;
+    [Header("Load Globals JSON File")]
+    [SerializeField] private TextAsset loadGlobalsJSON;
 
 
     // Internal variable that tracks the current state of the dialogue currently given (Story is the Plugins class for saving the ink file) 
@@ -48,7 +47,7 @@ public class DialogueManager : MonoBehaviour
         }
         instance = this;
         dialoguePanel.SetActive(false);
-        dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
+        dialogueVariables = new DialogueVariables(loadGlobalsJSON);
     }
 
     public static DialogueManager GetInstance()
