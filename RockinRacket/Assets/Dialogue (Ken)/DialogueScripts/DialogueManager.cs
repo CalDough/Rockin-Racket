@@ -32,6 +32,7 @@ public class DialogueManager : MonoBehaviour
     // Used as an internal variable to connect multiple input sources to continue
     private bool continuePressed;
     public int numChoices = 0;
+    [SerializeField] private GameObject continueButton;
 
 
     private const string SPEAKER_TAG = "speaker";
@@ -84,6 +85,14 @@ public class DialogueManager : MonoBehaviour
         {
             ContinueStory();
             continuePressed = false;
+        }
+        else if (currentStory.currentChoices.Count > 0)
+        {
+            continueButton.SetActive(false);
+        }
+        else if (currentStory.currentChoices.Count == 0)
+        {
+            continueButton.SetActive(true);
         }
     }
 
@@ -204,6 +213,7 @@ public class DialogueManager : MonoBehaviour
 
     // Method that states the choice of the given input
     // Might require updating inputManager for what button is pressed
+
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
