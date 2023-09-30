@@ -98,7 +98,9 @@ public class BandRoleAudioController : MonoBehaviour
         {
             if(DoesEventExist(instrumentEvent))
             {
-                instrumentEmitter.EventReference = FMODUnity.EventReference.Find(instrumentEvent);
+                
+                instrumentEmitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference(instrumentEvent);
+                //FMODUnity.EventReference.Find(instrumentEvent);
                 instrumentEmitter.Play();
                 instrumentInstance = instrumentEmitter.EventInstance;
                 
@@ -109,14 +111,16 @@ public class BandRoleAudioController : MonoBehaviour
         }
         else
         {
-            instrumentEmitter.EventReference.Path = null;
+            //string emptyEvent = "";
+            //instrumentEmitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference(emptyEvent);
+            //instrumentEmitter.EventReference
         }
 
         if (!string.IsNullOrEmpty(voiceEvent))
         {
             if(DoesEventExist(voiceEvent))
             {
-                voiceEmitter.EventReference = FMODUnity.EventReference.Find(voiceEvent);
+                voiceEmitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference(voiceEvent);
                 voiceEmitter.Play();
                 voiceInstance = voiceEmitter.EventInstance;
                 PrintEventParameters(voiceEvent);
@@ -126,7 +130,9 @@ public class BandRoleAudioController : MonoBehaviour
         }
         else
         {
-            voiceEmitter.EventReference.Path = null;
+            //string emptyEvent = "";
+            //voiceEmitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference(emptyEvent);
+            //voiceEmitter.EventReference.Path = null;
         }
         
     }

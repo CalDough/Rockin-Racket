@@ -7,7 +7,7 @@ public class ReadOnlyAttribute : PropertyAttribute
 {
 
 }
-
+/*
 [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
 public class ReadOnlyDrawer : PropertyDrawer
 {
@@ -27,3 +27,4 @@ public class ReadOnlyDrawer : PropertyDrawer
     }
 }
 
+*/
