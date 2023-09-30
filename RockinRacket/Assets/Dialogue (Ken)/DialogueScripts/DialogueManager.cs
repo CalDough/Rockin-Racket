@@ -5,7 +5,6 @@ using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
 using System;
-using Ink.UnityIntegration;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -22,8 +21,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
-    [Header("Globals Ink File")]
-    [SerializeField] private InkFile globalsInkFile;
+    [Header("Load Globals JSON File")]
+    [SerializeField] private TextAsset loadGlobalsJSON;
 
 
     // Internal variable that tracks the current state of the dialogue currently given (Story is the Plugins class for saving the ink file) 
@@ -48,7 +47,7 @@ public class DialogueManager : MonoBehaviour
         }
         instance = this;
         dialoguePanel.SetActive(false);
-        dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
+        dialogueVariables = new DialogueVariables(loadGlobalsJSON);
     }
 
     public static DialogueManager GetInstance()
@@ -69,7 +68,7 @@ public class DialogueManager : MonoBehaviour
             choicesText[i] = choices[i].GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        continuePressed = false;
+        continuePressed = false; 
     }
 
     private void Update()
@@ -80,7 +79,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (currentStory.currentChoices.Count == 0
+        if(currentStory.currentChoices.Count == 0 
            && continuePressed)
         {
             ContinueStory();
@@ -107,7 +106,7 @@ public class DialogueManager : MonoBehaviour
         portraitAnimator.Play("default");
         layoutAnimator.Play("left");
 
-        ContinueStory();
+        ContinueStory();        
     }
 
     // Method that does what it says
@@ -179,7 +178,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         int index = 0;
-        for (int i = 0; i < currentChoices.Count; i++)
+        for(int i = 0; i < currentChoices.Count; i++)
         {
             choices[i].gameObject.SetActive(true);
             choicesText[i].text = currentChoices[i].text;

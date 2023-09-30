@@ -312,7 +312,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         // Triggering our method in the Audience class
         if (hitsAudience)
         {
-            target.GetComponentInParent<Audience>().PlayTCMReaction(pressure);
+            target.GetComponentInParent<AudienceTCMReaction>().PlayTCMReaction(pressure);
         }
 
         if (hitsAudience && pressure.Equals("Good"))
