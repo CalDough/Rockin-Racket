@@ -22,9 +22,9 @@ public static class ConcertAudioEvent
         OnAudioFixed?.Invoke(null, new ConcertAudioEventArgs( eventData,  brokenValue,  concertPosition,  affectInstrument));
     }
 
-    public static void PlayingAudio(int concertPosition, bool affectInstrument)
+    public static void PlayingAudio(int concertPosition)
     {
-        OnPlayingAudio?.Invoke(null, new ConcertAudioEventArgs(  concertPosition,  affectInstrument));
+        OnPlayingAudio?.Invoke(null, new ConcertAudioEventArgs(  concertPosition));
     }
 
     public static void ConcertEnd()
@@ -45,10 +45,9 @@ public class ConcertAudioEventArgs : EventArgs
 
     }
 
-    public ConcertAudioEventArgs(int concertPosition, bool affectInstrument)
+    public ConcertAudioEventArgs(int concertPosition)
     {
         ConcertPosition = concertPosition;
-        AffectInstrument = affectInstrument;
     }
 
     public ConcertAudioEventArgs(MiniGame eventData, float brokenValue, int concertPosition, bool affectInstrument)

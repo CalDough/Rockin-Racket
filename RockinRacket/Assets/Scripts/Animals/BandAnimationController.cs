@@ -20,12 +20,12 @@ public class BandAnimationController : MonoBehaviour
         if (BandMember.isPlaying || BandMember.isSinging)
         {
             characterAnimator.Play(playingName);
-            Debug.Log($"Playing animation: {playingName}");
+            //Debug.Log($"Playing animation: {playingName}");
         }
         else
         {
             characterAnimator.Play(idleName);
-            Debug.Log($"Playing animation: {idleName}");
+            //Debug.Log($"Playing animation: {idleName}");
         }
     }
 
@@ -54,7 +54,7 @@ public class BandAnimationController : MonoBehaviour
 
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
     {
-        PlayAnimation();
+        //Testing
     }
     
     public void HandleGameStateEnd(object sender, GameStateEventArgs e)

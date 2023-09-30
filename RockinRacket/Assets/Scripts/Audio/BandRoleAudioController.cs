@@ -103,8 +103,8 @@ public class BandRoleAudioController : MonoBehaviour
                 instrumentInstance = instrumentEmitter.EventInstance;
                 
                 PrintEventParameters(instrumentEvent);
-                 ConcertAudioEvent.PlayingAudio(this.ConcertPosition, true);
                 this.isPlaying = true;
+                ConcertAudioEvent.PlayingAudio(this.ConcertPosition);
             }
         }
         else
@@ -120,9 +120,8 @@ public class BandRoleAudioController : MonoBehaviour
                 voiceEmitter.Play();
                 voiceInstance = voiceEmitter.EventInstance;
                 PrintEventParameters(voiceEvent);
-                
-                ConcertAudioEvent.PlayingAudio(this.ConcertPosition, false);
                 isSinging = true;
+                ConcertAudioEvent.PlayingAudio(this.ConcertPosition);
             }
         }
         else
