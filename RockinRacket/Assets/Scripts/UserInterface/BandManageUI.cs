@@ -12,7 +12,6 @@ public class BandManageUI : MonoBehaviour
 {
     public GameObject ItemGivePanel;
     public GameObject ItemChangePanel;
-    public GameObject DialoguePanel;
 
     public TextMeshProUGUI InfoTextBox; 
     public BandPosition SelectedPosition;
@@ -157,52 +156,12 @@ public class BandManageUI : MonoBehaviour
     public void TalkToMember()
     {
         DialogueManager.GetInstance().StartDialogue(conversations[convIndex]);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        // CanChangeMember = false;
-        //while dialogue or cutscene is active, I think it would be easier to keep it the same member until that finishes to swap
-        // if(StoryManager.Instance.GetDialogue() == true)
-        // {
-        //     SceneReader.DialogueStarted();
-        //     CanChangeMember = true;
-        //     DialoguePanel.SetActive(true);
-        // }
-        // else
-        // {
-        //     DialoguePanel.SetActive(false);
-        // }
-
-    }
-
-    public void EndDialogue()
-    {
-        CanChangeMember = true;
-        if(DialoguePanel == null)
-        {return;}
-
-        if (DialoguePanel.activeSelf)
-        {
-            DialoguePanel.SetActive(false);
-        }
-        else
-        {
-            DialoguePanel.SetActive(true);
-        }
     }
 
 
     //set itemgivepanel to active, close other panels
     public void GiveItem()
     {
-        if(DialoguePanel.activeSelf)
-        {return;}
         if(ItemGivePanel == null)
         {return;}
 
@@ -219,8 +178,6 @@ public class BandManageUI : MonoBehaviour
     //set itemchangepanel to active, close other panels
     public void ChangeGear()
     {
-        if(DialoguePanel.activeSelf)
-        {return;}
         if(ItemChangePanel == null)
         {return;}
 
@@ -266,7 +223,6 @@ public class BandManageUI : MonoBehaviour
     {
         ItemChangePanel.SetActive(false);
         ItemGivePanel.SetActive(false);
-        DialoguePanel.SetActive(false);
     }
 
 
