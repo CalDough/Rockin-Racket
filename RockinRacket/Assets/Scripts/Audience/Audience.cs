@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class Audience : MonoBehaviour
 {
     // Visible Fields
+    // Will be reorganized at a later date
     [ReadOnly] int AudienceMood = 0;
     [SerializeField] int AudienceStartingMood;
     [SerializeField] MoodBar moodBar;
@@ -26,6 +27,9 @@ public class Audience : MonoBehaviour
 
     // Private variables
     private Animator anim;
+    private int eventsFailed = 0;
+    private int eventsCompleted = 0;
+    private int eventsMissed = 0;
 
 
     private void Start()
@@ -85,6 +89,7 @@ public class Audience : MonoBehaviour
         AudienceMood = (int)(AudienceMood * moodNegativeIncreaseModifier);
 
         moodBar.SetValue(AudienceMood);
+        eventsFailed++;
     }
 
     public void EventCancelMoodAlter(object sender, GameEventArgs e)
@@ -103,6 +108,7 @@ public class Audience : MonoBehaviour
         AudienceMood = (int)(AudienceMood * moodPositiveIncreaseModifier);
 
         moodBar.SetValue(AudienceMood);
+        eventsCompleted++;
     }
 
     public void EventMissMoodAlter(object sender, GameEventArgs e)
@@ -112,5 +118,26 @@ public class Audience : MonoBehaviour
         AudienceMood = (int)(AudienceMood * moodNegativeIncreaseModifier);
 
         moodBar.SetValue(AudienceMood);
+        eventsMissed++;
+    }
+
+    public int GetEventsFailed()
+    {
+        return eventsFailed;
+    }
+
+    public int GetEventsCompleted()
+    {
+        return eventsCompleted;
+    }
+
+    public int GetEventsMissed()
+    {
+        return eventsMissed;
+    }
+
+    public int GetCurrentMood()
+    {
+        return AudienceMood;
     }
 }
