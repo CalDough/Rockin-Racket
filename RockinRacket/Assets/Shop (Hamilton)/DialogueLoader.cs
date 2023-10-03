@@ -6,14 +6,15 @@ using System.IO;
 using System;
 using UnityEditor;
 
-public class DialogueSaver
+public class StorySaver
 {
     // CHANGE TO THIS FOR FINAL BUILD
-    //private string saveFolderPath = "Player/SaveFiles/";
-    private static string saveFolderPath = "Assets/Scripts/Dialogue/";
+    //private static string saveFolderPath = "Player/SaveFiles/";
+    private static string saveFolderPath = "Assets/Dialogue/";
     private static string saveFileName = "SavedDialogue.txt";
-
-    private Dictionary<CharacterDialogueOptions.character, string[]> characterCurrentDialogueOptions;
+    private string[] characters = { "Haley", "Ace", "MJ", "Kurt", "Jay" };
+    // RR [NAME] Convos
+    //private Dictionary<characters> characterCurrentDialogueOptions;
 
     private static List<string> dialogueStrings;
 

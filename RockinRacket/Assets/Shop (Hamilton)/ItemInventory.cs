@@ -10,7 +10,7 @@ public class ItemInventory
 {
     // CHANGE TO THIS FOR FINAL BUILD
     //private string saveFolderPath = "Player/SaveFiles/";
-    private static string saveFolderPath = "Assets/Shop (Hamilton)/";
+    private static string saveFolderPath = "Assets/SaveFiles/";
     private static string saveFileName = "Items.txt";
 
     private static List<ItemTest> items = new();
