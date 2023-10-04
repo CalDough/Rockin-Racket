@@ -21,7 +21,7 @@ public class ItemInventory
     public static List<ItemTest> GetItems() { return items; }
     public static bool ContainsItem(ItemTest item) { return items.Contains(item); }
 
-    public static List<GameObject> ItemMinigames(MiniGame minigame)
+    public static List<GameObject> ItemMinigames()
     {
         List<GameObject> minigamesToSpawn = new();
         foreach (ItemTest item in items)

@@ -40,7 +40,7 @@ public class GameSaver
 
         LoadLines(File.ReadAllLines(filePath));
 
-        Debug.Log($"Game stats loaded successfully.");
+        Debug.Log($"Game stats loaded successfully:");
     }
     private static string[] LinesToSave()
     {
@@ -58,5 +58,11 @@ public class GameSaver
         Hub = hub.ToString();
         Fame = fame.ToString();
         Money = money.ToString();
+    }
+    public static void PrintStats()
+    {
+        Debug.Log("Hub: " + Hub);
+        Debug.Log("Fame: " + Fame);
+        Debug.Log("Money: " + Money);
     }
 }
