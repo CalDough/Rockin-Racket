@@ -19,4 +19,10 @@ public class Test : MonoBehaviour
         GameSaver.Load();
         GameSaver.PrintStats();
     }
+    public void LoadDialogue()
+    {
+        string[] result = DialogueLoader.GetDialogueFile("Ace");
+        Debug.Log("Successfully found file: " + result[0]);
+        Debug.Log("Hub: " + result[1]);
+    }
 }

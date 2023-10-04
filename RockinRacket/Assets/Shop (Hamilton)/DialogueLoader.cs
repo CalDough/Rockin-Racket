@@ -8,12 +8,12 @@ using UnityEditor;
 
 public class DialogueLoader
 {
-    private static string folderPath = "Assets/Dialogue (Ken)/InkFiles";
+    private static string folderPath = "Assets/Dialogue (Ken)/InkFiles/";
 
     public static string[] GetDialogueFile(string characterName)
     {
         // RR [NAME] Convos
-        string filePath = folderPath + "RR " + characterName + " Convos";
+        string filePath = folderPath + "RR " + characterName + " Convos.json";
         string hub = GameSaver.GetCurrentHub();
         if (!File.Exists(filePath))
         {
