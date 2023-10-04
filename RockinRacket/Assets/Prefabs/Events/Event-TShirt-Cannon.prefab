@@ -658,13 +658,19 @@ MonoBehaviour:
   playableArea: {fileID: 6966252969337903327}
   tShirtCursorImage: {fileID: 2518437416994042295}
   maxPressure: 90
-  pressureIncrementMultiplier: 0
+  fillBarImage: {fileID: 6098548579181594264}
+  defaultColor: {r: 1, g: 0, b: 0, a: 1}
+  goodPressureColor: {r: 0, g: 1, b: 0, a: 1}
   shotCounterText: {fileID: 831546645303344158}
   cannonRange: 10000
   maxNumShots: 5
   fameIncrement: 0
   fameDecrement: 0
   fameComboMultiplier: 3
+  remainingShots: 0
+  currentPressureValue: 0
+  currentFame: 0
+  isEventOpen: 0
 --- !u!1 &5208563812060091739
 GameObject:
   m_ObjectHideFlags: 0

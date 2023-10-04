@@ -34,6 +34,10 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     [SerializeField] int maxPressure;
     //[SerializeField] int pressureIncrementMultiplier;
     private int pressureDirection = 1; 
+    [Header("Slider Fill Color")]
+    [SerializeField] private Image fillBarImage; 
+    [SerializeField] private Color defaultColor = Color.red; 
+    [SerializeField] private Color goodPressureColor = Color.green;
 
     [Header("Shot Counter")]
     [SerializeField] TMP_Text shotCounterText;
@@ -68,8 +72,8 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     public override void OpenEvent()
     {
         base.OpenEvent();
-        StartCoroutine(CyclePressureBar());
         isEventOpen = true;
+        StartCoroutine(CyclePressureBar());
         CinemachineGameEvents.instance.e_SwitchToTShirtCam.Invoke();
         mainCamera = Camera.main;
     }
@@ -110,11 +114,14 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         if (IsCompleted == false)
         { RestartMiniGameLogic(); }
     }
-
+    
     IEnumerator CyclePressureBar()
     {
-        while (isEventOpen && this.isActiveEvent)
+        float previousPressureValue = 0;
+
+        while (isEventOpen)
         {
+            //Debug.Log("Cycling pressure bar. Current pressure: " + currentPressureValue);
             currentPressureValue += pressureDirection;
 
             if (currentPressureValue >= maxPressure || currentPressureValue <= 0)
@@ -122,10 +129,23 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
                 pressureDirection *= -1; 
             }
 
-            cannonPressureSlider.value = currentPressureValue;
+            cannonPressureSlider.value = Mathf.SmoothStep(previousPressureValue, currentPressureValue, 0.5f);
+            previousPressureValue = cannonPressureSlider.value;
 
-            yield return new WaitForSeconds(0.1f);  
+            if (currentPressureValue > maxPressure / 3 && currentPressureValue < 2 * maxPressure / 3)
+            {fillBarImage.color = goodPressureColor;}
+            else
+            {fillBarImage.color = defaultColor;}
+            
+            float dynamicWaitTime = CalculateDynamicWaitTime();
+            yield return new WaitForSeconds(dynamicWaitTime);  
         }
+    }
+
+    float CalculateDynamicWaitTime()
+    {
+        float normalizedPressure = currentPressureValue / maxPressure;
+        return Mathf.Clamp((normalizedPressure - 0.5f) * (normalizedPressure - 0.5f) + 0.01f, 0.01f, 0.05f);
     }
 
     private void Update()
