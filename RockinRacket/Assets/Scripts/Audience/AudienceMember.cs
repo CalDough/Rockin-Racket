@@ -16,9 +16,11 @@ public class AudienceMember : MonoBehaviour
 
     private void Start()
     {
+        GameStateEvent.OnGameStateStart += HandleGameStateStart;
         animator = GetComponent<Animator>();
     }
 
+    //Reacts to the TCM mini-game and changes animated state
     public void PlayTCMReaction(TShirtCannon.PressureState pressure)
     {
         switch (pressure)
@@ -29,7 +31,7 @@ public class AudienceMember : MonoBehaviour
                 break;
 
             case TShirtCannon.PressureState.Weak:
-                animator.Play("Audience_Excite");
+                animator.Play("Audience_Excited");
                 break;
 
             case TShirtCannon.PressureState.Bad:
@@ -38,4 +40,32 @@ public class AudienceMember : MonoBehaviour
                 break;
         }
     }
+
+    //Reacts to the concert status and changes animated state
+    public virtual void HandleGameStateStart(object sender, GameStateEventArgs e)
+    {
+        switch(e.stateType)
+        {   
+            case GameModeType.SceneIntro:
+                animator.Play("Audience_Normal");
+                break;
+            case GameModeType.Song:
+                animator.Play("Audience_Excited");
+                break;
+            case GameModeType.Intermission:
+                animator.Play("Audience_Excited");
+                break;
+            case GameModeType.SceneOutro:
+                animator.Play("Audience_Normal");
+                break;
+            default:
+                break;
+        }
+    }
+
+    void OnDestroy()
+    {
+        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
+    }
+
 }

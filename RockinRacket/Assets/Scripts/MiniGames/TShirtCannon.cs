@@ -32,6 +32,8 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
 
     [Header("Cannon Pressure Bar")]
     [SerializeField] int maxPressure;
+    [SerializeField] private float minGoodPressure = 33;
+    [SerializeField] private float maxGoodPressure = 66;
     //[SerializeField] int pressureIncrementMultiplier;
     private int pressureDirection = 1; 
     [Header("Slider Fill Color")]
@@ -43,6 +45,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     [SerializeField] TMP_Text shotCounterText;
     
     [Header("Variables")]
+    //Just gonna serialize these values so i can debug them later on
     [SerializeField] int cannonRange;
     [SerializeField] int maxNumShots;
     [SerializeField] int fameIncrement;
@@ -53,8 +56,10 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     [SerializeField] private float currentPressureValue = 0;
     [SerializeField] private float currentFame = 0;
     [SerializeField] private bool isEventOpen = false;
-    //[SerializeField] private bool isPressureIncreasing = true;
 
+    /*
+     * Activate runs when the event is spawn in, NOT when the event is opened by the player
+     */
     public override void Activate()
     {
         base.Activate();
@@ -69,15 +74,23 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         StartCoroutine(CyclePressureBar());
     }
 
+    /*
+     * OpenEvent runs when the player opens the minigame through the UI
+     */
     public override void OpenEvent()
     {
         base.OpenEvent();
-        isEventOpen = true;
+        isEventOpen = true; // This variable is used to block the event's factors to trigger early
         StartCoroutine(CyclePressureBar());
+        // Calling our Cinemachine game event to swap the camera using the Cinemachine animator
         CinemachineGameEvents.instance.e_SwitchToTShirtCam.Invoke();
+        // Grabbing the current camera to use with Raycasting as a part of this minigame
         mainCamera = Camera.main;
     }
 
+    /*
+     * CloseEvent() runs when the event is closed by the player through the UI
+     */
     public override void CloseEvent()
     {
         base.CloseEvent();
@@ -86,6 +99,9 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         StopCoroutine(CyclePressureBar());
     }
 
+    /*
+     * Complete is called when the player finishes the event before time is up
+     */
     public override void Complete()
     {
         isActiveEvent = false;
@@ -97,6 +113,9 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         StopCoroutine(CyclePressureBar());
     }
 
+    /*
+     * EndEvent() runs when the minigame is forceably closed by the game or the event is over
+     */
     public override void End()
     {
         isActiveEvent = false;
@@ -107,6 +126,9 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         StopCoroutine(CyclePressureBar());
     }
 
+    /*
+     * HandleClosing handles the fine details of closing the event, and is called by CloseEvent()
+     */
     public override void HandleClosing()
     {
         Panels.SetActive(false);
@@ -115,6 +137,9 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         { RestartMiniGameLogic(); }
     }
     
+    /*
+     * This co-routine cycles the cannon bar and changes its color
+     */
     IEnumerator CyclePressureBar()
     {
         float previousPressureValue = 0;
@@ -132,16 +157,20 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
             cannonPressureSlider.value = Mathf.SmoothStep(previousPressureValue, currentPressureValue, 0.5f);
             previousPressureValue = cannonPressureSlider.value;
 
-            if (currentPressureValue > maxPressure / 3 && currentPressureValue < 2 * maxPressure / 3)
-            {fillBarImage.color = goodPressureColor;}
+            if (GetPressureState() == PressureState.Good)
+            {
+                fillBarImage.color = goodPressureColor;
+            }
             else
-            {fillBarImage.color = defaultColor;}
-            
+            {
+                fillBarImage.color = defaultColor;
+            }
+
             float dynamicWaitTime = CalculateDynamicWaitTime();
             yield return new WaitForSeconds(dynamicWaitTime);  
         }
     }
-
+    // helper function to make the bar cycle faster/slower depending on its values
     float CalculateDynamicWaitTime()
     {
         float normalizedPressure = currentPressureValue / maxPressure;
@@ -150,14 +179,37 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
 
     private void Update()
     {
-        if (isEventOpen)
+        if (isEventOpen && tShirtCursorImage)
         {
-            tShirtCursorImage.anchoredPosition = Input.mousePosition;
+            Vector2 localCursor;
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(playableArea, Input.mousePosition, null, out localCursor))
+            {
+                tShirtCursorImage.anchoredPosition = localCursor;
+            }
+
             tShirtCursorImage.gameObject.SetActive(IsMouseInPlayableArea());
         }
     }
 
+    private PressureState GetPressureState()
+    {
+        if (currentPressureValue < minGoodPressure)
+        {
+            return PressureState.Bad;
+        }
+        else if (currentPressureValue >= minGoodPressure && currentPressureValue <= maxGoodPressure)
+        {
+            return PressureState.Good;
+        }
+        else
+        {
+            return PressureState.Weak;
+        }
+    }
 
+    /*
+     * This method checks if the players mouse is within the firing zone so they dont waste their shot
+     */
     private bool IsMouseInPlayableArea()
     {
         if (RectTransformUtility.RectangleContainsScreenPoint(playableArea, Input.mousePosition))
@@ -167,6 +219,10 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         return false;
     }
 
+    /*
+     * This method takes player input when they click the mouse and determines what the 
+     * player is hitting and at what pressure amount
+     */
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!isActiveEvent) 
@@ -178,16 +234,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         if (!IsMouseInPlayableArea())
         {return;} 
 
-        PressureState currentPressureState;
-
-        if (currentPressureValue < maxPressure / 3)
-        {currentPressureState = PressureState.Bad;} 
-
-        else if (currentPressureValue < 2 * maxPressure / 3) 
-        {currentPressureState = PressureState.Weak;}
-
-        else 
-        {currentPressureState = PressureState.Good;}
+        PressureState currentPressureState = GetPressureState();
 
         Ray ray = mainCamera.ScreenPointToRay(eventData.position);
 
@@ -208,6 +255,10 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         }
     }
 
+    /*
+     * This method takes values from OnPointerDown and translates it into firing the t-shirt
+     * into the audience
+     */
     private void FireShirt(bool hitsAudience, PressureState pressureState, GameObject target)
     {
         remainingShots--;
