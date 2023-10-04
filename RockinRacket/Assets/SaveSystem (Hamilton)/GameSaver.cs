@@ -65,4 +65,8 @@ public class GameSaver
         Debug.Log("Fame: " + Fame);
         Debug.Log("Money: " + Money);
     }
+    public static string GetCurrentHub()
+    {
+        return Hub;
+    }
 }
