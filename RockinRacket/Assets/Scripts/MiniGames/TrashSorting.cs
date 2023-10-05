@@ -23,6 +23,11 @@ public class TrashSorting : MiniGame
     [SerializeField] private int totalTrash;
 
 
+    private void Start()
+    {
+        DropEvents.current.e_DropEvent.AddListener(SubtractTrash);
+    }
+
     /*
      * This method is run when the minigame is activated
      */
@@ -68,6 +73,21 @@ public class TrashSorting : MiniGame
 
             // Instantiating the object at our spawn position
             GameObject spawnedTrash = Instantiate(trashPrefab, spawnPosition, Quaternion.identity, spawnArea);
+        }
+    }
+
+    private void SubtractTrash(int i)
+    {
+        if (i == 0)
+        {
+            Debug.Log("Trash decrementing");
+            totalTrashRemaining--;
+
+            if (totalTrashRemaining <= 0)
+            {
+                Complete();
+                Debug.Log("Complete Trash Sorting");
+            }
         }
     }
 

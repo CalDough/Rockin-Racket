@@ -12,10 +12,13 @@ public class Drop : MonoBehaviour, IDropHandler
     {
         if (eventData.pointerDrag.transform.name == slotName)
         {
+            DropEvents.current.e_DropEvent.Invoke(minigameID);
+
             Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
             if(draggable != null)
             {
                 draggable.startPosition = transform.position;
+                Debug.Log("Dragged");
             }
         }
     }
