@@ -154,7 +154,7 @@ public class DialogueManager : MonoBehaviour
                     speakerName.text = tagValue;
                     break;
                 case PORTRAIT_TAG:
-                    portraitAnimator.Play(tagValue);
+                    portraitAnimator.Play(tagValue.ToLower());
                     break;
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagValue);
@@ -174,6 +174,7 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
 
         dialogueVariables.StopListening(currentStory);
+        DialogueEvents.InvokeDialogueEnd();
     }
 
     // Method that does what it says
