@@ -9,6 +9,9 @@ public class DialogueEvents
 
     public static void InvokeDialogueEnd()
     {
-        DialogueEnd(null, EventArgs.Empty);
+        if (DialogueEnd != null)
+        {
+            DialogueEnd(null, EventArgs.Empty);
+        }
     }
 }

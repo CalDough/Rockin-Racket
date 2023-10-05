@@ -169,12 +169,12 @@ public class DialogueManager : MonoBehaviour
     // Method that does what it says
     private void StopDialogue()
     {
+        DialogueEvents.InvokeDialogueEnd();
         dialogueActive = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
 
         dialogueVariables.StopListening(currentStory);
-        DialogueEvents.InvokeDialogueEnd();
     }
 
     // Method that does what it says
