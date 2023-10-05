@@ -28,7 +28,9 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
     private RectTransform rectTransform;
     private Vector2 centerPosition;
     public float currentAngle;
-
+    
+    public bool lockable = true;
+    public bool isLocked = false;
     public delegate void DialMatchedEventHandler();
     public event DialMatchedEventHandler OnDialMatched;
 
@@ -52,6 +54,9 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
 
     public void OnDrag(PointerEventData eventData)
     {
+        if(isLocked)
+        {return;}
+        
         if (isDragging)
         {
             Vector2 localPoint;
@@ -82,6 +87,7 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
 
     private void UpdateHandle(float angle)
     {
+        
         Vector2 newPos = new Vector2(centerPosition.x + Mathf.Cos(angle * Mathf.Deg2Rad) * radius, centerPosition.y + Mathf.Sin(angle * Mathf.Deg2Rad) * radius);
         handle.localPosition = newPos;
 
@@ -145,6 +151,8 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         {
             MatchingAngle = true;
             OnDialMatched?.Invoke(); 
+            if(lockable){isLocked = true;}
+        
         }
         else
         {

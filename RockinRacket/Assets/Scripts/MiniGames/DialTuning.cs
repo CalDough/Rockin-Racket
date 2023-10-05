@@ -60,9 +60,14 @@ public class DialTuning : MiniGame
     {
         foreach (Dial dial in dials)
         {
-            float randomAngle = Random.Range(dial.startAngle, dial.endAngle);
-            dial.SetMarkerAngle(randomAngle);
-            dial.currentAngle = randomAngle;
+            if(!dial.isLocked)
+            {
+                float randomAngle = Random.Range(dial.startAngle, dial.endAngle);
+                dial.SetMarkerAngle(randomAngle);
+                dial.currentAngle = randomAngle;
+            }
+            
+            
         }
     }
 

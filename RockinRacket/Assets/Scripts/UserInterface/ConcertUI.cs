@@ -21,6 +21,7 @@ public class ConcertUI :  ScrollSelector<MiniGame>
     
     public TextMeshProUGUI ConcertCompletionTextBox; 
 
+
     public void EndConcert()
     {
         FinishConcertButton.SetActive(true);
@@ -110,25 +111,25 @@ public class ConcertUI :  ScrollSelector<MiniGame>
         switch(e.stateType)
         {
             case GameModeType.Song:
-                InfoTextBox.text = "State Song";
+                InfoTextBox.text = "Song "+ e.state.Duration +" Seconds";
                 break;
             case GameModeType.Intermission:
-                InfoTextBox.text = "State Intermission";
+                InfoTextBox.text = "Intermission "+ e.state.Duration +" Seconds";
                 break;
             case GameModeType.Cutscene:
-                InfoTextBox.text = "State Cutscene";
+                InfoTextBox.text = "Cutscene "+ e.state.Duration +" Seconds";
                 break;
             case GameModeType.Dialogue:
-                InfoTextBox.text = "State Dialogue";
+                InfoTextBox.text = "Dialogue "+ e.state.Duration +" Seconds";
                 break;
             case GameModeType.BandBattle:
-                InfoTextBox.text = "State Battle";
+                InfoTextBox.text = "Battle "+ e.state.Duration +" Seconds";
                 break;
             case GameModeType.SceneIntro:
-                InfoTextBox.text = "State Intro";
+                InfoTextBox.text = "Intro "+ e.state.Duration +" Seconds";
                 break;
             case GameModeType.SceneOutro:
-                InfoTextBox.text = "State Outro";
+                InfoTextBox.text = "Outro "+ e.state.Duration +" Seconds";
                 break;
             default:
                 break;
