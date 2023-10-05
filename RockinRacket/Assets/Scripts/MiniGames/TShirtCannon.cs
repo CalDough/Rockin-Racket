@@ -30,6 +30,10 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     [SerializeField] RectTransform playableArea;
     [SerializeField] private RectTransform tShirtCursorImage;
 
+    [Header("Click Particle Effect")]
+    [SerializeField] private GameObject particlePrefab; 
+    [SerializeField] private RectTransform parentRect;
+
     [Header("Cannon Pressure Bar")]
     [SerializeField] int maxPressure;
     [SerializeField] private float minGoodPressure = 33;
@@ -234,6 +238,8 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         if (!IsMouseInPlayableArea())
         {return;} 
 
+        //PlayParticlesAtPosition(eventData.position);
+
         PressureState currentPressureState = GetPressureState();
 
         Ray ray = mainCamera.ScreenPointToRay(eventData.position);
@@ -287,5 +293,27 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
             currentFame -= fameDecrement * fameComboMultiplier;
         }
     }
+
+    //Not sure why this doesn't work, disabled for now
+    private void PlayParticlesAtPosition(Vector2 screenPosition)
+    {
+        if (particlePrefab && parentRect)
+        {
+            Vector2 localCursor;
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPosition, null, out localCursor))
+            {
+                GameObject particleInstance = Instantiate(particlePrefab, parentRect.transform);
+                
+                RectTransform rectTransform = particleInstance.GetComponent<RectTransform>();
+                rectTransform.anchoredPosition = localCursor;
+                
+                ParticleSystem ps = particleInstance.GetComponent<ParticleSystem>();
+                ps.Play();
+                Destroy(particleInstance, ps.main.duration + ps.main.startLifetime.constantMax);
+            }
+        }
+    }
+
+
 }
 
