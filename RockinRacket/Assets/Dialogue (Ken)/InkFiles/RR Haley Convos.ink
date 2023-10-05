@@ -18,9 +18,9 @@ INCLUDE globals.ink
         "Yeah, I was wondering if I did alright during that performance? I feel like it was bad, but the crowd seemed to like it so I'm confused."
         -> H_H1_C1
             
- * ["I wanted check in on..."]
+ * ["I wanted to check in on..."]
         #speaker: Harvey #portrait: Harvey_neutral
-        "I wanted check in on your equipment. Everything in working order?"
+        "I wanted to check in on your equipment. Everything in working order?"
         -> H_H1_C2
  * [End convo]
         -> Ending
@@ -34,7 +34,7 @@ INCLUDE globals.ink
             -> Haley
     * ["When you put it that way..."]
         #speaker: Harvey #portrait: Harvey_neutral
-        "When you put it that way[..."], it makes a lot of sense. I'll probably look back on this and laugh about it in the future"
+        "When you put it that way, it makes a lot of sense. I'll probably look back on this and laugh about it in the future"
             -> Haley
 
 = H_H1_C2
