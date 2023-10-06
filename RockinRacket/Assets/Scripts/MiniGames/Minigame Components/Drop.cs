@@ -10,6 +10,7 @@ public class Drop : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        Debug.Log("DROPPED");
         if (eventData.pointerDrag.transform.name == slotName)
         {
             DropEvents.current.e_DropEvent.Invoke(minigameID);
