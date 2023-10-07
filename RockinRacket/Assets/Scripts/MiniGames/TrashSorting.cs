@@ -63,7 +63,7 @@ public class TrashSorting : MiniGame
             // Calculating the spawn position in our rectangle
             Vector3 spawnPosition = new Vector3
             (
-                Random.Range(spawnArea.rect.min.x, spawnArea.rect.max.x),
+                Random.Range((spawnArea.rect.min.x + spawnArea.rect.width / 2), spawnArea.rect.max.x),
                 Random.Range(spawnArea.rect.min.y, spawnArea.rect.max.y),
                 0
             );
