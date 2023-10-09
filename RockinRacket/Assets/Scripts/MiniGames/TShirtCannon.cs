@@ -28,7 +28,12 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
 
     [Header("Playable Area")]
     [SerializeField] RectTransform playableArea;
-    [SerializeField] private RectTransform tShirtCursorImage;
+    [SerializeField] private RectTransform tShirtCursorRect;
+    [SerializeField] private Image tShirtCursorImage;
+
+    [Header("Cooldown")]
+    [SerializeField] private float fireCooldown = 1.5f; 
+    private bool canFire = true;
 
     [Header("Click Particle Effect")]
     [SerializeField] private GameObject particlePrefab; 
@@ -183,15 +188,15 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
 
     private void Update()
     {
-        if (isEventOpen && tShirtCursorImage)
+        if (isEventOpen && tShirtCursorRect)
         {
             Vector2 localCursor;
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(playableArea, Input.mousePosition, null, out localCursor))
             {
-                tShirtCursorImage.anchoredPosition = localCursor;
+                tShirtCursorRect.anchoredPosition = localCursor;
             }
 
-            tShirtCursorImage.gameObject.SetActive(IsMouseInPlayableArea());
+            tShirtCursorRect.gameObject.SetActive(IsMouseInPlayableArea());
         }
     }
 
@@ -229,7 +234,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
      */
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!isActiveEvent) 
+        if (!isActiveEvent || !canFire) 
         {return;}
         
         if (mainCamera == null)
@@ -259,6 +264,21 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
                 FireShirt(false, currentPressureState, target);
             }
         }
+        StartCoroutine(FireCooldown());
+    }
+
+    private IEnumerator FireCooldown()
+    {
+        canFire = false;
+        Color cursorColor = tShirtCursorImage.color;
+        cursorColor.a = 0.5f;
+        tShirtCursorImage.color = cursorColor;
+
+        yield return new WaitForSeconds(fireCooldown);
+        cursorColor.a = 1f;
+        tShirtCursorImage.color = cursorColor;
+
+        canFire = true;
     }
 
     /*

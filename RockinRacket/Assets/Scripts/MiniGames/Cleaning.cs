@@ -7,8 +7,8 @@ using UnityEngine.EventSystems;
 public class Cleaning : MiniGame
 {
     public GameObject[] trashPrefabs; 
-    public int minTrashCount = 10;    // Minimum number of trash items to spawn
-    public int maxTrashCount = 20;    // Maximum number of trash items to spawn
+    public int minTrashCount = 5;    // Minimum number of trash items to spawn
+    public int maxTrashCount = 10;    // Maximum number of trash items to spawn
 
     public RectTransform spawnArea;
 

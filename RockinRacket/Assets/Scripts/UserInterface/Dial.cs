@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
@@ -23,7 +24,7 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
     public float endAngle = 360;
     public float radius = 100; // Set the radius for the circular slider
     public float maxRateOfChange = 10f; // Set the max rate of angle change in degrees per frame
-
+    
     private bool isDragging;
     private RectTransform rectTransform;
     private Vector2 centerPosition;
@@ -149,14 +150,44 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
     {
         if (Mathf.Abs(Mathf.DeltaAngle(currentAngle, markerAngle)) <= matchingThreshold)
         {
-            MatchingAngle = true;
-            OnDialMatched?.Invoke(); 
-            if(lockable){isLocked = true;}
-        
+            if(lockable && isLocked != true)
+            {
+                isLocked = true;
+                StartCoroutine(LerpToMarkerAngle());
+            }
+            else
+            {  
+                MatchingAngle = true;
+                OnDialMatched?.Invoke(); 
+            }
         }
         else
         {
             MatchingAngle = false;
         }
+    }
+
+    private IEnumerator LerpToMarkerAngle()
+    {
+        float duration = .25f;
+        float elapsed = 0f; 
+
+        float startAngle = currentAngle; 
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            
+            currentAngle = Mathf.LerpAngle(startAngle, markerAngle, t);
+
+            UpdateHandle(currentAngle % 360);
+            yield return null;
+        }
+
+        currentAngle = markerAngle; 
+        UpdateHandle(currentAngle % 360);
+        MatchingAngle = true;
+        OnDialMatched?.Invoke(); 
     }
 }
