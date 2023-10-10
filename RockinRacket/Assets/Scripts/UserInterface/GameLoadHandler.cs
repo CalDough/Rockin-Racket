@@ -14,7 +14,7 @@ public class GameLoadHandler : MonoBehaviour
     private InputAction pauseAction;
     private int currentSceneIndex;
 
-    private Stack<int> sceneIndexHistory = new();
+    private static Stack<int> sceneIndexHistory = new();
     
     public void NewData()
     {
@@ -59,35 +59,44 @@ public class GameLoadHandler : MonoBehaviour
 
     public void GoBackScene()
     {
+        int nextScene = 1;
         if (sceneIndexHistory.Count != 0)
-            currentSceneIndex = sceneIndexHistory.Pop();
-        else
-            currentSceneIndex = 1;
-        SetScene(currentSceneIndex);
+            nextScene = sceneIndexHistory.Pop();
+        if (currentSceneIndex != nextScene)
+            SetScene(nextScene);
     }
 
     // for TESTING
     public void RandomScene()
     {
-        SwitchToScene(new System.Random().Next(1, 12));
+        SwitchToScene(new System.Random().Next(3, 8));
     }
 
     public void SwitchToScene(int sceneIndex)
     {
-        AddSceneIndexToHistory(currentSceneIndex);
+        Debug.Log("Current Index: " + currentSceneIndex + "  ||  " + "Next Index: " + sceneIndex);
         if (currentSceneIndex != sceneIndex)
         {
+            AddSceneIndexToHistory(currentSceneIndex);
             currentSceneIndex = sceneIndex;
             SetScene(currentSceneIndex);
         }
     }
 
-    private void AddSceneIndexToHistory(int sceneIndex)
+        //private void PrintSceneIndexHistory()
+        //{
+        //    string print = "Current Index: " + currentSceneIndex;
+        //    foreach (int sceneIndex in sceneIndexHistory.ToArray())
+        //        print += "Stack Index: " + sceneIndex + "\n";
+        //    Debug.Log(print);
+        //}
+
+        private void AddSceneIndexToHistory(int sceneIndex)
     {
         // do nothing if we already have that scene at the top of the stack
-        if (sceneIndexHistory.Count != 0)
-            if (sceneIndex == sceneIndexHistory.Peek())
-                return;
+        //if (sceneIndexHistory.Count != 0)
+        //    if (sceneIndex == sceneIndexHistory.Peek())
+        //        return;
         // else add it to the stack
         sceneIndexHistory.Push(sceneIndex);
     }
@@ -95,6 +104,7 @@ public class GameLoadHandler : MonoBehaviour
     private void Awake()
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
         // Assuming you have an action map named "Menu" and a Pause action within it.
         var menuActionMap = actionAsset.FindActionMap("PauseMenu");
         pauseAction = menuActionMap.FindAction("Pause");
@@ -137,7 +147,6 @@ public class GameLoadHandler : MonoBehaviour
 
     private void SetScene(int sceneIndex)
     {
-        Debug.Log(sceneIndexHistory.Count);
         CustomSceneEvent.CustomTransitionCalled(sceneIndex);
         CloseMenu();
         if(GameStateManager.Instance != null)
