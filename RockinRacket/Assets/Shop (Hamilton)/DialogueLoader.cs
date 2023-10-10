@@ -10,17 +10,17 @@ public class DialogueLoader
 {
     private static string folderPath = "Assets/Dialogue (Ken)/InkFiles/";
 
-    public static string[] GetDialogueFile(string characterName)
+    public static (string, int) GetDialogueFile(string characterName)
     {
         // RR [NAME] Convos
         string filePath = folderPath + "RR " + characterName + " Convos.json";
-        string hub = GameSaver.GetCurrentHub();
+        int hub = GameSaver.GetCurrentHub();
         if (!File.Exists(filePath))
         {
             Debug.Log("File at " + filePath + " not found");
-            return null;
+            return (null, hub);
         }
-        string[] result = { filePath, hub};
+        (string, int) result = (filePath, hub);
         return result;
     }
 }

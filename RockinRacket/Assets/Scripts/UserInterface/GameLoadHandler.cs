@@ -12,6 +12,9 @@ public class GameLoadHandler : MonoBehaviour
     public GameObject MenuUI;
     public InputActionAsset actionAsset;
     private InputAction pauseAction;
+    private int currentSceneIndex;
+
+    private Stack<int> sceneIndexHistory = new();
     
     public void NewData()
     {
@@ -19,13 +22,6 @@ public class GameLoadHandler : MonoBehaviour
         //BandManager.Instance.LoadDefaultBand();
         //InventoryManager.Instance.LoadDefaultItems();
         GameManager.Instance.NewGame();
-
-
-
-
-
-
-
     }
 
     public void LoadAllData()
@@ -33,14 +29,7 @@ public class GameLoadHandler : MonoBehaviour
         //AnimalManager.Instance.LoadAnimals();
         //BandManager.Instance.LoadBand();
         //InventorySaver.Instance.LoadInventory();
-        GameManager.Instance.LoadGame();
-
-
-
-
-
-
-
+        GameSaver.Load();
     }
 
     public void SaveAllData()
@@ -48,46 +37,69 @@ public class GameLoadHandler : MonoBehaviour
         //AnimalManager.Instance.SaveAnimals();
         //BandManager.Instance.SaveBand();
         //InventorySaver.Instance.SaveInventory();
-        GameManager.Instance.SaveGame();
-        
-
-
-
-
-
-
-
-
-
+        GameSaver.Save();
     }
 
-    public void SaveAllDataAndExit()
+    public void SaveAndExit()
     {
         //AnimalManager.Instance.SaveAnimals();
         //BandManager.Instance.SaveBand();
         //InventorySaver.Instance.SaveInventory();
-        GameManager.Instance.SaveGame();
-        
-
-
-
-
-
-
-
+        GameSaver.Save();
 
         Application.Quit();
     }
+    public void Save()
+    {
+        //AnimalManager.Instance.SaveAnimals();
+        //BandManager.Instance.SaveBand();
+        //InventorySaver.Instance.SaveInventory();
+        GameSaver.Save();
+    }
 
+    public void GoBackScene()
+    {
+        if (sceneIndexHistory.Count != 0)
+            currentSceneIndex = sceneIndexHistory.Pop();
+        else
+            currentSceneIndex = 1;
+        SetScene(currentSceneIndex);
+    }
 
+    // for TESTING
+    public void RandomScene()
+    {
+        SwitchToScene(new System.Random().Next(1, 12));
+    }
+
+    public void SwitchToScene(int sceneIndex)
+    {
+        AddSceneIndexToHistory(currentSceneIndex);
+        if (currentSceneIndex != sceneIndex)
+        {
+            currentSceneIndex = sceneIndex;
+            SetScene(currentSceneIndex);
+        }
+    }
+
+    private void AddSceneIndexToHistory(int sceneIndex)
+    {
+        // do nothing if we already have that scene at the top of the stack
+        if (sceneIndexHistory.Count != 0)
+            if (sceneIndex == sceneIndexHistory.Peek())
+                return;
+        // else add it to the stack
+        sceneIndexHistory.Push(sceneIndex);
+    }
 
     private void Awake()
     {
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         // Assuming you have an action map named "Menu" and a Pause action within it.
         var menuActionMap = actionAsset.FindActionMap("PauseMenu");
         pauseAction = menuActionMap.FindAction("Pause");
         
-        pauseAction.performed += _ => ToggleMenu(); 
+        pauseAction.performed += _ => ToggleMenu();
     }
 
     private void OnEnable()
@@ -123,17 +135,16 @@ public class GameLoadHandler : MonoBehaviour
         Application.Quit();
     }
 
-    public void MainMenu()
+    private void SetScene(int sceneIndex)
     {
-        CustomSceneEvent.CustomTransitionCalled(1);
+        Debug.Log(sceneIndexHistory.Count);
+        CustomSceneEvent.CustomTransitionCalled(sceneIndex);
         CloseMenu();
         if(GameStateManager.Instance != null)
         {
             if( GameStateManager.Instance.ConcertActive)
             {GameStateManager.Instance.EndConcertEarly();}
         }
-
-            
     }
 
     public void ToggleMenu()

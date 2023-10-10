@@ -21,8 +21,8 @@ public class Test : MonoBehaviour
     }
     public void LoadDialogue()
     {
-        string[] result = DialogueLoader.GetDialogueFile("Ace");
-        Debug.Log("Successfully found file: " + result[0]);
-        Debug.Log("Hub: " + result[1]);
+        (string, int) result = DialogueLoader.GetDialogueFile("Ace");
+        Debug.Log("Successfully found file: " + result.Item1);
+        Debug.Log("Hub: " + result.Item2);
     }
 }

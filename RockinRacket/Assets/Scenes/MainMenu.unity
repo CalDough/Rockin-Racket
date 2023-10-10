@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276797, g: 0.21589167, b: 0.29782546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -207,15 +207,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5958970757553768561}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: SwitchScene
-        m_Mode: 2
+      - m_Target: {fileID: 5972169075848508254}
+        m_TargetAssemblyTypeName: GameLoadHandler, Assembly-CSharp
+        m_MethodName: SwitchToScene
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c77bd45b91e891b4c874c5ba2cf3e363,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: TransitionData, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -284,7 +283,7 @@ GameObject:
   - component: {fileID: 107459507}
   - component: {fileID: 107459506}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,14 +296,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107459504}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 221413351}
   - {fileID: 558393868231421263}
-  m_Father: {fileID: 1638565391}
+  m_Father: {fileID: 966805511}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -363,7 +362,7 @@ GameObject:
   - component: {fileID: 221413353}
   - component: {fileID: 221413352}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: LeftBtns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1001,15 +1000,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5958970757553768561}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: SwitchScene
-        m_Mode: 2
+      - m_Target: {fileID: 5972169075848508254}
+        m_TargetAssemblyTypeName: GameLoadHandler, Assembly-CSharp
+        m_MethodName: SwitchToScene
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: a49d5756da4dfcc43bc9cbec9531b8f2,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: TransitionData, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1222,15 +1220,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5958970757553768561}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: SwitchScene
-        m_Mode: 2
+      - m_Target: {fileID: 5972169075848508254}
+        m_TargetAssemblyTypeName: GameLoadHandler, Assembly-CSharp
+        m_MethodName: SwitchToScene
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 592f568deffaf9b4e9da656bd1eb73bd,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: TransitionData, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1552,7 +1549,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 969792554}
-  - {fileID: 1638565391}
+  - {fileID: 107459505}
   - {fileID: 1958983315}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -1741,7 +1738,7 @@ GameObject:
   - component: {fileID: 1136403674}
   - component: {fileID: 1136403673}
   m_Layer: 5
-  m_Name: SelectVenue
+  m_Name: Venues
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1812,15 +1809,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5958970757553768561}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: SwitchScene
-        m_Mode: 2
+      - m_Target: {fileID: 5972169075848508254}
+        m_TargetAssemblyTypeName: GameLoadHandler, Assembly-CSharp
+        m_MethodName: SwitchToScene
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 54e02229ec4a53649b8beb95a6fdd689,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: TransitionData, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2373,43 +2369,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624981609}
   m_CullTransparentMesh: 1
---- !u!1 &1638565390
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1638565391}
-  m_Layer: 5
-  m_Name: MainMenu
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1638565391
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638565390}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 107459505}
-  m_Father: {fileID: 966805511}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1682487559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2603,15 +2562,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5958970757553768561}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: SwitchScene
-        m_Mode: 2
+      - m_Target: {fileID: 5972169075848508254}
+        m_TargetAssemblyTypeName: GameLoadHandler, Assembly-CSharp
+        m_MethodName: SwitchToScene
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: ea67a4d90ff4d2c4090427d1124f1890,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: TransitionData, Assembly-CSharp
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2915,18 +2873,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d3e91686d9a0e04f963013a227f3a74, type: 3}
---- !u!114 &5958970757553768561 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1032257946814342773, guid: 3d3e91686d9a0e04f963013a227f3a74,
-    type: 3}
-  m_PrefabInstance: {fileID: 5958970757553768560}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f681f84b839723d478306e1e51825e21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5972169075848508253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3050,6 +2996,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c149c61be4771ff4bac24868adcaafe9, type: 3}
+--- !u!114 &5972169075848508254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4717022494723735906, guid: c149c61be4771ff4bac24868adcaafe9,
+    type: 3}
+  m_PrefabInstance: {fileID: 5972169075848508253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36027a2e347a6243b62768d3a68596b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6039176599756431530
 GameObject:
   m_ObjectHideFlags: 0
@@ -3063,7 +3021,7 @@ GameObject:
   - component: {fileID: 2053498785298010346}
   - component: {fileID: 7587148732473580225}
   m_Layer: 5
-  m_Name: Panel (1)
+  m_Name: TextMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
