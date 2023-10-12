@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameStateData : MonoBehaviour
-{
-    [CreateAssetMenu(menuName = "ScriptableObjects/GamestateDataHolder")]
+[CreateAssetMenu(menuName = "ScriptableObjects/GamestateData")]
 
-    public class RuntimeData : ScriptableObject
-    {
-        public ConcertState CurrentConcertState;
-    }
+public class GameStateData : ScriptableObject
+{
+    public ConcertState CurrentConcertState;
 }
