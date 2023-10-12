@@ -74,13 +74,19 @@ public class GameLoadHandler : MonoBehaviour
 
     public void SwitchToScene(int sceneIndex)
     {
-        Debug.Log("Current Index: " + currentSceneIndex + "  ||  " + "Next Index: " + sceneIndex);
+        // clear sceneIndexHistory
+        if (sceneIndex == 9 || sceneIndex == 11)
+        {
+            sceneIndexHistory = new();
+            SetScene(currentSceneIndex);
+        }
         if (currentSceneIndex != sceneIndex)
         {
             AddSceneIndexToHistory(currentSceneIndex);
             currentSceneIndex = sceneIndex;
             SetScene(currentSceneIndex);
         }
+        Debug.Log("Current Index: " + currentSceneIndex + "  ||  " + "Next Index: " + sceneIndex + "  ||  " + "history size: " + sceneIndexHistory.Count.ToString());
     }
 
         //private void PrintSceneIndexHistory()

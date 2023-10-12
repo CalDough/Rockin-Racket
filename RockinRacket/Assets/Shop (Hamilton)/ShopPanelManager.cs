@@ -11,14 +11,14 @@ public class ShopPanelManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
-    [SerializeField] private GameObject shopPanel;
+    [SerializeField] private GameObject catalogPanels;
     [SerializeField] private GameObject dialogueMenuPanel;
 
     [SerializeField] private DialogueManager dialogueManager;
 
     private void Awake()
     {
-        shopPanel.SetActive(false);
+        catalogPanels.SetActive(false);
         dialogueMenuPanel.SetActive(true);
         choicesText = new TextMeshProUGUI[choices.Length];
         for (int i = 0; i < choices.Length; i++)
@@ -44,11 +44,11 @@ public class ShopPanelManager : MonoBehaviour
     public void OpenShopCatalog()
     {
         dialogueMenuPanel.SetActive(false);
-        shopPanel.SetActive(true);
+        catalogPanels.SetActive(true);
     }
     public void CloseShopCatalog()
     {
-        shopPanel.SetActive(false);
+        catalogPanels.SetActive(false);
         dialogueMenuPanel.SetActive(true);
     }
     public void StartShopkeeperDialogue()

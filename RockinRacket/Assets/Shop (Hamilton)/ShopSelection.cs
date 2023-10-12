@@ -7,9 +7,7 @@ using TMPro;
 public class ShopSelection : MonoBehaviour
 {
     public ShopReceipt receipt;
-    public Sprite defaultSprite;
 
-    public Image image;
     public TMP_Text nameText;
     public TMP_Text descriptionText;
     public TMP_Text costText;
@@ -34,14 +32,12 @@ public class ShopSelection : MonoBehaviour
     {
         if (selectedItemOption == null)
         {
-            image.sprite = null;
             nameText.text = "Item Name";
             descriptionText.text = "Item Description";
             costText.text = "Item Cost";
             cartButtonText.text = "Add To Cart";
             return;
         }
-        image.sprite = selectedItemOption.item.sprite;
         nameText.text = selectedItemOption.item.itemName;
         descriptionText.text = selectedItemOption.item.description;
         costText.text = "$" + selectedItemOption.item.cost.ToString();
