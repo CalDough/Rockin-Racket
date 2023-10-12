@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276797, g: 0.21589167, b: 0.29782546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -514,6 +514,7 @@ MonoBehaviour:
   SelectedSongInfoBox: {fileID: 107623207}
   transitionDataToConcert: {fileID: 11400000, guid: cdd579a544a9c6f4bac113d44506041a,
     type: 2}
+  gameLoadHandler: {fileID: 612361152}
 --- !u!1 &200356976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,6 +1557,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 612361150}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &612361152 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4717022494723735906, guid: c149c61be4771ff4bac24868adcaafe9,
+    type: 3}
+  m_PrefabInstance: {fileID: 612361150}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36027a2e347a6243b62768d3a68596b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &753910641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1713,10 +1726,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 173083021}
-        m_TargetAssemblyTypeName: SongSelector, Assembly-CSharp
-        m_MethodName: StartConcert
-        m_Mode: 1
+      - m_Target: {fileID: 612361152}
+        m_TargetAssemblyTypeName: GameLoadHandler, Assembly-CSharp
+        m_MethodName: SwitchToScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

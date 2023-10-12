@@ -13,6 +13,7 @@ public class SongSelector : ScrollSelector<SongData>
     public TextMeshProUGUI SongInfoBox;
     public TextMeshProUGUI SelectedSongInfoBox;
     public TransitionData transitionDataToConcert;
+    public GameLoadHandler gameLoadHandler;
 
     void Start()
     {
@@ -106,9 +107,9 @@ public class SongSelector : ScrollSelector<SongData>
         List<GameState> allSongs = GameStateManager.Instance.GetAllSongs();
         if(allSongs.Count > 0)
         {
-        //if(GameStateManager.Instance.SelectedVenue.SceneIndex;
-        
-        CustomSceneEvent.CustomTransitionCalled(transitionDataToConcert);
+            //if(GameStateManager.Instance.SelectedVenue.SceneIndex;
+            gameLoadHandler.SwitchToScene(transitionDataToConcert.sceneIndex);
+        //CustomSceneEvent.CustomTransitionCalled(transitionDataToConcert);
         //GameStateManager.Instance.StartConcert();
         }
     }
