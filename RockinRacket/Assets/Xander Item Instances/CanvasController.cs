@@ -23,11 +23,11 @@ public class CanvasController : MonoBehaviour
     void Start()
     {
         // Referencing the child panel objects associated with each view
-        BandViewPanel = gameObject.transform.GetChild(0).GetComponent<GameObject>();
-        ShopViewPanel = gameObject.transform.GetChild(0).GetComponent<GameObject>();
-        BackStageViewPanel = gameObject.transform.GetChild(0).GetComponent<GameObject>();
-        AudienceViewPanel = gameObject.transform.GetChild(0).GetComponent<GameObject>();
-        VenueViewPanel = gameObject.transform.GetChild(0).GetComponent<GameObject>();
+        BandViewPanel = gameObject.transform.GetChild(1).gameObject;
+        ShopViewPanel = gameObject.transform.GetChild(2).gameObject;
+        BackStageViewPanel = gameObject.transform.GetChild(3).gameObject;
+        AudienceViewPanel = gameObject.transform.GetChild(4).gameObject;
+        VenueViewPanel = gameObject.transform.GetChild(5).gameObject;
 
         panels.Add(BandViewPanel);
         panels.Add(ShopViewPanel);
