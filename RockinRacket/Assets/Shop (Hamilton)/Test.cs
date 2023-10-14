@@ -25,4 +25,9 @@ public class Test : MonoBehaviour
         Debug.Log("Successfully found file: " + result.Item1);
         Debug.Log("Hub: " + result.Item2);
     }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("HIT!");
+    }
 }

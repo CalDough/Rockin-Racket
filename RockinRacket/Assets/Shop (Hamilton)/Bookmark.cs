@@ -22,6 +22,5 @@ public class Bookmark : MonoBehaviour
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("HIT!");
-        transform.position.Set(20, 300, 0);
     }
 }
