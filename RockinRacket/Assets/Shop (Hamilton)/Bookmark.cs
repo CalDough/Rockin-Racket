@@ -6,9 +6,10 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
-public class Bookmark : MonoBehaviour
+public class Bookmark : MonoBehaviour, IPointerDownHandler
 {
     public Image image;
+    public Image block;
     public TMP_Text text;
     public Color color;
     public string category;
@@ -21,6 +22,6 @@ public class Bookmark : MonoBehaviour
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("HIT!");
+        block.color = new Color(67, 67, 67, 0);
     }
 }
