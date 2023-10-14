@@ -8,11 +8,12 @@ using TMPro;
 
 public class Bookmark : MonoBehaviour, IPointerDownHandler
 {
-    public Image image;
-    public Image block;
-    public TMP_Text text;
-    public Color color;
-    public string category;
+    [SerializeField] private BookmarkManager bookmarkManager;
+    [SerializeField] private Image image;
+    [SerializeField] private Image block;
+    [SerializeField] private TMP_Text text;
+    [SerializeField] private Color color;
+    [SerializeField] private string category;
 
     void Start()
     {
@@ -22,6 +23,14 @@ public class Bookmark : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        block.color = new Color(67, 67, 67, 0);
+        bookmarkManager.SelectBookmark(this);
+    }
+    public void Open()
+    {
+        block.color = new Color(0, 0, 0, 0);
+    }
+    public void Close()
+    {
+        block.color = new Color(0, 0, 0, 255);
     }
 }

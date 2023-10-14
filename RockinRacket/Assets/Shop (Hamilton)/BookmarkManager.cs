@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class BookmarkManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private CatalogManager catalogManager;
+    private Bookmark selectedBookmark;
 
-    // Update is called once per frame
-    void Update()
+    public void SelectBookmark(Bookmark bookmark)
     {
-        
+        if (selectedBookmark != null)
+        {
+            selectedBookmark.Close();
+        }
+        bookmark.Open();
+        selectedBookmark = bookmark;
     }
 }
