@@ -5,13 +5,18 @@ using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
 using System;
+using Unity.VisualScripting;
 
 public class DialogueManager : MonoBehaviour
 {
     private static DialogueManager instance;
 
+    [Header("Parameters")]
+    [SerializeField] private float typingSpeed = 0.05f;
+    
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private GameObject continueButton;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI speakerName;
     [SerializeField] private Animator portraitAnimator;
@@ -32,7 +37,11 @@ public class DialogueManager : MonoBehaviour
     // Used as an internal variable to connect multiple input sources to continue
     private bool continuePressed;
     public int numChoices = 0;
-    [SerializeField] private GameObject continueButton;
+    private bool isAddingRichTextTag = false;
+    
+    
+    private Coroutine displayLineCoroutine;
+    private bool canContinueToNextLine = false;
 
 
     private const string SPEAKER_TAG = "speaker";
@@ -80,20 +89,22 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if(currentStory.currentChoices.Count == 0 
+        if(canContinueToNextLine 
+           && currentStory.currentChoices.Count == 0 
            && continuePressed)
         {
-            ContinueStory();
             continuePressed = false;
+            ContinueStory();
         }
-        else if (currentStory.currentChoices.Count > 0)
-        {
-            continueButton.SetActive(false);
-        }
-        else if (currentStory.currentChoices.Count == 0)
+        else if (currentStory.currentChoices.Count == 0 || !canContinueToNextLine)
         {
             continueButton.SetActive(true);
         }
+        else 
+        {
+            continueButton.SetActive(false);
+        }
+        continuePressed = false;
     }
 
     // Button method to continue to nextline
@@ -119,12 +130,16 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Method that does what it says
-    private void ContinueStory()
+    private void ContinueStory() 
     {
         if (currentStory.canContinue)
         {
-            dialogueText.text = currentStory.Continue();
-            DisplayChoices();
+            if (displayLineCoroutine != null)
+            {
+                StopCoroutine(displayLineCoroutine);
+            }
+            displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
+
             HandleTags(currentStory.currentTags);
         }
         else
@@ -132,6 +147,57 @@ public class DialogueManager : MonoBehaviour
             StopDialogue();
         }
     }
+
+
+    private IEnumerator DisplayLine(string line)
+    {
+        // Empty the dialogueText box to get the effect
+        dialogueText.text = line;
+        dialogueText.maxVisibleCharacters = 0;
+        // Hiding items while text is typing
+        HideChoices();
+
+        canContinueToNextLine = false;
+
+        // Display each character one at a time (achieving the typing effect)
+        foreach (char letter in line.ToCharArray())
+        {
+            if (continuePressed)
+            {
+                dialogueText.maxVisibleCharacters = line.Length;
+                break;
+            }
+            
+            if (letter == '<' || isAddingRichTextTag)
+            {
+                isAddingRichTextTag = true;
+                if (letter == '>')
+                {
+                    isAddingRichTextTag = false;
+                }
+            }
+            else
+            {
+                dialogueText.maxVisibleCharacters++;
+                yield return new WaitForSeconds(typingSpeed);
+            }
+        }
+
+        // Actions to take after the line has finished displaying all characters
+        DisplayChoices();
+
+        canContinueToNextLine = true;
+    }
+
+
+    private void HideChoices()
+    {
+        foreach (GameObject choiceButton in choices)
+        {
+            choiceButton.SetActive(false);
+        }
+    }
+
 
     private void HandleTags(List<String> currentTags)
     {
@@ -203,22 +269,15 @@ public class DialogueManager : MonoBehaviour
         numChoices = currentChoices.Count;
     }
 
-    // I do not believe this is necessary for now
-    // 
-    // private IEnumerator SelectFirstChoice()
-    // {
-    //     EventSystem.current.SetSelectedGameObject(null);
-    //     yield return new WaitForEndOfFrame();
-    //     EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
-    // }
-
     // Method that states the choice of the given input
     // Might require updating inputManager for what button is pressed
-
     public void MakeChoice(int choiceIndex)
     {
-        currentStory.ChooseChoiceIndex(choiceIndex);
-        ContinueStory();
+        if (canContinueToNextLine)
+        {
+            currentStory.ChooseChoiceIndex(choiceIndex);
+            ContinueStory();
+        }
     }
 
     public Ink.Runtime.Object GetVariableState(string variableName)

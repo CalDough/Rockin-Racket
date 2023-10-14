@@ -11,11 +11,9 @@ INCLUDE globals.ink
 
 === H1 ===
 = Haley
-#speaker: Haley #portrait: Haley_neutral
-"Need something Harv?"
+"Need something Harv?" #speaker: Haley #portrait: Haley_neutral
  * ["Yeah, I was wondering..."] 
-        #speaker: Harvey #portrait: Harvey_neutral
-        "Yeah, I was wondering if I did alright during that performance? I feel like it was bad, but the crowd seemed to like it so I'm confused."
+        "Yeah, I was wondering if I did alright during that performance? I feel like it was bad, but the crowd seemed to like it so I'm confused." #speaker: Harvey #portrait: Harvey_neutral
         -> H_H1_C1
             
  * ["I wanted to check in on..."]
