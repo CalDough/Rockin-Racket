@@ -37,13 +37,14 @@ public class DialogueManager : MonoBehaviour
     // Used as an internal variable to connect multiple input sources to continue
     private bool continuePressed;
     public int numChoices = 0;
-    private bool isAddingRichTextTag = false;
     
-    
+    // Used to determine if a DisplayLine() coroutine is already active
     private Coroutine displayLineCoroutine;
+    // Used to determine when the continueButton can be pressed
     private bool canContinueToNextLine = false;
 
 
+    // Tag values that will get checked for and processed in the HandleTags() method called in the ContinueStory() method
     private const string SPEAKER_TAG = "speaker";
     private const string PORTRAIT_TAG = "portrait";
     private const string LAYOUT_TAG = "layout";
@@ -89,6 +90,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        // Conditionals determining if story will continue, and if the continueButton should be active
         if(canContinueToNextLine 
            && currentStory.currentChoices.Count == 0 
            && continuePressed)
@@ -134,11 +136,21 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
+            // Stops the active displayLineCoroutine, should it exist 
             if (displayLineCoroutine != null)
             {
                 StopCoroutine(displayLineCoroutine);
             }
-            displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
+            
+            // Checks the next storyline, and if it has no writable content, will go to the nextline in the story, 
+            // should a nextline exist (should never run into a case where there is not a nextline at this point)
+            string nextLine = currentStory.Continue();
+            if (nextLine.Trim() == "" && currentStory.canContinue)
+            {
+                nextLine = currentStory.Continue();
+            }
+            // Assigns the new coroutine to displayLineCoroutine, so that the above check can see if a coroutine is already running
+            displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
 
             HandleTags(currentStory.currentTags);
         }
@@ -148,7 +160,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-
+    // Method to be used as a coroutine to create the "typing effect" of the dialogue system
     private IEnumerator DisplayLine(string line)
     {
         // Empty the dialogueText box to get the effect
@@ -158,16 +170,19 @@ public class DialogueManager : MonoBehaviour
         HideChoices();
 
         canContinueToNextLine = false;
+        // Keeps track of if a rich text tag appears (Rich text tags allow for specific substrings to be in different colors, fonts, or bolded/italic)
+        bool isAddingRichTextTag = false;
 
         // Display each character one at a time (achieving the typing effect)
         foreach (char letter in line.ToCharArray())
         {
+            // Allows for skipping dialoguetyping should the player want to
             if (continuePressed)
             {
                 dialogueText.maxVisibleCharacters = line.Length;
                 break;
             }
-            
+            // Checks for the opening tag character for rich text tags, and essentially works as a counter disruptor for the rich text tags
             if (letter == '<' || isAddingRichTextTag)
             {
                 isAddingRichTextTag = true;
@@ -189,16 +204,16 @@ public class DialogueManager : MonoBehaviour
         canContinueToNextLine = true;
     }
 
-
+    // Hides all choices
     private void HideChoices()
     {
-        foreach (GameObject choiceButton in choices)
+        for (int i = 0; i < choices.Length; i++)
         {
-            choiceButton.SetActive(false);
+            choices[i].SetActive(false);
         }
     }
 
-
+    // Method that handles the ink tags, which for ours is the "portrait", "layout", and "speaker"
     private void HandleTags(List<String> currentTags)
     {
         //Iterates through currentTags and handles accordingly (For each loops can be memory intensive, so I rarely use them unless situation warrants, such as hashmaps)
@@ -211,9 +226,11 @@ public class DialogueManager : MonoBehaviour
             {
                 Debug.LogError("Tag could not be appropriately parsed: " + tag);
             }
+            // Splits each tag into its key and its value
             string tagKey = splitTag[0].Trim();
             string tagValue = splitTag[1].Trim();
 
+            // Based on the tagKey, determines what part of the dialogue system to update to tagValue
             switch (tagKey)
             {
                 case SPEAKER_TAG:
@@ -248,11 +265,13 @@ public class DialogueManager : MonoBehaviour
     {
         List<Choice> currentChoices = currentStory.currentChoices;
 
+        // Preventative check to ensure there are enough choice UI objects to hold the story choices
         if (currentChoices.Count > choices.Length)
         {
             Debug.LogError("More choices were found than the UI can support. Number of choices given: " + currentChoices.Count);
         }
 
+        // Goes through the story choices, and adds them to the choice UI objects, incrementing index each time
         int index = 0;
         for(int i = 0; i < currentChoices.Count; i++)
         {
@@ -261,6 +280,7 @@ public class DialogueManager : MonoBehaviour
             index++;
         }
 
+        // From index, disables unnecessary choice UI objects
         for (int i = index; i < choices.Length; i++)
         {
             choices[i].gameObject.SetActive(false);
@@ -280,6 +300,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // Based on the currentstory, and it's dialogueVariables, attempts to return the variableValue of requested variableName
     public Ink.Runtime.Object GetVariableState(string variableName)
     {
         Ink.Runtime.Object variableValue = null;
