@@ -9,7 +9,7 @@ using System;
     Upon an event ending through one of the ways, it will be disabled and put in one of the 4 lists so we can inform players at the end of a
     level what they missed, and got done.
     Events are currently set up to be divided among songs equally. Total events are determined by difficulty/10 = # of events
-    Events can be sourced from other scripts that contain GameEventContainers and we will try to include some events with priority
+    Events can be sourced from other scripts that contain MinigameContainers and we will try to include some events with priority
     before others. These events would be venue events, story events, and band events.
     While using the Timeline feature in unity would be awesome, you can't randomly set and save timelines through scripts.
 
@@ -50,18 +50,18 @@ public class GameEventManager : MonoBehaviour
 
     [Header("Event Scriptable Objects")]
     //Plug in event prefabs into this scriptable object to have them happen in testing
-    [SerializeField] private GameEventContainer ConcertMiniGameSO;  
-    [SerializeField] private GameEventContainer IntermissionMiniGameSO;  
+    [SerializeField] private MinigameContainer ConcertMiniGameSO;  
+    [SerializeField] private MinigameContainer IntermissionMiniGameSO;  
 
     [Header("Empty Scriptable Objects")]
     //Leave these as empty scriptable objects so other scripts can access them and add to them
     //You can add stuff into the immune one before a concert though
     //Staged events are loaded from the venue and story
-    [SerializeField] private GameEventContainer stagedMiniGames;  
+    [SerializeField] private MinigameContainer stagedMiniGames;  
     //Random events are loaded from settings such as Character Moods, Venue Enviroment, Gear Quality
-    [SerializeField] private GameEventContainer randomMiniGames;  
+    [SerializeField] private MinigameContainer randomMiniGames;  
     // This is filled by story manager, inventory/upgrade manager to remove duplicate story mini-games or equipment based ones
-    [SerializeField] private GameEventContainer ImmuneMiniGames;
+    [SerializeField] private MinigameContainer ImmuneMiniGames;
 
     public static GameEventManager Instance { get; private set; }
 
@@ -304,18 +304,6 @@ public class GameEventManager : MonoBehaviour
     private void AddMiniGameToCorrectList(GameObject prefab)
     {
         prefab.TryGetComponent(out MiniGame miniGame);
-
-        if (miniGame == null)
-        {return;}
-
-        if (miniGame.gameType == GameModeType.Song)
-        {
-            concertMiniGames.Add(prefab);
-        }
-        else if (miniGame.gameType == GameModeType.Intermission)
-        {
-            intermissionMiniGames.Add(prefab);
-        }
     }
 
     //Removes mini-games if they are in the Immune scriptable object
@@ -418,18 +406,6 @@ public class GameEventManager : MonoBehaviour
             miniGameInstance.transform.localRotation = Quaternion.identity;
             miniGameInstance.transform.localScale = Vector3.one;
 
-            miniGame.activationTime = Mathf.Round(UnityEngine.Random.Range(minActivationTime, maxActivationTime)* 2) / 2;
-
-            if(stateType == GameModeType.Song)
-            {
-                miniGame.activationNumber = songNumber;
-                instanceConcertMiniGames.Add(miniGameInstance);
-            }
-            else
-            {
-                miniGame.activationNumber = intermissionNumber;
-                instanceIntermissionMiniGames.Add(miniGameInstance);
-            }
         }
     }
 

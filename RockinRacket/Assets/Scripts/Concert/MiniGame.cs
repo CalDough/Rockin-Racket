@@ -18,11 +18,7 @@ using System;
 public class MiniGame : MonoBehaviour 
 {
     public GameObject Panels; //This is the UI panel in the canvas that houses the actual event stuff
-    public bool IsCompleted = false;
-
-    public GameModeType gameType = GameModeType.Song;
-    public float activationTime = 0;
-    public int activationNumber = 0;  
+    public bool IsCompleted = false; 
 
     public float duration; //Time till the event automatically ends
     public float remainingDuration;  //Helper float for duration calculation
@@ -94,7 +90,24 @@ public class MiniGame : MonoBehaviour
         GameEvents.EventClosed(this); 
         HandleClosing();
     }
-    
+
+    //These handle closing the panels, changing UI, and anything else
+    public virtual void HandleOpening()
+    {
+        if(!IsCompleted)
+        {
+            Panels.SetActive(true);
+        }
+    }
+
+    public virtual void HandleClosing()
+    {
+        Panels.SetActive(false);
+
+        //If you want to reset the game if they did not complete it
+        if(IsCompleted == false)
+        {RestartMiniGameLogic();}
+    }
     // Since this is based on Time.deltaTime it will actually already be affected by the pausing of the time scale = 0
     public virtual IEnumerator EventDurationCountdown()
     {
@@ -115,66 +128,15 @@ public class MiniGame : MonoBehaviour
 
     }
 
-    public virtual void HandleOpening()
+    private void CheckInventory()
     {
-        if(!IsCompleted)
-        {
-            Panels.SetActive(true);
-        }
+        // Will make a call to inventory to check for new stats for cooldowns and such
     }
 
-    public virtual void HandleClosing()
-    {
-        Panels.SetActive(false);
-
-        //If you want to reset the game if they did not complete it
-        if(IsCompleted == false)
-        {RestartMiniGameLogic();}
-    }
-
-
-    void OnEnable()
-    {
-        GameEventManager.Instance.OnSecondPassed += CheckActivationTime;
-    }
-
-    void OnDisable()
-    {
-        GameEventManager.Instance.OnSecondPassed -= CheckActivationTime;
-    }
-
-    // We are using custom event tick system through the 
-    public virtual void CheckActivationTime(float currentTime)
-    {
-        //If the event is not active or the game type is not correct, ignore
-        if(GameStateManager.Instance.CurrentGameState.GameType != this.gameType || isActiveEvent || IsCompleted)
-        {return;}
-        else if(this.gameType == GameModeType.Song && activationNumber == GameEventManager.Instance.songNumber && currentTime >= activationTime)
-        {
-            GameEventManager.Instance.OnSecondPassed -= CheckActivationTime;
-            Activate();
-        }
-        else if(this.gameType == GameModeType.Intermission && activationNumber == GameEventManager.Instance.intermissionNumber && currentTime >= activationTime)
-        {
-            GameEventManager.Instance.OnSecondPassed -= CheckActivationTime;
-            Activate();
-        }
-    }
+    
 
     void OnDestroy()
     {
-        /*
-        Leaving these in here for reference as you may have an event that conflicts with another mini-game 
-        and it will listen to when the other mini-game and might do something
-
-        GameEvents.OnEventStart -= HandleEventStart;
-        GameEvents.OnEventFail -= HandleEventFail;
-        GameEvents.OnEventCancel -= HandleEventCancel;
-        GameEvents.OnEventComplete -= HandleEventComplete;
-        GameEvents.OnEventMiss -= HandleEventMiss;
-        GameEvents.OnEventClose -= HandleEventClose;
-        GameEvents.OnEventOpen -= HandleEventOpen;
-        */
         GameStateEvent.OnGameStateStart -= HandleGameStateStart;
         GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
     }
@@ -182,16 +144,6 @@ public class MiniGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
-        /*
-        GameEvents.OnEventStart += HandleEventStart;
-        GameEvents.OnEventFail += HandleEventFail;
-        GameEvents.OnEventCancel += HandleEventCancel;
-        GameEvents.OnEventComplete += HandleEventComplete;
-        GameEvents.OnEventMiss += HandleEventMiss;
-        GameEvents.OnEventClose += HandleEventClose;
-        GameEvents.OnEventOpen += HandleEventOpen;
-        */
-
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
     }

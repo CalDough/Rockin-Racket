@@ -175,22 +175,14 @@ public class ExampleMiniGame : MiniGame
     */
     void OnEnable()
     {
-        GameEventManager.Instance.OnSecondPassed += CheckActivationTime;
     }
 
     void OnDisable()
     {
-        GameEventManager.Instance.OnSecondPassed -= CheckActivationTime;
     }
 
-     /*
-    This just checks if it is the proper time to activate a mini-game
-    You could just ignore the settings for activation time and mode here and just activate it whenever
-    */
-    public override void CheckActivationTime(float currentTime)
-    {base.CheckActivationTime(currentTime);}
 
-    
+
     /*
     Add all the references and listeners to other events in these two functions
     If your game needs to listen to another mini-game or item event we will subscribe to them here

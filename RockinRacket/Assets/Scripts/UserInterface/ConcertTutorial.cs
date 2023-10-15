@@ -24,7 +24,7 @@ public class ConcertAutoSetUp : MonoBehaviour
     //[SerializeField] GameObject tutorialConcertMiniGame;
     //[SerializeField] GameObject tutorialIntermissionMiniGame;
 
-    [SerializeField] GameEventContainer stagedMiniGames;
+    [SerializeField] MinigameContainer stagedMiniGames;
 
     public bool CheckIfStoryContinues()
     {
