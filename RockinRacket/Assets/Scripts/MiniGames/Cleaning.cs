@@ -74,4 +74,10 @@ public class Cleaning : MiniGame
             this.Complete();
         }
     }
+
+    public override void RestartMiniGameLogic()
+    {
+        Debug.Log("No reset added yet");
+    }
+
 }

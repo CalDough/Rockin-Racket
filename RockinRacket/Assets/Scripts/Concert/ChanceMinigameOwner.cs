@@ -20,8 +20,9 @@ public class ChanceMinigameOwner : MonoBehaviour
 
     public bool isOnCooldown = false;
 
-    [SerializeField] private MinigameContainer MiniGames;  
-    [SerializeField] private List<MiniGame> SpawnedMiniGames;  
+    [SerializeField] private MinigameContainer MiniGames;  //we randomly take from a pool of available minigames
+    [SerializeField] private List<MiniGame> SpawnedMiniGames;  //old spawned minigames
+    [SerializeField] private MiniGame AvailableMiniGame;  //current minigame that is spawned
 
     private void Start()
     {
@@ -44,6 +45,39 @@ public class ChanceMinigameOwner : MonoBehaviour
     public void EndCooldowns()
     {
         StopCoroutine(CheckOccurChanceRoutine());
+    }
+
+    public void ActivateMiniGame()
+    {
+        if(GameStateManager.Instance.CurrentGameState.GameType != GameModeType.Song)
+        {
+            Debug.Log("Not a song right now");
+            return;
+        }
+        if(MinigameStatusManager.Instance.OpenedMiniGame != null)
+        {
+            Debug.Log("Another game is opened");
+            return;
+        }
+        // Logic for starting the mini-game goes here
+        if(AvailableMiniGame)
+        {
+            AvailableMiniGame.IsCompleted = false;
+            if(AvailableMiniGame.IsCompleted)
+            {
+                
+                AvailableMiniGame.RestartMiniGameLogic();
+            }
+            else
+            {
+                AvailableMiniGame.Activate();
+            }
+        }
+        ResetToDefault();
+        AvailableMiniGame.OpenEvent();
+
+
+        BeginCooldowns();
     }
 
     private IEnumerator CheckOccurChanceRoutine()
@@ -88,11 +122,18 @@ public class ChanceMinigameOwner : MonoBehaviour
         currentChanceToOccur = defaultChanceToOccur;
         chanceIncrease = defaultChanceIncrease;
         chanceTimer = defaultChanceTimer;
+        if(AvailableMiniGame)
+        {
+            AvailableMiniGame.CloseEvent();
+        }
     }
 
     private void SpawnMiniGame()
     {
-        
+        if(AvailableMiniGame)
+        {
+            AvailableMiniGame.CloseEvent();
+        }
         // Logic for starting the mini-game goes here
     }
 

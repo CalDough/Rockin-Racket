@@ -184,6 +184,8 @@ public class BandRoleAudioController : MonoBehaviour
         ConcertAudioEvent.OnAudioFixed += AudioFixed;
         
         ConcertAudioEvent.OnConcertEnd += ConcertEnd;
+
+        ConcertAudioEvent.OnRequestBandPlayers += SendToRequester;
     }
 
     void OnDestroy()
@@ -196,6 +198,13 @@ public class BandRoleAudioController : MonoBehaviour
         ConcertAudioEvent.OnAudioFixed -= AudioFixed;
         
         ConcertAudioEvent.OnConcertEnd -= ConcertEnd;
+        ConcertAudioEvent.OnRequestBandPlayers -= SendToRequester;
+
+    }
+
+    public void SendToRequester(object sender, ConcertAudioEventArgs e)
+    {
+        ConcertAudioEvent.SendBandPlayers(this);
     }
 
     public void HandleGameStateStart(object sender, GameStateEventArgs e)

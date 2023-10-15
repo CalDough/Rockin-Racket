@@ -63,21 +63,39 @@ public class MinigameOwner : MonoBehaviour
         currentCooldownDuration = defaultCooldownDuration;
         attempts = 0;
 
-        if(AvailableMiniGame)
-        {
-            AvailableMiniGame.RestartMiniGameLogic();
-        }
     }
 
-    private void ActivateMiniGame()
-    {
+    public void ActivateMiniGame()
+    {   
+        if(GameStateManager.Instance.CurrentGameState.GameType != GameModeType.Song)
+        {
+            Debug.Log("Not a song right now");
+            return;
+        }
+        if(MinigameStatusManager.Instance.OpenedMiniGame != null)
+        {
+            Debug.Log("Another game is opened");
+            return;
+        }
         if (useAttempts && attempts >= maxAttempts)
         {
             Debug.Log("Max attempts reached!");
             return;
         }
-
         // Logic for starting the mini-game goes here
+        if(AvailableMiniGame)
+        {
+            AvailableMiniGame.IsCompleted = false;
+            if(AvailableMiniGame.IsCompleted)
+            {
+                
+                AvailableMiniGame.RestartMiniGameLogic();
+            }
+            else
+            {
+                AvailableMiniGame.Activate();
+            }
+        }
         ResetToDefault();
         AvailableMiniGame.OpenEvent();
 

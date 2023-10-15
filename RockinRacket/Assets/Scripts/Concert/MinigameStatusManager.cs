@@ -23,12 +23,14 @@ public class MinigameStatusManager : MonoBehaviour
     [SerializeField] private float hypeInterval = 1f; 
     [SerializeField] private float comfortInterval = 1f; 
 
-    [SerializeField] private float comfortLossPerSecond = 5f;
+    [SerializeField] private float comfortLossPerSecond = 10f;
     [SerializeField] private float comfortModifier = 1f;
     [SerializeField] private float hypeModifier = 1f;
 
     [SerializeField] private List<BandRoleAudioController> bandMembers;
 
+    
+    [SerializeField] public MiniGame OpenedMiniGame;
 
     [Header("Active Scriptable Objects")] 
     [SerializeField] private MinigameContainer ImmuneMiniGames;
@@ -48,6 +50,8 @@ public class MinigameStatusManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
     }
+
+
 
     public bool IsMinigameAvailable(GameObject minigamePrefab)
     {
@@ -89,7 +93,22 @@ public class MinigameStatusManager : MonoBehaviour
     {
         hype = 0f;
         comfort = 500f;
+
+        StopCoroutine(HypeGeneration());
+        StopCoroutine(ComfortGeneration());
+        bandMembers.Clear();
+        ConcertAudioEvent.RequestBandPlayers();
+        
     }
+
+    public void ReceiveBandMembers(object sender, ConcertAudioEventArgs e)
+    {
+        if(e.BandRoleAudioPlayer != null)
+        {
+            bandMembers.Add(e.BandRoleAudioPlayer);
+        }
+    }
+    
 
     public void CheckInventory()
     {
@@ -203,6 +222,8 @@ public class MinigameStatusManager : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                StartCoroutine(HypeGeneration());
+                StartCoroutine(ComfortGeneration());
                 break;
             default:
                 break;
@@ -215,9 +236,27 @@ public class MinigameStatusManager : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                StopCoroutine(HypeGeneration());
+                StopCoroutine(ComfortGeneration());
                 break;
             default:
                 break;
+        }
+    }
+
+    private void HandleEventOpen(object sender, GameEventArgs e)
+    {
+        if(e.EventObject != null)
+        {
+            this.OpenedMiniGame = e.EventObject;
+        }
+    }
+
+    private void HandleEventClose(object sender, GameEventArgs e)
+    {
+        if( this.OpenedMiniGame = e.EventObject)
+        {
+            this.OpenedMiniGame = null;
         }
     }
 
@@ -231,6 +270,10 @@ public class MinigameStatusManager : MonoBehaviour
         
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+
+        ConcertAudioEvent.OnSendBandPlayers += ReceiveBandMembers;
+        GameEvents.OnEventOpen += HandleEventOpen;
+        GameEvents.OnEventOpen += HandleEventClose;
     }
 
     void OnDestroy()
@@ -243,6 +286,10 @@ public class MinigameStatusManager : MonoBehaviour
         
         GameStateEvent.OnGameStateStart -= HandleGameStateStart;
         GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        
+        ConcertAudioEvent.OnSendBandPlayers -= ReceiveBandMembers;
+        GameEvents.OnEventOpen -= HandleEventOpen;
+        GameEvents.OnEventOpen -= HandleEventClose;
     }
 
     public void IncreaseComfort(float amount)
