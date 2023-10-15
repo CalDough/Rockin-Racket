@@ -23,6 +23,9 @@ public class BandRoleAudioController : MonoBehaviour
 
     public string parameterName = "BrokenValue";
 
+    
+    public float HypeGeneration = 0;
+
     [Range(-0,5)]
     public float instrumentBrokenValue = 0;
     

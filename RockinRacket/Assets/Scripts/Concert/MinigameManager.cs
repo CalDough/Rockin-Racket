@@ -12,6 +12,16 @@ public class MinigameManager : MonoBehaviour
     private int missedMiniGamesCount = 0;
     private int canceledMiniGamesCount = 0;
 
+    [Header("Audience Mood Bars")]
+    [SerializeField] private float hype = 0f;
+    [SerializeField] private float maxHype = 1000f;
+    [SerializeField] private float comfort = 0f;
+    [SerializeField] private float maxComfort = 1000f;
+    [SerializeField] private float hypeInterval = 1f; 
+    [SerializeField] private float comfortInterval = 1f; 
+    [SerializeField] private List<BandRoleAudioController> bandMembers;
+
+
     [Header("Active Scriptable Objects")] 
     [SerializeField] private MinigameContainer ImmuneMiniGames;
 
@@ -49,7 +59,7 @@ public class MinigameManager : MonoBehaviour
 
         return true;
     }
-    
+
     public bool IsMinigameAvailable(MiniGame minigamePrefab)
     {
         if (minigamePrefab == null)
@@ -74,6 +84,41 @@ public class MinigameManager : MonoBehaviour
         //ImmuneMiniGames.MiniGamesPrefabs = ItemInventory.ItemMinigames();
     }
     
+    private IEnumerator HypeGeneration()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(hypeInterval);
+
+            if (GameStateManager.Instance.CurrentGameState.GameType == GameModeType.Song) 
+            {
+                foreach (BandRoleAudioController member in bandMembers)
+                {
+                    if (member.isPlaying && member.instrumentBrokenValue < 5)
+                    {
+                        hype += CalculateHypeContribution(member.instrumentBrokenValue, member.HypeGeneration);
+                    }
+
+                    if (member.isSinging && member.voiceBrokenValue < 5)
+                    {
+                        hype += CalculateHypeContribution(member.voiceBrokenValue, member.HypeGeneration);
+                    }
+                }
+
+                if (hype > maxHype)
+                {
+                    hype = maxHype;
+                }
+            }
+        }
+    }
+
+    private float CalculateHypeContribution(float brokenValue, float maxContribution)
+    {
+        float contributionPercentage = 1f - 0.3f * brokenValue;
+        return maxContribution * contributionPercentage;
+    }
+
     public void HandleEventStart(object sender, GameEventArgs e)
     {
         Debug.Log("Event Started: " + e.EventObject);
@@ -103,6 +148,31 @@ public class MinigameManager : MonoBehaviour
         missedMiniGamesCount++;
     }
 
+     
+    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    {
+        //Debug.Log("State Started: " + e.stateType);
+        switch(e.stateType)
+        {
+            case GameModeType.Song:
+                break;
+            default:
+                break;
+        }
+    }
+    
+    private void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    {
+        //Debug.Log("Game state ended: " + e.state.GameType);
+        switch(e.stateType)
+        {
+            case GameModeType.Song:
+                break;
+            default:
+                break;
+        }
+    }
+
     void Start()
     {
         GameEvents.OnEventStart += HandleEventStart;
@@ -110,6 +180,9 @@ public class MinigameManager : MonoBehaviour
         GameEvents.OnEventCancel += HandleEventCancel;
         GameEvents.OnEventComplete += HandleEventComplete;
         GameEvents.OnEventMiss += HandleEventMiss;
+        
+        GameStateEvent.OnGameStateStart += HandleGameStateStart;
+        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
     }
 
     void OnDestroy()
@@ -119,5 +192,45 @@ public class MinigameManager : MonoBehaviour
         GameEvents.OnEventCancel -= HandleEventCancel;
         GameEvents.OnEventComplete -= HandleEventComplete;
         GameEvents.OnEventMiss -= HandleEventMiss;
+        
+        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
+        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
     }
+
+    public void IncreaseComfort(float amount)
+    {
+        comfort += amount;
+        if (comfort > maxComfort)
+        {
+            comfort = maxComfort;
+        }
+    }
+
+    public void DecreaseComfort(float amount)
+    {
+        comfort -= amount;
+        if (comfort < 0)
+        {
+            comfort = 0;
+        }
+    }
+
+    public void IncreaseHype(float amount)
+    {
+        hype += amount;
+        if (hype > maxHype)
+        {
+            hype = maxHype;
+        }
+    }
+
+    public void DecreaseHype(float amount)
+    {
+        hype -= amount;
+        if (hype < 0)
+        {
+            hype = 0;
+        }
+    }
+
 }

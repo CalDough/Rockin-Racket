@@ -18,7 +18,7 @@ public class ChanceMinigameOwner : MonoBehaviour
     public float chanceIncrease;
     public float chanceTimer;
 
-    private bool isOnCooldown = false;
+    public bool isOnCooldown = false;
 
     [SerializeField] private MinigameContainer MiniGames;  
     [SerializeField] private List<MiniGame> SpawnedMiniGames;  

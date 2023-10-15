@@ -12,7 +12,7 @@ public class MinigameOwner : MonoBehaviour
     [Header("Current Settings")]
     public float currentCooldownDuration;
 
-    private bool isOnCooldown = false;
+    public bool isOnCooldown = false;
     public int TimesCompleted = 0;
     public int TimesFailed = 0;
     
