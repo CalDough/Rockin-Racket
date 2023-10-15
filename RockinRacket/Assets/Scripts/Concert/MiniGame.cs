@@ -30,6 +30,11 @@ public class MiniGame : MonoBehaviour
 
     public Coroutine durationCoroutine = null;
 
+    public float hypeBonus = 0f;
+    public float comfortBonus = 0f;
+    // leave the penalty numbers as positive, we'll just make it negative in the other scripts
+    public float hypePenalty = 0f;
+    public float comfortPenalty = 0f;
 
     public virtual void Activate()
     {

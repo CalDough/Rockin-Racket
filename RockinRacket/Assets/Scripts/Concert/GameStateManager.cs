@@ -119,7 +119,7 @@ public class GameStateManager : MonoBehaviour
         ConcertActive = false;
         ConcertAudioEvent.ConcertEnd();
         LocateConcertUIAndEndConcert();
-        GameEventManager.Instance.CleanUp();
+        //GameEventManager.Instance.CleanUp();
         ResetVariables();
         
     }
@@ -131,7 +131,8 @@ public class GameStateManager : MonoBehaviour
         ConcertActive = false;
         ConcertAudioEvent.ConcertEnd();
         LocateConcertUIAndEndConcert();
-        GameEventManager.Instance.CleanUp();
+        //GameEventManager.Instance.CleanUp();
+        
         ResetVariables();
     }
 
@@ -366,6 +367,7 @@ public class GameStateManager : MonoBehaviour
         if(ConcertActive == true){return;}
         if(SelectedVenue == null){return;}
         
+        MinigameStatusManager.Instance.ResetVariables();
 
         Debug.Log("Loading Concert Data");
         LoadVenue();
@@ -378,8 +380,8 @@ public class GameStateManager : MonoBehaviour
         
         
         Debug.Log("Events Loaded Starting");
-        GameEventManager.Instance.LoadEvents();
-        
+        //GameEventManager.Instance.LoadEvents();
+        MinigameStatusManager.Instance.CheckInventory();
         
         Debug.Log("Starting");
         CopyGameStatesToInspector();

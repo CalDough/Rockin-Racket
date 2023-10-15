@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class MinigameManager : MonoBehaviour
+using Unity.Mathematics;
+public class MinigameStatusManager : MonoBehaviour
 {
     [field: SerializeField] public int totalDifficulty { get; private set; } = 0; 
 
@@ -15,17 +16,24 @@ public class MinigameManager : MonoBehaviour
     [Header("Audience Mood Bars")]
     [SerializeField] private float hype = 0f;
     [SerializeField] private float maxHype = 1000f;
-    [SerializeField] private float comfort = 0f;
+
+    [SerializeField] private float comfort = 500f;
     [SerializeField] private float maxComfort = 1000f;
+
     [SerializeField] private float hypeInterval = 1f; 
     [SerializeField] private float comfortInterval = 1f; 
+
+    [SerializeField] private float comfortLossPerSecond = 5f;
+    [SerializeField] private float comfortModifier = 1f;
+    [SerializeField] private float hypeModifier = 1f;
+
     [SerializeField] private List<BandRoleAudioController> bandMembers;
 
 
     [Header("Active Scriptable Objects")] 
     [SerializeField] private MinigameContainer ImmuneMiniGames;
 
-    public static MinigameManager Instance { get; private set; }
+    public static MinigameStatusManager Instance { get; private set; }
 
     // Singleton Code
     void Awake()
@@ -77,8 +85,13 @@ public class MinigameManager : MonoBehaviour
         return true;
     }
 
+    public void ResetVariables()
+    {
+        hype = 0f;
+        comfort = 500f;
+    }
 
-    private void CheckInventory()
+    public void CheckInventory()
     {
         //get a list of all games the player is immune to here
         //ImmuneMiniGames.MiniGamesPrefabs = ItemInventory.ItemMinigames();
@@ -94,12 +107,11 @@ public class MinigameManager : MonoBehaviour
             {
                 foreach (BandRoleAudioController member in bandMembers)
                 {
-                    if (member.isPlaying && member.instrumentBrokenValue < 5)
+                    if (member.isPlaying )
                     {
                         hype += CalculateHypeContribution(member.instrumentBrokenValue, member.HypeGeneration);
                     }
-
-                    if (member.isSinging && member.voiceBrokenValue < 5)
+                    else if (member.isSinging)
                     {
                         hype += CalculateHypeContribution(member.voiceBrokenValue, member.HypeGeneration);
                     }
@@ -113,10 +125,24 @@ public class MinigameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator ComfortGeneration()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(comfortInterval);
+
+            if (GameStateManager.Instance.CurrentGameState.GameType == GameModeType.Song) 
+            {
+                DecreaseComfort(comfortLossPerSecond * comfortModifier);
+            }
+        }
+    }
+
+
     private float CalculateHypeContribution(float brokenValue, float maxContribution)
     {
         float contributionPercentage = 1f - 0.3f * brokenValue;
-        return maxContribution * contributionPercentage;
+        return maxContribution * contributionPercentage * hypeModifier;
     }
 
     public void HandleEventStart(object sender, GameEventArgs e)
@@ -128,6 +154,7 @@ public class MinigameManager : MonoBehaviour
     {
         Debug.Log("Event Fail: " + e.EventObject);
         failedMiniGamesCount++;
+        AddMinigameVariables(e.EventObject.hypePenalty, e.EventObject.hypePenalty);
     }
 
     public void HandleEventCancel(object sender, GameEventArgs e)
@@ -140,6 +167,7 @@ public class MinigameManager : MonoBehaviour
     {
         Debug.Log("Event Completed: " + e.EventObject);
         completedMiniGamesCount++;
+        AddMinigameVariables(e.EventObject.hypeBonus, e.EventObject.comfortBonus);
     }
 
     public void HandleEventMiss(object sender, GameEventArgs e)
@@ -148,7 +176,27 @@ public class MinigameManager : MonoBehaviour
         missedMiniGamesCount++;
     }
 
-     
+    public void AddMinigameVariables(float hypeChange, float comfortChange)
+    {
+        if(hypeChange > 0)
+        {
+            IncreaseHype(hypeChange);
+        }
+        else
+        {
+            DecreaseHype(hypeChange);
+        }
+        
+        if(comfortChange > 0)
+        {
+            IncreaseComfort(comfortChange);
+        }
+        else
+        {
+            DecreaseComfort(comfortChange); 
+        }
+    }
+    
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
     {
         //Debug.Log("State Started: " + e.stateType);

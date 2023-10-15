@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3533003436905624507}
   - component: {fileID: 5509531388971829209}
   - component: {fileID: 7762844053631542588}
-  - component: {fileID: 2358382766841986131}
+  - component: {fileID: 6651588620859644378}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -76,6 +76,7 @@ MonoBehaviour:
     NumberOfStates: 0
     InsertionType: 0
     InsertAfter: 1
+    ReplaceState: 0
   GameStatesFromVenue: []
   SelectedMenuSongs: []
   GameStatesFromStory: []
@@ -87,7 +88,7 @@ MonoBehaviour:
   <songSlotsAvailable>k__BackingField: 0
   MoneyToGain: 0
   FameToGain: 0
---- !u!114 &2358382766841986131
+--- !u!114 &6651588620859644378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,26 +97,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8830584993686692534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8a71d5970dcf0248ad91a8b8deca8c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 37899349dbee95a479c7f36b0b0912b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songNumber: 0
-  intermissionNumber: 0
-  currentTime: 0
-  pastTime: 0
   <totalDifficulty>k__BackingField: 0
-  completedMiniGames: []
-  failedMiniGames: []
-  missedMiniGames: []
-  cancelledMiniGames: []
-  concertMiniGames: []
-  intermissionMiniGames: []
-  instanceConcertMiniGames: []
-  instanceIntermissionMiniGames: []
-  usedUniqueMiniGames: []
-  ConcertMiniGameSO: {fileID: 11400000, guid: 315171cdc5bfa6c418748cf233f10f16, type: 2}
-  IntermissionMiniGameSO: {fileID: 11400000, guid: aa766fcc73522b34cb4e7a5075f8517f,
-    type: 2}
-  stagedMiniGames: {fileID: 11400000, guid: c96418e2f66904044ab0808e865e561b, type: 2}
-  randomMiniGames: {fileID: 11400000, guid: 5cbee18615a55c84085aa69be512da87, type: 2}
+  hype: 0
+  maxHype: 1000
+  comfort: 500
+  maxComfort: 1000
+  hypeInterval: 1
+  comfortInterval: 1
+  comfortLossPerSecond: 5
+  comfortModifier: 1
+  hypeModifier: 1
+  bandMembers: []
   ImmuneMiniGames: {fileID: 11400000, guid: 33d76c34f0ad6ba42a3498f427b2820a, type: 2}

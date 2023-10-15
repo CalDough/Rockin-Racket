@@ -32,7 +32,7 @@ public class MinigameOwner : MonoBehaviour
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
         
-        IsAvailable = MinigameManager.Instance.IsMinigameAvailable(AvailableMiniGame);
+        IsAvailable = MinigameStatusManager.Instance.IsMinigameAvailable(AvailableMiniGame);
     }
 
     private void CheckInventory()
