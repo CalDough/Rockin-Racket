@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 5830636838127535885}
   - component: {fileID: 4832452296539484529}
   - component: {fileID: 7651794491185165571}
-  - component: {fileID: 8222194478546067797}
+  - component: {fileID: 1278062580462688450}
   m_Layer: 5
   m_Name: TrashDraggable
   m_TagString: Untagged
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8222194478546067797
+--- !u!114 &1278062580462688450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,10 +222,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2822279064632338553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b3f3f0beec3fb946874899d4ab8b8df, type: 3}
+  m_Script: {fileID: 11500000, guid: cf1c6bebfc31a224ab5e9dfe74043d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trashImage: {fileID: 7651794491185165571}
-  DumpsterPos: {x: -300, y: 0}
-  DumpsterDimensions: {x: 600, y: 600}
-  startPosition: {x: 0, y: 0, z: 0}
+  trashType: 5
+  trashSorting: {fileID: 0}

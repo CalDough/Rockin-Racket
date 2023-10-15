@@ -5,22 +5,21 @@ using UnityEngine.EventSystems;
 
 public class Drop : MonoBehaviour, IDropHandler
 {
-    [SerializeField] string slotName;
+    [SerializeField] int slotID;  // Using ID instead of slotName for better clarity
     [SerializeField] int minigameID;
 
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("DROPPED");
-        if (eventData.pointerDrag.transform.name == slotName)
-        {
-            DropEvents.current.e_DropEvent.Invoke(minigameID);
 
-            Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
-            if(draggable != null)
-            {
-                draggable.startPosition = transform.position;
-                Debug.Log("Dragged");
-            }
+        Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
+
+        if (draggable != null && draggable.SlotID == slotID)
+        {
+            DropEvent.ItemDropped(minigameID, draggable);
+            
+            draggable.transform.position = transform.position;
+            Debug.Log("Dragged");
         }
     }
 }

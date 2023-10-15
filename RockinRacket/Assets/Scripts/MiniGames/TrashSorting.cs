@@ -14,19 +14,16 @@ public class TrashSorting : MiniGame
     [SerializeField] RectTransform spawnArea;
     [SerializeField] int minTrashSpawn;
     [SerializeField] int maxTrashSpawn;
-    [SerializeField] GameObject[] draggableTrashPrefabs;
+    public GameObject[] trashPrefabs; // Drag your trash prefabs here in the Unity inspector
+    public RectTransform[] dumpsters;
+    [SerializeField] Transform trashParentTransform;
+    private List<GameObject> spawnedTrashItems = new List<GameObject>();
 
     // Debugging fields
     [Header("Debugging Fields")]
-    [SerializeField] private int totalTrashCleaned = 0;
-    [SerializeField] private int totalTrashRemaining;
     [SerializeField] private int totalTrash;
+    [SerializeField] private int sortedTrash;
 
-
-    private void Start()
-    {
-        DropEvents.current.e_DropEvent.AddListener(SubtractTrash);
-    }
 
     /*
      * This method is run when the minigame is activated
@@ -51,46 +48,65 @@ public class TrashSorting : MiniGame
     public void SpawnTrash()
     {
         // Calculating the total trash the player will have to clean
-        totalTrash = Random.Range(minTrashSpawn, maxTrashSpawn + 1);
-        totalTrashRemaining = totalTrash;
+        totalTrash = Random.Range(minTrashSpawn, maxTrashSpawn);
 
         // Looping through and spawning the number of trash prefabs as set in our
         // total trash variable
         for (int i = 0; i < totalTrash; i++)
         {
-            GameObject trashPrefab = draggableTrashPrefabs[Random.Range(0, draggableTrashPrefabs.Length)];
+            GameObject chosenPrefab = trashPrefabs[Random.Range(0, trashPrefabs.Length)];
+            DraggableTrash draggableComponent = chosenPrefab.GetComponent<DraggableTrash>();
+            
+            // If the chosen trash prefab doesn't have a DraggableTrash component, skip
+            if(draggableComponent == null) 
+            {continue;}
 
-            // Calculating the spawn position in our rectangle
-            Vector3 spawnPosition = new Vector3
-            (
-                Random.Range((spawnArea.rect.min.x + spawnArea.rect.width / 2), spawnArea.rect.max.x),
-                Random.Range(spawnArea.rect.min.y, spawnArea.rect.max.y),
-                0
-            );
-
-            // adjust for panel's actual position in world space 
-            spawnPosition += (Vector3)spawnArea.position;
-
-            // Instantiating the object at our spawn position
-            GameObject spawnedTrash = Instantiate(trashPrefab, spawnPosition, Quaternion.identity, spawnArea);
-        }
-    }
-
-    private void SubtractTrash(int i)
-    {
-        if (i == 0)
-        {
-            Debug.Log("Trash decrementing");
-            totalTrashRemaining--;
-
-            if (totalTrashRemaining <= 0)
+            GameObject trashInstance = Instantiate(chosenPrefab);
+            DraggableTrash trashScript = trashInstance.GetComponent<DraggableTrash>();
+            
+            trashScript.trashSorting = this; 
+            if(trashParentTransform != null)
             {
-                Complete();
-                Debug.Log("Complete Trash Sorting");
+                trashInstance.transform.SetParent(trashParentTransform, false);
             }
+            else
+            {
+                trashInstance.transform.SetParent(transform, false);
+            } 
+
+            // Set position within spawnArea
+            Vector3 randomPosWithinArea = new Vector3(
+                Random.Range(spawnArea.rect.xMin, spawnArea.rect.xMax),
+                Random.Range(spawnArea.rect.yMin, spawnArea.rect.yMax),
+                0 
+            );
+            spawnedTrashItems.Add(trashInstance);
+            trashInstance.transform.position = spawnArea.TransformPoint(randomPosWithinArea);
+        }
+
+    }
+
+    public void TrashSorted(DraggableTrash sortedItem)
+    {
+        sortedTrash++;
+        Destroy(sortedItem.gameObject);
+
+        if (sortedTrash == totalTrash)
+        {
+            // All trash sorted
+            Debug.Log("All trash sorted!");
+            Complete();
         }
     }
 
+    private void CleanupSpawnedTrash()
+    {
+        foreach (GameObject trashItem in spawnedTrashItems)
+        {
+            Destroy(trashItem);
+        }
+        spawnedTrashItems.Clear();
+    }
     //When the player fails to complete the event in time.
     public override void End()
     {
@@ -102,6 +118,7 @@ public class TrashSorting : MiniGame
         GameEvents.EventFail(this);
         GameEvents.EventClosed(this);
         HandleClosing();
+        CleanupSpawnedTrash();
     }
 
     //When the player misses the event due to Game State Change.
@@ -115,6 +132,7 @@ public class TrashSorting : MiniGame
         GameEvents.EventMiss(this);
         GameEvents.EventClosed(this);
         HandleClosing();
+        CleanupSpawnedTrash();
     }
 
     //When the player completes the event in time.
@@ -129,6 +147,7 @@ public class TrashSorting : MiniGame
         GameEvents.EventClosed(this);
         this.IsCompleted = true;
         HandleClosing();
+        CleanupSpawnedTrash();
     }
 
     //Calls the event to inform the UI to open or close the game
@@ -160,4 +179,11 @@ public class TrashSorting : MiniGame
         { RestartMiniGameLogic(); }
     }
 
+    public override void RestartMiniGameLogic()
+    {
+        
+        CleanupSpawnedTrash();
+        this.sortedTrash = 0;
+        this.totalTrash = 0;
+    }
 }

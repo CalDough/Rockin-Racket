@@ -85,11 +85,12 @@ public class MinigameOwner : MonoBehaviour
         // Logic for starting the mini-game goes here
         if(AvailableMiniGame)
         {
-            AvailableMiniGame.IsCompleted = false;
+            
             if(AvailableMiniGame.IsCompleted)
             {
-                
+                AvailableMiniGame.IsCompleted = false;
                 AvailableMiniGame.RestartMiniGameLogic();
+                AvailableMiniGame.Activate();
             }
             else
             {

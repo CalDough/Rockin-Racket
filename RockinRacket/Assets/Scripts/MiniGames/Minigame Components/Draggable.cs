@@ -1,59 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Text.RegularExpressions;
-using UnityEditor.ShaderGraph.Internal;
 
-public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [Header("Object References")]
-    [SerializeField] Image trashImage;
-    // TEMPORARY - WILL FIX LATER
-    [SerializeField] Vector2 DumpsterPos;
-    [SerializeField] Vector2 DumpsterDimensions;
-    GameObject dumpster;
+    [HideInInspector]
     public Vector3 startPosition;
 
-    private void Start()
+    public int SlotID;
+
+    private CanvasGroup canvasGroup;
+
+    private void Awake()
     {
-        startPosition = transform.position;
-        dumpster = GameObject.Find("Dumpster");
+        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        trashImage.raycastTarget = false;
+        startPosition = transform.position;
+        //canvasGroup.blocksRaycasts = false; // object might block its own ray during dragging
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = eventData.position;
+        transform.position = eventData.position; // Update position while dragging
     }
 
-    /*
-     * NEEDS REFACTORING
-     */
     public void OnEndDrag(PointerEventData eventData)
     {
-        //Debug.Log("Position: " + eventData.position);
-        float xPos = eventData.position.x;
-        float yPos = eventData.position.y;
-        //Debug.Log(DumpsterPos.x + " " + (DumpsterPos.x + DumpsterDimensions.x));
-        //Debug.Log(DumpsterPos.y + " " + (DumpsterPos.y + DumpsterDimensions.y));
-
-        if (xPos < 950)
-        {
-            if (yPos > 50)
-            {
-                //Debug.Log("Within");
-                DropEvents.current.e_DropEvent.Invoke(0);
-                Destroy(gameObject);
-            }
-        }
-
-
-        trashImage.raycastTarget = true;
+        canvasGroup.blocksRaycasts = true; // Make it detectable by raycast again
+        transform.position = startPosition; // This will be changed if dropped on a valid Drop zone
     }
 }

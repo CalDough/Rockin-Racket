@@ -2,30 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
-public class DropEvents : MonoBehaviour
+public static class DropEvent
 {
-    public static DropEvents current;
+    public static event EventHandler<DropEventArgs> OnItemDropped;
 
-    public MyIntEvent e_DropEvent;
-
-    [System.Serializable]
-    public class MyIntEvent : UnityEvent<int>
+    public static void ItemDropped(int minigameID, Draggable item)
     {
-
+        OnItemDropped?.Invoke(null, new DropEventArgs(minigameID, item));
     }
+}
 
-    // Initializing our singleton
-    private void Awake()
-    {
-        current = this;
-    }
+public class DropEventArgs : EventArgs
+{
+    public int MinigameID { get; }
+    public Draggable DroppedItem { get; }
 
-    private void Start()
+    public DropEventArgs(int minigameID, Draggable droppedItem)
     {
-        if (e_DropEvent == null)
-        {
-            e_DropEvent = new MyIntEvent();
-        }
+        MinigameID = minigameID;
+        DroppedItem = droppedItem;
     }
 }
