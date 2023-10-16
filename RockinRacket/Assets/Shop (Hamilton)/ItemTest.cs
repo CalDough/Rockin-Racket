@@ -19,9 +19,9 @@ public class ItemTest : ScriptableObject
     public string description;
     public int cost;
     public double scoreMultiplier = 1;
-    public GameObject minigameToSpawn;
+    public GameObject minigameObject;
 
-    public MinigameEnum MinigameBonus;
-    public double freqMod;
-    public double diffMod;
+    //public MinigameEnum MinigameBonus;
+    //public double freqMod;
+    //public double diffMod;
 }

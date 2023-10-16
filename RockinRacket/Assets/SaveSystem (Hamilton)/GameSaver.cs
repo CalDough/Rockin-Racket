@@ -6,7 +6,7 @@ using System.IO;
 using System;
 using UnityEditor;
 
-public class GameSaver
+public static class GameSaver
 {
     // CHANGE TO THIS FOR FINAL BUILD
     //private static string saveFolderPath = "Player/SaveFiles/";

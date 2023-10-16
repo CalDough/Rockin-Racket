@@ -6,7 +6,7 @@ using System.IO;
 using System;
 using UnityEditor;
 
-public class ItemInventory
+public static class ItemInventory
 {
     // CHANGE TO THIS FOR FINAL BUILD
     //private string saveFolderPath = "Player/SaveFiles/";
@@ -26,21 +26,21 @@ public class ItemInventory
         List<GameObject> minigamesToSpawn = new();
         foreach (ItemTest item in items)
         {
-            if (item.minigameToSpawn)
-                minigamesToSpawn.Add(item.minigameToSpawn);
+            if (item.minigameObject)
+                minigamesToSpawn.Add(item.minigameObject);
         }
         return minigamesToSpawn;
     }
 
-    public static double MinigameDifficultyMod(ItemTest.MinigameEnum minigame)
-    {
-        foreach (ItemTest item in items)
-        {
-            if (item.MinigameBonus == minigame)
-                return item.diffMod;
-        }
-        return 1;
-    }
+    //public static double MinigameDifficultyMod(ItemTest.MinigameEnum minigame)
+    //{
+    //    foreach (ItemTest item in items)
+    //    {
+    //        if (item.MinigameBonus == minigame)
+    //            return item.diffMod;
+    //    }
+    //    return 1;
+    //}
 
     public static void Save()
     {
