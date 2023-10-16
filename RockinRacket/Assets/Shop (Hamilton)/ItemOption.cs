@@ -20,7 +20,7 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 
     private void Awake()
     {
-        ItemImage.sprite = item.sprite;
+        ItemImage.sprite = item.Sprite;
         //Highlight.color = new Color(1f, 1f, 1f, 0f);
         UpdateIsSold();
     }

@@ -38,9 +38,9 @@ public class ShopSelection : MonoBehaviour
             cartButtonText.text = "Add To Cart";
             return;
         }
-        nameText.text = selectedItemOption.item.itemName;
-        descriptionText.text = selectedItemOption.item.description;
-        costText.text = "$" + selectedItemOption.item.cost.ToString();
+        nameText.text = selectedItemOption.item.ItemName;
+        descriptionText.text = selectedItemOption.item.Description;
+        costText.text = "$" + selectedItemOption.item.Cost.ToString();
         if (receipt.IsInCart(selectedItemOption))
             cartButtonText.text = "Remove From Cart";
         else

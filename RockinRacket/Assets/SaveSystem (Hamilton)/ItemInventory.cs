@@ -9,20 +9,22 @@ using UnityEditor;
 public static class ItemInventory
 {
     // CHANGE TO THIS FOR FINAL BUILD
-    //private string saveFolderPath = "Player/SaveFiles/";
+    // private string saveFolderPath = "Player/SaveFiles/";
     private static string saveFolderPath = "Assets/SaveFiles/";
     private static string saveFileName = "Items.txt";
 
     private static List<ItemTest> items = new();
-    //public List<ItemTest> Items { get => items; set => items = value; }
 
     public static void AddItem(ItemTest item) { items.Add(item); }
     public static void RemoveItem(ItemTest item) { items.Remove(item); }
     public static List<ItemTest> GetItems() { return items; }
     public static bool ContainsItem(ItemTest item) { return items.Contains(item); }
 
-    public static List<GameObject> ItemMinigames()
+    // TODO 
+    public static List<GameObject> GetMinigames()
     {
+        Dictionary<ItemTest.MinigameType, GameObject> minigamesByTyp;
+        
         List<GameObject> minigamesToSpawn = new();
         foreach (ItemTest item in items)
         {
