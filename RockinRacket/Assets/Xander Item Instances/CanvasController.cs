@@ -127,6 +127,7 @@ public class CanvasController : MonoBehaviour
 
     public void SwapToAudienceView()
     {
+        Camera.main.orthographic = false;
         previousState = currentGameState.CurrentConcertState;
         DeactivateCurrentUI(previousState);
         CameraSwapEvents.instance.e_SwapToAudienceView.Invoke();
@@ -155,6 +156,7 @@ public class CanvasController : MonoBehaviour
                 BackStageViewPanel.SetActive(false);
                 break;
             case ConcertState.AudienceView:
+                Camera.main.orthographic = true;
                 AudienceViewPanel.SetActive(false);
                 break;
             case ConcertState.VenueView:
