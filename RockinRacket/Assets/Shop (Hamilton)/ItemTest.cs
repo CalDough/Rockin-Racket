@@ -12,13 +12,13 @@ public class ItemTest : ScriptableObject
     public enum MinigameType { NONE, DialTuning, TrashSort, Unique};
     public enum ItemType { Instrument, Stage, Audience};
 
-    public int ID { get; private set; }
-    public string ItemName { get; private set; }
-    public Sprite Sprite { get; private set; }
+    public int ID;
+    public string itemName;
+    public Sprite sprite;
     public ItemType itemType;
-    public string Description { get; private set; }
-    public int Cost { get; private set; }
-    public double ScoreMultiplier { get; private set; }
+    public string description;
+    public int cost;
+    public double scoreMultiplier;
     public GameObject minigameObject;
     public MinigameType minigameType;
     //public double freqMod;

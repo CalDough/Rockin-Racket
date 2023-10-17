@@ -44,12 +44,12 @@ public class ShopReceipt : MonoBehaviour
         cost = 0;
         foreach (ItemOption itemOption in selectedItemOptions)
         {
-            stringBuilder.Append(itemOption.item.ItemName);
-            for (int i=0; i<20-itemOption.item.ItemName.Length; i++)
+            stringBuilder.Append(itemOption.item.itemName);
+            for (int i=0; i<20-itemOption.item.itemName.Length; i++)
                 stringBuilder.Append(".");
             stringBuilder.Append("$");
-            stringBuilder.AppendLine(itemOption.item.Cost.ToString());
-            cost += itemOption.item.Cost;
+            stringBuilder.AppendLine(itemOption.item.cost.ToString());
+            cost += itemOption.item.cost;
         }
         stringBuilder.AppendLine();
         if (cost > 0)

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Text;
 using System.IO;
 using System;
+using System.Linq;
 using UnityEditor;
 
 public static class ItemInventory
@@ -19,18 +20,31 @@ public static class ItemInventory
     public static void RemoveItem(ItemTest item) { items.Remove(item); }
     public static List<ItemTest> GetItems() { return items; }
     public static bool ContainsItem(ItemTest item) { return items.Contains(item); }
+    private static Dictionary<ItemTest.MinigameType, GameObject> minigamesByType;
 
-    // TODO 
+
+    public static GameObject GetMinigameByName(ItemTest.MinigameType type)
+    {
+        return minigamesByType[type];
+    }
+
+    // TODO only return EQUIPPED items
     public static List<GameObject> GetMinigames()
     {
-        Dictionary<ItemTest.MinigameType, GameObject> minigamesByTyp;
+        List<ItemTest.MinigameType> minigameTypes = Enum.GetValues(typeof(ItemTest.MinigameType)).Cast<ItemTest.MinigameType>().ToList();
+        minigameTypes.Remove(ItemTest.MinigameType.NONE);
+
+        List<GameObject> noneTypeMinigames = new();
         
         List<GameObject> minigamesToSpawn = new();
-        foreach (ItemTest item in items)
-        {
-            if (item.minigameObject)
-                minigamesToSpawn.Add(item.minigameObject);
-        }
+        //foreach (ItemTest item in items)
+        //{
+        //    if (item.Minigame_Type != ItemTest.MinigameType.NONE)
+        //        minigamesByType.
+        //    else
+        //        noneTypeMinigames.Add(item.MinigameObject);
+        //}
+
         return minigamesToSpawn;
     }
 
