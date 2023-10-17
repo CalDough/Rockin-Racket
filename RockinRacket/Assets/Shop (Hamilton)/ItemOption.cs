@@ -17,6 +17,7 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     public Image soldImage;
 
     private bool forSale;
+    private bool equipped;
 
     private void Awake()
     {
@@ -57,6 +58,10 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
         // add item to inventory
         ItemInventory.AddItem(item);
         UpdateIsSold();
+    }
+    public void EquipItem()
+    {
+
     }
     public void UpdateIsSold()
     {

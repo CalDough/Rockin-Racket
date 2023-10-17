@@ -15,6 +15,7 @@ public static class ItemInventory
     private static string saveFileName = "Items.txt";
 
     private static List<ItemTest> items = new();
+    private static List<ItemTest> eqippedItems = new();
 
     public static void AddItem(ItemTest item) { items.Add(item); }
     public static void RemoveItem(ItemTest item) { items.Remove(item); }
@@ -28,35 +29,20 @@ public static class ItemInventory
         return minigamesByType[type];
     }
 
-    // TODO only return EQUIPPED items
-    public static List<GameObject> GetMinigames()
+    // TODO only get EQUIPPED items
+    public static void GetEquippedItems()
     {
-        List<ItemTest.MinigameType> minigameTypes = Enum.GetValues(typeof(ItemTest.MinigameType)).Cast<ItemTest.MinigameType>().ToList();
-        minigameTypes.Remove(ItemTest.MinigameType.NONE);
+        ItemTest.MinigameType[] minigameTypes = (ItemTest.MinigameType[])Enum.GetValues(typeof(ItemTest.MinigameType));
+        minigameTypes = (ItemTest.MinigameType[])minigameTypes.SkipLast(1);
 
-        List<GameObject> noneTypeMinigames = new();
-        
-        List<GameObject> minigamesToSpawn = new();
-        //foreach (ItemTest item in items)
-        //{
-        //    if (item.Minigame_Type != ItemTest.MinigameType.NONE)
-        //        minigamesByType.
-        //    else
-        //        noneTypeMinigames.Add(item.MinigameObject);
-        //}
-
-        return minigamesToSpawn;
+        foreach (ItemTest item in items)
+        {
+            //if (item.Minigame_Type != ItemTest.MinigameType.NONE)
+            //    minigamesByType.
+            //else
+            //    noneTypeMinigames.Add(item.MinigameObject);
+        }
     }
-
-    //public static double MinigameDifficultyMod(ItemTest.MinigameEnum minigame)
-    //{
-    //    foreach (ItemTest item in items)
-    //    {
-    //        if (item.MinigameBonus == minigame)
-    //            return item.diffMod;
-    //    }
-    //    return 1;
-    //}
 
     public static void Save()
     {

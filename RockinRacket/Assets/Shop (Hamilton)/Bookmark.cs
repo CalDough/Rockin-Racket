@@ -8,22 +8,23 @@ using TMPro;
 
 public class Bookmark : MonoBehaviour, IPointerDownHandler
 {
-    [SerializeField] private BookmarkManager bookmarkManager;
+    [SerializeField] private BookmarkPair bookmarkPair;
     [SerializeField] private Image image;
     [SerializeField] private Image block;
     [SerializeField] private TMP_Text text;
-    [SerializeField] private Color color;
-    [SerializeField] private string category;
+    //private Color color;
 
-    void Start()
+    public void Initialize(Color color, string text, bool show)
     {
+        //this.color = color;
         image.color = color;
-        text.text = category;
+        this.text.text = text;
+        Show(show);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        bookmarkManager.SelectBookmark(this);
+        bookmarkPair.BookmarkSelected();
     }
     public void Open()
     {
@@ -32,5 +33,9 @@ public class Bookmark : MonoBehaviour, IPointerDownHandler
     public void Close()
     {
         block.color = new Color(0, 0, 0, 255);
+    }
+    public void Show(bool show)
+    {
+        gameObject.SetActive(show);
     }
 }

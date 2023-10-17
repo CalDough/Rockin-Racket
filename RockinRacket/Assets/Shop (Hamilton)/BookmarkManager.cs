@@ -5,15 +5,21 @@ using UnityEngine;
 public class BookmarkManager : MonoBehaviour
 {
     [SerializeField] private CatalogManager catalogManager;
-    private Bookmark selectedBookmark;
+    [SerializeField] private BookmarkPair[] bookmarkPairs;
+    private int selectedIndex = 0;
 
-    public void SelectBookmark(Bookmark bookmark)
+    public void SelectBookmark(int index)
     {
-        if (selectedBookmark != null)
-        {
-            selectedBookmark.Close();
-        }
-        bookmark.Open();
-        selectedBookmark = bookmark;
+        bookmarkPairs[selectedIndex].Unselect();
+        selectedIndex = index;
+        FlipBookmarks(index);
+    }
+
+    public void FlipBookmarks(int index)
+    {
+        foreach (BookmarkPair bookmarkPair in bookmarkPairs)
+            bookmarkPair.ResetFlip();
+        for (int i = 0; i < index; i++)
+            bookmarkPairs[i].FlipLeft();
     }
 }
