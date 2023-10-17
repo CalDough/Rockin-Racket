@@ -18,12 +18,23 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 
     private bool forSale;
     private bool equipped;
+    public bool IsEquipped() { return equipped; }
 
     private void Awake()
     {
+        Show(false);
+    }
+    public void Show(bool show)
+    {
+        gameObject.SetActive(show);
+    }
+
+    public void SetItem(ItemTest item)
+    {
+        this.item = item;
         ItemImage.sprite = item.sprite;
-        //Highlight.color = new Color(1f, 1f, 1f, 0f);
         UpdateIsSold();
+        Show(true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -54,11 +65,12 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     }
     public void BuyItem()
     {
-        this.forSale = false;
+        forSale = false;
         // add item to inventory
         ItemInventory.AddItem(item);
         UpdateIsSold();
     }
+    // TODO
     public void EquipItem()
     {
 

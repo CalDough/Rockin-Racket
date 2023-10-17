@@ -32,8 +32,8 @@ public static class ItemInventory
     // TODO only get EQUIPPED items
     public static void GetEquippedItems()
     {
-        ItemTest.MinigameType[] minigameTypes = (ItemTest.MinigameType[])Enum.GetValues(typeof(ItemTest.MinigameType));
-        minigameTypes = (ItemTest.MinigameType[])minigameTypes.SkipLast(1);
+        ItemTest.MinigameType[] minigameTypesIncludingNone = (ItemTest.MinigameType[])Enum.GetValues(typeof(ItemTest.MinigameType));
+        ItemTest.MinigameType[] minigameTypes = (ItemTest.MinigameType[])minigameTypesIncludingNone.Skip(1);
 
         foreach (ItemTest item in items)
         {

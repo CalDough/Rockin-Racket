@@ -9,8 +9,8 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Test Item", order = 0)]
 public class ItemTest : ScriptableObject
 {
-    public enum MinigameType { NONE, DialTuning, TrashSort, Unique};
-    public enum ItemType { Instrument, Stage, Audience};
+    public enum MinigameType { NONE, DialTuning, TrashSort, TShirtCanon};
+    public enum ItemType { Instrument, Stage, Crowd};
 
     public int ID;
     public string itemName;
@@ -18,7 +18,7 @@ public class ItemTest : ScriptableObject
     public ItemType itemType;
     public string description;
     public int cost;
-    public double scoreMultiplier;
+    public double scoreMultiplier = 1;
     public GameObject minigameObject;
     public MinigameType minigameType;
     //public double freqMod;

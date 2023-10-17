@@ -8,9 +8,9 @@ public class BookmarkPair : MonoBehaviour
     [SerializeField] private Bookmark leftBookmark;
     [SerializeField] private Bookmark rightBookmark;
     [SerializeField] private Color color;
-    [SerializeField] private string category;
+    [SerializeField] private ItemTest.ItemType category;
     [SerializeField] private int index;
-    public string GetCategory() { return category; }
+    public ItemTest.ItemType GetCategory() { return category; }
 
     private void Start()
     {

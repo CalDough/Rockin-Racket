@@ -14,11 +14,11 @@ public class Bookmark : MonoBehaviour, IPointerDownHandler
     [SerializeField] private TMP_Text text;
     //private Color color;
 
-    public void Initialize(Color color, string text, bool show)
+    public void Initialize(Color color, ItemTest.ItemType itemType, bool show)
     {
         //this.color = color;
         image.color = color;
-        this.text.text = text;
+        this.text.text = itemType.ToString();
         Show(show);
     }
 
