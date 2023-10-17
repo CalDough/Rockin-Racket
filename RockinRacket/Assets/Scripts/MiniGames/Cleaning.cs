@@ -15,9 +15,11 @@ public class Cleaning : MiniGame
     [SerializeField] private int totalTrashCount;
     [SerializeField] private int cleanedTrashCount = 0;
     [SerializeField] private int score = 0; //Not sure if I want to have the player get rewarded more for more trash or type of trash
+    [SerializeField] private List<GameObject> spawnedTrashItems = new List<GameObject>();
 
     public override void Activate()
     {
+        RestartMiniGameLogic();
         isActiveEvent = true;
         remainingDuration = duration;
         if (!infiniteDuration) {
@@ -57,6 +59,7 @@ public class Cleaning : MiniGame
             GameObject spawnedTrash = Instantiate(trashPrefab, spawnPosition, Quaternion.identity, spawnArea);
             trashScript = spawnedTrash.GetComponent<TrashObject>();
             trashScript.cleaning = this;
+            spawnedTrashItems.Add(spawnedTrash);
         }
     }
 
@@ -75,9 +78,31 @@ public class Cleaning : MiniGame
         }
     }
 
+    private void CleanupSpawnedTrash()
+    {
+        foreach (GameObject trashItem in spawnedTrashItems)
+        {
+            Destroy(trashItem);
+        }
+        spawnedTrashItems.Clear();
+    }
+
+    public override void HandleClosing()
+    {
+        Panels.SetActive(false);
+
+        //If you want to reset the game if they did not complete it
+        if (IsCompleted == false)
+        { //RestartMiniGameLogic(); 
+        }
+    }
+
     public override void RestartMiniGameLogic()
     {
-        Debug.Log("No reset added yet");
+        //Debug.Log("No reset added yet");
+        CleanupSpawnedTrash();
+        totalTrashCount = 0;
+        cleanedTrashCount = 0;
     }
 
 }

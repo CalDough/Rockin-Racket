@@ -166,32 +166,32 @@ public class MinigameStatusManager : MonoBehaviour
 
     public void HandleEventStart(object sender, GameEventArgs e)
     {
-        Debug.Log("Event Started: " + e.EventObject);
+        Debug.Log("MinigameStatusManager: Event Started: " + e.EventObject);
     }
 
     public void HandleEventFail(object sender, GameEventArgs e)
     {
-        Debug.Log("Event Fail: " + e.EventObject);
+        Debug.Log("MinigameStatusManager: Event Fail: " + e.EventObject);
         failedMiniGamesCount++;
         AddMinigameVariables(e.EventObject.hypePenalty, e.EventObject.hypePenalty);
     }
 
     public void HandleEventCancel(object sender, GameEventArgs e)
     {
-        Debug.Log("Event Cancelled: " + e.EventObject);
+        Debug.Log("MinigameStatusManager: Event Cancelled: " + e.EventObject);
         canceledMiniGamesCount++;
     }
 
     public void HandleEventComplete(object sender, GameEventArgs e)
     {
-        Debug.Log("Event Completed: " + e.EventObject);
+        Debug.Log("MinigameStatusManager: Event Completed: " + e.EventObject);
         completedMiniGamesCount++;
         AddMinigameVariables(e.EventObject.hypeBonus, e.EventObject.comfortBonus);
     }
 
     public void HandleEventMiss(object sender, GameEventArgs e)
     {
-        Debug.Log("Event Missed: " + e.EventObject);
+        Debug.Log("MinigameStatusManager: Event Missed: " + e.EventObject);
         missedMiniGamesCount++;
     }
 

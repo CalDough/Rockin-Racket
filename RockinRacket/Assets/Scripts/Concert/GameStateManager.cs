@@ -369,21 +369,21 @@ public class GameStateManager : MonoBehaviour
         
         MinigameStatusManager.Instance.ResetVariables();
 
-        Debug.Log("Loading Concert Data");
+        Debug.Log("Loading Concert Data and starting concert");
         LoadVenue();
         LoadGameStatesFromLists();
         if(CanStartLevel != true)
         { return;}
         
-        Debug.Log("Song States Loaded, Creating Concert States");
+       // Debug.Log("Song States Loaded, Creating Concert States");
         ModifyGameStates();
         
         
-        Debug.Log("Events Loaded Starting");
+        //Debug.Log("Events Loaded Starting");
         //GameEventManager.Instance.LoadEvents();
         MinigameStatusManager.Instance.CheckInventory();
         
-        Debug.Log("Starting");
+        //Debug.Log("Starting");
         CopyGameStatesToInspector();
         CurrentGameState = GameStates.First.Value;
         CurrentGameState.StartState();

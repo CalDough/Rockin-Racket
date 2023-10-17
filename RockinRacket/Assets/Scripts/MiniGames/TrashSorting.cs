@@ -107,6 +107,7 @@ public class TrashSorting : MiniGame
         }
         spawnedTrashItems.Clear();
     }
+
     //When the player fails to complete the event in time.
     public override void End()
     {
@@ -176,7 +177,8 @@ public class TrashSorting : MiniGame
 
         //If you want to reset the game if they did not complete it
         if (IsCompleted == false)
-        { RestartMiniGameLogic(); }
+        { //RestartMiniGameLogic(); 
+        }
     }
 
     public override void RestartMiniGameLogic()

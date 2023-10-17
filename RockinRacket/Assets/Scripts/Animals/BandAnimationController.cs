@@ -21,7 +21,7 @@ public class BandAnimationController : MonoBehaviour
         if (BandMember.isPlaying || BandMember.isSinging || alwaysPlay == true)
         {
             characterAnimator.Play(playingName);
-            Debug.Log($"Playing animation: {playingName}");
+            //Debug.Log($"Playing animation: {playingName}");
         }
         else
         {

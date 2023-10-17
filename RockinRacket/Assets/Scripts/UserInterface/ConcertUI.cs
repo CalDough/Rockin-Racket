@@ -74,7 +74,7 @@ public class ConcertUI :  ScrollSelector<MiniGame>
 
     public void HandleEventStart(object sender, GameEventArgs e)
     {
-        Debug.Log("UI Event Started: " + e.EventObject);
+        Debug.Log("ConcertUI: UI Event Started: " + e.EventObject);
         this.Items.Add(e.EventObject);
         
         CreateButton(currentIndex);
