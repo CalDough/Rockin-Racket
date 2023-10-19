@@ -14,18 +14,18 @@ public class MinigameStatusManager : MonoBehaviour
     private int canceledMiniGamesCount = 0;
 
     [Header("Audience Mood Bars")]
-    [SerializeField] private float hype = 0f;
-    [SerializeField] private float maxHype = 1000f;
+    [SerializeField] public float hype = 0f;
+    [SerializeField] public float maxHype = 1000f;
 
-    [SerializeField] private float comfort = 500f;
-    [SerializeField] private float maxComfort = 1000f;
+    [SerializeField] public float comfort = 500f;
+    [SerializeField] public float maxComfort = 1000f;
 
-    [SerializeField] private float hypeInterval = 1f; 
-    [SerializeField] private float comfortInterval = 1f; 
+    [SerializeField] public float hypeInterval = 1f; 
+    [SerializeField] public float comfortInterval = 1f; 
 
-    [SerializeField] private float comfortLossPerSecond = 10f;
-    [SerializeField] private float comfortModifier = 1f;
-    [SerializeField] private float hypeModifier = 1f;
+    [SerializeField] public float comfortLossPerSecond = 10f;
+    [SerializeField] public float comfortModifier = 1f;
+    [SerializeField] public float hypeModifier = 1f;
 
     [SerializeField] private List<BandRoleAudioController> bandMembers;
 
@@ -36,6 +36,14 @@ public class MinigameStatusManager : MonoBehaviour
     [SerializeField] private MinigameContainer ImmuneMiniGames;
 
     public static MinigameStatusManager Instance { get; private set; }
+
+    [Header("Test Variables")] 
+    //Testing if we want to store the hype for each song and max hype they player could gain
+    //based on song length * total # of active band members
+    //then we can give the player a grade like 900/1000 hype is an A grade concert
+    [SerializeField] public float PotentialHype;
+    [SerializeField] public List<float> PotentialHypeFromAllSongs;
+    [SerializeField] public List<float> HypeEarnedFromAllSongs;
 
     // Singleton Code
     void Awake()
@@ -222,6 +230,9 @@ public class MinigameStatusManager : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                this.PotentialHype = GameStateManager.Instance.CurrentGameState.Duration * 50;
+                this.maxHype = PotentialHype;
+                PotentialHypeFromAllSongs.Add(hype);
                 StartCoroutine(HypeGeneration());
                 StartCoroutine(ComfortGeneration());
                 break;
@@ -236,6 +247,8 @@ public class MinigameStatusManager : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                HypeEarnedFromAllSongs.Add(hype);
+                hype = 0;
                 StopCoroutine(HypeGeneration());
                 StopCoroutine(ComfortGeneration());
                 break;

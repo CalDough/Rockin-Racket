@@ -23,7 +23,7 @@ public class MinigameOwner : MonoBehaviour
     public int maxAttempts = 5;
     private int attempts = 0;
 
-    [SerializeField] private MiniGame AvailableMiniGame;  
+    [SerializeField] private MiniGame AvailableMiniGame;  //the minigame in the scene
 
     private void Start()
     {
@@ -43,7 +43,7 @@ public class MinigameOwner : MonoBehaviour
 
     private void CheckInventory()
     {
-        // Will make a call to inventory to check for new stats for cooldowns and such
+        // Will make a call to inventory to check for current prefab if the player has the item to own the mini-game
     }
 
     public void BeginCooldowns()
