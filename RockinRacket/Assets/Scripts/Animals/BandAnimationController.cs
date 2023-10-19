@@ -12,8 +12,14 @@ public class BandAnimationController : MonoBehaviour
     [SerializeField] Animator characterAnimator;
     [SerializeField] string playingName = "InstrumentPlaying";
     [SerializeField] string idleName = "Idle"; 
+    [SerializeField] string walkName = "Walk"; 
 
     [SerializeField] bool alwaysPlay = false;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] List<Transform> targetPoints = new List<Transform>();
+    [SerializeField] private Transform currentTarget;
+    [SerializeField] private float moveSpeed = 5f;
+    private bool isMoving = false; 
 
     public void PlayAnimation()
     {
@@ -55,13 +61,16 @@ public class BandAnimationController : MonoBehaviour
 
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
     {
-        //Testing animations with alwaysPlay bool
+        // Testing animations with alwaysPlay bool, if enabled the band member always uses animations
     
         switch(e.stateType)
         {
             case GameModeType.Song:
                 if(alwaysPlay == true)
                 {PlayAnimation();}
+                break;
+            case GameModeType.Intermission:
+                OnIntermissionStart();
                 break;
             default:
                 break;
@@ -72,6 +81,16 @@ public class BandAnimationController : MonoBehaviour
     public void HandleGameStateEnd(object sender, GameStateEventArgs e)
     {
         StopAnimation();
+        switch(e.stateType)
+        {
+            case GameModeType.Song:
+                break;
+            case GameModeType.Intermission:
+                OnIntermissionEnd();
+                break;
+            default:
+                break;
+        }
     }
 
     private void Start()
@@ -125,5 +144,55 @@ public class BandAnimationController : MonoBehaviour
         StopAnimation();
     }
 
-    
+    private void OnIntermissionStart()
+    {
+        StopAnimation();
+        // preferably we play a walking animaton to show them leaving the stage
+        MoveToTarget("Backstage");
+    }
+    private void OnIntermissionEnd()
+    {
+        StopAnimation();
+        // preferably we play a walking animaton to show them entering the stage
+        // might need to add state for stage entry or some wacky logic here
+        MoveToTarget("Stage");
+    }
+
+    public void MoveToTarget(string targetName)
+    {
+        // find the target in the list by name
+        Transform target = targetPoints.Find(t => t.name == targetName);
+        if(target != null && !isMoving) 
+        {
+            StartCoroutine(MoveTo(target));
+        }
+    }
+
+    private IEnumerator MoveTo(Transform target)
+    {
+        isMoving = true;
+        //characterAnimator.Play(walkName);
+
+        Vector3 startPos = transform.position;
+        float journeyLength = Vector3.Distance(startPos, target.position);
+        float journeyDuration = journeyLength / moveSpeed; 
+        float elapsedTime = 0f; 
+
+        // determine if the target is to the left or right to flip sprite
+        bool targetIsToRight = (target.position.x < startPos.x);
+        spriteRenderer.flipX = targetIsToRight;
+
+        while (elapsedTime < journeyDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float fractionOfJourney = elapsedTime / journeyDuration;
+
+            transform.position = Vector3.Lerp(startPos, target.position, fractionOfJourney);
+            yield return null;
+        }
+
+        transform.position = target.position;
+        characterAnimator.Play(idleName);
+        isMoving = false;
+    }
 }
