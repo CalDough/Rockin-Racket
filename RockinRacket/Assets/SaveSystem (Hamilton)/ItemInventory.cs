@@ -13,7 +13,7 @@ public static class ItemInventory
     // private string saveFolderPath = "Player/SaveFiles/";
     private static string saveFolderPath = "Assets/SaveFiles/";
     private static string saveFileName = "Items.txt";
-    private static string itemPath = "Assets/ScriptableObjects/Items/";
+    private static string itemPath = "Items/";
 
     private static List<ItemTest> items = new();
     private static List<ItemTest> eqippedItems = new();
@@ -23,7 +23,6 @@ public static class ItemInventory
     public static List<ItemTest> GetItems() { return items; }
     public static bool ContainsItem(ItemTest item) { return items.Contains(item); }
     private static Dictionary<ItemTest.MinigameType, GameObject> minigamesByType;
-
 
     public static GameObject GetMinigameByName(ItemTest.MinigameType type)
     {
@@ -59,13 +58,12 @@ public static class ItemInventory
             items.Add(newItem);
         foreach (ItemTest item in items)
             itemStrings.Add(item.name);
-
         File.WriteAllLines(filePath, itemStrings);
 
         Debug.Log($"Inventory saved successfully. {items.Count} items saved.");
     }
 
-    public static ItemTest[] Load()
+    public static ItemTest[] Load(ItemTest[] completeListOfItems)
     {
         Directory.CreateDirectory(saveFolderPath);
 
@@ -74,9 +72,12 @@ public static class ItemInventory
         List<string> itemNames = new(File.ReadAllLines(filePath));
         ItemTest[] loadedItems = new ItemTest[itemNames.Count];
 
-        for (int i = 0; i < itemNames.Count; i++)
-            loadedItems[i] = Resources.Load<ItemTest>(itemPath + itemNames[i]);
-
+        for (int i = 0; i < loadedItems.Length; i++)
+            if (itemNames[i] == completeListOfItems[i].name)
+            {
+                loadedItems[i] = completeListOfItems[i];
+            }
+                
         Debug.Log($"Inventory loaded successfully. {itemNames.Count} items loaded.");
         return loadedItems;
     }

@@ -24,12 +24,9 @@ public class ShopReceipt : MonoBehaviour
         selectedItems.Remove(item);
         UpdateText();
     }
-    public ItemTest[] BuyItems()
+    public ItemTest[] GetItemsToBuy()
     {
-        ItemTest[] items = selectedItems.ToArray();
-        selectedItems.Clear();
-        UpdateText();
-        return items;
+        return selectedItems.ToArray();
     }
     public bool IsInCart(ItemTest item)
     {
@@ -41,8 +38,8 @@ public class ShopReceipt : MonoBehaviour
         cost = 0;
         foreach (ItemTest item in selectedItems)
         {
-            stringBuilder.Append(item.itemName);
-            for (int i=0; i<20-item.itemName.Length; i++)
+            stringBuilder.Append(item.name);
+            for (int i=0; i<20-item.name.Length; i++)
                 stringBuilder.Append(".");
             stringBuilder.Append("$");
             stringBuilder.AppendLine(item.cost.ToString());
@@ -60,8 +57,6 @@ public class ShopReceipt : MonoBehaviour
     public void ResetReceipt()
     {
         selectedItems = new();
-        //foreach (ItemTest item in selectedItemOptions)
-        //    itemOption.RemoveFromCart();
         UpdateText();
     }
 }

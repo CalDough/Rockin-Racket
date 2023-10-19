@@ -13,7 +13,6 @@ public class ItemTest : ScriptableObject
     public enum ItemType { Instrument, Stage, Crowd};
 
     public int ID;
-    public string itemName;
     public Sprite sprite;
     public ItemType itemType;
     public string description;

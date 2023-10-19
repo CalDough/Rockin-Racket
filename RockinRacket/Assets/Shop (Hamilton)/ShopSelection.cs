@@ -20,7 +20,7 @@ public class ShopSelection : MonoBehaviour
         selectedItem = itemTest;
         UpdateSelection();
     }
-    public void CartBtnPressed()
+    public void AddSelectedToCart()
     {
         if (receipt.IsInCart(selectedItem))
             receipt.RemoveFromCart(selectedItem);
@@ -38,7 +38,7 @@ public class ShopSelection : MonoBehaviour
             cartButtonText.text = "Add To Cart";
             return;
         }
-        nameText.text = selectedItem.itemName;
+        nameText.text = selectedItem.name;
         descriptionText.text = selectedItem.description;
         costText.text = "$" + selectedItem.cost.ToString();
         if (receipt.IsInCart(selectedItem))
@@ -46,7 +46,7 @@ public class ShopSelection : MonoBehaviour
         else
             cartButtonText.text = "Add To Cart";
     }
-    public void Reset()
+    public void ResetSelection()
     {
         selectedItem = new();
         UpdateSelection();

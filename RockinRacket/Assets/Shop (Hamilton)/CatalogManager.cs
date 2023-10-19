@@ -6,9 +6,14 @@ public class CatalogManager : MonoBehaviour
 {
     [SerializeField] private ShopSelection shopSelection;
     [SerializeField] private ShopReceipt shopReceipt;
-    [SerializeField] private ItemTest[] items;
+    [SerializeField] private ItemTest[] completeListOfItems;
     [SerializeField] private ItemOption[] itemOptions;
     private int itemOptionIndex;
+
+    public void Awake()
+    {
+        ItemInventory.Save(ItemInventory.Load(completeListOfItems));
+    }
 
     private void ResetItemOptions()
     {
@@ -25,11 +30,9 @@ public class CatalogManager : MonoBehaviour
 
     public void DisplayItemsByCategory(ItemTest.ItemType itemType)
     {
-        //foreach (ItemTest item in items)
-        //    print(item.name);
         ResetItemOptions();
-        shopSelection.Reset();
-        foreach (ItemTest item in items)
+        shopSelection.ResetSelection();
+        foreach (ItemTest item in completeListOfItems)
             if (item.itemType == itemType)
                 DisplayItem(item);
     }
@@ -45,43 +48,24 @@ public class CatalogManager : MonoBehaviour
             Debug.Log("You have more items than can be displayed for this category");
     }
 
-    public void BuyBtnHit()
+    public void BuyBtnPressed()
     {
-        shopSelection.UpdateSelection();
-        ItemInventory.Save(shopReceipt.BuyItems());
+        shopSelection.ResetSelection();
+        ItemInventory.Save(shopReceipt.GetItemsToBuy());
+        shopReceipt.ResetReceipt();
+        UpdateItemOptions();
+    }
+    public void CartBtnPressed()
+    {
+        shopSelection.AddSelectedToCart();
         UpdateItemOptions();
     }
 
-    public void Awake()
+    public void ResetBtnPressed()
     {
-        //items = ItemInventory.Load();
-        //List<ItemOption> itemOptions = new(stageItems.AddRange(instrumentItems));
-        //new List<ItemOption>(stageItems.Count + instrumentItems.Count);
-
-
-        //foreach (ItemOption itemOption in stageItems)
-        //{
-        //    if (savedItemNames.Contains(itemOption.item.name))
-        //        itemOption.BuyItem();
-        //}
-        //foreach (ItemOption itemOption in instrumentItems)
-        //{
-        //    if (savedItemNames.Contains(itemOption.item.name))
-        //        itemOption.BuyItem();
-        //}
-        //foreach (ItemOption itemOption in crowdItems)
-        //{
-        //    if (savedItemNames.Contains(itemOption.item.name))
-        //        itemOption.BuyItem();
-        //}
-    }
-
-    public void ResetItems()
-    {
-        //ItemInventory.ResetInventory();
-        //foreach (ItemOption itemOption in stageItems)
-        //    itemOption.ResetItem();
-        //foreach (ItemOption itemOption in instrumentItems)
-        //    itemOption.ResetItem();
+        ItemInventory.ResetInventory();
+        shopSelection.ResetSelection();
+        shopReceipt.ResetReceipt();
+        UpdateItemOptions();
     }
 }
