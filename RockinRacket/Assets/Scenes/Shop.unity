@@ -743,7 +743,7 @@ MonoBehaviour:
   - {fileID: 648395047}
   - {fileID: 1650938754}
   - {fileID: 628159395}
-  buyingPanels: {fileID: 1913471991}
+  catalogManagerObject: {fileID: 1913471991}
   dialogueMenuPanel: {fileID: 1612217559}
   dialogueManager: {fileID: 2143304284}
 --- !u!4 &186013530
@@ -4070,7 +4070,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1233983484}
-  - component: {fileID: 1233983487}
   - component: {fileID: 1233983486}
   - component: {fileID: 1233983485}
   m_Layer: 5
@@ -4142,31 +4141,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233983483}
   m_CullTransparentMesh: 1
---- !u!114 &1233983487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1233983483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7426098d31b543d08d68e9df99e49df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 344dff97cbb624a62ab1b7cf0b85f318, type: 2}
-  - {fileID: 11400000, guid: 0d4e55ffc53c042c28e324d21cc1b88c, type: 2}
-  - {fileID: 11400000, guid: 7c472004c5a784a66ba0d3bc98f61188, type: 2}
-  - {fileID: 11400000, guid: 3c5a456451c1f4b2599366c0c788e5c5, type: 2}
-  - {fileID: 11400000, guid: 944d08f0dd22e4f82bc23d17c6aac2c1, type: 2}
-  - {fileID: 11400000, guid: 3bb77fb5b98b34fd9ab2be10280e9794, type: 2}
-  - {fileID: 11400000, guid: ffb7330c7f1534f4da85b431631af9cd, type: 2}
-  itemOptions:
-  - {fileID: 5394891634574992090}
-  - {fileID: 1742607234}
-  - {fileID: 1229358835}
-  - {fileID: 688137653}
 --- !u!1001 &1293064968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6152,9 +6126,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 901119784}
-        m_TargetAssemblyTypeName: Receipt, Assembly-CSharp
-        m_MethodName: BuyItems
+      - m_Target: {fileID: 1913471993}
+        m_TargetAssemblyTypeName: CatalogManager, Assembly-CSharp
+        m_MethodName: BuyBtnHit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6630,8 +6604,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1913471992}
+  - component: {fileID: 1913471993}
   m_Layer: 5
-  m_Name: BuyingPanels
+  m_Name: CatalogManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6660,6 +6635,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1913471993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913471991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7426098d31b543d08d68e9df99e49df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopSelection: {fileID: 136648612}
+  shopReceipt: {fileID: 901119784}
+  items:
+  - {fileID: 11400000, guid: 344dff97cbb624a62ab1b7cf0b85f318, type: 2}
+  - {fileID: 11400000, guid: 0d4e55ffc53c042c28e324d21cc1b88c, type: 2}
+  - {fileID: 11400000, guid: 7c472004c5a784a66ba0d3bc98f61188, type: 2}
+  - {fileID: 11400000, guid: 3c5a456451c1f4b2599366c0c788e5c5, type: 2}
+  - {fileID: 11400000, guid: 944d08f0dd22e4f82bc23d17c6aac2c1, type: 2}
+  - {fileID: 11400000, guid: 3bb77fb5b98b34fd9ab2be10280e9794, type: 2}
+  - {fileID: 11400000, guid: ffb7330c7f1534f4da85b431631af9cd, type: 2}
+  itemOptions:
+  - {fileID: 5394891634574992090}
+  - {fileID: 1742607234}
+  - {fileID: 1229358835}
+  - {fileID: 688137653}
 --- !u!1001 &1934039914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7565,7 +7567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82f7a6e20e57469ca7d40e8770f0893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catalogManager: {fileID: 1233983487}
+  catalogManager: {fileID: 1913471993}
   bookmarkPairs:
   - {fileID: 6131724607923158001}
   - {fileID: 437330489}

@@ -4,21 +4,31 @@ using UnityEngine;
 
 public class CatalogManager : MonoBehaviour
 {
-    // TODO make a better organization where all items are in one list
+    [SerializeField] private ShopSelection shopSelection;
+    [SerializeField] private ShopReceipt shopReceipt;
     [SerializeField] private ItemTest[] items;
     [SerializeField] private ItemOption[] itemOptions;
     private int itemOptionIndex;
 
-    private void resetItemoptions()
+    private void ResetItemOptions()
     {
         itemOptionIndex = 0;
         foreach (ItemOption itemOption in itemOptions)
             itemOption.Show(false);
     }
 
+    public void UpdateItemOptions()
+    {
+        foreach (ItemOption itemOption in itemOptions)
+            itemOption.UpdateOption(!ItemInventory.ContainsItem(itemOption.item), shopReceipt.IsInCart(itemOption.item));
+    }
+
     public void DisplayItemsByCategory(ItemTest.ItemType itemType)
     {
-        resetItemoptions();
+        //foreach (ItemTest item in items)
+        //    print(item.name);
+        ResetItemOptions();
+        shopSelection.Reset();
         foreach (ItemTest item in items)
             if (item.itemType == itemType)
                 DisplayItem(item);
@@ -28,16 +38,23 @@ public class CatalogManager : MonoBehaviour
     {
         if (itemOptionIndex < itemOptions.Length)
         {
-            itemOptions[itemOptionIndex].SetItem(item);
+            itemOptions[itemOptionIndex].SetItem(item, !ItemInventory.ContainsItem(item), shopReceipt.IsInCart(item));
             itemOptionIndex++;
         }
         else
             Debug.Log("You have more items than can be displayed for this category");
     }
 
+    public void BuyBtnHit()
+    {
+        shopSelection.UpdateSelection();
+        ItemInventory.Save(shopReceipt.BuyItems());
+        UpdateItemOptions();
+    }
+
     public void Awake()
     {
-        List<string> savedItemNames = ItemInventory.Load();
+        //items = ItemInventory.Load();
         //List<ItemOption> itemOptions = new(stageItems.AddRange(instrumentItems));
         //new List<ItemOption>(stageItems.Count + instrumentItems.Count);
 

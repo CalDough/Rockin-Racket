@@ -13,24 +13,24 @@ public class ShopSelection : MonoBehaviour
     public TMP_Text costText;
     public TMP_Text cartButtonText;
 
-    private ItemOption selectedItemOption;
+    private ItemTest selectedItem;
 
-    public void SelectItem(ItemOption itemOption)
+    public void SelectItem(ItemTest itemTest)
     {
-        selectedItemOption = itemOption;
+        selectedItem = itemTest;
         UpdateSelection();
     }
     public void CartBtnPressed()
     {
-        if (receipt.IsInCart(selectedItemOption))
-            receipt.RemoveFromCart(selectedItemOption);
+        if (receipt.IsInCart(selectedItem))
+            receipt.RemoveFromCart(selectedItem);
         else
-            receipt.AddToCart(selectedItemOption);
+            receipt.AddToCart(selectedItem);
         UpdateSelection();
     }
     public void UpdateSelection()
     {
-        if (selectedItemOption == null)
+        if (selectedItem == null)
         {
             nameText.text = "Item Name";
             descriptionText.text = "Item Description";
@@ -38,12 +38,17 @@ public class ShopSelection : MonoBehaviour
             cartButtonText.text = "Add To Cart";
             return;
         }
-        nameText.text = selectedItemOption.item.itemName;
-        descriptionText.text = selectedItemOption.item.description;
-        costText.text = "$" + selectedItemOption.item.cost.ToString();
-        if (receipt.IsInCart(selectedItemOption))
+        nameText.text = selectedItem.itemName;
+        descriptionText.text = selectedItem.description;
+        costText.text = "$" + selectedItem.cost.ToString();
+        if (receipt.IsInCart(selectedItem))
             cartButtonText.text = "Remove From Cart";
         else
             cartButtonText.text = "Add To Cart";
+    }
+    public void Reset()
+    {
+        selectedItem = new();
+        UpdateSelection();
     }
 }

@@ -17,6 +17,7 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     public Image soldImage;
 
     private bool forSale;
+    private bool inCart;
     private bool equipped;
     public bool IsEquipped() { return equipped; }
 
@@ -29,11 +30,11 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
         gameObject.SetActive(show);
     }
 
-    public void SetItem(ItemTest item)
+    public void SetItem(ItemTest item, bool forSale, bool inCart)
     {
         this.item = item;
         ItemImage.sprite = item.sprite;
-        UpdateIsSold();
+        UpdateOption(forSale, inCart);
         Show(true);
     }
 
@@ -52,32 +53,29 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         if (forSale)
-            selection.SelectItem(this);
-    }
-    public void AddToCart()
-    {
-        ItemImage.color = new Color(1f, 1f, 1f, .7f);
+            selection.SelectItem(item);
     }
     public void RemoveFromCart()
     {
         if (forSale)
         ItemImage.color = new Color(1f, 1f, 1f, 1f);
     }
-    public void BuyItem()
-    {
-        forSale = false;
-        // add item to inventory
-        ItemInventory.AddItem(item);
-        UpdateIsSold();
-    }
+    //public void BuyItem()
+    //{
+    //    //forSale = false;
+    //    // add item to inventory
+    //    //ItemInventory.AddItem(item);
+    //    //UpdateOption();
+    //}
     // TODO
     public void EquipItem()
     {
 
     }
-    public void UpdateIsSold()
+    public void UpdateOption(bool forSale, bool inCart)
     {
-        forSale = !ItemInventory.ContainsItem(item);
+        this.forSale = forSale;
+        this.inCart = inCart;
         if (forSale)
         {
             soldImage.color = new Color(1f, 1f, 1f, 0f);
@@ -88,12 +86,11 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
             soldImage.color = new Color(1f, 1f, 1f, 1f);
             ItemImage.color = new Color(1f, 1f, 1f, .7f);
         }
+        if (inCart)
+            ItemImage.color = new Color(1f, 1f, 1f, .7f);
     }
     public void ResetItem()
     {
-        this.forSale = true;
-        // remove item from inventory
-        ItemInventory.RemoveItem(item);
-        UpdateIsSold();
+        UpdateOption(true, false);
     }
 }

@@ -9,47 +9,44 @@ public class ShopReceipt : MonoBehaviour
 {
     public TMP_Text cartText;
 
-    private List<ItemOption> selectedItemOptions = new();
+    private List<ItemTest> selectedItems = new();
     private int cost;
 
-    public void AddToCart(ItemOption item)
+    public void AddToCart(ItemTest item)
     {
-        item.AddToCart();
-        selectedItemOptions.Add(item);
+        //item.AddToCart();
+        selectedItems.Add(item);
         UpdateText();
     }
-    public void RemoveFromCart(ItemOption item)
+    public void RemoveFromCart(ItemTest item)
     {
-        item.RemoveFromCart();
-        selectedItemOptions.Remove(item);
+        //item.RemoveFromCart();
+        selectedItems.Remove(item);
         UpdateText();
     }
-    public void BuyItems()
+    public ItemTest[] BuyItems()
     {
-        foreach (ItemOption item in selectedItemOptions)
-        {
-            item.BuyItem();
-        }
-        selectedItemOptions.Clear();
+        ItemTest[] items = selectedItems.ToArray();
+        selectedItems.Clear();
         UpdateText();
-        ItemInventory.Save();
+        return items;
     }
-    public bool IsInCart(ItemOption item)
+    public bool IsInCart(ItemTest item)
     {
-        return selectedItemOptions.Contains(item);
+        return selectedItems.Contains(item);
     }
     private void UpdateText()
     {
         StringBuilder stringBuilder = new();
         cost = 0;
-        foreach (ItemOption itemOption in selectedItemOptions)
+        foreach (ItemTest item in selectedItems)
         {
-            stringBuilder.Append(itemOption.item.itemName);
-            for (int i=0; i<20-itemOption.item.itemName.Length; i++)
+            stringBuilder.Append(item.itemName);
+            for (int i=0; i<20-item.itemName.Length; i++)
                 stringBuilder.Append(".");
             stringBuilder.Append("$");
-            stringBuilder.AppendLine(itemOption.item.cost.ToString());
-            cost += itemOption.item.cost;
+            stringBuilder.AppendLine(item.cost.ToString());
+            cost += item.cost;
         }
         stringBuilder.AppendLine();
         if (cost > 0)
@@ -62,9 +59,9 @@ public class ShopReceipt : MonoBehaviour
     }
     public void ResetReceipt()
     {
-        foreach (ItemOption item in selectedItemOptions)
-            item.RemoveFromCart();
-        selectedItemOptions = new();
+        selectedItems = new();
+        //foreach (ItemTest item in selectedItemOptions)
+        //    itemOption.RemoveFromCart();
         UpdateText();
     }
 }

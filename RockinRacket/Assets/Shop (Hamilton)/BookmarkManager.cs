@@ -10,11 +10,10 @@ public class BookmarkManager : MonoBehaviour
 
     public void SelectBookmark(int index)
     {
-        BookmarkPair bookmarkPair = bookmarkPairs[selectedIndex];
-        bookmarkPair.Unselect();
+        bookmarkPairs[selectedIndex].Unselect();
         selectedIndex = index;
         FlipBookmarks(index);
-        catalogManager.DisplayItemsByCategory(bookmarkPair.GetCategory());
+        catalogManager.DisplayItemsByCategory(bookmarkPairs[index].GetCategory());
     }
 
     public void FlipBookmarks(int index)
