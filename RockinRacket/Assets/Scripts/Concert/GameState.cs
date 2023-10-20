@@ -104,12 +104,20 @@ public class GameStateEventArgs : EventArgs
 [System.Serializable]
 public enum GameModeType
 {
-    Default, //emits and holds time
-    SceneIntro, //emits and holds time
-    SceneOutro, //emits and holds time
-    Song, //holds track to play
-    Intermission, //only needs to emit event
-    Cutscene, //holds scene to load
-    Dialogue, //holds ink dialogue to select
+    Default, //
+    SceneIntro, // Scene intro with characters entering location
+    SceneOutro, // Scene outro with characters leaving to resting location
+
+    SongIntro, //
+    Song, //holds track to play as well as plays animations for music
+    SongOutro, // Just adding a short intro outro for each song for the animation sequence
+
+    IntermissionIntro, // 
+    Intermission, // paused time for player to talk and choose when to go back to song
+    IntermissionOutro, //
+
+    Cutscene, //
+    Dialogue, //
     BandBattle,
+
 }

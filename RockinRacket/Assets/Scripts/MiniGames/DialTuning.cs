@@ -9,19 +9,19 @@ public class DialTuning : MiniGame
     public List<Dial> dials = new List<Dial>(); // List of instantiated dials
 
     public bool randomMember = false;
-    public int ConcertPositionTarget = 1;
+    public BandRoleName bandRole = BandRoleName.Default;
     public float BrokenLevelChange = 1;
 
     public override void Activate()
     {
         base.Activate();
-        ConcertAudioEvent.AudioBroken(this, BrokenLevelChange, ConcertPositionTarget, true);
+        ConcertAudioEvent.AudioBroken(this, BrokenLevelChange, bandRole, true);
     }
 
     public override void Complete()
     {
         base.Complete();
-        ConcertAudioEvent.AudioFixed(this, BrokenLevelChange, ConcertPositionTarget, true);
+        ConcertAudioEvent.AudioFixed(this, BrokenLevelChange, bandRole, true);
     }
 
 
@@ -29,7 +29,8 @@ public class DialTuning : MiniGame
     {
         if(randomMember == true)
         {
-            ConcertPositionTarget = Random.Range(1, 6); 
+            var excludedValues = new List<BandRoleName> { BandRoleName.Default, BandRoleName.Harvey, BandRoleName.Speakers };
+            BandRoleName randomValue = BandRoleEnumHelper.GetRandomBandRoleName(excludedValues);
         }
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;

@@ -27,7 +27,7 @@ public class MinigameStatusManager : MonoBehaviour
     [SerializeField] public float comfortModifier = 1f;
     [SerializeField] public float hypeModifier = 1f;
 
-    [SerializeField] private List<BandRoleAudioController> bandMembers;
+    [SerializeField] private List<BandAudioController> bandMembers;
 
     
     [SerializeField] public MiniGame OpenedMiniGame;
@@ -111,9 +111,9 @@ public class MinigameStatusManager : MonoBehaviour
 
     public void ReceiveBandMembers(object sender, ConcertAudioEventArgs e)
     {
-        if(e.BandRoleAudioPlayer != null)
+        if(e.BandAudioPlayer != null)
         {
-            bandMembers.Add(e.BandRoleAudioPlayer);
+            bandMembers.Add(e.BandAudioPlayer);
         }
     }
     
@@ -132,7 +132,7 @@ public class MinigameStatusManager : MonoBehaviour
 
             if (GameStateManager.Instance.CurrentGameState.GameType == GameModeType.Song) 
             {
-                foreach (BandRoleAudioController member in bandMembers)
+                foreach (BandAudioController member in bandMembers)
                 {
                     if (member.isPlaying )
                     {

@@ -4,44 +4,55 @@ using UnityEngine;
 
 public class BandAnimationController : MonoBehaviour
 {
-    [SerializeField] BandRoleAudioController BandMember;
     
-    public int ConcertPosition = 0;
+    public BandRoleName bandName = BandRoleName.Default;
+    
+    [Header("Inspector Variables")] 
+    [SerializeField] BandAudioController BandMember;
     [SerializeField] ParticleSystem badParticleEffect;
     [SerializeField] ParticleSystem goodParticleEffect;
     [SerializeField] Animator characterAnimator;
-    [SerializeField] string playingName = "InstrumentPlaying";
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] List<Transform> targetPoints = new List<Transform>();
+
+    [Header("Animation Names")] 
+    [SerializeField] string playName = "Playing";
     [SerializeField] string idleName = "Idle"; 
     [SerializeField] string walkName = "Walk"; 
 
+    
+    [Header("Test Variables")] 
     [SerializeField] bool alwaysPlay = false;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] List<Transform> targetPoints = new List<Transform>();
     [SerializeField] private Transform currentTarget;
     [SerializeField] private float moveSpeed = 5f;
-    private bool isMoving = false; 
+    [SerializeField] private bool isMoving = false; 
 
-    public void PlayAnimation()
+
+
+
+
+
+    public void PlayAnimation(string animationName)
     {
+        if (characterAnimator == null)
+        {
+            Debug.LogWarning("animator component is not assigned");
+            return;
+        }
 
-        if (BandMember.isPlaying || BandMember.isSinging || alwaysPlay == true)
-        {
-            characterAnimator.Play(playingName);
-            //Debug.Log($"Playing animation: {playingName}");
-        }
+        if (characterAnimator.HasState(0, Animator.StringToHash(animationName)))
+        {characterAnimator.Play(animationName);}
+
         else
-        {
-            characterAnimator.Play(idleName);
-            //Debug.Log($"Playing animation: {idleName}");
-        }
+        {Debug.LogWarning($"no animation named '{animationName}' found in the animator");}
     }
 
     public void StopAnimation()
     {
-        characterAnimator.Play(idleName);
+        characterAnimator.StopPlayback();
     }
 
-    public void PlayEventParticles()
+    public void PlayProblemParticles()
     {
         badParticleEffect.Play();
         StartCoroutine(StopParticleAfterSeconds(badParticleEffect, 3));
@@ -61,16 +72,27 @@ public class BandAnimationController : MonoBehaviour
 
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
     {
-        // Testing animations with alwaysPlay bool, if enabled the band member always uses animations
-    
         switch(e.stateType)
         {
+            case GameModeType.SongIntro:
+                MoveToTarget("Stage");
+                break;
             case GameModeType.Song:
-                if(alwaysPlay == true)
-                {PlayAnimation();}
+                MoveToTarget("Stage");
+                PlayAnimation(playName); //For now ill always force the characters to play with this
+                break;
+            case GameModeType.SongOutro:
+                MoveToTarget("Backstage");
+                break;
+
+            case GameModeType.IntermissionIntro:
+                MoveToTarget("Backstage");
                 break;
             case GameModeType.Intermission:
-                OnIntermissionStart();
+                MoveToTarget("Backstage");
+                break;
+            case GameModeType.IntermissionOutro:
+                MoveToTarget("Stage");
                 break;
             default:
                 break;
@@ -84,9 +106,9 @@ public class BandAnimationController : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                PlayAnimation(idleName);
                 break;
             case GameModeType.Intermission:
-                OnIntermissionEnd();
                 break;
             default:
                 break;
@@ -117,23 +139,23 @@ public class BandAnimationController : MonoBehaviour
     
     private void HandleAudioStart(object sender, ConcertAudioEventArgs e)
     {
-        if (e.ConcertPosition == this.ConcertPosition)
+        if (e.ConcertPosition == this.bandName)
         {
-            PlayAnimation();
+            PlayAnimation(playName);
         }
     }
 
     private void HandleAudioBroken(object sender, ConcertAudioEventArgs e)
     {
-        if (e.ConcertPosition == this.ConcertPosition)
+        if (e.ConcertPosition == this.bandName)
         {
-            PlayEventParticles();
+            PlayProblemParticles();
         }
     }
 
     private void HandleAudioFixed(object sender, ConcertAudioEventArgs e)
     {
-        if (e.ConcertPosition == this.ConcertPosition)
+        if (e.ConcertPosition == this.bandName)
         {
             PlayFixedParticles();
         }
@@ -144,19 +166,6 @@ public class BandAnimationController : MonoBehaviour
         StopAnimation();
     }
 
-    private void OnIntermissionStart()
-    {
-        StopAnimation();
-        // preferably we play a walking animaton to show them leaving the stage
-        MoveToTarget("Backstage");
-    }
-    private void OnIntermissionEnd()
-    {
-        StopAnimation();
-        // preferably we play a walking animaton to show them entering the stage
-        // might need to add state for stage entry or some wacky logic here
-        MoveToTarget("Stage");
-    }
 
     public void MoveToTarget(string targetName)
     {
@@ -171,16 +180,24 @@ public class BandAnimationController : MonoBehaviour
     private IEnumerator MoveTo(Transform target)
     {
         isMoving = true;
-        //characterAnimator.Play(walkName);
 
         Vector3 startPos = transform.position;
         float journeyLength = Vector3.Distance(startPos, target.position);
-        float journeyDuration = journeyLength / moveSpeed; 
-        float elapsedTime = 0f; 
 
-        // determine if the target is to the left or right to flip sprite
-        bool targetIsToRight = (target.position.x < startPos.x);
-        spriteRenderer.flipX = targetIsToRight;
+        // threshold distance for animation
+        float thresholdDistance = 0.5f; 
+
+        if (journeyLength > thresholdDistance)
+        {characterAnimator.Play(walkName);}
+        else
+        {characterAnimator.Play(idleName);}
+
+        float journeyDuration = journeyLength / moveSpeed;
+        float elapsedTime = 0f;
+
+        // Determine if the target is to the left or right
+        bool targetIsToRight = (target.position.x > startPos.x);
+        spriteRenderer.flipX = !targetIsToRight;
 
         while (elapsedTime < journeyDuration)
         {

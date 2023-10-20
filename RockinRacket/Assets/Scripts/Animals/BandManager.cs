@@ -50,10 +50,10 @@ public class BandManager : MonoBehaviour
         // Get the corresponding track data
         List<TrackData> trackDataList = new List<TrackData>
         {
-            songData.PositionOne,
-            songData.PositionTwo,
-            songData.PositionThree,
-            songData.PositionFour
+            songData.Ace,
+            songData.Haley,
+            songData.Kurt,
+            songData.MJ
         };
 
         // Loop over the track data
@@ -225,4 +225,37 @@ public class BandPosition
     public Item Instrument;
     public List<Skill> Skills = new List<Skill>(); 
 }
+[System.Serializable]
+public enum BandRoleName
+{
+    Default,
+    Ace,
+    Haley,
+    Harvey,
+    Kurt,
+    MJ,
+    Speakers,
+    Other
 
+}
+public static class BandRoleEnumHelper
+{
+    private static System.Random random = new System.Random();
+
+    public static BandRoleName GetRandomBandRoleName(List<BandRoleName> exclusions = null)
+    {
+        if(exclusions == null)
+        {
+            exclusions = new List<BandRoleName>();
+        }
+
+        List<BandRoleName> values = new List<BandRoleName>((BandRoleName[]) Enum.GetValues(typeof(BandRoleName)));
+
+        foreach (var exclusion in exclusions)
+        {
+            values.Remove(exclusion);
+        }
+
+        return values[random.Next(values.Count)];
+    }
+}

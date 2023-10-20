@@ -4,10 +4,12 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 
-public class BandRoleAudioController : MonoBehaviour
+public class BandAudioController : MonoBehaviour
 {
-
-
+    
+    public BandRoleName bandName = BandRoleName.Default;
+    
+    [Header("Inspector Variables")] 
     private FMOD.Studio.EventInstance instrumentInstance;
     public StudioEventEmitter instrumentEmitter;
 
@@ -16,19 +18,16 @@ public class BandRoleAudioController : MonoBehaviour
 
     public string instrumentEvent;
     public string voiceEvent;
+    public string parameterName = "BrokenValue";
 
-    public int ConcertPosition = 0;
+    [Header("Test Variables")] 
     public bool isPlaying = false;
     public bool isSinging = false;
 
-    public string parameterName = "BrokenValue";
-
-    
     public float HypeGeneration = 0;
 
     [Range(-0,5)]
     public float instrumentBrokenValue = 0;
-    
     [Range(-0,5)]
     public float voiceBrokenValue = 0;
 
@@ -71,30 +70,30 @@ public class BandRoleAudioController : MonoBehaviour
         if(GameStateManager.Instance.CurrentGameState.Song == null)
         {return;}
         
-        switch(ConcertPosition)
+        switch(bandName)
         {
-            case 1:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionOne.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionOne.SecondaryTrackPath;
+            case BandRoleName.Haley:
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Haley.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Haley.SecondaryTrackPath;
                 break;
-            case 2:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionTwo.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionTwo.SecondaryTrackPath;
+            case BandRoleName.Kurt:
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Kurt.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Kurt.SecondaryTrackPath;
                 break;
-            case 3:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionThree.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionThree.SecondaryTrackPath;
+            case BandRoleName.Ace:
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Ace.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Ace.SecondaryTrackPath;
                 break;
-            case 4:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.PositionFour.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.PositionFour.SecondaryTrackPath;
+            case BandRoleName.MJ:
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.MJ.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.MJ.SecondaryTrackPath;
                 break;
-            case 5:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Background.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Background.SecondaryTrackPath;
+            case BandRoleName.Speakers:
+                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Speakers.PrimaryTrackPath;
+                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Speakers.SecondaryTrackPath;
                 break;
             default:
-                Debug.Log("Trying to affect band member not on list: " + ConcertPosition);
+                Debug.Log("Trying to affect band member not on list: " + bandName);
                 break;
         }
         if (!string.IsNullOrEmpty(instrumentEvent))
@@ -109,14 +108,8 @@ public class BandRoleAudioController : MonoBehaviour
                 
                 PrintEventParameters(instrumentEvent);
                 this.isPlaying = true;
-                ConcertAudioEvent.PlayingAudio(this.ConcertPosition);
+                ConcertAudioEvent.PlayingAudio(this.bandName);
             }
-        }
-        else
-        {
-            //string emptyEvent = "";
-            //instrumentEmitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference(emptyEvent);
-            //instrumentEmitter.EventReference
         }
 
         if (!string.IsNullOrEmpty(voiceEvent))
@@ -128,14 +121,8 @@ public class BandRoleAudioController : MonoBehaviour
                 voiceInstance = voiceEmitter.EventInstance;
                 PrintEventParameters(voiceEvent);
                 isSinging = true;
-                ConcertAudioEvent.PlayingAudio(this.ConcertPosition);
+                ConcertAudioEvent.PlayingAudio(this.bandName);
             }
-        }
-        else
-        {
-            //string emptyEvent = "";
-            //voiceEmitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference(emptyEvent);
-            //voiceEmitter.EventReference.Path = null;
         }
         
     }
@@ -238,7 +225,7 @@ public class BandRoleAudioController : MonoBehaviour
 
     public void AudioBroken(object sender, ConcertAudioEventArgs e)
     {
-        if(e.ConcertPosition != this.ConcertPosition)
+        if(e.ConcertPosition != this.bandName)
         {return;}
 
         if(e.AffectInstrument)
@@ -255,7 +242,7 @@ public class BandRoleAudioController : MonoBehaviour
 
     public void AudioFixed(object sender, ConcertAudioEventArgs e)
     {
-        if(e.ConcertPosition != this.ConcertPosition)
+        if(e.ConcertPosition != this.bandName)
         {return;}
 
         if(e.AffectInstrument)

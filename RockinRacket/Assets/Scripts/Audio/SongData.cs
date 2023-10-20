@@ -19,11 +19,11 @@ public class SongData : ScriptableObject
     public int Difficulty; 
     public List<SongType> SongTypes;
 
-    public TrackData PositionOne; //Usually Vocalist + Guitar Strings
-    public TrackData PositionTwo; //Usually Bass Strings + Vocals
-    public TrackData PositionThree; //Usually Strings + Vocals
-    public TrackData PositionFour; //Usually Drums + Vocals
-    public TrackData Background; //Any extra music you want for the concert that isnt played by raccoons
+    public TrackData Ace; //Usually Vocalist + Guitar Strings
+    public TrackData Haley; //Usually Bass Strings + Vocals
+    public TrackData Kurt; //Usually Strings + Vocals
+    public TrackData MJ; //Usually Drums + Vocals
+    public TrackData Speakers; //Any extra music you want for the concert that isnt played by raccoons
 
 }
 [System.Serializable]

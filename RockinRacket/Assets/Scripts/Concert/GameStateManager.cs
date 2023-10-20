@@ -247,14 +247,16 @@ public class GameStateManager : MonoBehaviour
             }
         }
 
-        // Add Intermission after each Song, excpet band battle songs which we dont care
+        // Add Intermission after each Song, except band battle songs which we dont care
         foreach (LinkedListNode<GameState> songNode in songNodes)
         {
-            
-            GameState intermissionState = new GameState(); 
-            intermissionState.GameType = GameModeType.Intermission;
-            intermissionState.Duration = 15f;
-            intermissionState.UseDuration = true;
+
+            GameState intermissionState = new GameState
+            {
+                GameType = GameModeType.Intermission,
+                Duration = 15f,
+                UseDuration = false
+            };
             GameStates.AddAfter(songNode, intermissionState);
             
         }
@@ -263,10 +265,12 @@ public class GameStateManager : MonoBehaviour
         GameState sceneIntroState = FindFirstGameStateOfType(GameModeType.SceneIntro);
         if (sceneIntroState == null) // If no SceneIntro found, create a new one
         {
-            sceneIntroState = new GameState(); 
-            sceneIntroState.GameType = GameModeType.SceneIntro; 
-            sceneIntroState.Duration = 10;
-            sceneIntroState.UseDuration = true;
+            sceneIntroState = new GameState
+            {
+                GameType = GameModeType.SceneIntro,
+                Duration = 5,
+                UseDuration = true
+            };
         }
         GameStates.AddFirst(sceneIntroState);
 
@@ -274,10 +278,12 @@ public class GameStateManager : MonoBehaviour
         GameState sceneOutroState = FindFirstGameStateOfType(GameModeType.SceneOutro);
         if (sceneOutroState == null) // If no SceneOutro found, create a new one
         {
-            sceneOutroState = new GameState(); 
-            sceneOutroState.GameType = GameModeType.SceneOutro; 
-            sceneOutroState.Duration = 10;
-            sceneOutroState.UseDuration = true;
+            sceneOutroState = new GameState
+            {
+                GameType = GameModeType.SceneOutro,
+                Duration = 5,
+                UseDuration = true
+            };
         }
         GameStates.AddLast(sceneOutroState);
         foreach (GameState state in GameStatesFromVenue)
