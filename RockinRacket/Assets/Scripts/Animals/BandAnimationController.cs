@@ -203,7 +203,7 @@ public class BandAnimationController : MonoBehaviour
         float journeyDuration = journeyLength / moveSpeed;
         float elapsedTime = 0f;
 
-        // Determine if the target is to the left or right
+        // determine if the target is to the left or right
         bool targetIsToRight = (target.x > startPos.x);
         spriteRenderer.flipX = !targetIsToRight;
 
@@ -226,22 +226,18 @@ public class BandAnimationController : MonoBehaviour
         Debug.Log("MoveAndPlayRoutine started!");
         yield return new WaitForSeconds(0.5f);
 
-        // Continue the loop while the game is running
         while(true)
         {
-            // If character is in the playName animation state
             if(characterAnimator.GetCurrentAnimatorStateInfo(0).IsName(playName))
             {
                 Vector3 randomPosition = new Vector3(originalPosition.x + Random.Range(-moveAndPlayRange.x, moveAndPlayRange.x), originalPosition.y, originalPosition.z + Random.Range(-moveAndPlayRange.z, moveAndPlayRange.z));
                 
                 yield return MoveTo(randomPosition);
                 characterAnimator.Play(playName);
-                // After moving, wait a few seconds. During this time, the character can play music.
                 yield return new WaitForSeconds(Random.Range(1f, 3f));
             }
             else
             {
-                // If the character isn't in the playName animation state, wait a bit and then check again.
                 yield return new WaitForSeconds(0.5f);
             }
         }

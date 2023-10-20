@@ -16,6 +16,7 @@ public class DialTuning : MiniGame
     {
         base.Activate();
         ConcertAudioEvent.AudioBroken(this, BrokenLevelChange, bandRole, true);
+        RestartMiniGameLogic();
     }
 
     public override void Complete()
@@ -23,7 +24,12 @@ public class DialTuning : MiniGame
         base.Complete();
         ConcertAudioEvent.AudioFixed(this, BrokenLevelChange, bandRole, true);
     }
-
+    
+    public override void Miss()
+    {
+        base.Complete();
+        ConcertAudioEvent.AudioFixed(this, BrokenLevelChange, bandRole, true);
+    }
 
     void Start()
     {
@@ -35,6 +41,11 @@ public class DialTuning : MiniGame
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
 
+        
+    }
+
+    public void SpawnDials()
+    {
         foreach (RectTransform positionObject in positionObjects)
         {
             GameObject dialObject = Instantiate(dialPrefab, positionObject.position, Quaternion.identity, positionObject);
@@ -61,15 +72,11 @@ public class DialTuning : MiniGame
     {
         foreach (Dial dial in dials)
         {
-            if(!dial.isLocked)
-            {
-                float randomAngle = Random.Range(dial.startAngle, dial.endAngle);
-                dial.SetMarkerAngle(randomAngle);
-                dial.currentAngle = randomAngle;
-            }
-            
-            
+            Destroy(dial.gameObject);
         }
+        dials.Clear();
+        SpawnDials();
+        IsCompleted = false;
     }
 
     private void HandleDialMatched()
@@ -88,6 +95,16 @@ public class DialTuning : MiniGame
 
         // All dials are matched
         CompleteMiniGame();
+    }
+
+    public override void HandleClosing()
+    {
+        Panels.SetActive(false);
+
+        //If you want to reset the game if they did not complete it
+        if (IsCompleted == false)
+        { //RestartMiniGameLogic(); 
+        }
     }
 
     private void CompleteMiniGame()
