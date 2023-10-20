@@ -27,7 +27,10 @@ public class BandAnimationController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool isMoving = false; 
 
-
+    [Header("Move and Play Settings")]
+    [SerializeField] private bool moveAndPlay = false;
+    [SerializeField] private Vector3 moveAndPlayRange = new Vector3(.5f, 1f, .5f);  
+    [SerializeField] private Vector3 originalPosition;
 
 
 
@@ -72,6 +75,7 @@ public class BandAnimationController : MonoBehaviour
 
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
     {
+        
         switch(e.stateType)
         {
             case GameModeType.SongIntro:
@@ -79,7 +83,11 @@ public class BandAnimationController : MonoBehaviour
                 break;
             case GameModeType.Song:
                 MoveToTarget("Stage");
-                PlayAnimation(playName); //For now ill always force the characters to play with this
+                PlayAnimation(playName); //For now i'll always force the characters to play with this
+                if(moveAndPlay)
+                {
+                    StartCoroutine(MoveAndPlayRoutine());
+                }
                 break;
             case GameModeType.SongOutro:
                 MoveToTarget("Backstage");
@@ -169,20 +177,20 @@ public class BandAnimationController : MonoBehaviour
 
     public void MoveToTarget(string targetName)
     {
-        // find the target in the list by name
         Transform target = targetPoints.Find(t => t.name == targetName);
+        originalPosition = target.position;
         if(target != null && !isMoving) 
         {
-            StartCoroutine(MoveTo(target));
+            StartCoroutine(MoveTo(target.position));
         }
     }
 
-    private IEnumerator MoveTo(Transform target)
+    private IEnumerator MoveTo(Vector3 target)
     {
         isMoving = true;
 
         Vector3 startPos = transform.position;
-        float journeyLength = Vector3.Distance(startPos, target.position);
+        float journeyLength = Vector3.Distance(transform.position, target);
 
         // threshold distance for animation
         float thresholdDistance = 0.5f; 
@@ -196,7 +204,7 @@ public class BandAnimationController : MonoBehaviour
         float elapsedTime = 0f;
 
         // Determine if the target is to the left or right
-        bool targetIsToRight = (target.position.x > startPos.x);
+        bool targetIsToRight = (target.x > startPos.x);
         spriteRenderer.flipX = !targetIsToRight;
 
         while (elapsedTime < journeyDuration)
@@ -204,12 +212,38 @@ public class BandAnimationController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float fractionOfJourney = elapsedTime / journeyDuration;
 
-            transform.position = Vector3.Lerp(startPos, target.position, fractionOfJourney);
+            transform.position = Vector3.Lerp(startPos, target, fractionOfJourney);
             yield return null;
         }
 
-        transform.position = target.position;
-        characterAnimator.Play(idleName);
+        transform.position = target;
+        //characterAnimator.Play(idleName);
         isMoving = false;
+    }
+
+    private IEnumerator MoveAndPlayRoutine()
+    {
+        Debug.Log("MoveAndPlayRoutine started!");
+        yield return new WaitForSeconds(0.5f);
+
+        // Continue the loop while the game is running
+        while(true)
+        {
+            // If character is in the playName animation state
+            if(characterAnimator.GetCurrentAnimatorStateInfo(0).IsName(playName))
+            {
+                Vector3 randomPosition = new Vector3(originalPosition.x + Random.Range(-moveAndPlayRange.x, moveAndPlayRange.x), originalPosition.y, originalPosition.z + Random.Range(-moveAndPlayRange.z, moveAndPlayRange.z));
+                
+                yield return MoveTo(randomPosition);
+                characterAnimator.Play(playName);
+                // After moving, wait a few seconds. During this time, the character can play music.
+                yield return new WaitForSeconds(Random.Range(1f, 3f));
+            }
+            else
+            {
+                // If the character isn't in the playName animation state, wait a bit and then check again.
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
     }
 }
