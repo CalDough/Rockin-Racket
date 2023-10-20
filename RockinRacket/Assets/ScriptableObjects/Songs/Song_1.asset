@@ -10,35 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f791ea22f5bfbb459664ac02c15064d, type: 3}
-  m_Name: S2
+  m_Name: Song_1
   m_EditorClassIdentifier: 
-  ID: 6
-  SongName: Actual Song 2
+  ID: 1
+  SongName: Actual Song 1
   Description: 
-  Duration: 57
-  Difficulty: 60
+  Duration: 0
+  Difficulty: 15
   SongTypes: 
-  PositionOne:
+  Ace:
+    PrimaryRole: 0
+    PrimaryTrackPath: event:/Instruments/Song 1/S1_Drums
+    SecondaryRole: 0
+    SecondaryTrackPath: 
+  Haley:
     PrimaryRole: 0
     PrimaryTrackPath: 
     SecondaryRole: 0
     SecondaryTrackPath: 
-  PositionTwo:
-    PrimaryRole: 1
-    PrimaryTrackPath: event:/Instruments/Song 2/S2_BASS
+  Kurt:
+    PrimaryRole: 0
+    PrimaryTrackPath: event:/Instruments/Song 1/S1_Bass
     SecondaryRole: 0
     SecondaryTrackPath: 
-  PositionThree:
-    PrimaryRole: 2
-    PrimaryTrackPath: event:/Instruments/Song 2/S2_DRUMS
+  MJ:
+    PrimaryRole: 0
+    PrimaryTrackPath: event:/Instruments/Song 1/S1_Guitar
     SecondaryRole: 0
     SecondaryTrackPath: 
-  PositionFour:
-    PrimaryRole: 1
-    PrimaryTrackPath: event:/Instruments/Song 2/S2_GUITAR
-    SecondaryRole: 0
-    SecondaryTrackPath: 
-  Background:
+  Speakers:
     PrimaryRole: 0
     PrimaryTrackPath: 
     SecondaryRole: 0

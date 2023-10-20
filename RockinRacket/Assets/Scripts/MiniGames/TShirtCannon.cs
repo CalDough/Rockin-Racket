@@ -336,7 +336,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     
     public override void RestartMiniGameLogic()
     {
-        Debug.Log("No reset added yet");
+        //Debug.Log("No reset added yet");
         remainingShots = maxNumShots;
     }
 

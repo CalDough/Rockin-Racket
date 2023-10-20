@@ -47,6 +47,9 @@ public class GameStateManager : MonoBehaviour
     public int MoneyToGain = 0;
     public int FameToGain = 0;
 
+    [Header("Animation Names")] 
+    public int DefaultAnimationCutscenes = 4;
+    public int DefaultMainCutscenes = 5;
 
     public static GameStateManager Instance { get; private set; }
 
@@ -234,58 +237,115 @@ public class GameStateManager : MonoBehaviour
     */
     public void ModifyGameStates()
     {
-        if(ConcertActive){return;}
-        // Temporary list to store nodes to insert intermission after
+        if (ConcertActive) { return; }
+
+        // Temporary list to store nodes to insert song intros, song outros, and intermissions
         List<LinkedListNode<GameState>> songNodes = new List<LinkedListNode<GameState>>();
-        
-        // Find all song nodes
+        List<LinkedListNode<GameState>> intermissionNodes = new List<LinkedListNode<GameState>>();
+
+        // Find all song and intermission nodes
         for (LinkedListNode<GameState> node = GameStates.First; node != null; node = node.Next)
         {
             if (node.Value.GetGameModeType() == GameModeType.Song)
-            {
+            {   
+                if(node.Value.Song)
+                {
+                    if(node.Value.Duration < node.Value.Song.Duration)
+                    {
+                        node.Value.Duration = node.Value.Song.Duration;
+                    }
+                }
                 songNodes.Add(node);
+            }
+            else if (node.Value.GetGameModeType() == GameModeType.Intermission)
+            {
+                intermissionNodes.Add(node);
             }
         }
 
-        // Add Intermission after each Song, except band battle songs which we dont care
+        // add SongIntro and SongOutro for each Song
         foreach (LinkedListNode<GameState> songNode in songNodes)
         {
-
-            GameState intermissionState = new GameState
+            // SongIntro
+            GameState songIntroState = new GameState
             {
-                GameType = GameModeType.Intermission,
-                Duration = 15f,
-                UseDuration = false
+                GameType = GameModeType.SongIntro,
+                Duration = DefaultAnimationCutscenes, 
+                UseDuration = true
             };
-            GameStates.AddAfter(songNode, intermissionState);
+            GameStates.AddBefore(songNode, songIntroState);
+
+            // SongOutro
+            GameState songOutroState = new GameState
+            {
+                GameType = GameModeType.SongOutro,
+                Duration = DefaultAnimationCutscenes,
+                UseDuration = true
+            };
+            GameStates.AddAfter(songNode, songOutroState);
             
+            // check if the next node after the SongOutro is an Intermission, if not, add one.
+            LinkedListNode<GameState> nextNode = songNode.Next.Next; // skipping over SongOutro to check the next node
+            if (nextNode == null || nextNode.Value.GetGameModeType() != GameModeType.Intermission)
+            {
+                GameState intermissionState = new GameState
+                {
+                    GameType = GameModeType.Intermission,
+                    Duration = 15f,
+                    UseDuration = false
+                };
+                LinkedListNode<GameState> intermissionNode = GameStates.AddAfter(songNode.Next, intermissionState);
+                
+                intermissionNodes.Add(intermissionNode);
+            }
         }
 
-        // Add SceneIntro at the start of the list
+        // add IntermissionIntro and IntermissionOutro for each Intermission
+        foreach (LinkedListNode<GameState> intermissionNode in intermissionNodes)
+        {
+            // IntermissionIntro
+            GameState intermissionIntroState = new GameState
+            {
+                GameType = GameModeType.IntermissionIntro,
+                Duration = DefaultAnimationCutscenes,
+                UseDuration = true
+            };
+            GameStates.AddBefore(intermissionNode, intermissionIntroState);
+
+            // IntermissionOutro
+            GameState intermissionOutroState = new GameState
+            {
+                GameType = GameModeType.IntermissionOutro,
+                Duration = DefaultAnimationCutscenes, 
+                UseDuration = true
+            };
+            GameStates.AddAfter(intermissionNode, intermissionOutroState);
+        }
+
         GameState sceneIntroState = FindFirstGameStateOfType(GameModeType.SceneIntro);
         if (sceneIntroState == null) // If no SceneIntro found, create a new one
         {
             sceneIntroState = new GameState
             {
                 GameType = GameModeType.SceneIntro,
-                Duration = 5,
+                Duration = DefaultMainCutscenes,
                 UseDuration = true
             };
         }
         GameStates.AddFirst(sceneIntroState);
 
-        // Add SceneOutro at the end of the list
         GameState sceneOutroState = FindFirstGameStateOfType(GameModeType.SceneOutro);
-        if (sceneOutroState == null) // If no SceneOutro found, create a new one
+        if (sceneOutroState == null)
         {
             sceneOutroState = new GameState
             {
                 GameType = GameModeType.SceneOutro,
-                Duration = 5,
+                Duration = DefaultMainCutscenes,
                 UseDuration = true
             };
         }
         GameStates.AddLast(sceneOutroState);
+
         foreach (GameState state in GameStatesFromVenue)
         {
             if (state.GetGameModeType() == GameModeType.Intermission || state.GetGameModeType() == GameModeType.BandBattle)
@@ -293,6 +353,7 @@ public class GameStateManager : MonoBehaviour
                 InsertGameStateAroundOccurrences(state, state.InsertionType, state.NumberOfStates, state.InsertAfter, state.ReplaceState);
             }
         }
+
         // Insert Cutscene and Dialogue GameStates from Venue and story
         foreach (GameState state in GameStatesFromVenue)
         {

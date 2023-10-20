@@ -188,7 +188,7 @@ public class BandAnimationController : MonoBehaviour
         float thresholdDistance = 0.5f; 
 
         if (journeyLength > thresholdDistance)
-        {characterAnimator.Play(walkName);}
+        {characterAnimator.Play(idleName);}
         else
         {characterAnimator.Play(idleName);}
 
