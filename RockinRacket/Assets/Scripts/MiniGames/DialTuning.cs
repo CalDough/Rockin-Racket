@@ -9,7 +9,7 @@ public class DialTuning : MiniGame
     public List<Dial> dials = new List<Dial>(); // List of instantiated dials
 
     public bool randomMember = false;
-    public BandRoleName bandRole = BandRoleName.Default;
+    public BandRoleName bandRole = BandRoleName.Kurt;
     public float BrokenLevelChange = 1;
 
     public override void Activate()
@@ -31,15 +31,25 @@ public class DialTuning : MiniGame
         ConcertAudioEvent.AudioFixed(this, BrokenLevelChange, bandRole, true);
     }
 
+    public override void OpenEvent()
+    { 
+        GameEvents.EventOpened(this); 
+        HandleOpening();
+    }
+    public override void CloseEvent() 
+    { 
+        GameEvents.EventClosed(this); 
+        HandleClosing();
+    }
+
     void Start()
     {
         if(randomMember == true)
         {
             var excludedValues = new List<BandRoleName> { BandRoleName.Default, BandRoleName.Harvey, BandRoleName.Speakers };
             BandRoleName randomValue = BandRoleEnumHelper.GetRandomBandRoleName(excludedValues);
+            bandRole = randomValue;
         }
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
 
         
     }
@@ -72,6 +82,7 @@ public class DialTuning : MiniGame
     {
         foreach (Dial dial in dials)
         {
+            dial.OnDialMatched -= HandleDialMatched;
             Destroy(dial.gameObject);
         }
         dials.Clear();
@@ -95,6 +106,14 @@ public class DialTuning : MiniGame
 
         // All dials are matched
         CompleteMiniGame();
+    }
+
+    public override void HandleOpening()
+    {
+        if(!IsCompleted)
+        {
+            Panels.SetActive(true);
+        }
     }
 
     public override void HandleClosing()

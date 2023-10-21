@@ -27,18 +27,33 @@ public class MinigameOwner : MonoBehaviour
 
     private void Start()
     {
+        SubscribeEvents();
+        ResetToDefault();
+        CheckInventory();
+        
+        IsAvailable = MinigameStatusManager.Instance.IsMinigameAvailable(AvailableMiniGame);
+    }
+
+    private void SubscribeEvents()
+    {
         GameEvents.OnEventStart += HandleEventStart;
         GameEvents.OnEventFail += HandleEventFail;
         GameEvents.OnEventCancel += HandleEventCancel;
         GameEvents.OnEventComplete += HandleEventComplete;
         GameEvents.OnEventMiss += HandleEventMiss;
-
-        ResetToDefault();
-        CheckInventory();
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
-        
-        IsAvailable = MinigameStatusManager.Instance.IsMinigameAvailable(AvailableMiniGame);
+    }
+
+    private void UnsubscribeEvents()
+    {
+        GameEvents.OnEventStart -= HandleEventStart;
+        GameEvents.OnEventFail -= HandleEventFail;
+        GameEvents.OnEventCancel -= HandleEventCancel;
+        GameEvents.OnEventComplete -= HandleEventComplete;
+        GameEvents.OnEventMiss -= HandleEventMiss;
+        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
+        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
     }
 
     private void CheckInventory()
@@ -73,65 +88,43 @@ public class MinigameOwner : MonoBehaviour
 
     public void ActivateMiniGame()
     {   
-        if(!IsAvailable)
-        {return;}
+        if (!IsAvailable || GameStateManager.Instance.CurrentGameState.GameType != GameModeType.Song || 
+            MinigameStatusManager.Instance.OpenedMiniGame != null || (useAttempts && attempts >= maxAttempts))
+            {return;}
 
-        //if it's not a song we dont play games
-        if(GameStateManager.Instance.CurrentGameState.GameType != GameModeType.Song)
+        if (!AvailableMiniGame) {return;}
+
+        //Minigame was closed and not completed and is still active, we reopen it when they press the button
+        if(!AvailableMiniGame.IsCompleted && AvailableMiniGame.isActiveEvent)
         {
-            Debug.Log("Not a song right now");
+            Debug.Log("reopened");
+            AvailableMiniGame.OpenEvent();
             return;
         }
-        //if another game is open we cant open this one
-        if(MinigameStatusManager.Instance.OpenedMiniGame != null)
+        //if minigame was completed earlier then we need to reset the minigame then allow the player to play it
+        if(AvailableMiniGame.IsCompleted && !isOnCooldown)
         {
-            Debug.Log("Another game is opened");
-            return;
+            Debug.Log("restarted");
+            AvailableMiniGame.IsCompleted = false;
+            //may be calling restart twice due to bad programming 
+            //I'll go fix the mini-game logic so i don't need to have 4 separate functions or variables edited on this call
+            AvailableMiniGame.RestartMiniGameLogic(); 
+            AvailableMiniGame.Activate();
+            AvailableMiniGame.OpenEvent();
         }
-        //if we ran out of attempts we cant play it
-        if (useAttempts && attempts >= maxAttempts)
+        //the minigame was never activated in the first place and not on cooldown
+        else if(!isOnCooldown)
         {
-            Debug.Log("Max attempts reached!");
-            //edge case where its their final attempt and we should actually open the game
-            return;
+            Debug.Log("started");
+            AvailableMiniGame.Activate();
+            AvailableMiniGame.OpenEvent();
+        }
+        //add to number of attempts if we want to limit the times played
+        if (!isOnCooldown && useAttempts)
+        {
+            attempts++;
         }
 
-        if(AvailableMiniGame)
-        {
-            //Minigame was closed and not completed and is still active, we reopen it when they press the button
-            if(!AvailableMiniGame.IsCompleted && AvailableMiniGame.isActiveEvent)
-            {
-                Debug.Log("reopened");
-                AvailableMiniGame.OpenEvent();
-                return;
-            }
-            //if minigame was completed earlier then we need to reset the minigame then allow the player to play it
-            if(AvailableMiniGame.IsCompleted && !isOnCooldown)
-            {
-                Debug.Log("restarted");
-                AvailableMiniGame.IsCompleted = false;
-                AvailableMiniGame.RestartMiniGameLogic(); //may be calling restart twice due to bad programming 
-                AvailableMiniGame.Activate();
-                AvailableMiniGame.OpenEvent();
-            }
-            //the minigame was never activated in the first place and not on cooldown
-            else if(!isOnCooldown)
-            {
-                Debug.Log("started");
-                AvailableMiniGame.Activate();
-                AvailableMiniGame.OpenEvent();
-            }
-            //add to number of attempts if we want to limit the times played
-            if (!isOnCooldown && useAttempts)
-            {
-                attempts++;
-            }
-        }
-        //Reset cooldowns? I'm thinking of changing something here
-        // Mini-games go on cooldown after starting and finishing them, not while active
-        //begin new cooldowns
-        //ResetToDefault();
-        //BeginCooldowns();
     }
 
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
@@ -162,11 +155,7 @@ public class MinigameOwner : MonoBehaviour
 
     void OnDestroy()
     {
-        GameEvents.OnEventStart -= HandleEventStart;
-        GameEvents.OnEventFail -= HandleEventFail;
-        GameEvents.OnEventCancel -= HandleEventCancel;
-        GameEvents.OnEventComplete -= HandleEventComplete;
-        GameEvents.OnEventMiss -= HandleEventMiss;
+        UnsubscribeEvents();
     }
 
     void HandleEventStart(object sender, GameEventArgs e)

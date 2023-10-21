@@ -17,33 +17,51 @@ public class ChanceMinigameOwner : MonoBehaviour
     public int TimesFailed = 0;
 
     [Header("Current Settings")]
-    public float currentCooldownDuration;
+    public float currentCooldown;
     public float currentChanceToOccur;
     public float chanceIncrease;
     public float chanceTimer;
 
     public bool isOnCooldown = false;
     public bool isMinigameActive = true;
-    
+    private Coroutine occurChanceCoroutine;
+
     public GameObject OpenMinigameButton;
     [SerializeField] private MinigameContainer MiniGames;  //we randomly take from a pool of available minigames
+    //This random mini-game spawning is currently unimplemented but intended in the future
+    //as well as the list of games spawned
     [SerializeField] private List<MiniGame> SpawnedMiniGames;  //old spawned minigames
     [SerializeField] private MiniGame AvailableMiniGame;  //current minigame that is spawned
     
     private void Start()
+    {
+
+        ResetToDefault();
+        CheckInventory();
+        SubscribeEvents();
+        IsAvailable = MinigameStatusManager.Instance.IsMinigameAvailable(AvailableMiniGame);
+    }
+
+    private void SubscribeEvents()
     {
         GameEvents.OnEventStart += HandleEventStart;
         GameEvents.OnEventFail += HandleEventFail;
         GameEvents.OnEventCancel += HandleEventCancel;
         GameEvents.OnEventComplete += HandleEventComplete;
         GameEvents.OnEventMiss += HandleEventMiss;
-
-        ResetToDefault();
-        CheckInventory();
         GameStateEvent.OnGameStateStart += HandleGameStateStart;
         GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
-        
-        IsAvailable = MinigameStatusManager.Instance.IsMinigameAvailable(AvailableMiniGame);
+    }
+
+    private void UnsubscribeEvents()
+    {
+        GameEvents.OnEventStart -= HandleEventStart;
+        GameEvents.OnEventFail -= HandleEventFail;
+        GameEvents.OnEventCancel -= HandleEventCancel;
+        GameEvents.OnEventComplete -= HandleEventComplete;
+        GameEvents.OnEventMiss -= HandleEventMiss;
+        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
+        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
     }
 
     private void CheckInventory()
@@ -54,12 +72,23 @@ public class ChanceMinigameOwner : MonoBehaviour
 
     public void BeginCooldowns()
     {
-        StartCoroutine(CheckOccurChanceRoutine());
+        if(occurChanceCoroutine != null)
+        {
+            StopCoroutine(occurChanceCoroutine);
+        }
+
+        currentCooldown = defaultCooldownDuration;
+        isOnCooldown = true;
+        occurChanceCoroutine = StartCoroutine(CooldownAndChanceRoutine());
     }
 
     public void EndCooldowns()
     {
-        StopCoroutine(CheckOccurChanceRoutine());
+        if(occurChanceCoroutine != null)
+        {
+            StopCoroutine(occurChanceCoroutine);
+        }
+        ResetToDefault();
     }
 
     public void OpenActiveMiniGame()
@@ -85,27 +114,21 @@ public class ChanceMinigameOwner : MonoBehaviour
 
     public void ActivateMiniGame()
     {
-        if(!IsAvailable)
-            return;
-
+        if(!IsAvailable){return;}
+        
         // if it's not a song, return
         if(GameStateManager.Instance.CurrentGameState.GameType != GameModeType.Song)
-        {
-            Debug.Log("Not a song right now");
-            return;
-        }
+        { Debug.Log("Not a song right now"); return;}
 
         // if another game is open, return
         if(MinigameStatusManager.Instance.OpenedMiniGame != null)
-        {
-            Debug.Log("Another game is opened");
-            return;
-        }
+        { Debug.Log("Another game is opened");return;}
 
         // if the mini-game hasn't been completed, reopen it
         if(AvailableMiniGame && !AvailableMiniGame.IsCompleted && AvailableMiniGame.isActiveEvent)
         {
             Debug.Log("Reopened");
+            AvailableMiniGame.OpenEvent();
             return;
         }
 
@@ -130,58 +153,44 @@ public class ChanceMinigameOwner : MonoBehaviour
         }
     }
 
-    private IEnumerator CheckOccurChanceRoutine()
+    private IEnumerator CooldownAndChanceRoutine()
     {
-        while (true)
+        // Initial cooldown phase at the beggining of a level as well as after finishing any mini-game
+        while (currentCooldown > 0)
         {
-            while (isMinigameActive)
-            {yield return null;}
+            currentCooldown -= Time.deltaTime;
+            yield return null;
+        }
 
-            if (!isOnCooldown)
+        isOnCooldown = false;
+
+        // Chance to occur phase after the cooldown, we attempt a spawn every chanceTimer seconds, then check if a random value is within our range
+        while (!isMinigameActive)
+        {
+            float randomValue = Random.value;
+            
+            if (randomValue <= currentChanceToOccur)
             {
-                float randomValue = Random.value;
-                if (randomValue <= currentChanceToOccur)
-                {
-                    SpawnMiniGame();
-                    StartCooldown();
-                    isMinigameActive = true;
-                    isOnCooldown = true;
-                }
-                else
-                {
-                    IncreaseOccurChance();
-                }
-                yield return new WaitForSeconds(chanceTimer);
+                Debug.Log(randomValue+", "+currentChanceToOccur+" :  T"+Time.time);
+                SpawnMiniGame();
+                isMinigameActive = true;
+                break;
             }
             else
             {
-                yield return new WaitForSeconds(currentCooldownDuration);
-                isOnCooldown = false;
-                ResetToDefault();
+                currentChanceToOccur = Mathf.Min(currentChanceToOccur + chanceIncrease, 1f);
+                yield return new WaitForSeconds(chanceTimer);
             }
         }
-    }
-
-    private void StartCooldown()
-    {
-        isOnCooldown = true;
-    }
-
-    private void IncreaseOccurChance()
-    {
-        currentChanceToOccur += chanceIncrease;
     }
 
     private void ResetToDefault()
     {
-        currentCooldownDuration = defaultCooldownDuration;
+        currentCooldown = defaultCooldownDuration;
         currentChanceToOccur = defaultChanceToOccur;
         chanceIncrease = defaultChanceIncrease;
         chanceTimer = defaultChanceTimer;
-        if(AvailableMiniGame)
-        {
-            AvailableMiniGame.CloseEvent();
-        }
+        isOnCooldown = true;
     }
 
     private void SpawnMiniGame()
@@ -191,6 +200,7 @@ public class ChanceMinigameOwner : MonoBehaviour
         {
             AvailableMiniGame.Activate();
         }
+        ResetToDefault();
         // Logic for starting the mini-game goes here
     }
 
@@ -203,6 +213,7 @@ public class ChanceMinigameOwner : MonoBehaviour
                 BeginCooldowns();
                 break;
             default:
+                EndCooldowns();
                 break;
         }
     }
@@ -219,6 +230,7 @@ public class ChanceMinigameOwner : MonoBehaviour
                 {AvailableMiniGame.Miss();}
                 break;
             default:
+                EndCooldowns();
                 break;
         }
     }
@@ -226,11 +238,7 @@ public class ChanceMinigameOwner : MonoBehaviour
 
     void OnDestroy()
     {
-        GameEvents.OnEventStart -= HandleEventStart;
-        GameEvents.OnEventFail -= HandleEventFail;
-        GameEvents.OnEventCancel -= HandleEventCancel;
-        GameEvents.OnEventComplete -= HandleEventComplete;
-        GameEvents.OnEventMiss -= HandleEventMiss;
+        UnsubscribeEvents();
     }
 
     void HandleEventStart(object sender, GameEventArgs e)
@@ -244,6 +252,7 @@ public class ChanceMinigameOwner : MonoBehaviour
         if(e.EventObject == this.AvailableMiniGame)
         {
             this.TimesFailed++;
+            AvailableMiniGame.CloseEvent();
             BeginCooldowns();
             OpenMinigameButton.SetActive(false);
             isMinigameActive = false;
@@ -272,6 +281,7 @@ public class ChanceMinigameOwner : MonoBehaviour
         if(e.EventObject == this.AvailableMiniGame)
         {
             this.TimesCompleted++;
+            AvailableMiniGame.CloseEvent();
             BeginCooldowns();
             OpenMinigameButton.SetActive(false);
             isMinigameActive = false;

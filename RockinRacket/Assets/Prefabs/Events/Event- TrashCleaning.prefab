@@ -144,9 +144,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1484899391261307148}
-  - component: {fileID: 3236243126156238422}
+  - component: {fileID: 4285293736343522610}
   m_Layer: 5
-  m_Name: Event-Cleaning
+  m_Name: Event- TrashCleaning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +173,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3236243126156238422
+--- !u!114 &4285293736343522610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,22 +187,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Panels: {fileID: 2691268374772534706}
   IsCompleted: 0
-  duration: 15
+  duration: 25
   remainingDuration: 0
   infiniteDuration: 0
   isActiveEvent: 0
   isUniqueEvent: 0
   isOneTimeEvent: 0
   hypeBonus: 0
-  comfortBonus: 25
+  comfortBonus: 250
   hypePenalty: 0
-  comfortPenalty: 25
+  comfortPenalty: 250
   trashPrefabs:
   - {fileID: 2822279064632338553, guid: 696ea5e15dff20a4585f7a344c528868, type: 3}
   - {fileID: 2822279064632338553, guid: 377229f7857507f41ba291918dc285ca, type: 3}
-  minTrashCount: 5
-  maxTrashCount: 10
-  spawnArea: {fileID: 6336041636592566270}
+  minTrashSpawn: 3
+  maxTrashSpawn: 7
+  spawnArea: {fileID: 3311422619387111721}
+  trashParentTransform: {fileID: 4157133189209928389}
   totalTrashCount: 0
   cleanedTrashCount: 0
   score: 0
@@ -285,7 +286,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &4180027988064586841
+--- !u!1 &4608380825392894849
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -293,9 +294,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6336041636592566270}
-  - component: {fileID: 6777557160481391304}
-  - component: {fileID: 3822580459197595964}
+  - component: {fileID: 3311422619387111721}
+  - component: {fileID: 8981592907314302183}
+  - component: {fileID: 3212393721436199371}
   m_Layer: 5
   m_Name: SpawnZone
   m_TagString: Untagged
@@ -303,13 +304,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &6336041636592566270
+--- !u!224 &3311422619387111721
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4180027988064586841}
+  m_GameObject: {fileID: 4608380825392894849}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -318,26 +319,26 @@ RectTransform:
   m_Father: {fileID: 4157133189209928389}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -100, y: -100}
+  m_SizeDelta: {x: 1100, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &6777557160481391304
+--- !u!222 &8981592907314302183
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4180027988064586841}
+  m_GameObject: {fileID: 4608380825392894849}
   m_CullTransparentMesh: 1
---- !u!114 &3822580459197595964
+--- !u!114 &3212393721436199371
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4180027988064586841}
+  m_GameObject: {fileID: 4608380825392894849}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -483,7 +484,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3236243126156238422}
+      - m_Target: {fileID: 4285293736343522610}
         m_TargetAssemblyTypeName: MiniGame, Assembly-CSharp
         m_MethodName: CloseEvent
         m_Mode: 1
@@ -525,7 +526,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6336041636592566270}
+  - {fileID: 3311422619387111721}
   - {fileID: 4165800602393556331}
   - {fileID: 4320583772626806239}
   m_Father: {fileID: 7372617407224212951}
@@ -534,7 +535,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 600}
+  m_SizeDelta: {x: 1200, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &886044293148627068
 CanvasRenderer:
@@ -611,8 +612,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 600}
+  m_AnchoredPosition: {x: 0, y: 50}
+  m_SizeDelta: {x: 1200, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4135272013592485463
 CanvasRenderer:
@@ -700,11 +701,11 @@ RectTransform:
   m_Father: {fileID: 4157133189209928389}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 570, y: 270}
   m_SizeDelta: {x: 60, y: 60}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6272757956502194986
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -787,7 +788,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3236243126156238422}
+      - m_Target: {fileID: 4285293736343522610}
         m_TargetAssemblyTypeName: MiniGame, Assembly-CSharp
         m_MethodName: CloseEvent
         m_Mode: 1
@@ -969,7 +970,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -200}
+  m_AnchoredPosition: {x: 0, y: -140}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4670455453666809404
@@ -1000,7 +1001,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Clean Up the area! Click and destroy trash!
+  m_text: Clean Up the area!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1035,7 +1036,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

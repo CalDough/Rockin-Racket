@@ -7,11 +7,11 @@ using UnityEngine.EventSystems;
 public class Cleaning : MiniGame
 {
     public GameObject[] trashPrefabs; 
-    public int minTrashCount = 5;    // Minimum number of trash items to spawn
-    public int maxTrashCount = 10;    // Maximum number of trash items to spawn
+    public int minTrashSpawn = 3;    // Minimum number of trash items to spawn
+    public int maxTrashSpawn = 7;    // Maximum number of trash items to spawn
 
     public RectTransform spawnArea;
-
+    [SerializeField] Transform trashParentTransform;
     [SerializeField] private int totalTrashCount;
     [SerializeField] private int cleanedTrashCount = 0;
     [SerializeField] private int score = 0; //Not sure if I want to have the player get rewarded more for more trash or type of trash
@@ -32,7 +32,7 @@ public class Cleaning : MiniGame
 
     public void SpawnTrash()
     {
-        totalTrashCount = Random.Range(minTrashCount, maxTrashCount + 1);
+        totalTrashCount = Random.Range(minTrashSpawn, maxTrashSpawn);
 
         for (int i = 0; i < totalTrashCount; i++)
         {
@@ -46,22 +46,27 @@ public class Cleaning : MiniGame
             }
 
             // calculate random position within spawnArea
-            Vector3 spawnPosition = new Vector3
-            (
-                Random.Range(spawnArea.rect.min.x, spawnArea.rect.max.x),
-                Random.Range(spawnArea.rect.min.y, spawnArea.rect.max.y),
-                0
+            Vector3 randomPosWithinArea = new Vector3(
+                Random.Range(spawnArea.rect.xMin, spawnArea.rect.xMax),
+                Random.Range(spawnArea.rect.yMin, spawnArea.rect.yMax),
+                0 
             );
-
-            // adjust for panel's actual position in world space 
-            spawnPosition += (Vector3)spawnArea.position;
-
-            GameObject spawnedTrash = Instantiate(trashPrefab, spawnPosition, Quaternion.identity, spawnArea);
+            GameObject spawnedTrash = Instantiate(trashPrefab);
+            if(trashParentTransform != null)
+            {
+                spawnedTrash.transform.SetParent(trashParentTransform, false);
+            }
+            else
+            {
+                spawnedTrash.transform.SetParent(transform, false);
+            } 
+            spawnedTrash.transform.position = spawnArea.TransformPoint(randomPosWithinArea);
             trashScript = spawnedTrash.GetComponent<TrashObject>();
             trashScript.cleaning = this;
             spawnedTrashItems.Add(spawnedTrash);
         }
     }
+
 
     public void CleanupTrash(TrashObject trash)
     {
