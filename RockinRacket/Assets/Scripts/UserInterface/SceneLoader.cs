@@ -122,19 +122,14 @@ public class SceneLoader : MonoBehaviour
 
         if (animatorPrefab)
         {
-            
-            GameObject transitionObj = Instantiate(animatorPrefab);
-            transition = transitionObj.GetComponent<Animator>();
-            transitionObj.SetActive(true);  
-
-            Canvas canvas = FindObjectOfType<Canvas>();
+            Canvas canvas = FindCanvas();
             if (canvas == null)
-            {
-                Debug.LogError("No canvas found in the scene.");
-                return;
-            }
-            
-            transitionObj.transform.SetParent(canvas.transform, false);
+            {return;}
+
+            GameObject transitionObj = Instantiate(animatorPrefab, canvas.transform, false);
+            transition = transitionObj.GetComponent<Animator>();
+            transitionObj.SetActive(true);
+
             if (transition)
             {
                 transition.SetTrigger("Start");
@@ -192,19 +187,14 @@ public class SceneLoader : MonoBehaviour
 
         if (animatorPrefab)
         {
-            
-            GameObject transitionObj = Instantiate(animatorPrefab);
-            transition = transitionObj.GetComponent<Animator>();
-            transitionObj.SetActive(true);  
-
-            Canvas canvas = FindObjectOfType<Canvas>();
+            Canvas canvas = FindCanvas();
             if (canvas == null)
-            {
-                Debug.LogError("No canvas found in the scene.");
-                return;
-            }
-            
-            transitionObj.transform.SetParent(canvas.transform, false);
+            {return;}
+
+            GameObject transitionObj = Instantiate(animatorPrefab, canvas.transform, false);
+            transition = transitionObj.GetComponent<Animator>();
+            transitionObj.SetActive(true);
+
             if (transition)
             {
                 transition.SetTrigger("Reverse");
@@ -218,6 +208,27 @@ public class SceneLoader : MonoBehaviour
         PlayReverseTransition(DefaultAnimatorPrefab);
     }
  
+    private Canvas FindCanvas()
+    {
+        GameObject canvasObj = GameObject.FindGameObjectWithTag("MainCanvas");
+        if (canvasObj != null)
+        {return canvasObj.GetComponent<Canvas>();}
+
+        canvasObj = GameObject.Find("MainCanvas");
+        if (canvasObj != null)
+        {return canvasObj.GetComponent<Canvas>();}
+
+        Debug.LogWarning("canvas with tag 'MainCanvas' or name 'MainCanvas' not found in the scene");
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null)
+        {
+            Debug.LogError("No canvas found in the scene.");
+            return null;
+        }
+        return canvas;
+    }
+
+
     public void ExitGame()
     {
         Application.Quit();
