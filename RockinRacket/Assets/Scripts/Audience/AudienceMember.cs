@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class AudienceMember : MonoBehaviour
 {
+    [SerializeField] private AudienceRow currentRow;
+
     [SerializeField] private Animator characterAnimator;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] ParticleSystem goodParticles;
@@ -16,6 +18,7 @@ public class AudienceMember : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     private bool isMoving = false;
     [SerializeField] private float moodRandomizationDuration = 30f;
+    private float moveInterval = 5f;
 
     private AudienceController audienceController;
     [SerializeField] private AudienceHypeState currentHypeState;
@@ -23,6 +26,7 @@ public class AudienceMember : MonoBehaviour
 
     public bool IsMoodRandomized = false;
     
+    private Coroutine MoveCoroutine;
 
     public void Init(AudienceController controller)
     {
@@ -115,6 +119,11 @@ public class AudienceMember : MonoBehaviour
         IsMoodRandomized = false;
         UpdateState(audienceController.currentHypeState, audienceController.currentComfortState);
     }
+    
+    public void EnterConcert()
+    {
+        MoveCoroutine = StartCoroutine(MoveRoutine());
+    }
 
     public void MoveToConcertSpot(Vector3 target)
     {
@@ -125,6 +134,7 @@ public class AudienceMember : MonoBehaviour
     {
         StartCoroutine(MoveToExit(target));
     }
+
     private IEnumerator MoveToExit(Vector3 target)
     {
         if (isMoving) yield break;
@@ -157,18 +167,15 @@ public class AudienceMember : MonoBehaviour
 
     private IEnumerator MoveToPosition(Vector3 target)
     {
-        if (isMoving) yield break;
         isMoving = true;
 
-        Vector3 startPos = transform.position;
-        float journeyLength = Vector3.Distance(transform.position, target);
-        //float thresholdDistance = 0.5f;
+        // flip sprite based on direction
+        spriteRenderer.flipX = (target.x > transform.position.x);
 
-        //characterAnimator.Play(journeyLength > thresholdDistance ? "MoveAnimation" : "IdleAnimation");
-
-        float journeyDuration = journeyLength / moveSpeed;
+        float journeyDuration = Vector3.Distance(target, transform.position) / moveSpeed;
         float elapsedTime = 0f;
-        spriteRenderer.flipX = (target.x > startPos.x);
+
+        Vector3 startPos = transform.position;
 
         while (elapsedTime < journeyDuration)
         {
@@ -222,6 +229,7 @@ public class AudienceMember : MonoBehaviour
         {
             case GameModeType.Song:
                 UpdateBehavior();
+                MoveCoroutine = StartCoroutine(MoveRoutine());
                 break;
             default:
                 break;
@@ -233,9 +241,78 @@ public class AudienceMember : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                if(MoveCoroutine != null)
+                {
+                    StopCoroutine(MoveCoroutine);
+                }
                 break;
             default:
                 break;
+        }
+    }
+
+    public void SetRow(AudienceRow row)
+    {
+        currentRow = row;
+        MoveToRandomPositionInRow();
+    }
+
+    private void MoveToRandomPositionInRow()
+    {
+        if (currentRow != null && !isMoving)
+        {
+            Vector3 newPosition = currentRow.GetRandomPosition();
+            StartCoroutine(MoveToPosition(newPosition));
+        }
+    }
+
+    private IEnumerator MoveRoutine()
+    {
+        while (true)
+        {
+            if (currentRow != null && !isMoving)
+            {
+                Vector3 newPosition = currentRow.GetRandomPosition();
+                yield return StartCoroutine(MoveToPosition(newPosition));
+            }
+            yield return new WaitForSeconds(moveInterval);
+        }
+    }
+
+    //This isnt working yet
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Audience"))
+        {
+            AttemptToMoveToNewSpot();
+        }
+    }
+
+    private void AttemptToMoveToNewSpot()
+    {
+        Debug.Log("Too Close, Moving Away");
+        if (isMoving) return;
+
+        if (Random.value > 0.5f)
+        {
+            MoveToRandomPositionInRow();
+        }
+        else
+        {
+            MoveToRandomRow();
+        }
+    }
+
+    private void MoveToRandomRow()
+    {
+        if (audienceController != null)
+        {
+            AudienceRow newRow = audienceController.GetRandomRow();
+            if (newRow != null && newRow != currentRow)
+            {
+                currentRow = newRow;
+                MoveToRandomPositionInRow();
+            }
         }
     }
 }

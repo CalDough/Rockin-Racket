@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class AudienceController : MonoBehaviour
 {
+    [SerializeField] private List<AudienceRow> audienceRows;
     [SerializeField] private List<AudienceMember> audienceMembers;
     [SerializeField] private float lowHypeThresholdPercent = 20f; //  percentage
     [SerializeField] private float highHypeThresholdPercent = 50f; 
     [SerializeField] private float lowComfortThresholdPercent = 20f; 
     [SerializeField] private float highComfortThresholdPercent = 75f; 
     [SerializeField] private float audienceChangeInterval = 5f;
-    [SerializeField] private GameObject audienceMemberPrefab;
+    [SerializeField] private List<GameObject> audienceMemberPrefabs;
     [SerializeField] private Transform audienceSpawnPoint;
 
     [SerializeField] private float moodRandomizationInterval = 15f;
@@ -30,11 +31,38 @@ public class AudienceController : MonoBehaviour
     void Start()
     {
         SubscribeEvents();
+
+        if (audienceRows.Count == 0)
+        {
+            Debug.LogError("No audience rows assigned");
+            return;
+        }
+
+        AssignAudienceMembersToRows();
     }
     
     void OnDestroy()
     {
         UnsubscribeEvents();
+    }
+
+    public AudienceRow GetRandomRow()
+    {
+        if (audienceRows.Count > 0)
+        {
+            int randomIndex = Random.Range(0, audienceRows.Count);
+            return audienceRows[randomIndex];
+        }
+        return null;
+    }
+    
+    private void AssignAudienceMembersToRows()
+    {
+        for (int i = 0; i < audienceMembers.Count; i++)
+        {
+            int rowIndex = i % audienceRows.Count;
+            audienceMembers[i].SetRow(audienceRows[rowIndex]);
+        }
     }
 
     private void CalculateThresholds()
@@ -123,14 +151,21 @@ public class AudienceController : MonoBehaviour
 
     private void AddAudienceMember()
     {
-        GameObject newMemberObj = Instantiate(audienceMemberPrefab, audienceSpawnPoint.position, Quaternion.identity);
+        if (audienceMemberPrefabs.Count == 0)
+        {
+            Debug.LogError("No audience member prefabs assigned");
+            return;
+        }
+
+        int randomIndex = Random.Range(0, audienceMemberPrefabs.Count);
+        GameObject newMemberObj = Instantiate(audienceMemberPrefabs[randomIndex], audienceSpawnPoint.position, Quaternion.identity);
         AudienceMember newMember = newMemberObj.GetComponent<AudienceMember>();
         if (newMember != null)
         {
             newMember.Init(this);
             audienceMembers.Add(newMember);
         }
-        //newMember.MoveToConcertSpot()
+        newMember.EnterConcert();
     }
 
     private void RemoveAudienceMember()
