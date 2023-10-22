@@ -74,35 +74,35 @@ public class ConcertUI :  ScrollSelector<MiniGame>
 
     public void HandleEventStart(object sender, GameEventArgs e)
     {
-        Debug.Log("ConcertUI: UI Event Started: " + e.EventObject);
-        this.Items.Add(e.EventObject);
+        //Debug.Log("ConcertUI: UI Event Started: " + e.EventObject);
+        //this.Items.Add(e.EventObject);
         
-        CreateButton(currentIndex);
-        currentIndex += 1;
+        //CreateButton(currentIndex);
+        //currentIndex += 1;
     }
 
     public void HandleEventFail(object sender, GameEventArgs e)
     {
         //Debug.Log("Event Fail: " + e.eventObject);
-        FindGameEventInListAndHide(e.EventObject);
+        //FindGameEventInListAndHide(e.EventObject);
     }
 
     public void HandleEventCancel(object sender, GameEventArgs e)
     {
         //Debug.Log("Event Cancelled: " + e.eventObject);
-        FindGameEventInListAndHide(e.EventObject);
+        //FindGameEventInListAndHide(e.EventObject);
     }
 
     public void HandleEventComplete(object sender, GameEventArgs e)
     {
         //Debug.Log("Event Completed: " + e.eventObject);
-        FindGameEventInListAndHide(e.EventObject);
+        //FindGameEventInListAndHide(e.EventObject);
     }
 
     public void HandleEventMiss(object sender, GameEventArgs e)
     {
         //Debug.Log("Event Missed: " + e.eventObject);
-        FindGameEventInListAndHide(e.EventObject);
+        //FindGameEventInListAndHide(e.EventObject);
     }
     
     public void HandleGameStateStart(object sender, GameStateEventArgs e)

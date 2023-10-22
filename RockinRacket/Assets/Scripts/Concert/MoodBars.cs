@@ -21,8 +21,18 @@ public class MoodBars : MonoBehaviour
 
     private float maxHype = 1000f;
     private float maxComfort = 1000f;
-    [SerializeField] private float hypeLerpSpeed = 5f;  
-    [SerializeField] private float comfortLerpSpeed = 5f; 
+    [SerializeField] private float hypeLerpSpeed = 5f;
+    [SerializeField] private float comfortLerpSpeed = 5f;
+    
+    [SerializeField] private float lowHypeThresholdPercent = 20f; //  percentage
+    [SerializeField] private float highHypeThresholdPercent = 50f; 
+    [SerializeField] private float lowComfortThresholdPercent = 20f; 
+    [SerializeField] private float highComfortThresholdPercent = 75f; 
+
+    private float lowHypeThreshold;
+    private float highHypeThreshold;
+    private float lowComfortThreshold;
+    private float highComfortThreshold;
 
     private void Start()
     {
@@ -37,6 +47,14 @@ public class MoodBars : MonoBehaviour
         UpdateBarColors();
     }
 
+    private void CalculateThresholds()
+    {
+        lowHypeThreshold = MinigameStatusManager.Instance.maxHype * (lowHypeThresholdPercent / 100f);
+        highHypeThreshold = MinigameStatusManager.Instance.maxHype * (highHypeThresholdPercent / 100f);
+        lowComfortThreshold = MinigameStatusManager.Instance.maxComfort * (lowComfortThresholdPercent / 100f);
+        highComfortThreshold = MinigameStatusManager.Instance.maxComfort * (highComfortThresholdPercent / 100f);
+    }
+
     private void InitializeSliders()
     {
         // Ensure we have the right references
@@ -48,6 +66,8 @@ public class MoodBars : MonoBehaviour
 
         maxHype = MinigameStatusManager.Instance.maxHype;
         maxComfort = MinigameStatusManager.Instance.maxComfort;
+
+        CalculateThresholds();
 
         hypeSlider.maxValue = maxHype;
         comfortSlider.maxValue = maxComfort;
@@ -68,13 +88,13 @@ public class MoodBars : MonoBehaviour
     private void UpdateBarColors()
     {
         // Update Hype Color
-        if (hypeSlider.value / maxHype <= 0.5f)
+        if (hypeSlider.value <= lowHypeThreshold)
         {
-            hypeSliderFill.color = Color.Lerp(hypeLowColor, hypeMidColor, hypeSlider.value / (0.5f * maxHype));
+            hypeSliderFill.color = Color.Lerp(hypeLowColor, hypeMidColor, hypeSlider.value / lowHypeThreshold);
         }
-        else if (hypeSlider.value / maxHype <= 0.9f)
+        else if (hypeSlider.value <= highHypeThreshold)
         {
-            hypeSliderFill.color = Color.Lerp(hypeMidColor, hypeHighColor, (hypeSlider.value - 0.5f * maxHype) / (0.4f * maxHype));
+            hypeSliderFill.color = Color.Lerp(hypeMidColor, hypeHighColor, (hypeSlider.value - lowHypeThreshold) / (highHypeThreshold - lowHypeThreshold));
         }
         else
         {
@@ -82,13 +102,13 @@ public class MoodBars : MonoBehaviour
         }
 
         // Update Comfort Color
-        if (comfortSlider.value / maxComfort <= 0.5f)
+        if (comfortSlider.value <= lowComfortThreshold)
         {
-            comfortSliderFill.color = Color.Lerp(comfortLowColor, comfortMidColor, comfortSlider.value / (0.5f * maxComfort));
+            comfortSliderFill.color = Color.Lerp(comfortLowColor, comfortMidColor, comfortSlider.value / lowComfortThreshold);
         }
-        else if (comfortSlider.value / maxComfort <= 0.9f)
+        else if (comfortSlider.value <= highComfortThreshold)
         {
-            comfortSliderFill.color = Color.Lerp(comfortMidColor, comfortHighColor, (comfortSlider.value - 0.5f * maxComfort) / (0.4f * maxComfort));
+            comfortSliderFill.color = Color.Lerp(comfortMidColor, comfortHighColor, (comfortSlider.value - lowComfortThreshold) / (highComfortThreshold - lowComfortThreshold));
         }
         else
         {

@@ -176,10 +176,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195618320c207dd4d85dce677d4f0cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1456197642547706120}
-  audienceController: {fileID: 0}
+  characterAnimator: {fileID: 1456197642547706120}
+  spriteRenderer: {fileID: 4134435298680762853}
   goodParticles: {fileID: 4957019224006286115}
   badParticles: {fileID: 1858466451316062120}
+  moveSpeed: 5
+  moodRandomizationDuration: 30
+  currentHypeState: 0
+  currentComfortState: 0
+  IsMoodRandomized: 0
 --- !u!1001 &2635883990649426855
 PrefabInstance:
   m_ObjectHideFlags: 0

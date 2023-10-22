@@ -18,11 +18,11 @@ public class BandAnimationController : MonoBehaviour
     [Header("Animation Names")] 
     [SerializeField] string playName = "Playing";
     [SerializeField] string idleName = "Idle"; 
-    [SerializeField] string walkName = "Walk"; 
+    //[SerializeField] string walkName = "Walk"; 
 
     
     [Header("Test Variables")] 
-    [SerializeField] bool alwaysPlay = false;
+    //[SerializeField] bool alwaysPlay = false;
     [SerializeField] private Transform currentTarget;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool isMoving = false; 
@@ -223,7 +223,7 @@ public class BandAnimationController : MonoBehaviour
 
     private IEnumerator MoveAndPlayRoutine()
     {
-        Debug.Log("MoveAndPlayRoutine started!");
+        //Debug.Log("MoveAndPlayRoutine started!");
         yield return new WaitForSeconds(0.5f);
 
         while(true)

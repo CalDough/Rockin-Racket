@@ -15,6 +15,7 @@ public class AudienceMember : MonoBehaviour
     [SerializeField] ParticleSystem badParticles; 
     [SerializeField] private float moveSpeed = 5f;
     private bool isMoving = false;
+    [SerializeField] private float moodRandomizationDuration = 30f;
 
     private AudienceController audienceController;
     [SerializeField] private AudienceHypeState currentHypeState;
@@ -39,6 +40,25 @@ public class AudienceMember : MonoBehaviour
 
     private void UpdateBehavior()
     {
+        switch (currentHypeState)
+        {
+            case AudienceHypeState.HighHype:
+                characterAnimator.Play("Audience_Happy");
+                break;
+
+            case AudienceHypeState.MidHype:
+                characterAnimator.Play("Audience_Excited");
+                break;
+
+            case AudienceHypeState.LowHype:
+                characterAnimator.Play("Audience_Normal");
+                break;
+        }
+        if(currentComfortState == AudienceComfortState.LowComfort)
+        {
+            characterAnimator.Play("Audience_Normal");
+        }
+
     }
 
 
@@ -56,10 +76,14 @@ public class AudienceMember : MonoBehaviour
             case TShirtCannon.PressureState.Good:
                 characterAnimator.Play("Audience_Happy");
                 goodParticles.Play();
+                MinigameStatusManager.Instance.AddMinigameVariables(100,10);
+                this.currentComfortState = AudienceComfortState.HighComfort;
                 break;
 
             case TShirtCannon.PressureState.Weak:
                 characterAnimator.Play("Audience_Excited");
+                MinigameStatusManager.Instance.AddMinigameVariables(50,10);
+                this.currentComfortState = AudienceComfortState.MidComfort;
                 break;
 
             case TShirtCannon.PressureState.Bad:
@@ -67,6 +91,29 @@ public class AudienceMember : MonoBehaviour
                 badParticles.Play();
                 break;
         }
+    }
+
+    public void RandomizeMood()
+    {
+        if (IsMoodRandomized) return;
+
+        IsMoodRandomized = true;
+        this.currentComfortState = AudienceComfortState.LowComfort;
+
+        StartCoroutine(ResetMoodAfterDelay());
+    }
+
+    private IEnumerator ResetMoodAfterDelay()
+    {
+        yield return new WaitForSeconds(moodRandomizationDuration);
+        ResetMood();
+    }
+    public void ResetMood()
+    {
+        if (!IsMoodRandomized) return;
+
+        IsMoodRandomized = false;
+        UpdateState(audienceController.currentHypeState, audienceController.currentComfortState);
     }
 
     public void MoveToConcertSpot(Vector3 target)
@@ -85,7 +132,7 @@ public class AudienceMember : MonoBehaviour
 
         Vector3 startPos = transform.position;
         float journeyLength = Vector3.Distance(transform.position, target);
-        float thresholdDistance = 0.5f;
+        //float thresholdDistance = 0.5f;
 
         //characterAnimator.Play(journeyLength > thresholdDistance ? "MoveAnimation" : "IdleAnimation");
 
@@ -115,7 +162,7 @@ public class AudienceMember : MonoBehaviour
 
         Vector3 startPos = transform.position;
         float journeyLength = Vector3.Distance(transform.position, target);
-        float thresholdDistance = 0.5f;
+        //float thresholdDistance = 0.5f;
 
         //characterAnimator.Play(journeyLength > thresholdDistance ? "MoveAnimation" : "IdleAnimation");
 
@@ -138,7 +185,7 @@ public class AudienceMember : MonoBehaviour
     private void OnArrival()
     {
         
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
     void OnDestroy()
@@ -174,6 +221,7 @@ public class AudienceMember : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                UpdateBehavior();
                 break;
             default:
                 break;
