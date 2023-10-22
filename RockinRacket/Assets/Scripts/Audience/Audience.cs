@@ -14,7 +14,6 @@ public class Audience : MonoBehaviour
     // Will be reorganized at a later date
     [ReadOnly] int AudienceMood = 0;
     [SerializeField] int AudienceStartingMood;
-    [SerializeField] MoodBar moodBar;
     [SerializeField] float moodPositiveIncreaseModifier;
     [SerializeField] float moodNegativeIncreaseModifier;
     [SerializeField] int maxMood;
@@ -45,8 +44,8 @@ public class Audience : MonoBehaviour
 
         AudienceMood = AudienceStartingMood;
 
-        moodBar.SetMaxValue(maxMood);
-        moodBar.SetValue(AudienceMood);
+       // moodBar.SetMaxValue(maxMood);
+       // moodBar.SetValue(AudienceMood);
     }
 
     private void Update()
@@ -79,7 +78,7 @@ public class Audience : MonoBehaviour
 
         AudienceMood = (int)(AudienceMood * moodPositiveIncreaseModifier);
 
-        moodBar.SetValue(AudienceMood);
+        //moodBar.SetValue(AudienceMood);
     }
 
     public void EventFailMoodAlter(object sender, GameEventArgs e)
@@ -88,7 +87,7 @@ public class Audience : MonoBehaviour
 
         AudienceMood = (int)(AudienceMood * moodNegativeIncreaseModifier);
 
-        moodBar.SetValue(AudienceMood);
+        //moodBar.SetValue(AudienceMood);
         eventsFailed++;
     }
 
@@ -98,7 +97,7 @@ public class Audience : MonoBehaviour
 
         AudienceMood = (int)(AudienceMood * moodNegativeIncreaseModifier);
 
-        moodBar.SetValue(AudienceMood);
+        //moodBar.SetValue(AudienceMood);
     }
 
     public void EventCompleteMoodAlter(object sender, GameEventArgs e)
@@ -107,7 +106,7 @@ public class Audience : MonoBehaviour
 
         AudienceMood = (int)(AudienceMood * moodPositiveIncreaseModifier);
 
-        moodBar.SetValue(AudienceMood);
+       // moodBar.SetValue(AudienceMood);
         eventsCompleted++;
     }
 
@@ -117,7 +116,7 @@ public class Audience : MonoBehaviour
 
         AudienceMood = (int)(AudienceMood * moodNegativeIncreaseModifier);
 
-        moodBar.SetValue(AudienceMood);
+        //moodBar.SetValue(AudienceMood);
         eventsMissed++;
     }
 
