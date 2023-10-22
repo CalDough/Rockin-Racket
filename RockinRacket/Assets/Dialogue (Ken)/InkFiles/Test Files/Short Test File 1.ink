@@ -1,4 +1,4 @@
-INCLUDE globals.ink
+INCLUDE ../globals.ink
 This is a very short dialogue test file. #speaker: Test #portrait: Harvey_neutral
 -> Question
 

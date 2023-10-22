@@ -14,22 +14,21 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (hasNewDialogue)
-        {
-            visualCue.SetActive(true);
-        }
+        
     }
     
     private void Awake()
     {
-        visualCue.SetActive(false);
+        hasNewDialogue = true;
+        visualCue.SetActive(true);
     }
 
-    public void OnRayHit()
+    public void Button_StartDialogue()
     {
         if (!DialogueManager.GetInstance().dialogueActive)
         {
             hasNewDialogue = false;
+            visualCue.SetActive(false);
             DialogueManager.GetInstance().StartDialogue(inkJSON);
         }
     }
