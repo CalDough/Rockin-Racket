@@ -2,73 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using System.Text;
 /*
  * This class controls the values shown in the concerts results screen
  * 
  * NOTE: RESULT CALCULATIONS ARE YET TO BE FINALIZED
  */
-
-
 public class ResultsScreen : MonoBehaviour
 {
-    // Serialized Fields
     [Header("Object References")]
     [SerializeField] TMP_Text concertResultsText;
-    [SerializeField] Audience audienceMoodReference;
+    [SerializeField] AudienceController audienceController;
+    [SerializeField] MinigameStatusManager minigameStatusManager;
+
     [Header("Score Variables")]
-    [SerializeField] float scoreMultiplier;
-    [SerializeField] float moneyMultiplier;
-    [SerializeField] float moodMultiplier;
-    [SerializeField] float baseScore;
-    [SerializeField] float baseMoney;
+    [SerializeField] float moneyMultiplier = 100f;
 
-
-    // Private fields
-    private float score;
-    private float money;
-    private float mood;
-    private int eventsFailed;
-    private int eventsCompleted;
-    private int eventsMissed;
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        // Grabbing our event data variables from the audience script
-        mood = audienceMoodReference.GetCurrentMood();
-        eventsFailed = audienceMoodReference.GetEventsFailed();
-        eventsCompleted = audienceMoodReference.GetEventsCompleted();
-        eventsMissed = audienceMoodReference.GetEventsMissed();
-
-        // Updating our score values
-        UpdateScores();
-        // Updating the text on screen
+        minigameStatusManager = MinigameStatusManager.Instance;
         UpdateResultText();
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log("Working");
-    }
-
-    private void UpdateScores()
-    {
-        score = baseScore + (eventsCompleted * scoreMultiplier) - (eventsFailed * (scoreMultiplier)) - (eventsMissed * scoreMultiplier);
-        money = baseMoney + (mood * moneyMultiplier);
     }
 
     private void UpdateResultText()
     {
-        concertResultsText.text =
-            "Overall score: " + score + "\n" +
-            "Audience Score: " + mood + "\n" +
-            "Money Gained: " + money + "\n" +
-            "Minigames Completed: " + eventsCompleted + "\n" +
-            "Minigames Failed: " + eventsFailed + "\n" +
-            "Minigames Missed: " + eventsMissed;
+        StringBuilder resultsBuilder = new StringBuilder();
+
+        int crowdSize = audienceController.GetAudienceCount(); 
+        int miniGamesCompleted = minigameStatusManager.completedMiniGamesCount; 
+        int miniGamesFailed = minigameStatusManager.failedMiniGamesCount; 
+        float moneyEarned = crowdSize * moneyMultiplier;
+        
+        resultsBuilder.AppendLine($"Mini Games Completed: {miniGamesCompleted}");
+        resultsBuilder.AppendLine($"Mini Games Failed: {miniGamesFailed}");
+        resultsBuilder.AppendLine($"Crowd Size: {crowdSize}");
+        resultsBuilder.AppendLine($"Money Earned: ${moneyEarned}");
+
+        for (int i = 0; i < minigameStatusManager.PotentialHypeFromAllSongs.Count; i++)
+        {
+            float segmentPotentialHype = minigameStatusManager.PotentialHypeFromAllSongs[i];
+            float segmentEarnedHype = minigameStatusManager.HypeEarnedFromAllSongs[i];
+            resultsBuilder.AppendLine($"Song {i + 1}: {segmentEarnedHype}/{segmentPotentialHype} Hype");
+        }
+
+        concertResultsText.text = resultsBuilder.ToString();
     }
 }

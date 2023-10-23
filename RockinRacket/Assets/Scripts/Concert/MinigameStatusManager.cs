@@ -8,10 +8,10 @@ public class MinigameStatusManager : MonoBehaviour
     [field: SerializeField] public int totalDifficulty { get; private set; } = 0; 
 
     // Changing the mini-game lists to integer counters
-    private int completedMiniGamesCount = 0;
-    private int failedMiniGamesCount = 0;
-    private int missedMiniGamesCount = 0;
-    private int canceledMiniGamesCount = 0;
+    public int completedMiniGamesCount = 0;
+    public int failedMiniGamesCount = 0;
+    public int missedMiniGamesCount = 0;
+    public int canceledMiniGamesCount = 0;
 
     [Header("Audience Mood Bars")]
     [SerializeField] public float hype = 0f;
@@ -230,9 +230,11 @@ public class MinigameStatusManager : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                hype = 0;
                 this.PotentialHype = GameStateManager.Instance.CurrentGameState.Duration * 50;
                 this.maxHype = PotentialHype;
-                PotentialHypeFromAllSongs.Add(hype);
+                float maxHypePotential = PotentialHype;
+                PotentialHypeFromAllSongs.Add(maxHypePotential);
                 StartCoroutine(HypeGeneration());
                 StartCoroutine(ComfortGeneration());
                 break;

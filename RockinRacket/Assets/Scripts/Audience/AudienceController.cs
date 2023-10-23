@@ -162,9 +162,9 @@ public class AudienceController : MonoBehaviour
         AudienceMember newMember = newMemberObj.GetComponent<AudienceMember>();
         if (newMember != null)
         {
-            newMember.Init(this);
             audienceMembers.Add(newMember);
         }
+        newMember.Init(this);
         newMember.EnterConcert();
     }
 

@@ -7178,12 +7178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   concertResultsText: {fileID: 638119010}
-  audienceMoodReference: {fileID: 0}
-  scoreMultiplier: 1.25
-  moneyMultiplier: 1.25
-  moodMultiplier: 1.25
-  baseScore: 250
-  baseMoney: 500
+  audienceController: {fileID: 3246177}
+  minigameStatusManager: {fileID: 0}
+  moneyMultiplier: 25
 --- !u!1 &497403021
 GameObject:
   m_ObjectHideFlags: 0
@@ -10377,7 +10374,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh33318
+  m_Name: pb_Mesh32872
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

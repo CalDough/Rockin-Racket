@@ -112,12 +112,17 @@ public class AudienceMember : MonoBehaviour
         yield return new WaitForSeconds(moodRandomizationDuration);
         ResetMood();
     }
+
     public void ResetMood()
     {
         if (!IsMoodRandomized) return;
 
         IsMoodRandomized = false;
-        UpdateState(audienceController.currentHypeState, audienceController.currentComfortState);
+        if(audienceController != null)
+        {
+            UpdateState(audienceController.currentHypeState, audienceController.currentComfortState);
+        }
+        
     }
     
     public void EnterConcert()
