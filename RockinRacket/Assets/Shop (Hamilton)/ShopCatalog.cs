@@ -32,7 +32,6 @@ public class ShopCatalog : MonoBehaviour
             {
                 if (index < itemOptions.Length)
                 {
-                    Debug.Log("inventory contains " + item.name + ": " + ItemInventory.ContainsItem(item));
                     DisplayItem(item, index, shopReceipt.IsInCart(item), !ItemInventory.ContainsItem(item), ItemInventory.IsEquipped(item));
                     index++;
                 }

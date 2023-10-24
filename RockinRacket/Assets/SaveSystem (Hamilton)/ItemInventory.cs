@@ -72,7 +72,7 @@ public static class ItemInventory
             itemStrings.Add(item.name);
         File.WriteAllLines(filePath, itemStrings);
 
-        Debug.Log($"Inventory saved successfully. {ownedItems.Count} items saved.");
+        Debug.Log($"Inventory saved {itemStrings.Count} items");
     }
 
     private static ItemTest[] Load()
@@ -85,14 +85,20 @@ public static class ItemInventory
         ItemTest[] loadedItems = new ItemTest[itemNames.Count];
 
         int successfullyLoaded = 0;
-        for (int i = 0; i < loadedItems.Length; i++)
-            if (itemNames[i] == allItems[i].name)
+        for (int i = 0; i < itemNames.Count; i++)
+            foreach (ItemTest item in allItems)
+            if (itemNames[i] == item.name)
             {
                 loadedItems[i] = allItems[i];
                 successfullyLoaded++;
             }
 
-        Debug.Log($"Inventory loaded successfully. {successfullyLoaded} items loaded out of {itemNames.Count}");
+        //foreach (string item in itemNames)
+        //    Debug.Log(item);
+        //foreach (ItemTest item in allItems)
+        //    Debug.Log(item.name);
+
+        Debug.Log($"Inventory loaded {successfullyLoaded} items loaded out of {itemNames.Count}");
         return loadedItems;
     }
 
