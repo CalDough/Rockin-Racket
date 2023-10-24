@@ -92,7 +92,8 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         isEventOpen = true; // This variable is used to block the event's factors to trigger early
         StartCoroutine(CyclePressureBar());
         // Calling our Cinemachine game event to swap the camera using the Cinemachine animator
-        CinemachineGameEvents.instance.e_SwitchToTShirtCam.Invoke();
+        //CinemachineGameEvents.instance.e_SwitchToTShirtCam.Invoke();
+        CameraSwapEvents.instance.e_SwapToAudienceView.Invoke();
         // Grabbing the current camera to use with Raycasting as a part of this minigame
         mainCamera = Camera.main;
     }
@@ -104,7 +105,8 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     {
         base.CloseEvent();
         isEventOpen = false;
-        CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
+        //CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
+        CameraSwapEvents.instance.e_SwapToBandView.Invoke();
         StopCoroutine(CyclePressureBar());
     }
 
@@ -141,7 +143,8 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     public override void HandleClosing()
     {
         Panels.SetActive(false);
-        CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
+        //CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
+        CameraSwapEvents.instance.e_SwapToBandView.Invoke();
         if (IsCompleted == false)
         { RestartMiniGameLogic(); }
     }

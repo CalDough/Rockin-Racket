@@ -107,33 +107,33 @@ public class ConcertUI :  ScrollSelector<MiniGame>
     
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
     {
-        //Debug.Log("State Started: " + e.stateType);
-        switch(e.stateType)
-        {
-            case GameModeType.Song:
-                InfoTextBox.text = "Song "+ e.state.Duration +" Seconds";
-                break;
-            case GameModeType.Intermission:
-                InfoTextBox.text = "Intermission "+ e.state.Duration +" Seconds";
-                break;
-            case GameModeType.Cutscene:
-                InfoTextBox.text = "Cutscene "+ e.state.Duration +" Seconds";
-                break;
-            case GameModeType.Dialogue:
-                InfoTextBox.text = "Dialogue "+ e.state.Duration +" Seconds";
-                break;
-            case GameModeType.BandBattle:
-                InfoTextBox.text = "Battle "+ e.state.Duration +" Seconds";
-                break;
-            case GameModeType.SceneIntro:
-                InfoTextBox.text = "Intro "+ e.state.Duration +" Seconds";
-                break;
-            case GameModeType.SceneOutro:
-                InfoTextBox.text = "Outro "+ e.state.Duration +" Seconds";
-                break;
-            default:
-                break;
-        }
+        Debug.Log("State Started: " + e.stateType);
+        //switch(e.stateType)
+        //{
+        //    case GameModeType.Song:
+        //        InfoTextBox.text = "Song "+ e.state.Duration +" Seconds";
+        //        break;
+        //    case GameModeType.Intermission:
+        //        InfoTextBox.text = "Intermission "+ e.state.Duration +" Seconds";
+        //        break;
+        //    case GameModeType.Cutscene:
+        //        InfoTextBox.text = "Cutscene "+ e.state.Duration +" Seconds";
+        //        break;
+        //    case GameModeType.Dialogue:
+        //        InfoTextBox.text = "Dialogue "+ e.state.Duration +" Seconds";
+        //        break;
+        //    case GameModeType.BandBattle:
+        //        InfoTextBox.text = "Battle "+ e.state.Duration +" Seconds";
+        //        break;
+        //    case GameModeType.SceneIntro:
+        //        InfoTextBox.text = "Intro "+ e.state.Duration +" Seconds";
+        //        break;
+        //    case GameModeType.SceneOutro:
+        //        InfoTextBox.text = "Outro "+ e.state.Duration +" Seconds";
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
     
     private void HandleGameStateEnd(object sender, GameStateEventArgs e)
