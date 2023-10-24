@@ -106,5 +106,6 @@ public static class ItemInventory
     {
         string filePath = saveFolderPath + saveFileName;
         File.WriteAllText(filePath, "");
+        ownedItems = new();
     }
 }
