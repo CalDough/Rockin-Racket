@@ -6,8 +6,6 @@ using TMPro;
 
 public class ShopSelection : MonoBehaviour
 {
-    public ShopReceipt receipt;
-
     public TMP_Text nameText;
     public TMP_Text descriptionText;
     public TMP_Text costText;
@@ -15,20 +13,14 @@ public class ShopSelection : MonoBehaviour
 
     private ItemTest selectedItem;
 
-    public void SelectItem(ItemTest itemTest)
+    public ItemTest GetSelectedItem() { return selectedItem; }
+
+    public void SelectItem(ItemTest itemTest, bool isIncart)
     {
         selectedItem = itemTest;
-        UpdateSelection();
+        UpdateText(isIncart);
     }
-    public void AddSelectedToCart()
-    {
-        if (receipt.IsInCart(selectedItem))
-            receipt.RemoveFromCart(selectedItem);
-        else
-            receipt.AddToCart(selectedItem);
-        UpdateSelection();
-    }
-    public void UpdateSelection()
+    private void UpdateText(bool isIncart)
     {
         if (selectedItem == null)
         {
@@ -41,7 +33,7 @@ public class ShopSelection : MonoBehaviour
         nameText.text = selectedItem.name;
         descriptionText.text = selectedItem.description;
         costText.text = "$" + selectedItem.cost.ToString();
-        if (receipt.IsInCart(selectedItem))
+        if (isIncart)
             cartButtonText.text = "Remove From Cart";
         else
             cartButtonText.text = "Add To Cart";
@@ -49,6 +41,6 @@ public class ShopSelection : MonoBehaviour
     public void ResetSelection()
     {
         selectedItem = new();
-        UpdateSelection();
+        UpdateText(false);
     }
 }

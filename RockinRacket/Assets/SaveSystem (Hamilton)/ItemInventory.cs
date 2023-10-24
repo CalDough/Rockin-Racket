@@ -15,14 +15,21 @@ public static class ItemInventory
     private static string saveFileName = "Items.txt";
     private static string itemPath = "Items/";
 
-    private static List<ItemTest> items = new();
-    private static List<ItemTest> eqippedItems = new();
-
-    public static void AddItem(ItemTest item) { items.Add(item); }
-    public static void RemoveItem(ItemTest item) { items.Remove(item); }
-    public static List<ItemTest> GetItems() { return items; }
-    public static bool ContainsItem(ItemTest item) { return items.Contains(item); }
+    private static List<ItemTest> ownedItems = new();
+    private static List<ItemTest> equippedItems = new();
     private static Dictionary<ItemTest.MinigameType, GameObject> minigamesByType;
+
+    public static void AddItem(ItemTest item) { ownedItems.Add(item); }
+    public static void AddItems(ItemTest[] items) { ownedItems.AddRange(items); }
+    public static void RemoveItem(ItemTest item) { ownedItems.Remove(item); }
+    public static List<ItemTest> GetItems() { return ownedItems; }
+    public static bool ContainsItem(ItemTest item) { return ownedItems.Contains(item); }
+    public static bool IsEquipped(ItemTest item) { return equippedItems.Contains(item); }
+
+    public static void Initialize(ItemTest[] completeListOfItems)
+    {
+        ownedItems.AddRange(Load(completeListOfItems));
+    }
 
     public static GameObject GetMinigameByName(ItemTest.MinigameType type)
     {
@@ -35,7 +42,7 @@ public static class ItemInventory
         ItemTest.MinigameType[] minigameTypesIncludingNone = (ItemTest.MinigameType[])Enum.GetValues(typeof(ItemTest.MinigameType));
         ItemTest.MinigameType[] minigameTypes = (ItemTest.MinigameType[])minigameTypesIncludingNone.Skip(1);
 
-        foreach (ItemTest item in items)
+        foreach (ItemTest item in ownedItems)
         {
             //if (item.Minigame_Type != ItemTest.MinigameType.NONE)
             //    minigamesByType.
@@ -55,12 +62,12 @@ public static class ItemInventory
         
         List<string> itemStrings = new();
         foreach (ItemTest newItem in newItems)
-            items.Add(newItem);
-        foreach (ItemTest item in items)
+            ownedItems.Add(newItem);
+        foreach (ItemTest item in ownedItems)
             itemStrings.Add(item.name);
         File.WriteAllLines(filePath, itemStrings);
 
-        Debug.Log($"Inventory saved successfully. {items.Count} items saved.");
+        Debug.Log($"Inventory saved successfully. {ownedItems.Count} items saved.");
     }
 
     public static ItemTest[] Load(ItemTest[] completeListOfItems)

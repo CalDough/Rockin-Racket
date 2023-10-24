@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ShopPanelManager : MonoBehaviour
+/*
+    activates/deactivates UI groups in scene
+    handles DialogueMenu choices
+*/
+
+public class ShopManager : MonoBehaviour
 {
     // TEMPORARY until I make the dialogue save system
     [SerializeField] private TextAsset textFile;
@@ -13,7 +18,6 @@ public class ShopPanelManager : MonoBehaviour
 
     [SerializeField] private GameObject catalogManagerObject;
     [SerializeField] private GameObject dialogueMenuPanel;
-
     [SerializeField] private DialogueManager dialogueManager;
 
     private void Awake()

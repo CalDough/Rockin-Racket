@@ -13,7 +13,8 @@ public class BookmarkManager : MonoBehaviour
         bookmarkPairs[selectedIndex].Unselect();
         selectedIndex = index;
         FlipBookmarks(index);
-        catalogManager.DisplayItemsByCategory(bookmarkPairs[index].GetCategory());
+        // pass info to Catalog Manager
+        catalogManager.BookmarkPressed(bookmarkPairs[index].GetCategory());
     }
 
     public void FlipBookmarks(int index)

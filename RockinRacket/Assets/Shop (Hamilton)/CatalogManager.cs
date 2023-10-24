@@ -2,63 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    recieves button input from resetBtn, cartBtn, buyBtn
+    takes calls from ItemOptions when they are clicked to pass to ShopSelection
+    passes information to ShopSelection, ShopReceipt, and ShopCatalog
+    handles saving and loading with ItemInventory
+*/
+
 public class CatalogManager : MonoBehaviour
 {
     [SerializeField] private ShopSelection shopSelection;
     [SerializeField] private ShopReceipt shopReceipt;
+    [SerializeField] private ShopCatalog shopCatalog;
     [SerializeField] private ItemTest[] completeListOfItems;
-    [SerializeField] private ItemOption[] itemOptions;
-    private int itemOptionIndex;
 
-    public void Awake()
+    private void Awake()
     {
-        ItemInventory.Save(ItemInventory.Load(completeListOfItems));
+        ItemInventory.Initialize(completeListOfItems);
     }
 
-    private void ResetItemOptions()
+    public void ItemOptionPressed(ItemTest item)
     {
-        itemOptionIndex = 0;
-        foreach (ItemOption itemOption in itemOptions)
-            itemOption.Show(false);
-    }
-
-    public void UpdateItemOptions()
-    {
-        foreach (ItemOption itemOption in itemOptions)
-            itemOption.UpdateOption(!ItemInventory.ContainsItem(itemOption.item), shopReceipt.IsInCart(itemOption.item));
-    }
-
-    public void DisplayItemsByCategory(ItemTest.ItemType itemType)
-    {
-        ResetItemOptions();
-        shopSelection.ResetSelection();
-        foreach (ItemTest item in completeListOfItems)
-            if (item.itemType == itemType)
-                DisplayItem(item);
-    }
-
-    public void DisplayItem(ItemTest item)
-    {
-        if (itemOptionIndex < itemOptions.Length)
-        {
-            itemOptions[itemOptionIndex].SetItem(item, !ItemInventory.ContainsItem(item), shopReceipt.IsInCart(item));
-            itemOptionIndex++;
-        }
-        else
-            Debug.Log("You have more items than can be displayed for this category");
+        shopSelection.SelectItem(item, shopReceipt.IsInCart(item));
     }
 
     public void BuyBtnPressed()
     {
         shopSelection.ResetSelection();
-        ItemInventory.Save(shopReceipt.GetItemsToBuy());
+        ItemInventory.AddItems(shopReceipt.GetItemsToBuy());
         shopReceipt.ResetReceipt();
-        UpdateItemOptions();
+        shopCatalog.UpdateItemOptions(shopReceipt);
     }
     public void CartBtnPressed()
     {
-        shopSelection.AddSelectedToCart();
-        UpdateItemOptions();
+        ItemTest currentItem = shopSelection.GetSelectedItem();
+        if (!shopReceipt.IsInCart(currentItem))
+        {
+            shopReceipt.AddToCart(currentItem);
+        }
+        else
+        {
+            shopReceipt.RemoveFromCart(currentItem);
+        }
+        shopCatalog.UpdateItemOptions(shopReceipt);
     }
 
     public void ResetBtnPressed()
@@ -66,6 +52,13 @@ public class CatalogManager : MonoBehaviour
         ItemInventory.ResetInventory();
         shopSelection.ResetSelection();
         shopReceipt.ResetReceipt();
-        UpdateItemOptions();
+        shopCatalog.UpdateItemOptions(shopReceipt);
+    }
+
+    public void BookmarkPressed(ItemTest.ItemType itemType)
+    {
+        shopSelection.ResetSelection();
+        shopCatalog.ResetItemOptions();
+        shopCatalog.DisplayItemsByCategory(completeListOfItems, itemType, shopReceipt);
     }
 }

@@ -14,13 +14,12 @@ public class ShopReceipt : MonoBehaviour
 
     public void AddToCart(ItemTest item)
     {
-        //item.AddToCart();
+        //Debug.Log(item.name + ": added to cart");
         selectedItems.Add(item);
         UpdateText();
     }
     public void RemoveFromCart(ItemTest item)
     {
-        //item.RemoveFromCart();
         selectedItems.Remove(item);
         UpdateText();
     }

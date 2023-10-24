@@ -9,7 +9,7 @@ using TMPro;
 public class ItemOption : MonoBehaviour,
 IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    public ShopSelection selection;
+    public CatalogManager catalogManager;
 
     public ItemTest item;
     public Image Highlight;
@@ -17,9 +17,8 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     public Image soldImage;
 
     private bool forSale;
-    private bool inCart;
     private bool equipped;
-    public bool IsEquipped() { return equipped; }
+    //public bool IsEquipped() { return equipped; }
 
     private void Awake()
     {
@@ -29,53 +28,38 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         gameObject.SetActive(show);
     }
-
-    public void SetItem(ItemTest item, bool forSale, bool inCart)
+    // called from ShopCatalog
+    public void SetItem(ItemTest item, bool inCart, bool forSale, bool equipped)
     {
         this.item = item;
         ItemImage.sprite = item.sprite;
-        UpdateOption(forSale, inCart);
+        UpdateOption(forSale, inCart, equipped);
         Show(true);
     }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (forSale)
             Highlight.color = new Color(1f, 1f, 1f, 1f);
     }
-
     public void OnPointerExit(PointerEventData eventData)
     {
         if (forSale)
             Highlight.color = new Color(1f, 1f, 1f, 0f);
     }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         if (forSale)
-            selection.SelectItem(item);
+            catalogManager.ItemOptionPressed(item);
     }
     public void RemoveFromCart()
     {
         if (forSale)
         ItemImage.color = new Color(1f, 1f, 1f, 1f);
     }
-    //public void BuyItem()
-    //{
-    //    //forSale = false;
-    //    // add item to inventory
-    //    //ItemInventory.AddItem(item);
-    //    //UpdateOption();
-    //}
-    // TODO
-    public void EquipItem()
-    {
-
-    }
-    public void UpdateOption(bool forSale, bool inCart)
+    public void UpdateOption(bool inCart, bool forSale, bool equipped)
     {
         this.forSale = forSale;
-        this.inCart = inCart;
+        this.equipped = equipped;
         if (forSale)
         {
             soldImage.color = new Color(1f, 1f, 1f, 0f);
@@ -91,6 +75,11 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     }
     public void ResetItem()
     {
-        UpdateOption(true, false);
+        // check if it's a default item
+        if (item.cost == 0)
+            UpdateOption(false, true, true);
+        else
+            UpdateOption(false, true, false);
+
     }
 }
