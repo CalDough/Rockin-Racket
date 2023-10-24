@@ -14,12 +14,6 @@ public class CatalogManager : MonoBehaviour
     [SerializeField] private ShopSelection shopSelection;
     [SerializeField] private ShopReceipt shopReceipt;
     [SerializeField] private ShopCatalog shopCatalog;
-    [SerializeField] private ItemTest[] completeListOfItems;
-
-    private void Awake()
-    {
-        ItemInventory.Initialize(completeListOfItems);
-    }
 
     public void ItemOptionPressed(ItemTest item)
     {
@@ -59,6 +53,6 @@ public class CatalogManager : MonoBehaviour
     {
         shopSelection.ResetSelection();
         shopCatalog.ResetItemOptions();
-        shopCatalog.DisplayItemsByCategory(completeListOfItems, itemType, shopReceipt);
+        shopCatalog.DisplayItemsByCategory(ItemInventory.GetAllItems(), itemType, shopReceipt);
     }
 }

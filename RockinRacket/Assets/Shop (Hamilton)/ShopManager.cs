@@ -20,8 +20,13 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject dialogueMenuPanel;
     [SerializeField] private DialogueManager dialogueManager;
 
+    // TODO Temporary until items can be loaded at runtime
+    [SerializeField] private ItemTest[] completeListOfItems;
+
     private void Awake()
     {
+        ItemInventory.Initialize(completeListOfItems);
+
         catalogManagerObject.SetActive(false);
         dialogueMenuPanel.SetActive(true);
         choicesText = new TextMeshProUGUI[choices.Length];

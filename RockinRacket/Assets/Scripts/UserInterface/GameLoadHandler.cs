@@ -15,6 +15,18 @@ public class GameLoadHandler : MonoBehaviour
     private int currentSceneIndex;
 
     private static Stack<int> sceneIndexHistory = new();
+
+    private void Awake()
+    {
+        //Save();
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Assuming you have an action map named "Menu" and a Pause action within it.
+        var menuActionMap = actionAsset.FindActionMap("PauseMenu");
+        pauseAction = menuActionMap.FindAction("Pause");
+
+        pauseAction.performed += _ => ToggleMenu();
+    }
     
     public void NewData()
     {
@@ -55,6 +67,7 @@ public class GameLoadHandler : MonoBehaviour
         //BandManager.Instance.SaveBand();
         //InventorySaver.Instance.SaveInventory();
         GameSaver.Save();
+        ItemInventory.Save(null);
     }
 
     public void GoBackScene()
@@ -105,17 +118,6 @@ public class GameLoadHandler : MonoBehaviour
         //        return;
         // else add it to the stack
         sceneIndexHistory.Push(sceneIndex);
-    }
-
-    private void Awake()
-    {
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // Assuming you have an action map named "Menu" and a Pause action within it.
-        var menuActionMap = actionAsset.FindActionMap("PauseMenu");
-        pauseAction = menuActionMap.FindAction("Pause");
-        
-        pauseAction.performed += _ => ToggleMenu();
     }
 
     private void OnEnable()

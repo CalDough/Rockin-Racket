@@ -13,10 +13,12 @@ public static class ItemInventory
     // private string saveFolderPath = "Player/SaveFiles/";
     private static string saveFolderPath = "Assets/SaveFiles/";
     private static string saveFileName = "Items.txt";
-    private static string itemPath = "Items/";
+    // TODO get complete list of items by path at runtime
+    //private static string itemPath = "Items/";
 
     private static List<ItemTest> ownedItems = new();
     private static List<ItemTest> equippedItems = new();
+    private static ItemTest[] allItems;
     private static Dictionary<ItemTest.MinigameType, GameObject> minigamesByType;
 
     public static void AddItem(ItemTest item) { ownedItems.Add(item); }
@@ -25,10 +27,12 @@ public static class ItemInventory
     public static List<ItemTest> GetItems() { return ownedItems; }
     public static bool ContainsItem(ItemTest item) { return ownedItems.Contains(item); }
     public static bool IsEquipped(ItemTest item) { return equippedItems.Contains(item); }
+    public static ItemTest[] GetAllItems() { return allItems; }
 
     public static void Initialize(ItemTest[] completeListOfItems)
     {
-        ownedItems.AddRange(Load(completeListOfItems));
+        allItems = completeListOfItems;
+        AddItems(Load());
     }
 
     public static GameObject GetMinigameByName(ItemTest.MinigameType type)
@@ -61,8 +65,9 @@ public static class ItemInventory
             File.WriteAllText(filePath, "");
         
         List<string> itemStrings = new();
-        foreach (ItemTest newItem in newItems)
-            ownedItems.Add(newItem);
+        if (newItems != null)
+            foreach (ItemTest newItem in newItems)
+                ownedItems.Add(newItem);
         foreach (ItemTest item in ownedItems)
             itemStrings.Add(item.name);
         File.WriteAllLines(filePath, itemStrings);
@@ -70,7 +75,7 @@ public static class ItemInventory
         Debug.Log($"Inventory saved successfully. {ownedItems.Count} items saved.");
     }
 
-    public static ItemTest[] Load(ItemTest[] completeListOfItems)
+    private static ItemTest[] Load()
     {
         Directory.CreateDirectory(saveFolderPath);
 
@@ -79,13 +84,15 @@ public static class ItemInventory
         List<string> itemNames = new(File.ReadAllLines(filePath));
         ItemTest[] loadedItems = new ItemTest[itemNames.Count];
 
+        int successfullyLoaded = 0;
         for (int i = 0; i < loadedItems.Length; i++)
-            if (itemNames[i] == completeListOfItems[i].name)
+            if (itemNames[i] == allItems[i].name)
             {
-                loadedItems[i] = completeListOfItems[i];
+                loadedItems[i] = allItems[i];
+                successfullyLoaded++;
             }
-                
-        Debug.Log($"Inventory loaded successfully. {itemNames.Count} items loaded.");
+
+        Debug.Log($"Inventory loaded successfully. {successfullyLoaded} items loaded out of {itemNames.Count}");
         return loadedItems;
     }
 

@@ -17,7 +17,6 @@ public class ShopCatalog : MonoBehaviour
         itemOptions[index].SetItem(item, isInCart, forSale, equipped);
     }
 
-
     public void ResetItemOptions()
     {
         foreach (ItemOption itemOption in itemOptions)
@@ -33,6 +32,7 @@ public class ShopCatalog : MonoBehaviour
             {
                 if (index < itemOptions.Length)
                 {
+                    Debug.Log("inventory contains " + item.name + ": " + ItemInventory.ContainsItem(item));
                     DisplayItem(item, index, shopReceipt.IsInCart(item), !ItemInventory.ContainsItem(item), ItemInventory.IsEquipped(item));
                     index++;
                 }
