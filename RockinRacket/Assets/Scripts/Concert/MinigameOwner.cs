@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MinigameOwner : MonoBehaviour
 {
@@ -22,7 +23,10 @@ public class MinigameOwner : MonoBehaviour
     public bool useAttempts = false;
     public int maxAttempts = 5;
     private int attempts = 0;
-
+    
+    public Button gameButton;
+    public GameObject MinigameParent;
+    [SerializeField] private GameObject DefaultMiniGame; //the prefab to spawn if not already in the scene
     [SerializeField] private MiniGame AvailableMiniGame;  //the minigame in the scene
 
     private void Start()
@@ -75,7 +79,11 @@ public class MinigameOwner : MonoBehaviour
     private IEnumerator CooldownRoutine()
     {
         isOnCooldown = true;
+        if(gameButton != null)
+        { gameButton.interactable = false;  }
         yield return new WaitForSeconds(currentCooldownDuration);
+        if(gameButton != null)
+        { gameButton.interactable = true;  }
         isOnCooldown = false;
     }
 
@@ -92,7 +100,24 @@ public class MinigameOwner : MonoBehaviour
             MinigameStatusManager.Instance.OpenedMiniGame != null || (useAttempts && attempts >= maxAttempts))
             {return;}
 
-        if (!AvailableMiniGame) {return;}
+        if (!AvailableMiniGame)
+        {
+            if(DefaultMiniGame && MinigameParent)
+            {
+                GameObject newGame = Instantiate(DefaultMiniGame);
+                newGame.transform.SetParent(MinigameParent.gameObject.transform, false);
+                if(newGame.TryGetComponent<MiniGame>(out MiniGame newMGComponent))
+                {
+                    AvailableMiniGame = newMGComponent;
+                }
+                else
+                {
+                    Destroy(newGame.gameObject);
+                }
+            }
+            else
+            {return;}
+        }
 
         //Minigame was closed and not completed and is still active, we reopen it when they press the button
         if(!AvailableMiniGame.IsCompleted && AvailableMiniGame.isActiveEvent)

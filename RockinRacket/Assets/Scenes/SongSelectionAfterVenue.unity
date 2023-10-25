@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276797, g: 0.21589167, b: 0.29782546, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -504,10 +504,10 @@ MonoBehaviour:
     type: 3}
   ContentHolder: {fileID: 7092917877198780776}
   Items:
-  - {fileID: 11400000, guid: bab1fb981e4b7b248a52f8d921c6a403, type: 2}
-  - {fileID: 11400000, guid: 028a77c1c9899954da11e7054b2f9e09, type: 2}
   - {fileID: 11400000, guid: 18de4b0673cf3074c8d14b47c307958a, type: 2}
-  - {fileID: 11400000, guid: da82128a926f843408e3d3c857bf397e, type: 2}
+  - {fileID: 11400000, guid: ec4368f73da71cf49b86a6d9da7af019, type: 2}
+  - {fileID: 11400000, guid: bab1fb981e4b7b248a52f8d921c6a403, type: 2}
+  - {fileID: 11400000, guid: d19ac3baf9f494c46b525dbee748418c, type: 2}
   SelectedSong: {fileID: 0}
   currentIndex: 0
   SongInfoBox: {fileID: 1831309139}
@@ -1726,14 +1726,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 612361152}
-        m_TargetAssemblyTypeName: GameLoadHandler, Assembly-CSharp
-        m_MethodName: SwitchToScene
-        m_Mode: 3
+      - m_Target: {fileID: 1817287420}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: SwitchScene
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 11400000, guid: cdd579a544a9c6f4bac113d44506041a,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: TransitionData, Assembly-CSharp
+          m_IntArgument: 9
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1914,7 +1915,7 @@ MonoBehaviour:
         m_MethodName: SwitchScene
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 54e02229ec4a53649b8beb95a6fdd689,
+          m_ObjectArgument: {fileID: 11400000, guid: a8695bebd5f24c547aba30dc79cc5ec2,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: TransitionData, Assembly-CSharp
           m_IntArgument: 1
@@ -3411,7 +3412,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Member
+  m_Text: MJ
 --- !u!222 &1391211074
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3554,7 +3555,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Member
+  m_Text: Kurt
 --- !u!222 &1484370250
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4152,7 +4153,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Member
+  m_Text: Ace
 --- !u!222 &1760261004
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4452,7 +4453,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Member
+  m_Text: Haley
 --- !u!222 &1835900046
 CanvasRenderer:
   m_ObjectHideFlags: 0

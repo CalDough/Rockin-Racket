@@ -27,10 +27,14 @@ public class ChanceMinigameOwner : MonoBehaviour
     private Coroutine occurChanceCoroutine;
 
     public GameObject OpenMinigameButton;
+    
+    public GameObject MinigameParent;
     [SerializeField] private MinigameContainer MiniGames;  //we randomly take from a pool of available minigames
     //This random mini-game spawning is currently unimplemented but intended in the future
     //as well as the list of games spawned
     [SerializeField] private List<MiniGame> SpawnedMiniGames;  //old spawned minigames
+    
+    [SerializeField] private GameObject DefaultMiniGame;
     [SerializeField] private MiniGame AvailableMiniGame;  //current minigame that is spawned
     
     private void Start()
@@ -171,7 +175,7 @@ public class ChanceMinigameOwner : MonoBehaviour
             
             if (randomValue <= currentChanceToOccur)
             {
-                Debug.Log(randomValue+", "+currentChanceToOccur+" :  T"+Time.time);
+                //Debug.Log(randomValue+", "+currentChanceToOccur+" :  T"+Time.time);
                 SpawnMiniGame();
                 isMinigameActive = true;
                 break;
@@ -198,7 +202,28 @@ public class ChanceMinigameOwner : MonoBehaviour
         OpenMinigameButton.SetActive(true);
         if(AvailableMiniGame)
         {
+            Debug.Log("Minigame was available");
             AvailableMiniGame.Activate();
+        }
+        else if (!AvailableMiniGame)
+        {
+            
+            Debug.Log("Minigame was not available");
+            if(DefaultMiniGame && MinigameParent)
+            {
+                GameObject newGame = Instantiate(DefaultMiniGame);
+                newGame.transform.SetParent(MinigameParent.gameObject.transform, false);
+                if(newGame.TryGetComponent<MiniGame>(out MiniGame newMGComponent))
+                {
+                    AvailableMiniGame = newMGComponent;
+                    SpawnedMiniGames.Add(newMGComponent);
+                    AvailableMiniGame.Activate();
+                }
+                else
+                {
+                    Destroy(newGame.gameObject);
+                }
+            }
         }
         ResetToDefault();
         // Logic for starting the mini-game goes here

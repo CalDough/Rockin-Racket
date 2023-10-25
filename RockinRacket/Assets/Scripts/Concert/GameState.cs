@@ -101,23 +101,4 @@ public class GameStateEventArgs : EventArgs
 
 // emits and holds time means that there is no gameplay during this Game Mode,
 // its purely just waiting for a cutscene for a specified duration before alerting other scripts for when it starts and stops
-[System.Serializable]
-public enum GameModeType
-{
-    Default, //
-    SceneIntro, // Scene intro with characters entering location
-    SceneOutro, // Scene outro with characters leaving to resting location
 
-    SongIntro, //
-    Song, //holds track to play as well as plays animations for music
-    SongOutro, // Just adding a short intro outro for each song for the animation sequence
-
-    IntermissionIntro, // 
-    Intermission, // paused time for player to talk and choose when to go back to song
-    IntermissionOutro, //
-
-    Cutscene, //
-    Dialogue, //
-    BandBattle,
-
-}

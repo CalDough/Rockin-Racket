@@ -680,6 +680,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102848423}
   m_CullTransparentMesh: 1
+--- !u!1 &106398311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 106398312}
+  - component: {fileID: 106398313}
+  m_Layer: 5
+  m_Name: AceChanceGames
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &106398312
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106398311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 275514896}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &106398313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106398311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1f077214ee4694aa286221141d2711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OwnerName: Kurt
+  defaultCooldownDuration: 15
+  defaultChanceToOccur: 0
+  defaultChanceIncrease: 0.01
+  defaultChanceTimer: 1
+  IsAvailable: 1
+  TimesCompleted: 0
+  TimesFailed: 0
+  currentCooldown: 0
+  currentChanceToOccur: 0
+  chanceIncrease: 0
+  chanceTimer: 0
+  isOnCooldown: 0
+  isMinigameActive: 0
+  OpenMinigameButton: {fileID: 850447685}
+  MinigameParent: {fileID: 438330565}
+  MiniGames: {fileID: 11400000, guid: a3842bb5d74cc7f448113361d59feca4, type: 2}
+  SpawnedMiniGames: []
+  DefaultMiniGame: {fileID: 2077081206435703190, guid: a10804cd2ead45c42801efff0ae4411c,
+    type: 3}
+  AvailableMiniGame: {fileID: 0}
 --- !u!1 &119551774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,6 +1090,76 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175863342}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &178721352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 178721353}
+  - component: {fileID: 178721354}
+  m_Layer: 5
+  m_Name: MJChanceGames
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &178721353
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178721352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 275514896}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &178721354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178721352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1f077214ee4694aa286221141d2711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OwnerName: Kurt
+  defaultCooldownDuration: 15
+  defaultChanceToOccur: 0
+  defaultChanceIncrease: 0.01
+  defaultChanceTimer: 1
+  IsAvailable: 1
+  TimesCompleted: 0
+  TimesFailed: 0
+  currentCooldown: 0
+  currentChanceToOccur: 0
+  chanceIncrease: 0
+  chanceTimer: 0
+  isOnCooldown: 0
+  isMinigameActive: 0
+  OpenMinigameButton: {fileID: 1121284545}
+  MinigameParent: {fileID: 438330565}
+  MiniGames: {fileID: 11400000, guid: 2c6ea6518e12db449a1e671fb021cc5a, type: 2}
+  SpawnedMiniGames: []
+  DefaultMiniGame: {fileID: 2077081206435703190, guid: 3d0ca6c1e70a70044b0ec6e5e2bcdbc7,
+    type: 3}
+  AvailableMiniGame: {fileID: 0}
 --- !u!1 &200343052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,7 +1632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &275514896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1505,10 +1645,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1713745204}
-  - {fileID: 401295685}
-  - {fileID: 1139089356}
+  - {fileID: 106398312}
+  - {fileID: 1078491148}
   - {fileID: 1368759917}
+  - {fileID: 178721353}
   m_Father: {fileID: 2017871371}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1850,92 +1990,6 @@ Transform:
   m_Father: {fileID: 1193477112}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &324430836
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 324430837}
-  - component: {fileID: 324430839}
-  - component: {fileID: 324430838}
-  m_Layer: 5
-  m_Name: ConcertUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &324430837
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324430836}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 966805511}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &324430838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324430836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2ec9ffe9fa46734cbe903eef1769b1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonPrefab: {fileID: 3545445383714529790, guid: 315bcfa8080aa8447bc4581abd22dfa6,
-    type: 3}
-  ContentHolder: {fileID: 0}
-  Items: []
-  currentIndex: 0
-  Buttons: []
-  FinishConcertButton: {fileID: 1916899131}
-  StartConcertButton: {fileID: 386650493}
-  InfoTextBox: {fileID: 0}
-  ConcertCompletionTextBox: {fileID: 488336571}
---- !u!114 &324430839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324430836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 8
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2483,8 +2537,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 895564877945419419}
-        m_TargetAssemblyTypeName: ConcertAutoSetUp, Assembly-CSharp
+      - m_Target: {fileID: 575470621}
+        m_TargetAssemblyTypeName: IntermissionHandler, Assembly-CSharp
         m_MethodName: SetUpConcert
         m_Mode: 1
         m_Arguments:
@@ -2566,12 +2620,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 855148785}
-  m_Father: {fileID: 275514896}
+  m_Father: {fileID: 1523056502}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 50.186527}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &401295686
@@ -2595,6 +2649,10 @@ MonoBehaviour:
   IsAvailable: 0
   useAttempts: 0
   maxAttempts: 5
+  gameButton: {fileID: 401295687}
+  MinigameParent: {fileID: 438330565}
+  DefaultMiniGame: {fileID: 4698080953133866123, guid: 1639baf560bf5e84d9e177c6f7fd3fe3,
+    type: 3}
   AvailableMiniGame: {fileID: 0}
 --- !u!114 &401295687
 MonoBehaviour:
@@ -2618,10 +2676,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.07075471, g: 1, b: 0.14200874, a: 1}
+    m_PressedColor: {r: 0.0061285994, g: 0.7169812, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.1308295, b: 0.1308295, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3189,9 +3247,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   concertResultsText: {fileID: 638119010}
-  audienceController: {fileID: 0}
+  audienceController: {fileID: 1684714696}
   minigameStatusManager: {fileID: 0}
-  moneyMultiplier: 1.25
+  moneyMultiplier: 10
 --- !u!1 &497403021
 GameObject:
   m_ObjectHideFlags: 0
@@ -3321,7 +3379,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &557679359
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3718,6 +3776,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intermissionScreen: {fileID: 94724480}
   nextStateButton: {fileID: 1196416636}
+  FinishConcertButton: {fileID: 1916899131}
+  StartConcertButton: {fileID: 386650493}
+  ConcertCompletionTextBox: {fileID: 488336571}
+  Cinematic: {fileID: 11400000, guid: d57e3e78784145f4c8aeeec6c2542d10, type: 2}
+  leaveButton: {fileID: 1916899133}
+  presetVenue: {fileID: 11400000, guid: 13fcd7b1c7faa134ba5c384781c18799, type: 2}
 --- !u!1 &582292792
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,9 +4091,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Band
-
-'
+  m_text: Band
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4631,7 +4693,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &685039739
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4735,7 +4797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &695580463
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5098,9 +5160,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Shop
-
-'
+  m_text: Merch Stand
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5276,7 +5336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &850447686
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5341,7 +5401,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 850447688}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 106398313}
+        m_TargetAssemblyTypeName: ChanceMinigameOwner, Assembly-CSharp
+        m_MethodName: OpenActiveMiniGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &850447688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6039,7 +6111,6 @@ RectTransform:
   - {fileID: 1523056502}
   - {fileID: 1499707246}
   - {fileID: 2037818391}
-  - {fileID: 324430837}
   - {fileID: 1050360604}
   - {fileID: 575470620}
   - {fileID: 438330566}
@@ -6992,7 +7063,7 @@ GameObject:
   - component: {fileID: 1068968039}
   - component: {fileID: 1068968038}
   m_Layer: 5
-  m_Name: ShopViewButton
+  m_Name: MerchStandViewButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7113,6 +7184,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068968036}
   m_CullTransparentMesh: 1
+--- !u!1 &1078491147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1078491148}
+  - component: {fileID: 1078491149}
+  m_Layer: 5
+  m_Name: HaleyChanceGames
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1078491148
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078491147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 275514896}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1078491149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078491147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1f077214ee4694aa286221141d2711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OwnerName: Kurt
+  defaultCooldownDuration: 15
+  defaultChanceToOccur: 0
+  defaultChanceIncrease: 0.01
+  defaultChanceTimer: 1
+  IsAvailable: 1
+  TimesCompleted: 0
+  TimesFailed: 0
+  currentCooldown: 0
+  currentChanceToOccur: 0
+  chanceIncrease: 0
+  chanceTimer: 0
+  isOnCooldown: 0
+  isMinigameActive: 0
+  OpenMinigameButton: {fileID: 469224283761404611}
+  MinigameParent: {fileID: 438330565}
+  MiniGames: {fileID: 11400000, guid: 3d24b5243ec27d947859046483bc524a, type: 2}
+  SpawnedMiniGames: []
+  DefaultMiniGame: {fileID: 2077081206435703190, guid: b739c184f3334824d88d5d42baf856bc,
+    type: 3}
+  AvailableMiniGame: {fileID: 0}
 --- !u!1 &1080715264
 GameObject:
   m_ObjectHideFlags: 0
@@ -7379,7 +7520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1121284546
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7444,7 +7585,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1121284548}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 178721354}
+        m_TargetAssemblyTypeName: ChanceMinigameOwner, Assembly-CSharp
+        m_MethodName: OpenActiveMiniGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1121284548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7620,12 +7773,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1444517812}
-  m_Father: {fileID: 275514896}
+  m_Father: {fileID: 1523056502}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -200, y: 50}
+  m_AnchoredPosition: {x: -200, y: 50.186527}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1139089357
@@ -7649,6 +7802,10 @@ MonoBehaviour:
   IsAvailable: 0
   useAttempts: 0
   maxAttempts: 5
+  gameButton: {fileID: 1139089358}
+  MinigameParent: {fileID: 438330565}
+  DefaultMiniGame: {fileID: 1932029503578014384, guid: e7dada030af3f9e458c56b435368b514,
+    type: 3}
   AvailableMiniGame: {fileID: 0}
 --- !u!114 &1139089358
 MonoBehaviour:
@@ -7672,10 +7829,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.07075471, g: 1, b: 0.14200874, a: 1}
+    m_PressedColor: {r: 0.0061285994, g: 0.7169812, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.1308295, b: 0.1308295, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -9000,9 +9157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OwnerName: Kurt
-  defaultCooldownDuration: 12
-  defaultChanceToOccur: 0.5
-  defaultChanceIncrease: 0.05
+  defaultCooldownDuration: 15
+  defaultChanceToOccur: 0
+  defaultChanceIncrease: 0.01
   defaultChanceTimer: 1
   IsAvailable: 1
   TimesCompleted: 0
@@ -9014,9 +9171,11 @@ MonoBehaviour:
   isOnCooldown: 0
   isMinigameActive: 0
   OpenMinigameButton: {fileID: 289372803}
+  MinigameParent: {fileID: 438330565}
   MiniGames: {fileID: 11400000, guid: 787607935c3f7b64397a81c26f6f36db, type: 2}
-  SpawnedMiniGames:
-  - {fileID: 0}
+  SpawnedMiniGames: []
+  DefaultMiniGame: {fileID: 2077081206435703190, guid: 5efe4b70483da19498d8405a82cf6998,
+    type: 3}
   AvailableMiniGame: {fileID: 0}
 --- !u!1 &1410543585
 GameObject:
@@ -9050,7 +9209,7 @@ MonoBehaviour:
   m_Actions: {fileID: -944628639613478452, guid: 4e376521f662af846934f21396ae922b,
     type: 3}
   m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
+  m_UIInputModule: {fileID: 969792557}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -9183,7 +9342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1423574418
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9602,7 +9761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1467871862
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10138,6 +10297,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1713745204}
+  - {fileID: 401295685}
+  - {fileID: 1139089356}
   - {fileID: 1935402147}
   - {fileID: 1467871862}
   - {fileID: 1737454233}
@@ -10205,7 +10367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1535306156
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11718,12 +11880,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 232124422}
-  m_Father: {fileID: 275514896}
+  m_Father: {fileID: 1523056502}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 200, y: 50.186527}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1713745205
@@ -11747,6 +11909,10 @@ MonoBehaviour:
   IsAvailable: 0
   useAttempts: 0
   maxAttempts: 5
+  gameButton: {fileID: 1713745206}
+  MinigameParent: {fileID: 438330565}
+  DefaultMiniGame: {fileID: 1932029503578014384, guid: 20a85caaa0cdfd34bb21bf2e97f25f57,
+    type: 3}
   AvailableMiniGame: {fileID: 0}
 --- !u!114 &1713745206
 MonoBehaviour:
@@ -11770,10 +11936,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.07075471, g: 1, b: 0.14200874, a: 1}
+    m_PressedColor: {r: 0.0061285994, g: 0.7169812, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5660378, g: 0.1308295, b: 0.1308295, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -11861,7 +12027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1737454233
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13007,7 +13173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1935402147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14600,7 +14766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2125334646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14980,7 +15146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &479645055811619203
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15010,23 +15176,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469224283761404611}
   m_CullTransparentMesh: 1
---- !u!114 &895564877945419419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6215279899842982515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ecc5c81dba366f4fb9ff79247b196e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Cinematic: {fileID: 11400000, guid: d57e3e78784145f4c8aeeec6c2542d10, type: 2}
-  leaveButton: {fileID: 1916899133}
-  concertUI: {fileID: 324430838}
-  presetVenue: {fileID: 11400000, guid: 13fcd7b1c7faa134ba5c384781c18799, type: 2}
-  stagedMiniGames: {fileID: 11400000, guid: c96418e2f66904044ab0808e865e561b, type: 2}
 --- !u!4 &1077492133470609702 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7979134653769057092, guid: f7f528b572fa09b49a351b6cba4ecb0a,
@@ -15363,43 +15512,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &6035888115438056007
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6215279899842982515}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &6215279899842982515
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6035888115438056007}
-  - component: {fileID: 895564877945419419}
-  m_Layer: 5
-  m_Name: DEBUG
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &6847334969458339278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15560,4 +15672,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 325774605698466635}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1078491149}
+        m_TargetAssemblyTypeName: ChanceMinigameOwner, Assembly-CSharp
+        m_MethodName: OpenActiveMiniGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

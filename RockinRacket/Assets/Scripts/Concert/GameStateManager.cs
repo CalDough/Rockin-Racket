@@ -142,13 +142,13 @@ public class GameStateManager : MonoBehaviour
     // Concert UI script will do stuff like show the player's results and disable the musical UI
     public void LocateConcertUIAndEndConcert()
     {
-        ConcertUI concertUI = FindObjectOfType<ConcertUI>(); // Find an object with the ConcertUI script
+        IntermissionHandler intermissionHandler = FindObjectOfType<IntermissionHandler>(); // Find an object with the ConcertUI script
 
         // If the script was found on an object, call the EndConcert method
-        if (concertUI != null)
-        { concertUI.EndConcert(); }
+        if (intermissionHandler != null)
+        { intermissionHandler.EndConcert(); }
         else
-        { Debug.LogWarning("No GameObject with the ConcertUI script was found!"); }
+        { Debug.LogWarning("No GameObject with the IntermissionHandler script was found!"); }
     }
     
     /*

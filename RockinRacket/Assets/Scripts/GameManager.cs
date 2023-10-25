@@ -140,12 +140,4 @@ public class GameManager : MonoBehaviour
     }
 }   
 
-[System.Serializable]
-public enum DifficultyMode 
-{
-    VeryEasy,
-    Easy,
-    Normal,
-    Hard,
-    VeryHard
-}
+

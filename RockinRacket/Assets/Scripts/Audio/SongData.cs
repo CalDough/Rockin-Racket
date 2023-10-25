@@ -26,10 +26,3 @@ public class SongData : ScriptableObject
     public TrackData Speakers; //Any extra music you want for the concert that isnt played by raccoons
 
 }
-[System.Serializable]
-public enum SongType
-{
-    Rock,
-    Punk,
-    Pop,
-}

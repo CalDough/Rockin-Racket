@@ -221,41 +221,5 @@ public class BandPosition
 
     public bool IsActivePosition = true;  
     public Attribute CurrentRole;     
-    public Item Clothes;
-    public Item Instrument;
     public List<Skill> Skills = new List<Skill>(); 
-}
-[System.Serializable]
-public enum BandRoleName
-{
-    Default,
-    Ace,
-    Haley,
-    Harvey,
-    Kurt,
-    MJ,
-    Speakers,
-    Other
-
-}
-public static class BandRoleEnumHelper
-{
-    private static System.Random random = new System.Random();
-
-    public static BandRoleName GetRandomBandRoleName(List<BandRoleName> exclusions = null)
-    {
-        if(exclusions == null)
-        {
-            exclusions = new List<BandRoleName>();
-        }
-
-        List<BandRoleName> values = new List<BandRoleName>((BandRoleName[]) Enum.GetValues(typeof(BandRoleName)));
-
-        foreach (var exclusion in exclusions)
-        {
-            values.Remove(exclusion);
-        }
-
-        return values[random.Next(values.Count)];
-    }
 }
