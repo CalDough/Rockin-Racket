@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShopDialogueEnds : MonoBehaviour
 {
-    [SerializeField] private ShopManager shopPanelManager;
+    [SerializeField] private ShopManager shopManager;
     private void OnDisable()
     {
-        shopPanelManager.EndShopkeeperDialogue();
+        shopManager.EndShopkeeperDialogue();
     }
 }

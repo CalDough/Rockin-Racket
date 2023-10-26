@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/*
+ * 
+*/
+
 public class ShopSelection : MonoBehaviour
 {
     public TMP_Text nameText;
