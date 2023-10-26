@@ -135,7 +135,6 @@ public class GameStateManager : MonoBehaviour
         ConcertAudioEvent.ConcertEnd();
         LocateConcertUIAndEndConcert();
         //GameEventManager.Instance.CleanUp();
-        
         ResetVariables();
     }
 
@@ -435,7 +434,7 @@ public class GameStateManager : MonoBehaviour
         if(SelectedVenue == null){return;}
         
         MinigameStatusManager.Instance.ResetVariables();
-
+        
         Debug.Log("Loading Concert Data and starting concert");
         LoadVenue();
         LoadGameStatesFromLists();

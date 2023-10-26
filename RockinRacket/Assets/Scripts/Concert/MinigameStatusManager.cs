@@ -59,7 +59,32 @@ public class MinigameStatusManager : MonoBehaviour
         }
     }
 
+    
+    public void ResetVariables()
+    {
 
+        totalDifficulty = 0;
+
+        completedMiniGamesCount = 0;
+        failedMiniGamesCount = 0;
+        missedMiniGamesCount = 0;
+        canceledMiniGamesCount = 0;
+
+        hype = 0f;
+        comfort = 500f;
+
+        PotentialHype = 0f;
+        PotentialHypeFromAllSongs.Clear();
+        HypeEarnedFromAllSongs.Clear();
+
+        OpenedMiniGame = null;
+
+        StopCoroutine(HypeGeneration());
+        StopCoroutine(ComfortGeneration());
+        bandMembers.Clear();
+        ConcertAudioEvent.RequestBandPlayers();
+        
+    }
 
     public bool IsMinigameAvailable(GameObject minigamePrefab)
     {
@@ -97,17 +122,6 @@ public class MinigameStatusManager : MonoBehaviour
         return true;
     }
 
-    public void ResetVariables()
-    {
-        hype = 0f;
-        comfort = 500f;
-
-        StopCoroutine(HypeGeneration());
-        StopCoroutine(ComfortGeneration());
-        bandMembers.Clear();
-        ConcertAudioEvent.RequestBandPlayers();
-        
-    }
 
     public void ReceiveBandMembers(object sender, ConcertAudioEventArgs e)
     {
@@ -134,6 +148,7 @@ public class MinigameStatusManager : MonoBehaviour
             {
                 foreach (BandAudioController member in bandMembers)
                 {
+                    /*
                     if (member.isPlaying )
                     {
                         hype += CalculateHypeContribution(member.instrumentBrokenValue, member.HypeGeneration);
@@ -142,6 +157,8 @@ public class MinigameStatusManager : MonoBehaviour
                     {
                         hype += CalculateHypeContribution(member.voiceBrokenValue, member.HypeGeneration);
                     }
+                    */
+                    hype += CalculateHypeContribution(member.instrumentBrokenValue, member.HypeGeneration);
                 }
 
                 if (hype > maxHype)
@@ -179,6 +196,8 @@ public class MinigameStatusManager : MonoBehaviour
 
     public void HandleEventFail(object sender, GameEventArgs e)
     {
+        
+        if(e == null){return; }
         Debug.Log("MinigameStatusManager: Event Fail: " + e.EventObject);
         failedMiniGamesCount++;
         AddMinigameVariables(e.EventObject.hypePenalty, e.EventObject.hypePenalty);
@@ -186,12 +205,16 @@ public class MinigameStatusManager : MonoBehaviour
 
     public void HandleEventCancel(object sender, GameEventArgs e)
     {
+        
+        if(e == null){return; }
         Debug.Log("MinigameStatusManager: Event Cancelled: " + e.EventObject);
         canceledMiniGamesCount++;
     }
 
     public void HandleEventComplete(object sender, GameEventArgs e)
     {
+        
+        if(e == null){return; }
         Debug.Log("MinigameStatusManager: Event Completed: " + e.EventObject);
         completedMiniGamesCount++;
         AddMinigameVariables(e.EventObject.hypeBonus, e.EventObject.comfortBonus);
@@ -199,6 +222,7 @@ public class MinigameStatusManager : MonoBehaviour
 
     public void HandleEventMiss(object sender, GameEventArgs e)
     {
+        if(e == null){return; }
         Debug.Log("MinigameStatusManager: Event Missed: " + e.EventObject);
         missedMiniGamesCount++;
     }

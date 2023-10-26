@@ -25,7 +25,7 @@ public class MicFixing : MiniGame
     
     public override void Miss()
     {
-        base.Complete();
+        base.Miss();
         ConcertAudioEvent.AudioFixed(this, BrokenLevelChange, bandRole, true);
     }
 

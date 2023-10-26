@@ -249,7 +249,7 @@ public class BandAudioController : MonoBehaviour
         {
             instrumentBrokenValue -= e.BrokenValue;
             SetInstrumentBrokeLevel();
-            ResyncAudio();
+            //ResyncAudio();
         }
         else
         {
