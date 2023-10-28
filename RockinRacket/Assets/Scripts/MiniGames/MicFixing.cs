@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class MicFixing : MiniGame
+public class MicFixing : MiniGame, IPointerDownHandler
 {
-    public GameObject micPart; 
+    [SerializeField] private List<GameObject> screwObjects;
+    [SerializeField] private Image screwdriverImage;
+
+    [SerializeField] private bool isScrewdriverSelected;
+    private List<Screw> screws;
 
     public bool randomMember = false;
     public BandRoleName bandRole = BandRoleName.Haley;
@@ -42,23 +48,93 @@ public class MicFixing : MiniGame
 
     void Start()
     {
+        
         if(randomMember == true)
         {
             var excludedValues = new List<BandRoleName> { BandRoleName.Default, BandRoleName.Harvey, BandRoleName.Speakers };
             BandRoleName randomValue = BandRoleEnumHelper.GetRandomBandRoleName(excludedValues);
         }
-
         
     }
 
-    public void SpawnBrokenParts()
+    public void SetScrewList()
     {
-        
+        screws = new List<Screw>();
+        foreach (var screwObject in screwObjects)
+        {
+            var screw = screwObject.GetComponent<Screw>();
+            if (screw != null)
+            {
+                screws.Add(screw);
+            }
+            else
+            {
+                Debug.LogWarning("Assigned GameObject does not have a Screw component", screwObject);
+            }
+        }
     }
+
+     public void SelectScrewdriver()
+    {
+        isScrewdriverSelected = true;
+        UpdateToolVisuals();
+    }
+
+    private void UpdateToolVisuals()
+    {
+        screwdriverImage.color = isScrewdriverSelected ? Color.white : new Color(1f, 1f, 1f, 0.5f);
+    }
+
+    private bool CheckAllScrewsUnscrewed()
+    {
+        foreach (Screw screw in screws)
+        {
+            if (!screw.IsUnscrewed)
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (isScrewdriverSelected)
+        {
+            ScrewInteraction(eventData);
+            if (CheckAllScrewsUnscrewed())
+            {
+                HandleMicPartRepaired();
+            }
+        }
+    }
+
+    private void ScrewInteraction(PointerEventData eventData)
+    {
+        if (eventData.pointerCurrentRaycast.gameObject != null)
+        {
+            Screw screw = eventData.pointerCurrentRaycast.gameObject.GetComponent<Screw>();
+            if (screw != null && !screw.IsUnscrewed)
+            {
+                screw.OnPointerClick(null);
+                //if (CheckAllScrewsUnscrewed())
+                //{HandleMicPartRepaired();}
+            }
+        }
+    }
+
 
     public override void RestartMiniGameLogic()
     {
-        IsCompleted = false;
+        IsCompleted = false;        
+        isScrewdriverSelected = false;
+        SetScrewList();
+        foreach (Screw screw in screws)
+        {
+            screw.ResetScrew();
+        }
+        SelectScrewdriver();
     }
 
     private void HandleMicPartRepaired()
