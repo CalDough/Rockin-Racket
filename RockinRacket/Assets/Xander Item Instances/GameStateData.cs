@@ -7,4 +7,5 @@ using UnityEngine;
 public class GameStateData : ScriptableObject
 {
     public ConcertState CurrentConcertState;
+    public PlayerTools CurrentToolState;
 }
