@@ -2457,6 +2457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 380849858}
   - component: {fileID: 380849859}
+  - component: {fileID: 380849860}
   m_Layer: 5
   m_Name: Hype
   m_TagString: Untagged
@@ -2537,6 +2538,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &380849860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380849857}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1b257b1b987c143b3c8f2736d0ffed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGameState: {fileID: 11400000, guid: 7bbbb4a96005c3f4685fecb204468e9f, type: 2}
+  allowedView: 0
 --- !u!1 &386650493
 GameObject:
   m_ObjectHideFlags: 0
@@ -8808,8 +8823,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1226460285}
   - component: {fileID: 1226460286}
-  - component: {fileID: 1226460288}
-  - component: {fileID: 1226460287}
   m_Layer: 5
   m_Name: MoodBars
   m_TagString: Untagged
@@ -8867,41 +8880,6 @@ MonoBehaviour:
   highHypeThresholdPercent: 50
   lowComfortThresholdPercent: 20
   highComfortThresholdPercent: 75
---- !u!95 &1226460287
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226460284}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8b09d4f3e94eef94f82a5d426a393957, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1226460288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226460284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1b257b1b987c143b3c8f2736d0ffed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentGameState: {fileID: 11400000, guid: 7bbbb4a96005c3f4685fecb204468e9f, type: 2}
-  allowedView: 3
 --- !u!1 &1230379541
 GameObject:
   m_ObjectHideFlags: 0
@@ -8996,6 +8974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1239167461}
   - component: {fileID: 1239167462}
+  - component: {fileID: 1239167463}
   m_Layer: 5
   m_Name: Comfort
   m_TagString: Untagged
@@ -9076,6 +9055,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1239167463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239167460}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1b257b1b987c143b3c8f2736d0ffed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGameState: {fileID: 11400000, guid: 7bbbb4a96005c3f4685fecb204468e9f, type: 2}
+  allowedView: 3
 --- !u!1 &1258891960
 GameObject:
   m_ObjectHideFlags: 0

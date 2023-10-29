@@ -49,7 +49,6 @@ public class ViewSpecificButtons : MonoBehaviour
         CheckForStateChange();
     }
 
-
     private void CheckForStateChange()
     {
         if (currentConcertState == allowedView)
