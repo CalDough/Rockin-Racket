@@ -106,7 +106,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         base.CloseEvent();
         isEventOpen = false;
         //CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
-        CameraSwapEvents.instance.e_SwapToBandView.Invoke();
+        //CameraSwapEvents.instance.e_SwapToBandView.Invoke();
         StopCoroutine(CyclePressureBar());
     }
 
@@ -144,7 +144,7 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     {
         Panels.SetActive(false);
         //CinemachineGameEvents.instance.e_SwitchToBandCam.Invoke();
-        CameraSwapEvents.instance.e_SwapToBandView.Invoke();
+        //CameraSwapEvents.instance.e_SwapToBandView.Invoke();
         if (IsCompleted == false)
         { RestartMiniGameLogic(); }
     }
