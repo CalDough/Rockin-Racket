@@ -19,7 +19,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject continueButton;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI speakerName;
-    [SerializeField] private Animator portraitAnimator;
+    [SerializeField] private Animator characterAnimator;
+    [SerializeField] private Animator harveyAnimator;
+    [SerializeField] private GameObject characterVignette;
+    [SerializeField] private GameObject harveyVignette;
     private Animator layoutAnimator;
 
     [Header("Choices UI")]
@@ -42,6 +45,9 @@ public class DialogueManager : MonoBehaviour
     private Coroutine displayLineCoroutine;
     // Used to determine when the continueButton can be pressed
     private bool canContinueToNextLine = false;
+
+    // Tracks which animator to update
+    private Animator currentAnimator;
 
 
     // Tag values that will get checked for and processed in the HandleTags() method called in the ContinueStory() method
@@ -72,6 +78,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
 
         layoutAnimator = dialoguePanel.GetComponent<Animator>();
+        currentAnimator = characterAnimator;
 
         choicesText = new TextMeshProUGUI[choices.Length];
         for (int i = 0; i < choices.Length; i++)
@@ -125,7 +132,7 @@ public class DialogueManager : MonoBehaviour
         dialogueVariables.StartListening(currentStory);
 
         speakerName.text = "?????????";
-        portraitAnimator.Play("default");
+        characterAnimator.Play("default");
         layoutAnimator.Play("left");
 
         ContinueStory();        
@@ -235,9 +242,28 @@ public class DialogueManager : MonoBehaviour
             {
                 case SPEAKER_TAG:
                     speakerName.text = tagValue;
+                    if (tagValue == "Harvey")
+                    {
+                        currentAnimator = harveyAnimator;
+                        harveyVignette.SetActive(true);
+                        characterVignette.SetActive(false);
+                    }
+                    else
+                    {
+                        currentAnimator = characterAnimator;
+                        harveyVignette.SetActive(false);
+                        characterVignette.SetActive(true);
+                    }
                     break;
                 case PORTRAIT_TAG:
-                    portraitAnimator.Play(tagValue.ToLower());
+                    if (currentAnimator == harveyAnimator)
+                    {
+                        harveyAnimator.Play(tagValue.ToLower());
+                    }
+                    else
+                    {
+                        characterAnimator.Play(tagValue.ToLower());
+                    }
                     break;
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagValue);
