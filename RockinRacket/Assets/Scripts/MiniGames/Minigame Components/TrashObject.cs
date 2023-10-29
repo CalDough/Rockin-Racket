@@ -11,9 +11,21 @@ public class TrashObject : MonoBehaviour, IPointerClickHandler
     public Cleaning cleaning;
     public TextMeshProUGUI hpText;
 
+    [Header("Shake Settings")]
+    public float shakeDuration = 0.5f;
+    public float shakeMagnitude = 0.5f;
+
+    private Vector3 originalPosition;
+
     void Start()
     {
         UpdateHpText();
+        originalPosition = transform.localPosition;
+    }
+
+    void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -23,6 +35,10 @@ public class TrashObject : MonoBehaviour, IPointerClickHandler
         if (hitPoints <= 0)
         {
             cleaning.CleanupTrash(this);
+        }
+        else
+        {
+            StartCoroutine(Shake());
         }
     }
 
@@ -34,6 +50,22 @@ public class TrashObject : MonoBehaviour, IPointerClickHandler
         }
     }
     
+    private IEnumerator Shake()
+    {
+        float elapsed = 0f;
 
+        while (elapsed < shakeDuration)
+        {
+            float x = Random.Range(-1f, 1f) * shakeMagnitude;
+            float y = Random.Range(-1f, 1f) * shakeMagnitude;
+
+            transform.localPosition = new Vector3(x, y, originalPosition.z);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localPosition = originalPosition;
+    }
 
 }
