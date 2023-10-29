@@ -14,6 +14,7 @@ public class TrashObject : MonoBehaviour, IPointerClickHandler
     [Header("Shake Settings")]
     public float shakeDuration = 0.5f;
     public float shakeMagnitude = 0.5f;
+    public int shakeFrequency = 5;
 
     private Vector3 originalPosition;
 
@@ -49,23 +50,25 @@ public class TrashObject : MonoBehaviour, IPointerClickHandler
             hpText.text = hitPoints.ToString();
         }
     }
-    
+        
     private IEnumerator Shake()
     {
-        float elapsed = 0f;
-
-        while (elapsed < shakeDuration)
+        for (int i = 0; i < shakeFrequency; i++)
         {
             float x = Random.Range(-1f, 1f) * shakeMagnitude;
             float y = Random.Range(-1f, 1f) * shakeMagnitude;
 
-            transform.localPosition = new Vector3(x, y, originalPosition.z);
+            Vector3 targetPosition = new Vector3(x, y, originalPosition.z) + originalPosition;
+            float startTime = Time.time;
 
-            elapsed += Time.deltaTime;
-            yield return null;
+            while (Time.time < startTime + shakeDuration / shakeFrequency)
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, shakeFrequency * Time.deltaTime / shakeDuration);
+                yield return null;
+            }
+
+            transform.localPosition = originalPosition;
         }
-
-        transform.localPosition = originalPosition;
     }
 
 }

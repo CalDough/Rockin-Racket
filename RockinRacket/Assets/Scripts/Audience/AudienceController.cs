@@ -28,6 +28,7 @@ public class AudienceController : MonoBehaviour
     [SerializeField] private float lowComfortThreshold;
     [SerializeField] private float highComfortThreshold;
 
+    [SerializeField] private Transform audienceHolder;
     void Start()
     {
         SubscribeEvents();
@@ -37,7 +38,8 @@ public class AudienceController : MonoBehaviour
             Debug.LogError("No audience rows assigned");
             return;
         }
-
+        InitializeAudience();
+    
         AssignAudienceMembersToRows();
     }
     
@@ -148,7 +150,19 @@ public class AudienceController : MonoBehaviour
         }
     }
 
+    private void InitializeAudience()
+    {
+        if (audienceMembers.Count < 5)
+        {
+            int membersToSpawn = 5 - audienceMembers.Count;
 
+            for (int i = 0; i < membersToSpawn; i++)
+            {
+                AddAudienceMember();
+            }
+        }
+    }
+    
     private void AddAudienceMember()
     {
         if (audienceMemberPrefabs.Count == 0)
@@ -158,12 +172,19 @@ public class AudienceController : MonoBehaviour
         }
 
         int randomIndex = Random.Range(0, audienceMemberPrefabs.Count);
-        GameObject newMemberObj = Instantiate(audienceMemberPrefabs[randomIndex], audienceSpawnPoint.position, Quaternion.identity);
+        Quaternion audienceHolderRotation = audienceHolder.rotation;
+        GameObject newMemberObj = Instantiate(audienceMemberPrefabs[randomIndex], audienceSpawnPoint.position, audienceHolderRotation, audienceHolder);
         AudienceMember newMember = newMemberObj.GetComponent<AudienceMember>();
+        
         if (newMember != null)
         {
             audienceMembers.Add(newMember);
         }
+        else
+        {
+            Debug.LogError("The spawned object does not have an AudienceMember component!");
+        }
+
         newMember.Init(this);
         newMember.EnterConcert();
     }

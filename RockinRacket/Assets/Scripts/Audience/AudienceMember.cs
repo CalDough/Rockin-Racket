@@ -24,6 +24,11 @@ public class AudienceMember : MonoBehaviour
     [SerializeField] private AudienceHypeState currentHypeState;
     [SerializeField] private AudienceComfortState currentComfortState;
 
+    [Header("Animation States")]
+    [SerializeField] private string happyAnimation = "Audience_Happy";
+    [SerializeField] private string excitedAnimation = "Audience_Excited";
+    [SerializeField] private string normalAnimation = "Audience_Normal";
+
     public bool IsMoodRandomized = false;
     
     private Coroutine MoveCoroutine;
@@ -47,22 +52,21 @@ public class AudienceMember : MonoBehaviour
         switch (currentHypeState)
         {
             case AudienceHypeState.HighHype:
-                characterAnimator.Play("Audience_Happy");
+                characterAnimator.Play(happyAnimation);
                 break;
 
             case AudienceHypeState.MidHype:
-                characterAnimator.Play("Audience_Excited");
+                characterAnimator.Play(excitedAnimation);
                 break;
 
             case AudienceHypeState.LowHype:
-                characterAnimator.Play("Audience_Normal");
+                characterAnimator.Play(normalAnimation);
                 break;
         }
         if(currentComfortState == AudienceComfortState.LowComfort)
         {
-            characterAnimator.Play("Audience_Normal");
+            characterAnimator.Play(normalAnimation);
         }
-
     }
 
 
@@ -78,20 +82,20 @@ public class AudienceMember : MonoBehaviour
         switch (pressure)
         {
             case TShirtCannon.PressureState.Good:
-                characterAnimator.Play("Audience_Happy");
+                characterAnimator.Play(happyAnimation);
                 goodParticles.Play();
                 MinigameStatusManager.Instance.AddMinigameVariables(100,10);
                 this.currentComfortState = AudienceComfortState.HighComfort;
                 break;
 
             case TShirtCannon.PressureState.Weak:
-                characterAnimator.Play("Audience_Excited");
+                characterAnimator.Play(excitedAnimation);
                 MinigameStatusManager.Instance.AddMinigameVariables(50,10);
                 this.currentComfortState = AudienceComfortState.MidComfort;
                 break;
 
             case TShirtCannon.PressureState.Bad:
-                characterAnimator.Play("Audience_Normal");
+                characterAnimator.Play(normalAnimation);
                 badParticles.Play();
                 break;
         }
