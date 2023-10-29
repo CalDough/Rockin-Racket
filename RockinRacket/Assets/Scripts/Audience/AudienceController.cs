@@ -113,12 +113,13 @@ public class AudienceController : MonoBehaviour
             UpdateAudienceState();
             MoodEvent.HypeAndComfortChange(this.currentHypeState, this.currentComfortState);
 
-            if (currentHypeState == AudienceHypeState.HighHype && audienceMembers.Count < 20)
+            if ((currentComfortState == AudienceComfortState.MidComfort || currentComfortState == AudienceComfortState.HighComfort)   
+                && currentHypeState == AudienceHypeState.HighHype && audienceMembers.Count < 20)
             {
                 Debug.Log("Gained New Audience Member");
                 AddAudienceMember();
             }
-            else if (currentComfortState == AudienceComfortState.LowComfort && audienceMembers.Count > 5)
+            else if (currentComfortState == AudienceComfortState.LowComfort && audienceMembers.Count > 4)
             {
                 Debug.Log("Lost an Audience Member");
                 RemoveAudienceMember();
@@ -162,7 +163,7 @@ public class AudienceController : MonoBehaviour
             }
         }
     }
-    
+
     private void AddAudienceMember()
     {
         if (audienceMemberPrefabs.Count == 0)

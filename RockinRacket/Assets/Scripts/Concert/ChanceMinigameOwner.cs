@@ -237,6 +237,9 @@ public class ChanceMinigameOwner : MonoBehaviour
             case GameModeType.Song:
                 BeginCooldowns();
                 break;
+            case GameModeType.Intermission:
+
+                break;
             default:
                 EndCooldowns();
                 break;
@@ -320,7 +323,7 @@ public class ChanceMinigameOwner : MonoBehaviour
         //Debug.Log("Event Missed: " + e.EventObject);
         if(e.EventObject == this.AvailableMiniGame)
         {
-            AvailableMiniGame.Miss();
+            //AvailableMiniGame.Miss();
             AvailableMiniGame.CloseEvent();
             BeginCooldowns();
             OpenMinigameButton.SetActive(false);

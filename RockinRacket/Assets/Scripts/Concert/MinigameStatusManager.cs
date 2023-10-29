@@ -23,7 +23,7 @@ public class MinigameStatusManager : MonoBehaviour
     [SerializeField] public float hypeInterval = 1f; 
     [SerializeField] public float comfortInterval = 1f; 
 
-    [SerializeField] public float comfortLossPerSecond = 10f;
+    [SerializeField] public float comfortLossPerSecond = -15f;
     [SerializeField] public float comfortModifier = 1f;
     [SerializeField] public float hypeModifier = 1f;
 
@@ -177,7 +177,7 @@ public class MinigameStatusManager : MonoBehaviour
 
             if (GameStateManager.Instance.CurrentGameState.GameType == GameModeType.Song) 
             {
-                DecreaseComfort(comfortLossPerSecond * comfortModifier);
+                ModifyComfort(comfortLossPerSecond * comfortModifier);
             }
         }
     }
@@ -227,27 +227,6 @@ public class MinigameStatusManager : MonoBehaviour
         missedMiniGamesCount++;
     }
 
-    public void AddMinigameVariables(float hypeChange, float comfortChange)
-    {
-        if(hypeChange > 0)
-        {
-            IncreaseHype(hypeChange);
-        }
-        else
-        {
-            DecreaseHype(hypeChange);
-        }
-        
-        if(comfortChange > 0)
-        {
-            IncreaseComfort(comfortChange);
-        }
-        else
-        {
-            DecreaseComfort(comfortChange); 
-        }
-    }
-    
     public void HandleGameStateStart(object sender, GameStateEventArgs e)
     {
         //Debug.Log("State Started: " + e.stateType);
@@ -331,40 +310,20 @@ public class MinigameStatusManager : MonoBehaviour
         GameEvents.OnEventOpen -= HandleEventClose;
     }
 
-    public void IncreaseComfort(float amount)
+    public void ModifyComfort(float amount)
     {
-        comfort += amount;
-        if (comfort > maxComfort)
-        {
-            comfort = maxComfort;
-        }
+        comfort = Mathf.Clamp(comfort + amount, 0, maxComfort);
     }
 
-    public void DecreaseComfort(float amount)
+    public void ModifyHype(float amount)
     {
-        comfort -= amount;
-        if (comfort < 0)
-        {
-            comfort = 0;
-        }
+        hype = Mathf.Clamp(hype + amount, 0, maxHype);
     }
 
-    public void IncreaseHype(float amount)
+    public void AddMinigameVariables(float hypeChange, float comfortChange)
     {
-        hype += amount;
-        if (hype > maxHype)
-        {
-            hype = maxHype;
-        }
-    }
-
-    public void DecreaseHype(float amount)
-    {
-        hype -= amount;
-        if (hype < 0)
-        {
-            hype = 0;
-        }
+        ModifyHype(hypeChange);
+        ModifyComfort(comfortChange);
     }
 
 }

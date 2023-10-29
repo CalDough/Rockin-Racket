@@ -31,7 +31,13 @@ public class MicFixing : MiniGame, IPointerDownHandler
     
     public override void Miss()
     {
-        base.Miss();
+        isActiveEvent = false;
+        if (durationCoroutine != null) {
+            StopCoroutine(durationCoroutine);
+        }
+        GameEvents.EventMiss(this);
+        GameEvents.EventClosed(this);
+        HandleClosing();
         ConcertAudioEvent.AudioFixed(this, BrokenLevelChange, bandRole, true);
     }
 
