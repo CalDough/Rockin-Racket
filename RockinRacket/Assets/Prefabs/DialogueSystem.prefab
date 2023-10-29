@@ -928,7 +928,10 @@ MonoBehaviour:
   continueButton: {fileID: 7493302109066151509}
   dialogueText: {fileID: 1471784782458045379}
   speakerName: {fileID: 1637392219552588526}
-  portraitAnimator: {fileID: 3448589621596030839}
+  characterAnimator: {fileID: 7823093277212745880}
+  harveyAnimator: {fileID: 1516356710840473996}
+  characterVignette: {fileID: 5053459968527968739}
+  harveyVignette: {fileID: 4086474890308227505}
   choices:
   - {fileID: 8512478477979298063}
   - {fileID: 6410836584426350440}
@@ -1476,7 +1479,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 226, y: 197}
+  m_AnchoredPosition: {x: 250, y: 250}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6918125344037366067
@@ -1604,8 +1607,9 @@ GameObject:
   - component: {fileID: 1101419867902911024}
   - component: {fileID: 7172694358091449799}
   - component: {fileID: 8971691632179974803}
+  - component: {fileID: 1516356710840473996}
   m_Layer: 5
-  m_Name: FaceImage
+  m_Name: HarveyFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1669,6 +1673,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1516356710840473996
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5510754370420942147}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 92ea1ca6dc503f447a32c114c096306e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5619335810265596051
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,6 +1705,7 @@ GameObject:
   - component: {fileID: 1117008236157760828}
   - component: {fileID: 4282781969847970940}
   - component: {fileID: 4974520333095362827}
+  - component: {fileID: 7823093277212745880}
   m_Layer: 5
   m_Name: CharacterFullBody
   m_TagString: Untagged
@@ -1745,6 +1771,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &7823093277212745880
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619335810265596051}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 39ae90c4aec04d648b7f3e9fec5a9a0c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6311578939872450424
 GameObject:
   m_ObjectHideFlags: 0
@@ -2158,7 +2205,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204586939667886393}
-  - component: {fileID: 3448589621596030839}
   m_Layer: 5
   m_Name: Characters
   m_TagString: Untagged
@@ -2190,27 +2236,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &3448589621596030839
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6878812382658931603}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 39ae90c4aec04d648b7f3e9fec5a9a0c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7493302109066151509
 GameObject:
   m_ObjectHideFlags: 0
