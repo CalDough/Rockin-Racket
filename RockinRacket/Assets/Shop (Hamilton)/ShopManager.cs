@@ -42,8 +42,8 @@ public class ShopManager : MonoBehaviour
         {
             choicesText[i] = choices[i].GetComponentInChildren<TextMeshProUGUI>();
         }
-        choicesText[0].text = "Look at catalog";
-        choicesText[1].text = "Have a chat";
+        choicesText[0].text = "What's for sale?";
+        choicesText[1].text = "Up for a chat?";
         choicesText[2].text = "I'm done shopping";
 
         // start cutscene
