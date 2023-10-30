@@ -102,15 +102,20 @@ public class GameLoadHandler : MonoBehaviour
         Debug.Log("Current Index: " + currentSceneIndex + "  ||  " + "Next Index: " + sceneIndex + "  ||  " + "history size: " + sceneIndexHistory.Count.ToString());
     }
 
-        //private void PrintSceneIndexHistory()
-        //{
-        //    string print = "Current Index: " + currentSceneIndex;
-        //    foreach (int sceneIndex in sceneIndexHistory.ToArray())
-        //        print += "Stack Index: " + sceneIndex + "\n";
-        //    Debug.Log(print);
-        //}
+    public void OpenMainMenu() { SwitchToScene(1); }
+    public void OpenSelectVenues() { SwitchToScene(3); }
+    public void OpenShop() { SwitchToScene(5); }
+    public void OpenSettings() { SwitchToScene(10); }
 
-        private void AddSceneIndexToHistory(int sceneIndex)
+    //private void PrintSceneIndexHistory()
+    //{
+    //    string print = "Current Index: " + currentSceneIndex;
+    //    foreach (int sceneIndex in sceneIndexHistory.ToArray())
+    //        print += "Stack Index: " + sceneIndex + "\n";
+    //    Debug.Log(print);
+    //}
+
+    private void AddSceneIndexToHistory(int sceneIndex)
     {
         // do nothing if we already have that scene at the top of the stack
         //if (sceneIndexHistory.Count != 0)

@@ -36,9 +36,9 @@ public class PauseMenuNavigation : MonoBehaviour
     public void Select()
     {
         if (index == 0)
-            gameLoadHandler.SwitchToScene(1);
+            gameLoadHandler.OpenMenu();
         else if (index == 1)
-            gameLoadHandler.SwitchToScene(10);
+            gameLoadHandler.OpenSettings();
         else if (index == 2)
         {
             gameLoadHandler.SaveAndExit();
