@@ -225,7 +225,6 @@ public class MinigameOwner : MonoBehaviour
         //Debug.Log("Event Missed: " + e.EventObject);
         if(e.EventObject == this.AvailableMiniGame)
         {
-            AvailableMiniGame.Miss();
             AvailableMiniGame.CloseEvent();
             BeginCooldowns();
         }
