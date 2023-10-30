@@ -524,7 +524,7 @@ GameObject:
   m_Layer: 0
   m_Name: Backstage
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1569,6 +1569,9 @@ RectTransform:
   - {fileID: 1078491148}
   - {fileID: 1368759917}
   - {fileID: 178721353}
+  - {fileID: 452128258}
+  - {fileID: 1178051200}
+  - {fileID: 1141791208}
   m_Father: {fileID: 2017871371}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2618,7 +2621,6 @@ GameObject:
   - component: {fileID: 401295689}
   - component: {fileID: 401295688}
   - component: {fileID: 401295687}
-  - component: {fileID: 401295686}
   m_Layer: 5
   m_Name: TShirt
   m_TagString: Untagged
@@ -2648,32 +2650,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 50.186527}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &401295686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 401295684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1522db2934c7b3d448a113a16f3d4041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OwnerName: TShirtCannon
-  defaultCooldownDuration: 12
-  currentCooldownDuration: 0
-  isOnCooldown: 0
-  TimesCompleted: 0
-  TimesFailed: 0
-  IsAvailable: 0
-  useAttempts: 0
-  maxAttempts: 5
-  gameButton: {fileID: 401295687}
-  MinigameParent: {fileID: 438330565}
-  DefaultMiniGame: {fileID: 4698080953133866123, guid: 1639baf560bf5e84d9e177c6f7fd3fe3,
-    type: 3}
-  AvailableMiniGame: {fileID: 0}
 --- !u!114 &401295687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2718,7 +2694,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 401295686}
+      - m_Target: {fileID: 1178051201}
         m_TargetAssemblyTypeName: MinigameOwner, Assembly-CSharp
         m_MethodName: ActivateMiniGame
         m_Mode: 1
@@ -3023,6 +2999,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450324537}
   m_CullTransparentMesh: 1
+--- !u!1 &452128257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452128258}
+  - component: {fileID: 452128259}
+  m_Layer: 5
+  m_Name: Sorting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &452128258
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452128257}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 275514896}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &452128259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452128257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1522db2934c7b3d448a113a16f3d4041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OwnerName: Sorting
+  defaultCooldownDuration: 20
+  currentCooldownDuration: 0
+  isOnCooldown: 0
+  TimesCompleted: 0
+  TimesFailed: 0
+  IsAvailable: 0
+  useAttempts: 0
+  maxAttempts: 5
+  gameButton: {fileID: 1713745206}
+  MinigameParent: {fileID: 438330565}
+  DefaultMiniGame: {fileID: 1932029503578014384, guid: 20a85caaa0cdfd34bb21bf2e97f25f57,
+    type: 3}
+  AvailableMiniGame: {fileID: 0}
 --- !u!1 &453558362
 GameObject:
   m_ObjectHideFlags: 3
@@ -3134,7 +3173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &471871416
 Transform:
   m_ObjectHideFlags: 0
@@ -3446,7 +3485,7 @@ GameObject:
   m_Layer: 0
   m_Name: Backstage
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3458,7 +3497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556672515}
   m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 3.709091, y: -0.090909004, z: -1.3}
+  m_LocalPosition: {x: 3.71, y: -0.090909004, z: -2.43}
   m_LocalScale: {x: 0.90909094, y: 0.90909094, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3760,7 +3799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &574282157
 Transform:
   m_ObjectHideFlags: 0
@@ -5736,7 +5775,7 @@ GameObject:
   m_Layer: 0
   m_Name: Backstage
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5748,7 +5787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865807274}
   m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2.3}
   m_LocalScale: {x: 0.90909094, y: 0.90909094, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6753,7 +6792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1027222405
 Transform:
   m_ObjectHideFlags: 0
@@ -7738,7 +7777,6 @@ GameObject:
   - component: {fileID: 1139089360}
   - component: {fileID: 1139089359}
   - component: {fileID: 1139089358}
-  - component: {fileID: 1139089357}
   m_Layer: 5
   m_Name: NoTool
   m_TagString: Untagged
@@ -7768,32 +7806,6 @@ RectTransform:
   m_AnchoredPosition: {x: -200, y: 50.186527}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1139089357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139089355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1522db2934c7b3d448a113a16f3d4041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OwnerName: Cleaning
-  defaultCooldownDuration: 12
-  currentCooldownDuration: 0
-  isOnCooldown: 0
-  TimesCompleted: 0
-  TimesFailed: 0
-  IsAvailable: 0
-  useAttempts: 0
-  maxAttempts: 5
-  gameButton: {fileID: 1139089358}
-  MinigameParent: {fileID: 438330565}
-  DefaultMiniGame: {fileID: 1932029503578014384, guid: e7dada030af3f9e458c56b435368b514,
-    type: 3}
-  AvailableMiniGame: {fileID: 0}
 --- !u!114 &1139089358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7838,7 +7850,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1139089357}
+      - m_Target: {fileID: 1141791209}
         m_TargetAssemblyTypeName: MinigameOwner, Assembly-CSharp
         m_MethodName: ActivateMiniGame
         m_Mode: 1
@@ -7900,6 +7912,132 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139089355}
   m_CullTransparentMesh: 1
+--- !u!1 &1141791207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1141791208}
+  - component: {fileID: 1141791209}
+  m_Layer: 5
+  m_Name: Cleaning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1141791208
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141791207}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 275514896}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1141791209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141791207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1522db2934c7b3d448a113a16f3d4041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OwnerName: Cleaning
+  defaultCooldownDuration: 12
+  currentCooldownDuration: 0
+  isOnCooldown: 0
+  TimesCompleted: 0
+  TimesFailed: 0
+  IsAvailable: 0
+  useAttempts: 0
+  maxAttempts: 5
+  gameButton: {fileID: 1139089358}
+  MinigameParent: {fileID: 438330565}
+  DefaultMiniGame: {fileID: 1932029503578014384, guid: e7dada030af3f9e458c56b435368b514,
+    type: 3}
+  AvailableMiniGame: {fileID: 0}
+--- !u!1 &1178051199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1178051200}
+  - component: {fileID: 1178051201}
+  m_Layer: 5
+  m_Name: TShirt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1178051200
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178051199}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 275514896}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1178051201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178051199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1522db2934c7b3d448a113a16f3d4041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OwnerName: TShirtCannon
+  defaultCooldownDuration: 12
+  currentCooldownDuration: 0
+  isOnCooldown: 0
+  TimesCompleted: 0
+  TimesFailed: 0
+  IsAvailable: 0
+  useAttempts: 0
+  maxAttempts: 5
+  gameButton: {fileID: 401295687}
+  MinigameParent: {fileID: 438330565}
+  DefaultMiniGame: {fileID: 4698080953133866123, guid: 1639baf560bf5e84d9e177c6f7fd3fe3,
+    type: 3}
+  AvailableMiniGame: {fileID: 0}
 --- !u!1 &1179848099
 GameObject:
   m_ObjectHideFlags: 0
@@ -8483,7 +8621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1230379542
 Transform:
   m_ObjectHideFlags: 0
@@ -10489,8 +10627,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540829580}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 43.28, y: 3.1, z: -3.69}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 4.08, y: -0.21, z: 37.67}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10500,7 +10638,7 @@ Transform:
   - {fileID: 102651507}
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1556113950
 GameObject:
   m_ObjectHideFlags: 0
@@ -10727,7 +10865,7 @@ GameObject:
   m_Layer: 0
   m_Name: Backstage
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -11682,7 +11820,6 @@ GameObject:
   - component: {fileID: 1713745208}
   - component: {fileID: 1713745207}
   - component: {fileID: 1713745206}
-  - component: {fileID: 1713745205}
   m_Layer: 5
   m_Name: Sorting
   m_TagString: Untagged
@@ -11712,32 +11849,6 @@ RectTransform:
   m_AnchoredPosition: {x: 200, y: 50.186527}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1713745205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713745203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1522db2934c7b3d448a113a16f3d4041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OwnerName: Sorting
-  defaultCooldownDuration: 20
-  currentCooldownDuration: 0
-  isOnCooldown: 0
-  TimesCompleted: 0
-  TimesFailed: 0
-  IsAvailable: 0
-  useAttempts: 0
-  maxAttempts: 5
-  gameButton: {fileID: 1713745206}
-  MinigameParent: {fileID: 438330565}
-  DefaultMiniGame: {fileID: 1932029503578014384, guid: 20a85caaa0cdfd34bb21bf2e97f25f57,
-    type: 3}
-  AvailableMiniGame: {fileID: 0}
 --- !u!114 &1713745206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11782,7 +11893,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1713745205}
+      - m_Target: {fileID: 452128259}
         m_TargetAssemblyTypeName: MinigameOwner, Assembly-CSharp
         m_MethodName: ActivateMiniGame
         m_Mode: 1
@@ -15148,8 +15259,18 @@ PrefabInstance:
       objectReference: {fileID: 102651507}
     - target: {fileID: 3661803180149887194, guid: f7f528b572fa09b49a351b6cba4ecb0a,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661803180149887194, guid: f7f528b572fa09b49a351b6cba4ecb0a,
+        type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.6
+      value: -1.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661803180149887194, guid: f7f528b572fa09b49a351b6cba4ecb0a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.75
       objectReference: {fileID: 0}
     - target: {fileID: 4962209046249037031, guid: f7f528b572fa09b49a351b6cba4ecb0a,
         type: 3}
@@ -15159,7 +15280,12 @@ PrefabInstance:
     - target: {fileID: 4993100220748788385, guid: f7f528b572fa09b49a351b6cba4ecb0a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.2
+      value: -10.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993100220748788385, guid: f7f528b572fa09b49a351b6cba4ecb0a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 5853266603740240088, guid: f7f528b572fa09b49a351b6cba4ecb0a,
         type: 3}
@@ -15224,12 +15350,17 @@ PrefabInstance:
     - target: {fileID: 7979134653769057092, guid: f7f528b572fa09b49a351b6cba4ecb0a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.41
+      value: 13.51
       objectReference: {fileID: 0}
     - target: {fileID: 7979134653769057092, guid: f7f528b572fa09b49a351b6cba4ecb0a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.98
+      value: -0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979134653769057092, guid: f7f528b572fa09b49a351b6cba4ecb0a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.85
       objectReference: {fileID: 0}
     - target: {fileID: 8384133289049017738, guid: f7f528b572fa09b49a351b6cba4ecb0a,
         type: 3}
