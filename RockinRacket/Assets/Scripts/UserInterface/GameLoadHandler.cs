@@ -58,7 +58,7 @@ public class GameLoadHandler : MonoBehaviour
         //BandManager.Instance.SaveBand();
         //InventorySaver.Instance.SaveInventory();
         GameSaver.Save();
-
+        ItemInventory.Save(null);
         Application.Quit();
     }
     public void Save()

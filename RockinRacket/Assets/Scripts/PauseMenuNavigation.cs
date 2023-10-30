@@ -41,7 +41,7 @@ public class PauseMenuNavigation : MonoBehaviour
             gameLoadHandler.SwitchToScene(10);
         else if (index == 2)
         {
-            gameLoadHandler.Save();
+            gameLoadHandler.SaveAndExit();
         }
     }
 
