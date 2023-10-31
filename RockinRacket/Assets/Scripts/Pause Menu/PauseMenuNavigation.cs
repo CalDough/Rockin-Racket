@@ -37,7 +37,7 @@ public class PauseMenuNavigation : MonoBehaviour
     public void Select()
     {
         if (index == 0)
-            gameLoadHandler.OpenMenu();
+            gameLoadHandler.OpenMainMenu();
         else if (index == 1)
             gameLoadHandler.OpenSettings();
         else if (index == 2)

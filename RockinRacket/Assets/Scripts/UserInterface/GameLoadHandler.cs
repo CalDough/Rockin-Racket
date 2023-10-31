@@ -72,7 +72,7 @@ public class GameLoadHandler : MonoBehaviour
 
     public void GoBackScene()
     {
-        int nextScene = 1;
+        int nextScene = 0;
         if (sceneIndexHistory.Count != 0)
             nextScene = sceneIndexHistory.Pop();
         if (currentSceneIndex != nextScene)
@@ -82,13 +82,13 @@ public class GameLoadHandler : MonoBehaviour
     // for TESTING
     public void RandomScene()
     {
-        SwitchToScene(new System.Random().Next(3, 8));
+        SwitchToScene(new System.Random().Next(2, 7));
     }
 
     public void SwitchToScene(int sceneIndex)
     {
         // clear sceneIndexHistory
-        if (sceneIndex == 9 || sceneIndex == 11)
+        if (sceneIndex == 8 || sceneIndex == 10)
         {
             sceneIndexHistory = new();
             SetScene(currentSceneIndex);
@@ -102,10 +102,10 @@ public class GameLoadHandler : MonoBehaviour
         Debug.Log("Current Index: " + currentSceneIndex + "  ||  " + "Next Index: " + sceneIndex + "  ||  " + "history size: " + sceneIndexHistory.Count.ToString());
     }
 
-    public void OpenMainMenu() { SwitchToScene(1); }
-    public void OpenSelectVenues() { SwitchToScene(3); }
-    public void OpenShop() { SwitchToScene(5); }
-    public void OpenSettings() { SwitchToScene(10); }
+    public void OpenMainMenu() { SwitchToScene(0); }
+    public void OpenSelectVenues() { SwitchToScene(2); }
+    public void OpenShop() { SwitchToScene(4); }
+    public void OpenSettings() { SwitchToScene(9); }
 
     //private void PrintSceneIndexHistory()
     //{
@@ -135,17 +135,15 @@ public class GameLoadHandler : MonoBehaviour
         pauseAction.Disable();
     }
 
-    public void OpenMenu()
+    private void OpenPauseMenu()
     {
-        if (currentSceneIndex == 9)
+        if (currentSceneIndex == 8)
             TimeEvents.GamePaused();
-        if(MenuUI != null)
-        {
-        MenuUI.SetActive(true);
-        }
+        if (MenuUI != null)
+            MenuUI.SetActive(true);
     }
 
-    public void CloseMenu()
+    private void ClosePauseMenu()
     {
         TimeEvents.GameResumed();
         if(MenuUI != null)
@@ -162,7 +160,7 @@ public class GameLoadHandler : MonoBehaviour
     private void SetScene(int sceneIndex)
     {
         CustomSceneEvent.CustomTransitionCalled(sceneIndex);
-        CloseMenu();
+        ClosePauseMenu();
         if(GameStateManager.Instance != null)
         {
             if( GameStateManager.Instance.ConcertActive)
@@ -177,11 +175,11 @@ public class GameLoadHandler : MonoBehaviour
 
         if (MenuUI.activeSelf)
         {
-            CloseMenu();
+            ClosePauseMenu();
         }
         else
         {
-            OpenMenu();
+            OpenPauseMenu();
         }
     }
     
