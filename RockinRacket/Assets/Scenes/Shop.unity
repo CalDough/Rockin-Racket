@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startConvo: {fileID: 4900000, guid: b96f5441d850e448eaab699b333c3dd6, type: 3}
-  openCatalogConvo: {fileID: 4900000, guid: 2bd8eecc6c2a64f67854a93f6d8400df, type: 3}
+  openCatalogConvo: {fileID: 4900000, guid: e688d61b2a06f4ad39f27a2dddad33db, type: 3}
   leaveBoughtConvo: {fileID: 4900000, guid: 1b99569fc23ee4085bfc8cf57fcf894c, type: 3}
   leaveNotBoughtConvo: {fileID: 4900000, guid: d0b7e8cd964d147b9b4fc417b8e62378, type: 3}
   justChattingConvo: {fileID: 4900000, guid: 79f38e17f1aac41048720435c882b035, type: 3}
@@ -756,6 +756,7 @@ MonoBehaviour:
   catalogManagerObject: {fileID: 1913471991}
   shopMenuObject: {fileID: 1612217559}
   dialogueManager: {fileID: 2143304284}
+  gameLoadHandler: {fileID: 1947427573}
   completeListOfItems:
   - {fileID: 11400000, guid: 344dff97cbb624a62ab1b7cf0b85f318, type: 2}
   - {fileID: 11400000, guid: 0d4e55ffc53c042c28e324d21cc1b88c, type: 2}
@@ -1406,6 +1407,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bookmark Pair (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 803904957919227131, guid: 2a199933eeb6548f5a1a83912949fca8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2588006755465396660, guid: 2a199933eeb6548f5a1a83912949fca8,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1537,18 +1543,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 368523026}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &368523028 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4533532738339079708, guid: 2a199933eeb6548f5a1a83912949fca8,
-    type: 3}
-  m_PrefabInstance: {fileID: 368523026}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe53b816f8b44d4c90bf27a1354ab32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &437330487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4445,6 +4439,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bookmark Pair (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 803904957919227131, guid: 2a199933eeb6548f5a1a83912949fca8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2588006755465396660, guid: 2a199933eeb6548f5a1a83912949fca8,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4576,18 +4575,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1293064968}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1293064970 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4533532738339079708, guid: 2a199933eeb6548f5a1a83912949fca8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1293064968}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe53b816f8b44d4c90bf27a1354ab32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1296612636
 GameObject:
   m_ObjectHideFlags: 0
@@ -8015,8 +8002,6 @@ MonoBehaviour:
   - {fileID: 6131724607923158001}
   - {fileID: 437330489}
   - {fileID: 807772225}
-  - {fileID: 368523028}
-  - {fileID: 1293064970}
 --- !u!1001 &2103569649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8951,16 +8936,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8550087978962268114, guid: e26d65456821027469438d9ec8ee8c4e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8550087978962268114, guid: e26d65456821027469438d9ec8ee8c4e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -81
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

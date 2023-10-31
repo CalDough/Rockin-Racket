@@ -24,6 +24,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject catalogManagerObject;
     [SerializeField] private GameObject shopMenuObject;
     [SerializeField] private DialogueManager dialogueManager;
+    [SerializeField] private GameLoadHandler gameLoadHandler;
 
     // TODO Temporary until items can be loaded at runtime
     [SerializeField] private ItemTest[] completeListOfItems;
@@ -97,10 +98,11 @@ public class ShopManager : MonoBehaviour
         else if (onClose == Action.OpenCatalog)
             OpenShopCatalog();
         else if (onClose == Action.ExitShop)
-            CloseShopScene();
+            gameLoadHandler.OpenMainMenu();
     }
     public void CloseShopScene()
     {
+
         CustomSceneEvent.CustomTransitionCalled(1);
         TimeEvents.GameResumed();
         //if (MenuUI != null)

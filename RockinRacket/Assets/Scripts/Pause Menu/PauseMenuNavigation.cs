@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuNavigation : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PauseMenuNavigation : MonoBehaviour
     private float scalingDuration = .1f;
 
     public void Up() {
+        Debug.Log($"starting index: {index}");
         if (index > 0)
         {
             index--;
@@ -17,9 +19,10 @@ public class PauseMenuNavigation : MonoBehaviour
         }
         if (index == -1)
         {
-            index = ipodOptions.Length;
-            UpdateOptions(index - 1, index);
+            index = ipodOptions.Length - 1;
+            UpdateOptions(index + 1, index);
         }
+        Debug.Log($"finishing index: {index}");
     }
     public void Down() {
         if (index < ipodOptions.Length - 1)
@@ -37,9 +40,15 @@ public class PauseMenuNavigation : MonoBehaviour
     public void Select()
     {
         if (index == 0)
-            gameLoadHandler.OpenMainMenu();
-        else if (index == 1)
-            gameLoadHandler.OpenSettings();
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+                gameLoadHandler.OpenMainMenu();
+            else
+                gameLoadHandler.ToggleMenu();
+        //else if (index == 1)
+        //    if (SceneManager.GetActiveScene().buildIndex != 8)
+        //        gameLoadHandler.OpenSettings();
+        //    else
+        //        gameLoadHandler.ToggleMenu();
         else if (index == 2)
         {
             gameLoadHandler.SaveAndExit();
@@ -48,7 +57,8 @@ public class PauseMenuNavigation : MonoBehaviour
 
     public void Reset()
     {
-        ipodOptions[index].transform.localScale = new Vector3(1f, 1f, 1f);
+        if (index != -1)
+            ipodOptions[index].transform.localScale = new Vector3(1f, 1f, 1f);
         index = -1;
     }
 
@@ -56,6 +66,7 @@ public class PauseMenuNavigation : MonoBehaviour
     {
         if (newOption >= 0 && newOption < ipodOptions.Length)
         {
+            Debug.Log($"successfully visited index: {newOption}");
             StartCoroutine(ScaleOverTime(ipodOptions[newOption].transform, new Vector3(1.2f, 1.2f, 1f), scalingDuration));
             if (oldOption >= 0 && oldOption < ipodOptions.Length)
                 StartCoroutine(ScaleOverTime(ipodOptions[oldOption].transform, new Vector3(1f, 1f, 1f), scalingDuration)); ;
@@ -64,6 +75,12 @@ public class PauseMenuNavigation : MonoBehaviour
 
     public IEnumerator ScaleOverTime(Transform objectTransform, Vector3 toScale, float duration)
     {
+        if (SceneManager.GetActiveScene().buildIndex == 8)
+        {
+            objectTransform.position = toScale;
+            yield break;
+        }
+
         float counter = 0;
 
         //Get the current scale of the object to be moved
