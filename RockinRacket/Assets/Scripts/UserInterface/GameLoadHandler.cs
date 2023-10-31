@@ -137,7 +137,8 @@ public class GameLoadHandler : MonoBehaviour
 
     public void OpenMenu()
     {
-        TimeEvents.GamePaused();
+        if (currentSceneIndex == 9)
+            TimeEvents.GamePaused();
         if(MenuUI != null)
         {
         MenuUI.SetActive(true);
