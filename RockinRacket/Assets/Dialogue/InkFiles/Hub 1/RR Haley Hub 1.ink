@@ -25,7 +25,7 @@ Need something Harv?
 Don't worry about it. It was your first time really managing everything so of course it felt a bit rough.
     * [Thank goodness]
         #speaker: Harvey #portrait: Harvey_neutral
-        Thank goodness. I was freaking out over here because I though I did bad.
+        Thank goodness. I was freaking out over here because I thought I did bad.
         
             -> END
     * [When you put it that way...]
@@ -43,7 +43,7 @@ Well considering it's mainly just my voice that I have to deal with, I think I'm
         Maybe I'll buy some stuff to help with your throat? Don't want it to harm you ability to sing after all.
         
         #speaker: Haley #portrait: Haley_neutral
-        If you really want to hen that would be awesome! I do plenty of vocal exercises too to keep everything in tip top shape, so it's not a huge deal if you can't get anything.
+        If you really want to then that would be awesome! I do plenty of vocal exercises too to keep everything in tip top shape, so it's not a huge deal if you can't get anything.
         
             -> END
     * [Sounds like a plan]

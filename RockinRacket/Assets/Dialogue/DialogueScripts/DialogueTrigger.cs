@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueTrigger : MonoBehaviour
 {
@@ -11,10 +12,22 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private TextAsset inkJSON;
 
     [SerializeField] public bool hasNewDialogue;
+    private bool isShown = true;
 
     private void Update()
     {
-        
+        if (DialogueManager.GetInstance().dialogueActive)
+        {
+            return;
+        }
+        else if (isShown)
+        {
+            return;
+        }
+        else
+        {
+            this.gameObject.GetComponent<Image>().enabled = true;
+        }
     }
     
     private void Awake()
@@ -31,5 +44,7 @@ public class DialogueTrigger : MonoBehaviour
             visualCue.SetActive(false);
             DialogueManager.GetInstance().StartDialogue(inkJSON);
         }
+        isShown = false;
+        this.gameObject.GetComponent<Image>().enabled = false;
     }
 }
