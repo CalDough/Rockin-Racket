@@ -232,6 +232,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 55503
+--- !u!114 &-5548825725121399105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Boos
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Boos
+  Guid:
+    Data1: -74656002
+    Data2: 1224164249
+    Data3: 1200649869
+    Data4: -2060904403
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 20064
 --- !u!114 &-4897862425570807683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,12 +744,14 @@ MonoBehaviour:
   - {fileID: -6549903652721879135}
   - {fileID: 5225167079933519633}
   - {fileID: 8679189057430342324}
+  - {fileID: 4504740145729715371}
+  - {fileID: -5548825725121399105}
   EditorParameters: []
   MasterBanks:
   - {fileID: 415837596568815990}
   StringsBanks:
   - {fileID: 2413609373349509689}
-  cacheTime: 638340382661705412
+  cacheTime: 638343431900645114
   cacheVersion: 131603
 --- !u!114 &415837596568815990
 MonoBehaviour:
@@ -739,10 +768,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638340382661020936
+  lastModified: 638343431900645114
   FileSizes:
   - Name: Desktop
-    Value: 14075808
+    Value: 14440896
   Exists: 1
 --- !u!114 &432812469506467807
 MonoBehaviour:
@@ -935,10 +964,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638340382661070536
+  lastModified: 638343431900645114
   FileSizes:
   - Name: Desktop
-    Value: 2594
+    Value: 2666
   Exists: 1
 --- !u!114 &2570375586446154887
 MonoBehaviour:
@@ -1122,6 +1151,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 59199
+--- !u!114 &4504740145729715371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Cheers
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Cheers
+  Guid:
+    Data1: -1274400053
+    Data2: 1074765844
+    Data3: -462266435
+    Data4: 693303176
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 20000
 --- !u!114 &4634724102272276749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1460,7 +1516,7 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/TipToe Song.bank
   Name: TipToe Song
   StudioPath: bank:/TipToe Song
-  lastModified: 638340382661705412
+  lastModified: 638340283981774464
   FileSizes:
   - Name: Desktop
     Value: 7358624

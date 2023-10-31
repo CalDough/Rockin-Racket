@@ -30,28 +30,28 @@ Don't worry about it. It was your first time really managing everything so of co
             -> END
     * [When you put it that way...]
         #speaker: Harvey #portrait: Harvey_neutral
-        When you put it that way, it makes a lot of sense. I'll probably look back on this and laugh about it in the future
+        When you put it that way, it makes a lot of sense. I'll probably look back on this and laugh about it in the future.
         
             -> END
 
 //Fix this section
 = H_H1_C2
 #speaker: Haley #portrait: Haley_neutral
-That would be really great! Mine has started making some funky noises anyways.
-    * [I'll work on it]
+Well considering it's mainly just my voice that I have to deal with, I think I'm all good. Maybe a new mic would be nice though? It's always good to have back-ups.
+    * [I'll buy some stuff...]
         #speaker: Harvey #portrait: Harvey_neutral
-        I'll work on it then because that's kinda important.
+        Maybe I'll buy some stuff to help with your throat? Don't want it to harm you ability to sing after all.
         
         #speaker: Haley #portrait: Haley_neutral
-        Sweet! Thanks so much!
+        If you really want to hen that would be awesome! I do plenty of vocal exercises too to keep everything in tip top shape, so it's not a huge deal if you can't get anything.
         
             -> END
-    * [I can later]
+    * [Sounds like a plan]
         #speaker: Harvey #portrait: Harvey_neutral
-        I can later. Let me check with the others first.
+        That sounds like a plan to me. If the one you uses breaks mid song, then having another one you could switch to would be best.
         
         #speaker: Haley #portrait: Haley_neutral
-        Of course! I totally understand!
+        I really hope that doesn't happen mid song though. That would be traumatizing. But yes, back-ups in case that happens would be great. Or maybe I could switch to them and the older one could be my back up? I'll figure it out later.
         
             -> END
 

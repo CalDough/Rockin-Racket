@@ -41,20 +41,20 @@ I'm practicing some songs.
 
 = M_H1_C2
 #speaker: MJ #portrait: MJ_neutral
-I could use one. You buying?
-    * [I got you]
+Yeah. It seems like it's holding up pretty well right now. I might have to get a new one later on, but I'm good so far.
+    * [That's good]
         #speaker: Harvey #portrait: Harvey_neutral
-        I got you. Give me a bit and you'll have it.
+        Sweet, just let me know if anything changes, okay?
         
         #speaker: MJ #portrait: MJ_neutral
-        Thanks.
+        I'll let you know then.
         
             -> END
-    * [Maybe later]
+    * [Maybe later on...]
         #speaker: Harvey #portrait: Harvey_neutral
-        Maybe later. I need to rack up some more cash before I buy it.
+        Maybe later on I can get you a new one. Sure it may work right now, but it does look a bit beat up.
         
         #speaker: MJ #portrait: MJ_neutral
-        I won't get my hopes up too much then.
+        Do whatever you think works then.
         
             -> END

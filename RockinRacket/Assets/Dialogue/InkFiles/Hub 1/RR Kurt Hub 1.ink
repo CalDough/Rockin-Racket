@@ -13,7 +13,7 @@ Oh, h-h-h-hey Harvey. Do you n-n-need something?
         -> K_H1_C1
     * [Yeah, I wanted to check...]
         #speaker: Harvey #portrait: Harvey_neutral
-        Yeah, I wanted to check if your bass guitar was okay?
+        Yeah, I wanted to check how your bass was doing? It looked a bit damaged from where I was standing.
         
         -> K_H1_C2
     * [End convo]
@@ -42,20 +42,20 @@ Y-y-yeah, I am. I lost that l-l-little case I put my guitar p-p-picks in. I thou
 //Fix this section
 = K_H1_C2
 #speaker: Kurt #portrait: Kurt_neutral
-I don't think I absolutely need one right now, but it would be awesome if I did. It would sound so much better.
-    * [I can get it]
+Oh, n-no it's all good. I've j-just had it f-for a while. It w-was a gift from m-mom and dad a f-few Christmas's ago.
+    * [Now I remember]
         #speaker: Harvey #portrait: Harvey_neutral
-        I can get it for you here soon.
+        Oh yeah, now I remember. You were so happy you were bouncing around the room.
         
         #speaker: Kurt #portrait: Kurt_neutral
-        Best manager in the making right here.
+        I w-was asking for it m-months in advance. I r-really wanted it. But, I m-may need a new one at s-some point befor it t-totally fives out on m-me.
         
             -> END
-    * [I'll think about it]
+    * [Maybe I can...]
         #speaker: Harvey #portrait: Harvey_neutral
-        I'll think about it. I obviously don't want to prioritize yours if someone else needs new gear more than you.
+        Maybe I can buy you a new one here soon to replace it then. Surely if we hold enough concerts then we can save up the money for it.
         
         #speaker: Kurt #portrait: Kurt_neutral
-        It's all good. Thanks for thinking about me though.
+        T-that would be awesome! I f-forgot that we c-can make money from our sh-shows.
         
             -> END
