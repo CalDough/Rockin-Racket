@@ -25,12 +25,12 @@ Of course I am! What's on your mind?
     
     
     
-    * [Nevermind]
+    * [I should go now.]
         #speaker: Harvey #portrait: Harvey_neutral
-        On second thought, I'm all good.
+        Thanks for talking with me, but I should really get going.
         
         #speaker: Jay #portrait: Jay_neutral
-        Totally fine, I understand completely.
+        It's all good. Have a good day kiddo!
             -> END
 
 

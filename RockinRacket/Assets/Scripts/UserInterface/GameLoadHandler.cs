@@ -10,9 +10,11 @@ public class GameLoadHandler : MonoBehaviour
 {      
     public int mainID = 0;
     public GameObject menuUI;
+    public GameObject UIBlocker;
     public InputActionAsset actionAsset;
     private InputAction pauseAction;
     private int currentSceneIndex;
+    private InputActionMap menuActionMap;
 
     private static Stack<int> sceneIndexHistory = new();
 
@@ -26,20 +28,24 @@ public class GameLoadHandler : MonoBehaviour
 
     private void Awake()
     {
+        // Assuming you have an action map named "Menu" and a Pause action within it.
+        menuActionMap = actionAsset.FindActionMap("PauseMenu");
+        pauseAction = menuActionMap.FindAction("Pause");
+
+        pauseAction.performed += _ => ToggleMenu();
+    }
+
+    private void Start()
+    {
         // pause menu position
         Vector3 endPosition = closedPosition;
         //Quaternion endRotation = closedRotation;
         menuUI.transform.localPosition = endPosition;
         //menuUI.transform.localRotation = endRotation;
 
-        //Save();
+        UIBlocker.SetActive(false);
+
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // Assuming you have an action map named "Menu" and a Pause action within it.
-        var menuActionMap = actionAsset.FindActionMap("PauseMenu");
-        pauseAction = menuActionMap.FindAction("Pause");
-
-        pauseAction.performed += _ => ToggleMenu();
     }
     
     public void NewData()
@@ -101,6 +107,8 @@ public class GameLoadHandler : MonoBehaviour
 
     public void SwitchToScene(int sceneIndex)
     {
+        pauseAction.Disable();
+        pauseAction.Dispose();
         // clear sceneIndexHistory
         if (sceneIndex == 8 || sceneIndex == 10)
         {
@@ -142,9 +150,16 @@ public class GameLoadHandler : MonoBehaviour
     private void OnEnable()
     {
         pauseAction.Enable();
+        menuActionMap.Enable();
     }
 
     private void OnDisable()
+    {
+        pauseAction.Disable();
+        menuActionMap.Disable();
+    }
+
+    private void OnDestroy()
     {
         pauseAction.Disable();
     }
@@ -184,10 +199,12 @@ public class GameLoadHandler : MonoBehaviour
     {
         if (isPaused)
         {
+            UIBlocker.SetActive(false);
             ClosePauseMenu();
         }
         else
         {
+            UIBlocker.SetActive(true);
             OpenPauseMenu();
         }
         isPaused = !isPaused;
