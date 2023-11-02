@@ -774,7 +774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1849100968345326171
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   continueButton: {fileID: 7493302109066151509}
   dialogueText: {fileID: 1471784782458045379}
   speakerName: {fileID: 1637392219552588526}
-  speakerBackground: {fileID: 3331446369372601479}
+  speakerBackground: {fileID: 6226806814848386661}
   characterAnimator: {fileID: 7823093277212745880}
   harveyAnimator: {fileID: 1516356710840473996}
   characterVignette: {fileID: 5053459968527968739}
@@ -1025,11 +1025,11 @@ MonoBehaviour:
   loadGlobalsJSON: {fileID: 4900000, guid: 1fc3ecc37724e934495f54a5c1f58097, type: 3}
   dialogueActive: 0
   numChoices: 0
-  Harvey_Color: {r: 0.3529412, g: 0.011764707, b: 0.003921569, a: 0}
-  MJ_Color: {r: 0.59607846, g: 0.35686275, b: 0.015686275, a: 0}
-  Ace_Color: {r: 0.11764707, g: 0.29411766, b: 0.454902, a: 0}
-  Haley_Color: {r: 0.5254902, g: 0.1137255, b: 0.27450982, a: 0}
-  Kurt_Color: {r: 0.28952053, g: 0.020754695, b: 0.5, a: 0}
+  Harvey_Color: {r: 0.3529412, g: 0.011764707, b: 0.003921569, a: 1}
+  MJ_Color: {r: 0.59607846, g: 0.35686275, b: 0.015686275, a: 1}
+  Ace_Color: {r: 0.11764707, g: 0.29411766, b: 0.454902, a: 1}
+  Haley_Color: {r: 0.5254902, g: 0.1137255, b: 0.27450982, a: 1}
+  Kurt_Color: {r: 0.28952053, g: 0.020754695, b: 0.5, a: 1}
 --- !u!1 &3370566235993704826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,7 +1274,7 @@ GameObject:
   - component: {fileID: 1375324285359696009}
   - component: {fileID: 3331446369372601479}
   m_Layer: 5
-  m_Name: SpeakerBackground
+  m_Name: Speaker Lines/Tape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
