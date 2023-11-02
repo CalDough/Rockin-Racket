@@ -90,9 +90,9 @@ public class BandAnimationController : MonoBehaviour
                 }
                 break;
             case GameModeType.SongOutro:
-                MoveToTarget("Backstage");
+                if(GameStateManager.Instance.NextStateType() == GameModeType.IntermissionIntro)
+                {MoveToTarget("Backstage");}
                 break;
-
             case GameModeType.IntermissionIntro:
                 MoveToTarget("Backstage");
                 break;

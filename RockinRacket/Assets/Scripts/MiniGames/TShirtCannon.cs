@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using FMODUnity;
 /*
  * This is the class file for the T-Shirt Cannon minigame. You can find the design document here: https://docs.google.com/document/d/1x7XgZG1N7djPAnV18wTUN5dq9bY9pOokqpf27cqf6ww/edit
  * 
@@ -66,6 +67,23 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
     [SerializeField] private float currentFame = 0;
     [SerializeField] private bool isEventOpen = false;
 
+
+    public string fireCannonSoundEvent = "";
+
+
+    public float soundStartVolume = 1;
+
+    public void PlaySound()
+    {
+        if (!string.IsNullOrEmpty(fireCannonSoundEvent))
+        {
+            FMOD.Studio.EventInstance soundInstance = RuntimeManager.CreateInstance(fireCannonSoundEvent);
+            soundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            soundInstance.setVolume(soundStartVolume);
+            soundInstance.start();
+            soundInstance.release();
+        }
+    }
     /*
      * Activate runs when the event is spawn in, NOT when the event is opened by the player
      */
@@ -247,7 +265,8 @@ public class TShirtCannon : MiniGame, IPointerDownHandler
         {return;} 
 
         //PlayParticlesAtPosition(eventData.position);
-
+        PlaySound();
+        
         PressureState currentPressureState = GetPressureState();
 
         Ray ray = mainCamera.ScreenPointToRay(eventData.position);

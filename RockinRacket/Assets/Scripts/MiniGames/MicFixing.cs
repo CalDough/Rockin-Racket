@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 public class MicFixing : MiniGame, IPointerDownHandler
 {
     [SerializeField] private List<GameObject> screwObjects;
@@ -15,6 +16,7 @@ public class MicFixing : MiniGame, IPointerDownHandler
     public bool randomMember = false;
     public BandRoleName bandRole = BandRoleName.Haley;
     public float BrokenLevelChange = 1;
+
 
     public override void Activate()
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using FMODUnity;
 
 public class TrashObject : MonoBehaviour, IPointerClickHandler
 {
@@ -17,6 +18,20 @@ public class TrashObject : MonoBehaviour, IPointerClickHandler
     public int shakeFrequency = 5;
 
     private Vector3 originalPosition;
+    public string sweepSoundEvent = "";
+    public float soundStartVolume = 1;
+
+    public void PlaySound()
+    {
+        if (!string.IsNullOrEmpty(sweepSoundEvent))
+        {
+            FMOD.Studio.EventInstance soundInstance = RuntimeManager.CreateInstance(sweepSoundEvent);
+            soundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            soundInstance.setVolume(soundStartVolume);
+            soundInstance.start();
+            soundInstance.release();
+        }
+    }
 
     void Start()
     {
@@ -31,6 +46,7 @@ public class TrashObject : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        PlaySound();
         hitPoints--;
         UpdateHpText();
         if (hitPoints <= 0)

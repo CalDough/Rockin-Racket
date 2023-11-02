@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class DialTuning : MiniGame
 {
     public GameObject dialPrefab; 
@@ -11,6 +10,7 @@ public class DialTuning : MiniGame
     public bool randomMember = false;
     public BandRoleName bandRole = BandRoleName.Kurt;
     public float BrokenLevelChange = 1;
+
 
     public override void Activate()
     {

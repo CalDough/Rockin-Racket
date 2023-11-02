@@ -4,6 +4,8 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
+using FMODUnity;
+
 public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     public TextMeshProUGUI angleText;
@@ -34,7 +36,21 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
     public bool isLocked = false;
     public delegate void DialMatchedEventHandler();
     public event DialMatchedEventHandler OnDialMatched;
+    public string dialClickSoundEvent = "";
 
+    public float soundStartVolume = 1;
+
+    public void PlaySound()
+    {
+        if (!string.IsNullOrEmpty(dialClickSoundEvent))
+        {
+            FMOD.Studio.EventInstance soundInstance = RuntimeManager.CreateInstance(dialClickSoundEvent);
+            soundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            soundInstance.setVolume(soundStartVolume);
+            soundInstance.start();
+            soundInstance.release();
+        }
+    }
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -189,5 +205,6 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         UpdateHandle(currentAngle % 360);
         MatchingAngle = true;
         OnDialMatched?.Invoke(); 
+        PlaySound();
     }
 }

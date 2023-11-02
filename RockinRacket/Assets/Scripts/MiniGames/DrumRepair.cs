@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class DrumRepair : MiniGame
 {
     [SerializeField] public List<RectTransform> drumHoles;
@@ -12,7 +13,8 @@ public class DrumRepair : MiniGame
     public bool randomMember = false;
     public BandRoleName bandRole = BandRoleName.Ace;
     public float BrokenLevelChange = 1;
-    
+
+
     public override void Activate()
     {
         base.Activate();
