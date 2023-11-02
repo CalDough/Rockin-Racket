@@ -42,6 +42,7 @@ public class AudienceController : MonoBehaviour
 
     public void PlayBooSound()
     {
+        Debug.Log("Playing Boo");
         if (!string.IsNullOrEmpty(booSoundEvent) && Time.time - lastBooTime > booCooldown)
         {
             lastBooTime = Time.time;
@@ -59,6 +60,7 @@ public class AudienceController : MonoBehaviour
     }
     public void PlayCheerSound()
     {
+        Debug.Log("Playing Cheer");
         if (!string.IsNullOrEmpty(cheerSoundEvent) && Time.time - lastCheerTime > cheerCooldown)
         {
             lastCheerTime = Time.time;
@@ -77,7 +79,7 @@ public class AudienceController : MonoBehaviour
 
     private IEnumerator PlaySoundWithFadeOut(string soundEventPath, float playDuration, float fadeOutDuration)
     {
-        Debug.Log("Playing Boo or smething");
+
         FMOD.Studio.EventInstance soundInstance = FMODUnity.RuntimeManager.CreateInstance(soundEventPath);
         soundInstance.start();
 

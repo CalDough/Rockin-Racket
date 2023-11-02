@@ -35,7 +35,7 @@ public class Screw : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Screw Clicked");
+        //Debug.Log("Screw Clicked");
         if (!isCooldown && currentClicks < totalClicksToUnscrew)
         {
             StartCoroutine(RotateAndCooldown());

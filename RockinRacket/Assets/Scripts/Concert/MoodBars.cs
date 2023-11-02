@@ -24,9 +24,9 @@ public class MoodBars : MonoBehaviour
     [SerializeField] private float hypeLerpSpeed = 5f;
     [SerializeField] private float comfortLerpSpeed = 5f;
     
-    [SerializeField] private float lowHypeThresholdPercent = 20f; //  percentage
+    [SerializeField] private float lowHypeThresholdPercent = 15f; //  percentage
     [SerializeField] private float highHypeThresholdPercent = 50f; 
-    [SerializeField] private float lowComfortThresholdPercent = 20f; 
+    [SerializeField] private float lowComfortThresholdPercent = 15f; 
     [SerializeField] private float highComfortThresholdPercent = 75f; 
 
     private float lowHypeThreshold;

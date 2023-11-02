@@ -72,7 +72,7 @@ public class IntermissionHandler : MonoBehaviour
     private void HandleGameStateEnd(object sender, GameStateEventArgs e)
     {
         
-        Debug.Log("Game state ended: " + e.state.GameType);
+        //Debug.Log("Game state ended: " + e.state.GameType);
         nextStateButton.gameObject.SetActive(false);
         
         intermissionScreen.SetActive(false); // Ken added code
