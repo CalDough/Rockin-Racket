@@ -124,6 +124,7 @@ public class GameStateManager : MonoBehaviour
     //Needs to calculate money from total attendees or have an event to signal end
     public void EndConcert()
     {
+        InspectorGameStates.Clear();
         GameManager.Instance.globalFame += FameToGain;
         GameManager.Instance.globalMoney += MoneyToGain;
         CanStartLevel = false;
@@ -138,6 +139,7 @@ public class GameStateManager : MonoBehaviour
     //This occurs when the scene changes through the pause menu
     public void EndConcertEarly()
     {
+        InspectorGameStates.Clear();
         CanStartLevel = false;
         ConcertActive = false;
         ConcertAudioEvent.ConcertEnd();

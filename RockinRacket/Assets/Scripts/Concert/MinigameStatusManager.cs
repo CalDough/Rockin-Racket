@@ -236,7 +236,7 @@ public class MinigameStatusManager : MonoBehaviour
                 hype = 0;
                 this.PotentialHype = GameStateManager.Instance.CurrentGameState.Duration * 50;
                 this.maxHype = PotentialHype + 1000;
-                float maxHypePotential = PotentialHype;
+                float maxHypePotential = PotentialHype+ 1000;
                 PotentialHypeFromAllSongs.Add(maxHypePotential);
                 StartCoroutine(HypeGeneration());
                 StartCoroutine(ComfortGeneration());
