@@ -113,6 +113,7 @@ public class IntermissionHandler : MonoBehaviour
     public void leaveButtonReplacement(TransitionData SceneToLoad)
     {
         CustomSceneEvent.CustomTransitionCalled(SceneToLoad);
+        GameStateManager.Instance.ResetVariables();
         //Call story manager to set a bool flag that we completed X events too
     }
     

@@ -158,6 +158,7 @@ public class MinigameOwner : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                gameButton.interactable = true; 
                 break;
             default:
                 break;
@@ -170,6 +171,7 @@ public class MinigameOwner : MonoBehaviour
         switch(e.stateType)
         {
             case GameModeType.Song:
+                gameButton.interactable = true; 
                 EndCooldowns();
                 break;
             default:

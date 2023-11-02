@@ -9,12 +9,18 @@ public class BandAudioController : MonoBehaviour
     
     public BandRoleName bandName = BandRoleName.Default;
     
-    [Header("Inspector Variables")] 
+    [Header("FMOD Prefabs")]
+    public StudioEventEmitter instrumentEmitterPrefab;
+    public StudioEventEmitter voiceEmitterPrefab;
+
+    private StudioEventEmitter instrumentEmitterInstance;
+    private StudioEventEmitter voiceEmitterInstance;
+    
     private FMOD.Studio.EventInstance instrumentInstance;
-    public StudioEventEmitter instrumentEmitter;
+
 
     private FMOD.Studio.EventInstance voiceInstance;
-    public StudioEventEmitter voiceEmitter;
+
 
     public string instrumentEvent;
     public string voiceEvent;
@@ -34,6 +40,7 @@ public class BandAudioController : MonoBehaviour
 
     public void ResetAudio()
     {
+        StopSounds();
         this.instrumentEvent = "";
         this.voiceEvent = "";
         this.instrumentBrokenValue = 0;
@@ -46,27 +53,16 @@ public class BandAudioController : MonoBehaviour
         SetVoiceBrokeLevel();
     }
 
-    public void SetInstrumentBrokeLevel()
-    {
-        if (instrumentInstance.isValid())
-        {
-            instrumentInstance.setParameterByName(parameterName, instrumentBrokenValue);
-        }
-        
-    }
-
-    public void SetVoiceBrokeLevel()
-    {
-        if (voiceInstance.isValid())
-        {
-            voiceInstance.setParameterByName(parameterName, voiceBrokenValue);
-        }
-    }
-
+    
     public void StartSounds()
     {
         instrumentEvent = "";
         voiceEvent = "";
+        if (instrumentEmitterInstance != null)
+        { Destroy(instrumentEmitterInstance.gameObject);}
+        if (voiceEmitterInstance != null) 
+        {Destroy(voiceEmitterInstance.gameObject);}
+
         if(GameStateManager.Instance.CurrentGameState.Song == null)
         {return;}
         
@@ -96,35 +92,26 @@ public class BandAudioController : MonoBehaviour
                 Debug.Log("Trying to affect band member not on list: " + bandName);
                 break;
         }
-        if (!string.IsNullOrEmpty(instrumentEvent))
+
+        if (!string.IsNullOrEmpty(instrumentEvent) && DoesEventExist(instrumentEvent))
         {
-            if(DoesEventExist(instrumentEvent))
-            {
-                Debug.Log("Playing "+instrumentEvent);
-                instrumentEmitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference(instrumentEvent);
-                //FMODUnity.EventReference.Find(instrumentEvent);
-                instrumentEmitter.Play();
-                instrumentInstance = instrumentEmitter.EventInstance;
-                
-                PrintEventParameters(instrumentEvent);
-                this.isPlaying = true;
-                ConcertAudioEvent.PlayingAudio(this.bandName);
-            }
+            instrumentEmitterInstance = Instantiate(instrumentEmitterPrefab, transform);
+            instrumentEmitterInstance.EventReference = RuntimeManager.PathToEventReference(instrumentEvent);
+            instrumentEmitterInstance.Play();
+            instrumentInstance = instrumentEmitterInstance.EventInstance;
+            this.isPlaying = true;
+            ConcertAudioEvent.PlayingAudio(this.bandName);
         }
 
-        if (!string.IsNullOrEmpty(voiceEvent))
+        if (!string.IsNullOrEmpty(voiceEvent) && DoesEventExist(voiceEvent))
         {
-            if(DoesEventExist(voiceEvent))
-            {
-                voiceEmitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference(voiceEvent);
-                voiceEmitter.Play();
-                voiceInstance = voiceEmitter.EventInstance;
-                PrintEventParameters(voiceEvent);
-                isSinging = true;
-                ConcertAudioEvent.PlayingAudio(this.bandName);
-            }
+            voiceEmitterInstance = Instantiate(voiceEmitterPrefab, transform);
+            voiceEmitterInstance.EventReference = RuntimeManager.PathToEventReference(voiceEvent);
+            voiceEmitterInstance.Play();
+            voiceInstance = voiceEmitterInstance.EventInstance;
+            isSinging = true;
+            ConcertAudioEvent.PlayingAudio(this.bandName);
         }
-        
     }
 
     public bool DoesEventExist(string eventName)
@@ -140,23 +127,47 @@ public class BandAudioController : MonoBehaviour
 
     public void StopSounds()
     {
-        voiceEmitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        instrumentEmitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        
+        if (instrumentEmitterInstance != null)
+        {
+            instrumentEmitterInstance.Stop();
+            Destroy(instrumentEmitterInstance.gameObject);
+        }
+        if (voiceEmitterInstance != null)
+        {
+            voiceEmitterInstance.Stop();
+            Destroy(voiceEmitterInstance.gameObject);
+        }
+
         this.isPlaying = false;
         this.isSinging = false;
     }
     
     public void PauseConcert()
     {
-        voiceEmitter.EventInstance.setPaused(true);
-        instrumentEmitter.EventInstance.setPaused(true);
+        if (voiceEmitterInstance != null)
+        {voiceEmitterInstance.EventInstance.setPaused(true);}
+        if (instrumentEmitterInstance != null)
+        {instrumentEmitterInstance.EventInstance.setPaused(true);}
     }
 
     public void ResumeConcert()
     {
-        voiceEmitter.EventInstance.setPaused(false);
-        instrumentEmitter.EventInstance.setPaused(false);
+        if (voiceEmitterInstance != null)
+        {voiceEmitterInstance.EventInstance.setPaused(false);}
+        if (instrumentEmitterInstance != null)
+        {instrumentEmitterInstance.EventInstance.setPaused(false);}
+    }
+
+    public void SetInstrumentBrokeLevel()
+    {
+        if (instrumentInstance.isValid())
+        {instrumentInstance.setParameterByName(parameterName, instrumentBrokenValue);}
+    }
+
+    public void SetVoiceBrokeLevel()
+    {
+        if (voiceInstance.isValid())
+        {voiceInstance.setParameterByName(parameterName, voiceBrokenValue);}
     }
 
     
@@ -260,6 +271,7 @@ public class BandAudioController : MonoBehaviour
 
     public void ResyncAudio()
     {
+        /*
         int position;
         instrumentEmitter.EventInstance.getTimelinePosition(out position);
         int playbackPosition = (int)(GameStateManager.Instance.levelTime * 1000);
@@ -267,7 +279,7 @@ public class BandAudioController : MonoBehaviour
         instrumentEmitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         instrumentEmitter.EventInstance.start();
         instrumentEmitter.EventInstance.setTimelinePosition(playbackPosition);
-
+        */
     }
 
     public void ConcertEnd(object sender, ConcertAudioEventArgs e)

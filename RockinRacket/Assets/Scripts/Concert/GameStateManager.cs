@@ -131,7 +131,7 @@ public class GameStateManager : MonoBehaviour
         ConcertAudioEvent.ConcertEnd();
         LocateConcertUIAndEndConcert();
         //GameEventManager.Instance.CleanUp();
-        ResetVariables();
+
         
     }
 
@@ -143,7 +143,7 @@ public class GameStateManager : MonoBehaviour
         ConcertAudioEvent.ConcertEnd();
         LocateConcertUIAndEndConcert();
         //GameEventManager.Instance.CleanUp();
-        ResetVariables();
+
     }
 
     // Concert UI script will do stuff like show the player's results and disable the musical UI
@@ -436,7 +436,7 @@ public class GameStateManager : MonoBehaviour
     //Make sure  LoadVenue, and events are set before starting level
     public void StartConcert()
     {
-        
+
         if(ConcertActive == true){return;}
         if(SelectedVenue == null){return;}
         
