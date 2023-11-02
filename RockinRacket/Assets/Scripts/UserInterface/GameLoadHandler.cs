@@ -127,6 +127,7 @@ public class GameLoadHandler : MonoBehaviour
     public void OpenStartMenu() { SwitchToScene(0); }
     public void OpenMainMenu() { SwitchToScene(1); }
     public void OpenSelectVenues() { SwitchToScene(3); }
+    public void OpenBandManagement() { SwitchToScene(4); }
     public void OpenShop() { SwitchToScene(5); }
     public void OpenSettings() { /*SwitchToScene(10);*/ }
 
