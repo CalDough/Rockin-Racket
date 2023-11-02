@@ -6,6 +6,7 @@ using Ink.Runtime;
 using UnityEngine.EventSystems;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject continueButton;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI speakerName;
+    [SerializeField] private Image speakerBackground;
     [SerializeField] private Animator characterAnimator;
     [SerializeField] private Animator harveyAnimator;
     [SerializeField] private GameObject characterVignette;
@@ -52,6 +54,14 @@ public class DialogueManager : MonoBehaviour
 
     // Tag values that will get checked for and processed in the HandleTags() method called in the ContinueStory() method
     private const string SPEAKER_TAG = "speaker";
+
+    [Header("Character Colors")]
+    [SerializeField] private Color Harvey_Color;
+    [SerializeField] private Color MJ_Color;
+    [SerializeField] private Color Ace_Color;
+    [SerializeField] private Color Haley_Color;
+    [SerializeField] private Color Kurt_Color;
+
     private const string PORTRAIT_TAG = "portrait";
     private const string LAYOUT_TAG = "layout";
     private DialogueVariables dialogueVariables;
@@ -254,6 +264,17 @@ public class DialogueManager : MonoBehaviour
                         harveyVignette.SetActive(false);
                         characterVignette.SetActive(true);
                     }
+                    switch (tagValue)
+                    {
+                        case "Harvey": speakerBackground.color = Harvey_Color; break;
+                        case "Haley": speakerBackground.color = Haley_Color; break;
+                        case "Ace": speakerBackground.color = Ace_Color; break;
+                        case "MJ": speakerBackground.color = MJ_Color; break;
+                        case "Kurt": speakerBackground.color = Kurt_Color; break;
+                        default: break;
+                    }
+                    
+                    
                     break;
                 case PORTRAIT_TAG:
                     if (currentAnimator == harveyAnimator)
