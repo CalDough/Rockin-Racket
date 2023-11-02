@@ -166,8 +166,7 @@ public class GameLoadHandler : MonoBehaviour
 
     private void OpenPauseMenu()
     {
-        if (currentSceneIndex == 8)
-            TimeEvents.GamePaused();
+        TimeEvents.GamePaused();
         //menuUI.SetActive(true);
         StartCoroutine(PauseMenuAnimation(true));
     }
@@ -229,12 +228,12 @@ public class GameLoadHandler : MonoBehaviour
             //endRotation = openRotation;
         }
 
-        if (currentSceneIndex == 8)
-        {
-            menuUI.transform.localPosition = endPosition;
-            //menuUI.transform.localRotation = endRotation;
-            yield break;
-        }
+        //if (currentSceneIndex == 8)
+        //{
+        //    menuUI.transform.localPosition = endPosition;
+        //    //menuUI.transform.localRotation = endRotation;
+        //    yield break;
+        //}
 
         float counter = 0;
 
@@ -244,7 +243,7 @@ public class GameLoadHandler : MonoBehaviour
 
         while (counter < animationDuration)
         {
-            counter += Time.deltaTime;
+            counter += Time.unscaledDeltaTime;
             menuUI.transform.localPosition = Vector3.Lerp(startPosition, endPosition, counter / animationDuration);
             //menuUI.transform.localRotation = Quaternion.Lerp(startRotation, endRotation, counter / animationDuration);
             yield return null;

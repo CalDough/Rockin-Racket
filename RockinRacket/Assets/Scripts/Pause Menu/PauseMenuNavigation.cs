@@ -75,11 +75,11 @@ public class PauseMenuNavigation : MonoBehaviour
 
     public IEnumerator ScaleOverTime(Transform objectTransform, Vector3 toScale, float duration)
     {
-        if (SceneManager.GetActiveScene().buildIndex == 8)
-        {
-            objectTransform.position = toScale;
-            yield break;
-        }
+        //if (SceneManager.GetActiveScene().buildIndex == 8)
+        //{
+        //    objectTransform.localScale = toScale;
+        //    yield break;
+        //}
 
         float counter = 0;
 
@@ -88,7 +88,7 @@ public class PauseMenuNavigation : MonoBehaviour
 
         while (counter < duration)
         {
-            counter += Time.deltaTime;
+            counter += Time.unscaledDeltaTime;
             objectTransform.localScale = Vector3.Lerp(startScaleSize, toScale, counter / duration);
             //transform.rotation = 
             yield return null;
