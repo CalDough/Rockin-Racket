@@ -27,6 +27,7 @@ public class DialogueTrigger : MonoBehaviour
         else
         {
             this.gameObject.GetComponent<Image>().enabled = true;
+            isShown = true;
         }
     }
     
@@ -43,8 +44,8 @@ public class DialogueTrigger : MonoBehaviour
             hasNewDialogue = false;
             visualCue.SetActive(false);
             DialogueManager.GetInstance().StartDialogue(inkJSON);
+            isShown = false;
+            this.gameObject.GetComponent<Image>().enabled = false;
         }
-        isShown = false;
-        this.gameObject.GetComponent<Image>().enabled = false;
     }
 }
