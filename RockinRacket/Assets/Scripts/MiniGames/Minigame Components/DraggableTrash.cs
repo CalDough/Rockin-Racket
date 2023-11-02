@@ -17,7 +17,7 @@ public class DraggableTrash : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging Trash");
+        //Debug.Log("Dragging Trash");
     }
 
     public void OnDrag(PointerEventData eventData)

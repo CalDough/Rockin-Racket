@@ -100,7 +100,7 @@ public class BandAudioController : MonoBehaviour
         {
             if(DoesEventExist(instrumentEvent))
             {
-                
+                Debug.Log("Playing "+instrumentEvent);
                 instrumentEmitter.EventReference = FMODUnity.RuntimeManager.PathToEventReference(instrumentEvent);
                 //FMODUnity.EventReference.Find(instrumentEvent);
                 instrumentEmitter.Play();
