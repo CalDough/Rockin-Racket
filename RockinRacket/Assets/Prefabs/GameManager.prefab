@@ -88,6 +88,8 @@ MonoBehaviour:
   <songSlotsAvailable>k__BackingField: 0
   MoneyToGain: 0
   FameToGain: 0
+  DefaultAnimationCutscenes: 4
+  DefaultMainCutscenes: 1
 --- !u!114 &6651588620859644378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,14 +103,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <totalDifficulty>k__BackingField: 0
+  completedMiniGamesCount: 0
+  failedMiniGamesCount: 0
+  missedMiniGamesCount: 0
+  canceledMiniGamesCount: 0
   hype: 0
   maxHype: 1000
-  comfort: 500
-  maxComfort: 1000
+  comfort: 650
+  maxComfort: 1500
   hypeInterval: 1
   comfortInterval: 1
-  comfortLossPerSecond: 10
+  comfortLossPerSecond: -15
   comfortModifier: 1
   hypeModifier: 1
   bandMembers: []
+  OpenedMiniGame: {fileID: 0}
   ImmuneMiniGames: {fileID: 11400000, guid: 33d76c34f0ad6ba42a3498f427b2820a, type: 2}
+  PotentialHype: 0
+  PotentialHypeFromAllSongs: []
+  HypeEarnedFromAllSongs: []
