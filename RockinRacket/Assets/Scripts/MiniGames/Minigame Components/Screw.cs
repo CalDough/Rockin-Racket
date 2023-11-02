@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using FMODUnity;
 
 public class Screw : MonoBehaviour, IPointerClickHandler
 {
@@ -14,10 +15,27 @@ public class Screw : MonoBehaviour, IPointerClickHandler
     private bool isCooldown = false;
 
     public bool IsUnscrewed => currentClicks >= totalClicksToUnscrew;
+    
+    public string unscrewSoundEvent = "";
+
+
+    public float soundStartVolume = 1;
+
+    public void PlaySound()
+    {
+        if (!string.IsNullOrEmpty(unscrewSoundEvent))
+        {
+            FMOD.Studio.EventInstance soundInstance = RuntimeManager.CreateInstance(unscrewSoundEvent);
+            soundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            soundInstance.setVolume(soundStartVolume);
+            soundInstance.start();
+            soundInstance.release();
+        }
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Screw Clicked");
+        //Debug.Log("Screw Clicked");
         if (!isCooldown && currentClicks < totalClicksToUnscrew)
         {
             StartCoroutine(RotateAndCooldown());
@@ -39,7 +57,7 @@ public class Screw : MonoBehaviour, IPointerClickHandler
     private IEnumerator RotateAndCooldown()
     {
         isCooldown = true;
-
+        PlaySound();
         Quaternion startRotation = transform.rotation;
         Quaternion endRotation = startRotation * Quaternion.Euler(0, 0, rotationPerClick);
         float timeElapsed = 0f;

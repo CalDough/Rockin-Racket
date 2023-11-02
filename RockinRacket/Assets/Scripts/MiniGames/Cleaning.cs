@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+
 public class Cleaning : MiniGame
 {
     public GameObject[] trashPrefabs; 
@@ -16,6 +17,9 @@ public class Cleaning : MiniGame
     [SerializeField] private int cleanedTrashCount = 0;
     [SerializeField] private int score = 0; //Not sure if I want to have the player get rewarded more for more trash or type of trash
     [SerializeField] private List<GameObject> spawnedTrashItems = new List<GameObject>();
+    
+
+
 
     public override void Activate()
     {

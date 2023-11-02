@@ -167,6 +167,11 @@ public class GameLoadHandler : MonoBehaviour
     private void OpenPauseMenu()
     {
         TimeEvents.GamePaused();
+        //if (currentSceneIndex == 8)
+        //{
+        //    Debug.Log("Implement Pause");
+        //    //TimeEvents.GamePaused();
+        //}
         //menuUI.SetActive(true);
         StartCoroutine(PauseMenuAnimation(true));
     }

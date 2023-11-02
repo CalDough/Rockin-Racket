@@ -97,7 +97,7 @@ public class ChanceMinigameOwner : MonoBehaviour
 
     public void OpenActiveMiniGame()
     {
-        Debug.Log("Attempting opening");
+        //Debug.Log("Attempting opening");
         if(GameStateManager.Instance.CurrentGameState.GameType != GameModeType.Song)
         {
             Debug.Log("Not a song right now");

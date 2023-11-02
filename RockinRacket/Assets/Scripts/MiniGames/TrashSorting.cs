@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using FMODUnity;
 /*
  * This is the script for the trash sorting minigame. The associated prefab with this is called 'DraggableTrash'
  * 
@@ -24,6 +25,21 @@ public class TrashSorting : MiniGame
     [SerializeField] private int totalTrash;
     [SerializeField] private int sortedTrash;
 
+    public string trashCleanedSoundEvent = "";
+
+    public float soundStartVolume = 1;
+
+    public void PlaySound()
+    {
+        if (!string.IsNullOrEmpty(trashCleanedSoundEvent))
+        {
+            FMOD.Studio.EventInstance soundInstance = RuntimeManager.CreateInstance(trashCleanedSoundEvent);
+            soundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            soundInstance.setVolume(soundStartVolume);
+            soundInstance.start();
+            soundInstance.release();
+        }
+    }
 
     /*
      * This method is run when the minigame is activated
@@ -90,7 +106,7 @@ public class TrashSorting : MiniGame
     {
         sortedTrash++;
         Destroy(sortedItem.gameObject);
-
+        PlaySound();
         if (sortedTrash == totalTrash)
         {
             // All trash sorted

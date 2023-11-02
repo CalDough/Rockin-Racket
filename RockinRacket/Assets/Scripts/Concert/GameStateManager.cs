@@ -67,6 +67,14 @@ public class GameStateManager : MonoBehaviour
         } 
     }
 
+    public GameModeType NextStateType()
+    {
+        if (GameStates != null && GameStates.First != null && GameStates.First.Next != null)
+        {
+            return GameStates.First.Next.Value.GameType;
+        }
+        return GameModeType.Default; 
+    }
 
     /*
         If the concert is active, and our current Game State is not an infinite state like Cutscene, or dialogue
@@ -241,7 +249,7 @@ public class GameStateManager : MonoBehaviour
         // Temporary list to store nodes to insert song intros, song outros, and intermissions
         List<LinkedListNode<GameState>> songNodes = new List<LinkedListNode<GameState>>();
         List<LinkedListNode<GameState>> intermissionNodes = new List<LinkedListNode<GameState>>();
-
+        int songCount = 0;
         // Find all song and intermission nodes
         for (LinkedListNode<GameState> node = GameStates.First; node != null; node = node.Next)
         {
@@ -282,10 +290,10 @@ public class GameStateManager : MonoBehaviour
                 UseDuration = true
             };
             GameStates.AddAfter(songNode, songOutroState);
-            
+            songCount++;
             // check if the next node after the SongOutro is an Intermission, if not, add one.
             LinkedListNode<GameState> nextNode = songNode.Next.Next; // skipping over SongOutro to check the next node
-            if (nextNode == null || nextNode.Value.GetGameModeType() != GameModeType.Intermission)
+            if (songCount == 1)  
             {
                 GameState intermissionState = new GameState
                 {
@@ -293,8 +301,7 @@ public class GameStateManager : MonoBehaviour
                     Duration = 15f,
                     UseDuration = false
                 };
-                LinkedListNode<GameState> intermissionNode = GameStates.AddAfter(songNode.Next, intermissionState);
-                
+                LinkedListNode<GameState> intermissionNode = GameStates.AddAfter(nextNode, intermissionState);
                 intermissionNodes.Add(intermissionNode);
             }
         }

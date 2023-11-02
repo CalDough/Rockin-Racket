@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using FMODUnity;
 
 public class PatchPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -11,6 +12,23 @@ public class PatchPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private Vector2 originalPosition;
     // Reference to the main TrashSorting script
     public DrumRepair drumRepair;
+
+    public string patchPlaceSoundEvent = "";
+
+
+    public float soundStartVolume = 1;
+
+    public void PlaySound()
+    {
+        if (!string.IsNullOrEmpty(patchPlaceSoundEvent))
+        {
+            FMOD.Studio.EventInstance soundInstance = RuntimeManager.CreateInstance(patchPlaceSoundEvent);
+            soundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            soundInstance.setVolume(soundStartVolume);
+            soundInstance.start();
+            soundInstance.release();
+        }
+    }
 
     void Start()
     {
@@ -67,6 +85,7 @@ public class PatchPiece : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         // Ensure the object is exactly at the target position when the lerp is done
         transform.position = targetPosition;
+        PlaySound();
     }
 
     public void ResetPosition()
