@@ -20,9 +20,9 @@ public class GameLoadHandler : MonoBehaviour
 
     private bool isPaused;
 
-    private float animationDuration = 1f;
-    private Vector3 openPosition = new(0, 0, 0);
-    private Vector3 closedPosition = new(0, -1200, 0);
+    private readonly float animationDuration = 1f;
+    private readonly Vector3 openPosition = new(0, 0, 0);
+    private readonly Vector3 closedPosition = new(0, -1200, 0);
     //private Quaternion openRotation = Quaternion.AngleAxis(0, Vector3.right);
     //private Quaternion closedRotation = Quaternion.AngleAxis(30, Vector3.right);
 
@@ -124,10 +124,11 @@ public class GameLoadHandler : MonoBehaviour
         Debug.Log("Current Index: " + currentSceneIndex + "  ||  " + "Next Index: " + sceneIndex + "  ||  " + "history size: " + sceneIndexHistory.Count.ToString());
     }
 
-    public void OpenMainMenu() { SwitchToScene(0); }
-    public void OpenSelectVenues() { SwitchToScene(2); }
-    public void OpenShop() { SwitchToScene(4); }
-    public void OpenSettings() { /*SwitchToScene(9);*/ }
+    public void OpenStartMenu() { SwitchToScene(0); }
+    public void OpenMainMenu() { SwitchToScene(1); }
+    public void OpenSelectVenues() { SwitchToScene(3); }
+    public void OpenShop() { SwitchToScene(5); }
+    public void OpenSettings() { /*SwitchToScene(10);*/ }
 
     //private void PrintSceneIndexHistory()
     //{
