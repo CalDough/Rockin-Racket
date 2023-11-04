@@ -20,12 +20,12 @@ public class MerchTableEvents : MonoBehaviour
 
     void Start()
     {
-        if (e_cueNextCustomer == null)
+        if (e_cueNextCustomer != null)
         {
             e_cueNextCustomer = new UnityEvent();
         }
 
-        if (e_sendCustomerData == null)
+        if (e_sendCustomerData != null)
         {
             e_sendCustomerData = new UnityEvent<string>();
         }

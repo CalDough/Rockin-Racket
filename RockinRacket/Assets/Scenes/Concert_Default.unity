@@ -1071,7 +1071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139399389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.39, y: 0, z: -28.55}
+  m_LocalPosition: {x: 4.07, y: 0, z: -29.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3247,13 +3247,14 @@ GameObject:
   - component: {fileID: 401254904}
   - component: {fileID: 401254905}
   - component: {fileID: 401254906}
+  - component: {fileID: 401254907}
   m_Layer: 0
   m_Name: MerchTableHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &401254904
 Transform:
   m_ObjectHideFlags: 0
@@ -3284,7 +3285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80af2071880d3e479baf218020951f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfCustomers: 0
+  numberOfCustomers: 5
   customerRewardTimer: 0
   customerPrefab: {fileID: 5893828084192702231, guid: 2b9717a8cad51d14e93acba87971a975,
     type: 3}
@@ -3292,9 +3293,10 @@ MonoBehaviour:
   spawnFront: {fileID: 778028797}
   spawnBack: {fileID: 635867525}
   offscreenDespawn: {fileID: 139399390}
-  spawnXOffsetMax: 0
-  spawnYOffsetMax: 0
-  spawnDistance: 0
+  spawnZOffsetMin: 0
+  spawnZOffsetMax: 3
+  spawnDistance: 2.5
+  lerpSpeed: 3
 --- !u!114 &401254906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3313,6 +3315,18 @@ MonoBehaviour:
   e_sendCustomerData:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &401254907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401254903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1dcc2e409232a43a28e03fe8e5a3e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &401295684
 GameObject:
   m_ObjectHideFlags: 0

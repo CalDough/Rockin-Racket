@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /*
  * Customer Queue generates a list of customers for the level based on the given parameter and handles the customer movement 
@@ -15,26 +16,33 @@ public class CustomerQueue : MonoBehaviour
     [SerializeField] int customerRewardTimer;
     [SerializeField] GameObject customerPrefab;
     [Header("DO NOT PUT ANYTHING IN HERE - JUST VISIBLE FOR DEBUG")]
-    [SerializeField] private Customer[] customers;
+    [SerializeField] private GameObject[] customers;
     [Header("Spawning Information")]
     [SerializeField] Transform spawnFront;
     [SerializeField] Transform spawnBack;
     [SerializeField] Transform offscreenDespawn;
-    [SerializeField] float spawnXOffsetMax;
-    [SerializeField] float spawnYOffsetMax;
-    [SerializeField] int spawnDistance;
+    [SerializeField] float spawnZOffsetMin;
+    [SerializeField] float spawnZOffsetMax;
+    [SerializeField] float spawnDistance;
+    [SerializeField] float lerpSpeed;
 
 
     // Private member variables
-    private Queue<Customer> queue = new Queue<Customer>();
+    private Queue<GameObject> customerQueue = new Queue<GameObject>();
     private float spawnXOffsetMin;
     private float spawnYOffsetMin;
-    private Customer currentCustomer;
+    private GameObject currentCustomer;
+    private bool isLerping = false;
+    private float startTime;
+    private float journeyLength;
+    private GameObject pastCustomer;
 
     // Start is called before the first frame update
     void Start()
     {
         MerchTableEvents.instance.e_cueNextCustomer.AddListener(CueNextCustomer);
+
+        customers = new GameObject[numberOfCustomers];
 
         spawnXOffsetMin = spawnFront.position.x;
         spawnYOffsetMin = spawnFront.position.y;
@@ -47,7 +55,17 @@ public class CustomerQueue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CueNextCustomer();
+        }
+
+        // Safeguard for our lerping
+        if (isLerping)
+        {
+            Debug.Log("Is lerping");
+            LerpCustomerToSide();
+        }
     }
 
     /*
@@ -56,13 +74,17 @@ public class CustomerQueue : MonoBehaviour
     private void SpawnCustomersIntially()
     {
         Vector3 spawnPos = spawnFront.position;
-        int cycleSpawnOffset = 0;
-
+        float cycleSpawnOffset = 0;
+        Debug.Log("Spawning Customers");
         for (int i = 0; i < numberOfCustomers; i++)
         {
-            GameObject customer = Instantiate(customerPrefab, new Vector3(spawnPos.x, spawnPos.y, spawnPos.z + cycleSpawnOffset), Quaternion.identity);
-            //queue.Enqueue(customer);
+            float horizontalVariation = Random.Range(spawnZOffsetMin, spawnZOffsetMax);
+            GameObject customer = Instantiate(customerPrefab, new Vector3(spawnPos.x + cycleSpawnOffset, spawnPos.y, spawnPos.z + horizontalVariation), customerPrefab.transform.rotation);
+            customers[i] = customer;
+            customerQueue.Enqueue(customer);
+            cycleSpawnOffset += spawnDistance;
         }
+        spawnBack = customers[numberOfCustomers - 1].gameObject.transform;
     }
 
     /*
@@ -72,8 +94,10 @@ public class CustomerQueue : MonoBehaviour
     {
         for (int i = 0; i < customers.Length; i++)
         {
-            queue.Enqueue(customers[i]);
+            customerQueue.Enqueue(customers[i]);
         }
+
+        currentCustomer = customerQueue.Dequeue();
     }
 
     /*
@@ -81,28 +105,73 @@ public class CustomerQueue : MonoBehaviour
      */
      private void CueNextCustomer()
      {
+        pastCustomer = currentCustomer;
+        startTime = Time.time;
+        journeyLength = Vector3.Distance(spawnFront.position, offscreenDespawn.position);
+        isLerping = true;
+        StartCoroutine(StopLerp(2));
+        Debug.Log("Cueing Next Customer");
         // Moving front of line customer to back of line
-        MoveCustomertoBackOfLine(currentCustomer);
+        //MoveCustomertoBackOfLine(currentCustomer);
         // Readding front of line customer to queue
-        queue.Enqueue(currentCustomer);
+        customerQueue.Enqueue(pastCustomer);
         // Getting next in line
-        currentCustomer = queue.Dequeue();
+        currentCustomer = customerQueue.Dequeue();
         // Getting customer needs and sending it to the shop handler class
-        string customerWants = currentCustomer.GetCustomerWants();
+        string customerWants = currentCustomer.gameObject.GetComponent<Customer>().GetCustomerWants();
         MerchTableEvents.instance.e_sendCustomerData.Invoke(customerWants);
-        // Moving all customers up
+        //StartCoroutine(MoveCustomersDelay(3));
+    }
+
+    IEnumerator MoveCustomersDelay(int seconds)
+    {
+        int counter = seconds;
+        while (counter > 0)
+        {
+            yield return new WaitForSeconds(counter);
+            counter--;
+        }
+        MoveCustomersUp();
+    }
+
+    IEnumerator StopLerp(int seconds)
+    {
+        int counter = seconds;
+        while (counter > 0)
+        {
+            yield return new WaitForSeconds(counter);
+            counter--;
+        }
+        isLerping = false;
+        pastCustomer.transform.position = new Vector3(spawnBack.transform.position.x + spawnDistance, spawnBack.transform.position.y, spawnBack.transform.position.z);
         MoveCustomersUp();
     }
 
     /*
      * This method moves the customer at the front of the line back to the back
      */
-    private void MoveCustomertoBackOfLine(Customer customer)
+    private void MoveCustomertoBackOfLine(GameObject customer)
     {
-        Vector3 startingPos = gameObject.transform.position;
+        Debug.Log("Moving customer to back of line");
+        Vector3 startingPos = customer.gameObject.transform.position;
         customer.transform.position = Vector3.Lerp(startingPos, offscreenDespawn.position, Time.deltaTime);
 
         // Then move customer to back of line
+    }
+
+    /*
+     * This method handles the lerping of the customer offscreen
+     */
+    private void LerpCustomerToSide()
+    {
+        // Distance moved equals elapsed time times speed..
+        float distCovered = (Time.time - startTime) * lerpSpeed;
+
+        // Fraction of journey completed equals current distance divided by total distance.
+        float fractionOfJourney = distCovered / journeyLength;
+
+        // Set our position as a fraction of the distance between the markers.
+        pastCustomer.transform.position = Vector3.Lerp(spawnFront.position, offscreenDespawn.position, fractionOfJourney);
     }
 
     /*
@@ -112,7 +181,7 @@ public class CustomerQueue : MonoBehaviour
     {
         for (int i = 0; i < customers.Length; i++)
         {
-            customers[i].transform.position = new Vector3(customers[i].transform.position.x, customers[i].transform.position.y, customers[i].transform.position.z + 5);
+            customers[i].transform.position = new Vector3(customers[i].transform.position.x - spawnDistance, customers[i].transform.position.y, customers[i].transform.position.z);
         }
     }
 
