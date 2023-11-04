@@ -8,4 +8,5 @@ public class GameStateData : ScriptableObject
 {
     public ConcertState CurrentConcertState;
     public PlayerTools CurrentToolState;
+    public CustomerWants currentlyHeldObject;
 }

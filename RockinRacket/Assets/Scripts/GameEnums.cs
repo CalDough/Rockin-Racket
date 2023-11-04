@@ -121,6 +121,7 @@ public enum DifficultyMode
 [System.Serializable]
 public enum CustomerWants // Enums for the customer wants for the Merch Table minigame during the concert
 {
+    None,
     tshirt,
     mug,
     button

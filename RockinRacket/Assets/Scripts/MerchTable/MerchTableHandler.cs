@@ -3,58 +3,75 @@ using System.Collections.Generic;
 using UnityEngine;
 using static TShirtCannon;
 using UnityEngine.EventSystems;
+using static UnityEngine.InputSystem.UI.VirtualMouseInput;
+using AYellowpaper.SerializedCollections;
 
-public class MerchTableHandler : MonoBehaviour, IPointerDownHandler
+public class MerchTableHandler : MonoBehaviour
 {
+    [SerializeField] GameStateData currentGameState;
+    [SerializedDictionary("Merch Item", "Cursor Texture")]
+    public SerializedDictionary<CustomerWants, Texture2D> cursorTextures;
+    [SerializeField] UnityEngine.CursorMode cursorMode;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        UpdateHeldMerchItem();
     }
 
-    /*
- * This method takes player input when they click the mouse and determines what the 
- * player is hitting and at what pressure amount
- */
-    public void OnPointerDown(PointerEventData eventData)
+    private void UpdateHeldMerchItem()
     {
-        //    if (!isActiveEvent || !canFire)
-        //    { return; }
+        Texture2D value;
+        bool hasValue;
 
-        //    if (mainCamera == null)
-        //    { mainCamera = Camera.main; }
-
-        //    if (!IsMouseInPlayableArea())
-        //    { return; }
-
-        //    //PlayParticlesAtPosition(eventData.position);
-        //    PlaySound();
-
-        //    PressureState currentPressureState = GetPressureState();
-
-        //    Ray ray = mainCamera.ScreenPointToRay(eventData.position);
-
-        //    RaycastHit hit;
-
-        //    if (Physics.Raycast(ray, out hit, cannonRange))
-        //    {
-        //        GameObject target = hit.transform.gameObject;
-
-        //        if (target.CompareTag("Audience"))
-        //        {
-        //            FireShirt(true, currentPressureState, target);
-        //        }
-        //        else
-        //        {
-        //            FireShirt(false, currentPressureState, target);
-        //        }
-        //    }
-        //    StartCoroutine(FireCooldown());
+        switch (currentGameState.currentlyHeldObject)
+        {
+            case CustomerWants.None:
+                Cursor.SetCursor(null, Vector2.zero, cursorMode);
+                break;
+            case CustomerWants.tshirt:
+                hasValue = cursorTextures.TryGetValue(CustomerWants.tshirt, out value);
+                if (hasValue)
+                {
+                    Cursor.SetCursor(value, Vector2.zero, cursorMode);
+                }
+                else
+                {
+                    Debug.LogError("Item Texture Missing");
+                }
+                break;
+            case CustomerWants.mug:
+                hasValue = cursorTextures.TryGetValue(CustomerWants.mug, out value);
+                if (hasValue)
+                {
+                    Cursor.SetCursor(value, Vector2.zero, cursorMode);
+                }
+                else
+                {
+                    Debug.LogError("Item Texture Missing");
+                }
+                break;
+            case CustomerWants.button:
+                hasValue = cursorTextures.TryGetValue(CustomerWants.button, out value);
+                if (hasValue)
+                {
+                    Cursor.SetCursor(value, Vector2.zero, cursorMode);
+                }
+                else
+                {
+                    Debug.LogError("Item Texture Missing");
+                }
+                break;
+            default:
+                Debug.Log("<color=red>MISSING CURSOR TEXTURE MERCHTABLEHANDLER.CS </color>");
+                break;
+        }
     }
 }
