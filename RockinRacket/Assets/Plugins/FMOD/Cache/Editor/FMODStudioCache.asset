@@ -746,12 +746,13 @@ MonoBehaviour:
   - {fileID: 8679189057430342324}
   - {fileID: 4504740145729715371}
   - {fileID: -5548825725121399105}
+  - {fileID: 6609718643870858500}
   EditorParameters: []
   MasterBanks:
   - {fileID: 415837596568815990}
   StringsBanks:
   - {fileID: 2413609373349509689}
-  cacheTime: 638346208976139255
+  cacheTime: 638348854004984050
   cacheVersion: 131603
 --- !u!114 &415837596568815990
 MonoBehaviour:
@@ -768,10 +769,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638346208976129243
+  lastModified: 638348854004944149
   FileSizes:
   - Name: Desktop
-    Value: 14440928
+    Value: 14464448
   Exists: 1
 --- !u!114 &432812469506467807
 MonoBehaviour:
@@ -964,10 +965,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638346208976139255
+  lastModified: 638348854004984050
   FileSizes:
   - Name: Desktop
-    Value: 2666
+    Value: 2708
   Exists: 1
 --- !u!114 &2570375586446154887
 MonoBehaviour:
@@ -1521,6 +1522,33 @@ MonoBehaviour:
   - Name: Desktop
     Value: 7358624
   Exists: 1
+--- !u!114 &6609718643870858500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/radio-alert
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/radio-alert
+  Guid:
+    Data1: -584509761
+    Data2: 1076173765
+    Data3: -250681921
+    Data4: -57182616
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1093
 --- !u!114 &6624124689335178154
 MonoBehaviour:
   m_ObjectHideFlags: 0

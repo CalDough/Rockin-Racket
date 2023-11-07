@@ -8,18 +8,6 @@ public class MerchSource : MonoBehaviour, IPointerDownHandler
     [SerializeField] GameStateData currentGameState;
     [SerializeField] CustomerWants sourceType;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /*
      * 
      */

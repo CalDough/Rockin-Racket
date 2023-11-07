@@ -126,3 +126,21 @@ public enum CustomerWants // Enums for the customer wants for the Merch Table mi
     mug,
     button
 }
+
+[System.Serializable]
+public enum ConcertState 
+{
+    BandView, 
+    ShopView, 
+    BackstageView, 
+    AudienceView, 
+    VenueView 
+};
+
+[System.Serializable]
+public enum PlayerTools
+{ 
+    DEFAULTNoTool, 
+    TrashTool, 
+    TShirtCannonTool 
+}

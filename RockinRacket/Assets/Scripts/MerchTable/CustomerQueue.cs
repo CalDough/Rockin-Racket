@@ -63,7 +63,6 @@ public class CustomerQueue : MonoBehaviour
         // Safeguard for our lerping
         if (isLerping)
         {
-            Debug.Log("Is lerping");
             LerpCustomerToSide();
         }
     }
@@ -105,12 +104,12 @@ public class CustomerQueue : MonoBehaviour
      */
      private void CueNextCustomer()
      {
+        Debug.Log("<color=orange>Cueing Next Customer</color>");
         pastCustomer = currentCustomer;
         startTime = Time.time;
         journeyLength = Vector3.Distance(spawnFront.position, offscreenDespawn.position);
         isLerping = true;
         StartCoroutine(StopLerp(2));
-        Debug.Log("Cueing Next Customer");
         // Moving front of line customer to back of line
         //MoveCustomertoBackOfLine(currentCustomer);
         // Readding front of line customer to queue
@@ -118,6 +117,7 @@ public class CustomerQueue : MonoBehaviour
         // Getting next in line
         currentCustomer = customerQueue.Dequeue();
         // Getting customer needs and sending it to the shop handler class
+        currentCustomer.gameObject.GetComponent<Customer>().GenerateNewWants();
         string customerWants = currentCustomer.gameObject.GetComponent<Customer>().GetCustomerWants();
         MerchTableEvents.instance.e_sendCustomerData.Invoke(customerWants);
         //StartCoroutine(MoveCustomersDelay(3));
