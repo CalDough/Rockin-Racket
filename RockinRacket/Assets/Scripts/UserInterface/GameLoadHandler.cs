@@ -37,14 +37,7 @@ public class GameLoadHandler : MonoBehaviour
 
     private void Start()
     {
-        // pause menu position
-        Vector3 endPosition = closedPosition;
-        //Quaternion endRotation = closedRotation;
-        menuUI.transform.localPosition = endPosition;
-        //menuUI.transform.localRotation = endRotation;
-
         UIBlocker.SetActive(false);
-
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
     
@@ -129,7 +122,7 @@ public class GameLoadHandler : MonoBehaviour
     public void OpenSelectVenues() { SwitchToScene(3); }
     public void OpenBandManagement() { SwitchToScene(4); }
     public void OpenShop() { SwitchToScene(5); }
-    public void OpenSettings() { /*SwitchToScene(10);*/ }
+    public void OpenSettings() { SwitchToScene(10); }
 
     //private void PrintSceneIndexHistory()
     //{

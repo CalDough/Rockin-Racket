@@ -8,6 +8,12 @@ public class BookmarkManager : MonoBehaviour
     [SerializeField] private BookmarkPair[] bookmarkPairs;
     private int selectedIndex = 0;
 
+    private void Start()
+    {
+        // show initial items
+        SelectBookmark(selectedIndex);
+    }
+
     public void SelectBookmark(int index)
     {
         bookmarkPairs[selectedIndex].Unselect();
@@ -23,5 +29,6 @@ public class BookmarkManager : MonoBehaviour
             bookmarkPair.ResetFlip();
         for (int i = 0; i < index; i++)
             bookmarkPairs[i].FlipLeft();
+        bookmarkPairs[index].Select();
     }
 }

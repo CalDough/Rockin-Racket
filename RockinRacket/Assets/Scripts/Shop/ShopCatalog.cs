@@ -22,7 +22,6 @@ public class ShopCatalog : MonoBehaviour
         foreach (ItemOption itemOption in itemOptions)
             itemOption.Show(false);
     }
-
     // called from CatalogManager when bookmark clicked
     public void DisplayItemsByCategory(ItemTest[] completeListOfItems, ItemTest.ItemType itemType, ShopReceipt shopReceipt)
     {

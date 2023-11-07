@@ -44,11 +44,11 @@ public class PauseMenuNavigation : MonoBehaviour
                 gameLoadHandler.OpenMainMenu();
             else
                 gameLoadHandler.ToggleMenu();
-        //else if (index == 1)
-        //    if (SceneManager.GetActiveScene().buildIndex != 8)
-        //        gameLoadHandler.OpenSettings();
-        //    else
-        //        gameLoadHandler.ToggleMenu();
+        else if (index == 1)
+            if (SceneManager.GetActiveScene().buildIndex != 8)
+                gameLoadHandler.OpenSettings();
+            else
+                gameLoadHandler.ToggleMenu();
         else if (index == 2)
         {
             gameLoadHandler.SaveAndExit();

@@ -21,9 +21,13 @@ public class BookmarkPair : MonoBehaviour
     public void BookmarkSelected()
     {
         bookmarkManager.SelectBookmark(index);
+    }
+    // called by bookmark manager on selected bookmark after resetting bookmarks
+    public void Select()
+    {
         rightBookmark.Open();
     }
-
+    // called by bookmark manager when resetting bookmarks
     public void Unselect()
     {
         rightBookmark.Close();

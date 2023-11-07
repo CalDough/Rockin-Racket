@@ -18,9 +18,6 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextAsset leaveNotBoughtConvo;
     [SerializeField] private TextAsset justChattingConvo;
 
-    [SerializeField] private GameObject[] choices;
-    private TextMeshProUGUI[] choicesText;
-
     [SerializeField] private GameObject catalogManagerObject;
     [SerializeField] private GameObject shopMenuObject;
     [SerializeField] private DialogueManager dialogueManager;
@@ -36,21 +33,25 @@ public class ShopManager : MonoBehaviour
     {
         bought = false;
         ItemInventory.Initialize(completeListOfItems);
-
-        // initialize choices
-        choicesText = new TextMeshProUGUI[choices.Length];
-        for (int i = 0; i < choices.Length; i++)
-        {
-            choicesText[i] = choices[i].GetComponentInChildren<TextMeshProUGUI>();
-        }
-        choicesText[0].text = "What's for sale?";
-        choicesText[1].text = "Up for a chat?";
-        choicesText[2].text = "I'm done shopping";
-
-        // start cutscene
+        
         OpenShopMenu(); // Temp until cutscene works
         //StartShopkeeperDialogue(startConvo, Action.OpenShopMenu);
     }
+
+    //private bool fun;
+    //private void Update()
+    //{
+    //    // start cutscene on first update
+    //    if (fun)
+    //    {
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        fun = true;
+    //        StartShopkeeperDialogue(startConvo, Action.OpenShopMenu);
+    //    }
+    //}
 
     public void MakeChoice(int choice)
     {
