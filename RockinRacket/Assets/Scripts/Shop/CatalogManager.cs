@@ -15,6 +15,9 @@ public class CatalogManager : MonoBehaviour
     [SerializeField] private ShopReceipt shopReceipt;
     [SerializeField] private ShopCatalog shopCatalog;
 
+    public void Open() { gameObject.SetActive(true); }
+    public void Close() { gameObject.SetActive(false); }
+
     public void ItemOptionPressed(ItemTest item)
     {
         shopSelection.SelectItem(item, shopReceipt.IsInCart(item));

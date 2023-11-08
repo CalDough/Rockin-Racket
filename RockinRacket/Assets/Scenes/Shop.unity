@@ -750,8 +750,8 @@ MonoBehaviour:
   leaveBoughtConvo: {fileID: 4900000, guid: 1b99569fc23ee4085bfc8cf57fcf894c, type: 3}
   leaveNotBoughtConvo: {fileID: 4900000, guid: d0b7e8cd964d147b9b4fc417b8e62378, type: 3}
   justChattingConvo: {fileID: 4900000, guid: 79f38e17f1aac41048720435c882b035, type: 3}
-  catalogManagerObject: {fileID: 1913471991}
-  shopMenuObject: {fileID: 1612217559}
+  catalogManager: {fileID: 1913471993}
+  shopMenu: {fileID: 1612217561}
   dialogueManager: {fileID: 2143304284}
   gameLoadHandler: {fileID: 1947427573}
   completeListOfItems:
@@ -6199,6 +6199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1612217560}
+  - component: {fileID: 1612217561}
   m_Layer: 5
   m_Name: ShopMenu
   m_TagString: Untagged
@@ -6230,6 +6231,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 540}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1612217561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612217559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786232aaa80114c978fcad4bc8d23b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 387501458}
 --- !u!1 &1658140281
 GameObject:
   m_ObjectHideFlags: 0

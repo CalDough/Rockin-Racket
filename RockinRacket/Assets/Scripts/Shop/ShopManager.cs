@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 /*
  * activates/deactivates UI groups in scene
@@ -18,8 +17,8 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextAsset leaveNotBoughtConvo;
     [SerializeField] private TextAsset justChattingConvo;
 
-    [SerializeField] private GameObject catalogManagerObject;
-    [SerializeField] private GameObject shopMenuObject;
+    [SerializeField] private CatalogManager catalogManager;
+    [SerializeField] private ShopMenu shopMenu;
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private GameLoadHandler gameLoadHandler;
 
@@ -35,24 +34,8 @@ public class ShopManager : MonoBehaviour
         // TODO find a better way to do this
         ItemInventory.Initialize(completeListOfItems);
         
-        OpenShopMenu(); // Temp until cutscene works
-        //StartShopkeeperDialogue(startConvo, Action.OpenShopMenu);
+        OpenShopMenu();
     }
-
-    //private bool fun;
-    //private void Update()
-    //{
-    //    // start cutscene on first update
-    //    if (fun)
-    //    {
-    //        return;
-    //    }
-    //    else
-    //    {
-    //        fun = true;
-    //        StartShopkeeperDialogue(startConvo, Action.OpenShopMenu);
-    //    }
-    //}
 
     public void MakeChoice(int choice)
     {
@@ -66,20 +49,20 @@ public class ShopManager : MonoBehaviour
             else
                 StartShopkeeperDialogue(leaveNotBoughtConvo, Action.ExitShop);
     }
-    public void OpenShopCatalog()
+    private void OpenShopCatalog()
     {
-        shopMenuObject.SetActive(false);
-        catalogManagerObject.SetActive(true);
+        shopMenu.Close();
+        catalogManager.Open();
     }
-    public void OpenShopMenu()
+    private void OpenShopMenu()
     {
-        catalogManagerObject.SetActive(false);
-        shopMenuObject.SetActive(true);
+        shopMenu.Open();
+        catalogManager.Close();
     }
-    public void CloseAll()
+    private void CloseAll()
     {
-        catalogManagerObject.SetActive(false);
-        shopMenuObject.SetActive(false);
+        shopMenu.Close();
+        catalogManager.Close();
     }
     private void StartShopkeeperDialogue(TextAsset textAsset, Action onClose)
     {
@@ -87,14 +70,8 @@ public class ShopManager : MonoBehaviour
         CloseAll();
         dialogueManager.StartDialogue(textAsset);
     }
-    //private bool absorbFirstDisable = false;
     public void EndShopkeeperDialogue()
     {
-        //if (!absorbFirstDisable)
-        //{
-        //    absorbFirstDisable = true;
-        //    return;
-        //}
         if (onClose == Action.OpenShopMenu)
             OpenShopMenu();
         else if (onClose == Action.OpenCatalog)
@@ -104,13 +81,8 @@ public class ShopManager : MonoBehaviour
     }
     public void CloseShopScene()
     {
-
         CustomSceneEvent.CustomTransitionCalled(1);
         TimeEvents.GameResumed();
-        //if (MenuUI != null)
-        //{
-        //    MenuUI.SetActive(false);
-        //}
         if (GameStateManager.Instance != null)
         {
             if (GameStateManager.Instance.ConcertActive)
