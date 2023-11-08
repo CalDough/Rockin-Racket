@@ -945,8 +945,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4717022494723735906}
-        m_TargetAssemblyTypeName: GameLoadHandler, Assembly-CSharp
+      - m_Target: {fileID: 9177714591327278010}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ToggleMenu
         m_Mode: 1
         m_Arguments:
@@ -2208,6 +2208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameLoadHandler: {fileID: 4717022494723735906}
+  pauseManager: {fileID: 9177714591327278010}
   ipodOptions:
   - {fileID: 8640649780201527080}
   - {fileID: 8281934568320838418}
@@ -2469,8 +2470,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4717022494723735906}
-        m_TargetAssemblyTypeName: GameLoadHandler, Assembly-CSharp
+      - m_Target: {fileID: 9177714591327278010}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ToggleMenu
         m_Mode: 1
         m_Arguments:
@@ -2502,6 +2503,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2002043422355244811}
+  - component: {fileID: 9177714591327278010}
   - component: {fileID: 4717022494723735906}
   m_Layer: 5
   m_Name: PauseMenu
@@ -2534,6 +2536,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9177714591327278010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421007262805249367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35747762e3f904834a42334a8a0a2d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameLoadHandler: {fileID: 4717022494723735906}
+  menuUI: {fileID: 8500876390121374120}
+  UIBlocker: {fileID: 6589509005091157547}
+  actionAsset: {fileID: -944628639613478452, guid: 6a06a489d6c38dd428f46e6ee01ef945,
+    type: 3}
 --- !u!114 &4717022494723735906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2546,11 +2565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36027a2e347a6243b62768d3a68596b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainID: 0
-  menuUI: {fileID: 8500876390121374120}
-  UIBlocker: {fileID: 6589509005091157547}
-  actionAsset: {fileID: -944628639613478452, guid: 6a06a489d6c38dd428f46e6ee01ef945,
-    type: 3}
 --- !u!1 &6589509005091157547
 GameObject:
   m_ObjectHideFlags: 0

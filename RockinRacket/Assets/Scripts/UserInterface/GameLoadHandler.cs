@@ -8,35 +8,15 @@ using static SceneInfo;
     This script is a test UI script the Pause Menu and Main Menu
 */
 public class GameLoadHandler : MonoBehaviour
-{      
-    public int mainID = 0;
-    public GameObject menuUI;
-    public GameObject UIBlocker;
-    public InputActionAsset actionAsset;
-    private InputAction pauseAction;
+{
+    //public PauseManager pauseManager;
+
     private int currentSceneIndex;
-    private InputActionMap menuActionMap;
-
     private static Stack<int> sceneIndexHistory = new();
-
-    private bool isPaused;
-
-    private readonly float animationDuration = 1f;
-    private readonly Vector3 openPosition = new(0, 0, 0);
-    private readonly Vector3 closedPosition = new(0, -1200, 0);
-    //private Quaternion openRotation = Quaternion.AngleAxis(0, Vector3.right);
-    //private Quaternion closedRotation = Quaternion.AngleAxis(30, Vector3.right);
 
     private void Awake()
     {
-        actionAsset.FindActionMap("PauseMenu").Disable();
-        // Assuming you have an action map named "Menu" and a Pause action within it.
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        menuActionMap = actionAsset.FindActionMap("PauseMenu");
-        pauseAction = menuActionMap.FindAction("Pause");
-
-        pauseAction.performed += _ => ToggleMenu();
-        UIBlocker.SetActive(false);
     }
     
     public void NewData()
@@ -101,8 +81,6 @@ public class GameLoadHandler : MonoBehaviour
 
     public void SwitchToScene(int sceneIndex)
     {
-        pauseAction.Disable();
-        pauseAction.Dispose();
         // clear sceneIndexHistory
         if (sceneIndex == (int)SceneIndex.ConcertDefault)
         {
@@ -143,42 +121,6 @@ public class GameLoadHandler : MonoBehaviour
         sceneIndexHistory.Push(sceneIndex);
     }
 
-    private void OnEnable()
-    {
-        pauseAction.Enable();
-        menuActionMap.Enable();
-    }
-
-    private void OnDisable()
-    {
-        pauseAction.Disable();
-        menuActionMap.Disable();
-    }
-
-    private void OnDestroy()
-    {
-        pauseAction.Disable();
-    }
-
-    private void OpenPauseMenu()
-    {
-        TimeEvents.GamePaused();
-        //if (currentSceneIndex == 8)
-        //{
-        //    Debug.Log("Implement Pause");
-        //    //TimeEvents.GamePaused();
-        //}
-        //menuUI.SetActive(true);
-        StartCoroutine(PauseMenuAnimation(true));
-    }
-
-    private void ClosePauseMenu()
-    {
-        TimeEvents.GameResumed();
-        //menuUI.SetActive(false);
-        StartCoroutine(PauseMenuAnimation(false));
-    }
-
     public void ExitGame()
     {
         Application.Quit();
@@ -187,67 +129,9 @@ public class GameLoadHandler : MonoBehaviour
     private void SetScene(int sceneIndex)
     {
         CustomSceneEvent.CustomTransitionCalled(sceneIndex);
-        ClosePauseMenu();
         if(GameStateManager.Instance != null)
         {
-            if( GameStateManager.Instance.ConcertActive)
-            {GameStateManager.Instance.EndConcertEarly();}
-        }
-    }
-
-    public void ToggleMenu()
-    {
-        if (isPaused)
-        {
-            UIBlocker.SetActive(false);
-            ClosePauseMenu();
-        }
-        else
-        {
-            UIBlocker.SetActive(true);
-            OpenPauseMenu();
-        }
-        isPaused = !isPaused;
-        //if (menuUI.activeSelf)
-        //{
-        //    ClosePauseMenu();
-        //}
-        //else
-        //{
-        //    OpenPauseMenu();
-        //}
-    }
-
-    public IEnumerator PauseMenuAnimation(bool toOpen)
-    {
-        Vector3 endPosition = closedPosition;
-        //Quaternion endRotation = closedRotation;
-        if (toOpen)
-        {
-            menuUI.transform.localPosition = closedPosition;
-            endPosition = openPosition;
-            //endRotation = openRotation;
-        }
-
-        //if (currentSceneIndex == 8)
-        //{
-        //    menuUI.transform.localPosition = endPosition;
-        //    //menuUI.transform.localRotation = endRotation;
-        //    yield break;
-        //}
-
-        float counter = 0;
-
-        //Get the current scale of the object to be moved
-        Vector3 startPosition = menuUI.transform.localPosition;
-        //Quaternion startRotation = menuUI.transform.localRotation;
-
-        while (counter < animationDuration)
-        {
-            counter += Time.unscaledDeltaTime;
-            menuUI.transform.localPosition = Vector3.Lerp(startPosition, endPosition, counter / animationDuration);
-            //menuUI.transform.localRotation = Quaternion.Lerp(startRotation, endRotation, counter / animationDuration);
-            yield return null;
+            if (GameStateManager.Instance.ConcertActive) {GameStateManager.Instance.EndConcertEarly();}
         }
     }
 }

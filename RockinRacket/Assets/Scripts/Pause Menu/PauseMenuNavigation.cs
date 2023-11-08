@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenuNavigation : MonoBehaviour
 {
     [SerializeField] private GameLoadHandler gameLoadHandler;
+    [SerializeField] private PauseManager pauseManager;
     [SerializeField] private GameObject[] ipodOptions;
     private int index = -1;
     private float scalingDuration = .1f;
@@ -40,19 +41,11 @@ public class PauseMenuNavigation : MonoBehaviour
     public void Select()
     {
         if (index == 0)
-            if (SceneManager.GetActiveScene().buildIndex != 0)
-                gameLoadHandler.OpenMainMenu();
-            else
-                gameLoadHandler.ToggleMenu();
+            pauseManager.OpenMainMenu();
         else if (index == 1)
-            if (SceneManager.GetActiveScene().buildIndex != 8)
-                gameLoadHandler.OpenSettings();
-            else
-                gameLoadHandler.ToggleMenu();
+            pauseManager.OpenSettings();
         else if (index == 2)
-        {
             gameLoadHandler.SaveAndExit();
-        }
     }
 
     public void Reset()
@@ -66,7 +59,7 @@ public class PauseMenuNavigation : MonoBehaviour
     {
         if (newOption >= 0 && newOption < ipodOptions.Length)
         {
-            Debug.Log($"successfully visited index: {newOption}");
+            //Debug.Log($"successfully visited index: {newOption}");
             StartCoroutine(ScaleOverTime(ipodOptions[newOption].transform, new Vector3(1.2f, 1.2f, 1f), scalingDuration));
             if (oldOption >= 0 && oldOption < ipodOptions.Length)
                 StartCoroutine(ScaleOverTime(ipodOptions[oldOption].transform, new Vector3(1f, 1f, 1f), scalingDuration)); ;
@@ -75,12 +68,6 @@ public class PauseMenuNavigation : MonoBehaviour
 
     public IEnumerator ScaleOverTime(Transform objectTransform, Vector3 toScale, float duration)
     {
-        //if (SceneManager.GetActiveScene().buildIndex == 8)
-        //{
-        //    objectTransform.localScale = toScale;
-        //    yield break;
-        //}
-
         float counter = 0;
 
         //Get the current scale of the object to be moved
