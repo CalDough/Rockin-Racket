@@ -29,6 +29,10 @@ public static class ItemInventory
     public static bool IsEquipped(ItemTest item) { return equippedItems.Contains(item); }
     public static ItemTest[] GetAllItems() { return allItems; }
 
+    // TODO: set to true to build with saving, false to build without saving
+    private static readonly bool buildHasSaving = false;
+    // TODO: ALSO SET IN GameSaver
+
     public static void Initialize(ItemTest[] completeListOfItems)
     {
         allItems = completeListOfItems;
@@ -57,55 +61,65 @@ public static class ItemInventory
 
     public static void Save(ItemTest[] newItems)
     {
-        Directory.CreateDirectory(saveFolderPath);
+        if (buildHasSaving)
+        {
+            Directory.CreateDirectory(saveFolderPath);
 
-        string filePath = saveFolderPath + saveFileName;
+            string filePath = saveFolderPath + saveFileName;
 
-        if (!File.Exists(filePath))
-            File.WriteAllText(filePath, "");
-        
-        List<string> itemStrings = new();
-        if (newItems != null)
-            foreach (ItemTest newItem in newItems)
-                ownedItems.Add(newItem);
-        foreach (ItemTest item in ownedItems)
-            itemStrings.Add(item.name);
-        File.WriteAllLines(filePath, itemStrings);
+            if (!File.Exists(filePath))
+                File.WriteAllText(filePath, "");
 
-        Debug.Log($"Inventory saved {itemStrings.Count} items");
+            List<string> itemStrings = new();
+            if (newItems != null)
+                foreach (ItemTest newItem in newItems)
+                    ownedItems.Add(newItem);
+            foreach (ItemTest item in ownedItems)
+                itemStrings.Add(item.name);
+            File.WriteAllLines(filePath, itemStrings);
+
+            Debug.Log($"Inventory saved {itemStrings.Count} items");
+        }
     }
 
     private static ItemTest[] Load()
     {
-        Directory.CreateDirectory(saveFolderPath);
+        if (buildHasSaving)
+        {
+            Directory.CreateDirectory(saveFolderPath);
 
-        string filePath = saveFolderPath + saveFileName;
+            string filePath = saveFolderPath + saveFileName;
 
-        List<string> itemNames = new(File.ReadAllLines(filePath));
-        ItemTest[] loadedItems = new ItemTest[itemNames.Count];
+            List<string> itemNames = new(File.ReadAllLines(filePath));
+            ItemTest[] loadedItems = new ItemTest[itemNames.Count];
 
-        int successfullyLoaded = 0;
-        for (int i = 0; i < itemNames.Count; i++)
-            foreach (ItemTest item in allItems)
-            if (itemNames[i] == item.name)
-            {
-                loadedItems[i] = allItems[i];
-                successfullyLoaded++;
-            }
+            int successfullyLoaded = 0;
+            for (int i = 0; i < itemNames.Count; i++)
+                foreach (ItemTest item in allItems)
+                    if (itemNames[i] == item.name)
+                    {
+                        loadedItems[i] = allItems[i];
+                        successfullyLoaded++;
+                    }
 
-        //foreach (string item in itemNames)
-        //    Debug.Log(item);
-        //foreach (ItemTest item in allItems)
-        //    Debug.Log(item.name);
+            //foreach (string item in itemNames)
+            //    Debug.Log(item);
+            //foreach (ItemTest item in allItems)
+            //    Debug.Log(item.name);
 
-        Debug.Log($"Inventory loaded {successfullyLoaded} items loaded out of {itemNames.Count}");
-        return loadedItems;
+            Debug.Log($"Inventory loaded {successfullyLoaded} items loaded out of {itemNames.Count}");
+            return loadedItems;
+        }
+        return new ItemTest[0];
     }
 
     public static void ResetInventory()
     {
-        string filePath = saveFolderPath + saveFileName;
-        File.WriteAllText(filePath, "");
-        ownedItems = new();
+        if (buildHasSaving)
+        {
+            string filePath = saveFolderPath + saveFileName;
+            File.WriteAllText(filePath, "");
+            ownedItems = new();
+        }
     }
 }

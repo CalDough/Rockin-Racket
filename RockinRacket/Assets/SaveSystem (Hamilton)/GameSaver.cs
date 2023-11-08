@@ -17,30 +17,40 @@ public static class GameSaver
     private static int Fame { get; set; }
     private static int Money { get; set; }
 
+    // TODO: set to true to build with saving, false to build without saving
+    private static readonly bool buildHasSaving = false;
+    // TODO: ALSO SET IN ItemInventory
+
     public static void Save()
     {
-        Directory.CreateDirectory(saveFolderPath);
+        if (buildHasSaving)
+        {
+            Directory.CreateDirectory(saveFolderPath);
 
-        string filePath = saveFolderPath + saveFileName;
+            string filePath = saveFolderPath + saveFileName;
 
-        if (!File.Exists(filePath))
-            File.WriteAllText(filePath, "");
+            if (!File.Exists(filePath))
+                File.WriteAllText(filePath, "");
 
 
-        File.WriteAllLines(filePath, LinesToSave());
+            File.WriteAllLines(filePath, LinesToSave());
 
-        Debug.Log($"Game stats saved successfully.");
+            Debug.Log($"Game stats saved successfully.");
+        } 
     }
 
     public static void Load()
     {
-        Directory.CreateDirectory(saveFolderPath);
+        if (buildHasSaving)
+        {
+            Directory.CreateDirectory(saveFolderPath);
 
-        string filePath = saveFolderPath + saveFileName;
+            string filePath = saveFolderPath + saveFileName;
 
-        LoadLines(File.ReadAllLines(filePath));
+            LoadLines(File.ReadAllLines(filePath));
 
-        Debug.Log($"Game stats loaded successfully:");
+            Debug.Log($"Game stats loaded successfully:");
+        }
     }
     private static string[] LinesToSave()
     {

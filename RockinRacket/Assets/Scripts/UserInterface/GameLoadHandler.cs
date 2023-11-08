@@ -49,6 +49,7 @@ public class GameLoadHandler : MonoBehaviour
         GameManager.Instance.NewGame();
     }
 
+    // TODO replace in new script
     public void LoadAllData()
     {
         //AnimalManager.Instance.LoadAnimals();

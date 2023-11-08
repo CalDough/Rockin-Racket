@@ -32,6 +32,7 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         bought = false;
+        // TODO find a better way to do this
         ItemInventory.Initialize(completeListOfItems);
         
         OpenShopMenu(); // Temp until cutscene works
