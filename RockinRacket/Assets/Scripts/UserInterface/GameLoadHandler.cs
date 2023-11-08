@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using static SceneInfo;
 /*
     This script is a test UI script the Pause Menu and Main Menu
 */
@@ -28,17 +29,14 @@ public class GameLoadHandler : MonoBehaviour
 
     private void Awake()
     {
+        actionAsset.FindActionMap("PauseMenu").Disable();
         // Assuming you have an action map named "Menu" and a Pause action within it.
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         menuActionMap = actionAsset.FindActionMap("PauseMenu");
         pauseAction = menuActionMap.FindAction("Pause");
 
         pauseAction.performed += _ => ToggleMenu();
-    }
-
-    private void Start()
-    {
         UIBlocker.SetActive(false);
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
     
     public void NewData()
@@ -86,17 +84,19 @@ public class GameLoadHandler : MonoBehaviour
 
     public void GoBackScene()
     {
-        int nextScene = 0;
+        int nextScene = (int)SceneIndex.MainMenu;
         if (sceneIndexHistory.Count != 0)
             nextScene = sceneIndexHistory.Pop();
         if (currentSceneIndex != nextScene)
             SetScene(nextScene);
+        else if (currentSceneIndex == (int)SceneIndex.MainMenu)
+            SetScene((int)SceneIndex.StartMenu);
     }
 
     // for TESTING
     public void RandomScene()
     {
-        SwitchToScene(new System.Random().Next(2, 7));
+        SwitchToScene(new System.Random().Next(1, 7));
     }
 
     public void SwitchToScene(int sceneIndex)
@@ -104,7 +104,7 @@ public class GameLoadHandler : MonoBehaviour
         pauseAction.Disable();
         pauseAction.Dispose();
         // clear sceneIndexHistory
-        if (sceneIndex == 8 || sceneIndex == 10)
+        if (sceneIndex == (int)SceneIndex.ConcertDefault)
         {
             sceneIndexHistory = new();
             SetScene(currentSceneIndex);
@@ -118,12 +118,12 @@ public class GameLoadHandler : MonoBehaviour
         Debug.Log("Current Index: " + currentSceneIndex + "  ||  " + "Next Index: " + sceneIndex + "  ||  " + "history size: " + sceneIndexHistory.Count.ToString());
     }
 
-    public void OpenStartMenu() { SwitchToScene(0); }
-    public void OpenMainMenu() { SwitchToScene(1); }
-    public void OpenSelectVenues() { SwitchToScene(3); }
-    public void OpenBandManagement() { SwitchToScene(4); }
-    public void OpenShop() { SwitchToScene(5); }
-    public void OpenSettings() { SwitchToScene(10); }
+    public void OpenStartMenu() { SwitchToScene((int)SceneIndex.StartMenu); }
+    public void OpenMainMenu() { SwitchToScene((int)SceneIndex.MainMenu); }
+    public void OpenVenueSelection() { SwitchToScene((int)SceneIndex.VenueSelection); }
+    public void OpenBandManagement() { SwitchToScene((int)SceneIndex.BandManagement); }
+    public void OpenShop() { SwitchToScene((int)SceneIndex.Shop); }
+    public void OpenSettings() { SwitchToScene((int)SceneIndex.SettingsMenu); }
 
     //private void PrintSceneIndexHistory()
     //{
