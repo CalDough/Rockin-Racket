@@ -746,6 +746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startConvo: {fileID: 4900000, guid: b96f5441d850e448eaab699b333c3dd6, type: 3}
+  returnConvo: {fileID: 4900000, guid: bd5385a03be384c80889cca5c2a47c36, type: 3}
   openCatalogConvo: {fileID: 4900000, guid: e688d61b2a06f4ad39f27a2dddad33db, type: 3}
   leaveBoughtConvo: {fileID: 4900000, guid: 1b99569fc23ee4085bfc8cf57fcf894c, type: 3}
   leaveNotBoughtConvo: {fileID: 4900000, guid: d0b7e8cd964d147b9b4fc417b8e62378, type: 3}
@@ -1727,7 +1728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3529412, g: 0.011764706, b: 0.003921569, a: 1}
+  m_Color: {r: 0, g: 0.5568628, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6243,7 +6244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 786232aaa80114c978fcad4bc8d23b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 387501458}
+  dialogueText: {fileID: 387501458}
 --- !u!1 &1658140281
 GameObject:
   m_ObjectHideFlags: 0
@@ -9557,7 +9558,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 186013529}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: OpenShopMenu
+        m_MethodName: ReturnToShop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9727,11 +9728,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DialogueSystem
-      objectReference: {fileID: 0}
-    - target: {fileID: 3368756197060175536, guid: e26d65456821027469438d9ec8ee8c4e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4952786936255810171, guid: e26d65456821027469438d9ec8ee8c4e,
         type: 3}

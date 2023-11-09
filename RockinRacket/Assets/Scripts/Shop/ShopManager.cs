@@ -35,12 +35,12 @@ public class ShopManager : MonoBehaviour
         // TODO find a better way to do this
         ItemInventory.Initialize(completeListOfItems);
 
-        //OpenShopMenu();
+        OpenShopMenu();
     }
 
     private void Update()
     {
-        StartShopkeeperDialogue(startConvo, Action.OpenShopMenu);
+        //StartShopkeeperDialogue(startConvo, Action.OpenShopMenu);
         enabled = false; // stops update from running after first frame
     }
 
@@ -50,17 +50,14 @@ public class ShopManager : MonoBehaviour
         {
             case 0: StartShopkeeperDialogue(openCatalogConvo, Action.OpenCatalog); break;
             case 1: StartShopkeeperDialogue(justChattingConvo, Action.OpenShopMenu); break;
-            case 3:
+            case 2:
                 {
-                    print("1");
                     if (bought)
                     {
-                        print("2");
                         StartShopkeeperDialogue(leaveBoughtConvo, Action.ExitShop);
                     }
                     else
                     {
-                        print("3");
                         StartShopkeeperDialogue(leaveNotBoughtConvo, Action.ExitShop);
                     }
                     break;
@@ -103,17 +100,6 @@ public class ShopManager : MonoBehaviour
             //case Action.ReturnToShopMenu: ReturnToShop(); break;
             case Action.OpenCatalog: OpenShopCatalog(); break;
             case Action.ExitShop: gameLoadHandler.OpenMainMenu(); break;
-        }
-    }
-
-    public void CloseShopScene()
-    {
-        CustomSceneEvent.CustomTransitionCalled(1);
-        TimeEvents.GameResumed();
-        if (StateManager.Instance != null)
-        {
-            if (StateManager.Instance.concertIsActive)
-            { StateManager.Instance.EndConcertEarly(); }
         }
     }
 }
