@@ -10,8 +10,9 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    private enum Action {OpenShopMenu, OpenCatalog, ExitShop};
+    private enum Action {OpenShopMenu, ReturnToShopMenu, OpenCatalog, ExitShop};
     [SerializeField] private TextAsset startConvo;
+    [SerializeField] private TextAsset returnConvo;
     [SerializeField] private TextAsset openCatalogConvo;
     [SerializeField] private TextAsset leaveBoughtConvo;
     [SerializeField] private TextAsset leaveNotBoughtConvo;
@@ -33,22 +34,46 @@ public class ShopManager : MonoBehaviour
         bought = false;
         // TODO find a better way to do this
         ItemInventory.Initialize(completeListOfItems);
-        
-        OpenShopMenu();
+
+        //OpenShopMenu();
+    }
+
+    private void Update()
+    {
+        StartShopkeeperDialogue(startConvo, Action.OpenShopMenu);
+        enabled = false; // stops update from running after first frame
     }
 
     public void MakeChoice(int choice)
     {
-        if (choice == 0)
-            StartShopkeeperDialogue(openCatalogConvo, Action.OpenCatalog);
-        if (choice == 1)
-            StartShopkeeperDialogue(justChattingConvo, Action.OpenShopMenu);
-        if (choice == 2)
-            if (bought)
-                StartShopkeeperDialogue(leaveBoughtConvo, Action.ExitShop);
-            else
-                StartShopkeeperDialogue(leaveNotBoughtConvo, Action.ExitShop);
+        switch (choice)
+        {
+            case 0: StartShopkeeperDialogue(openCatalogConvo, Action.OpenCatalog); break;
+            case 1: StartShopkeeperDialogue(justChattingConvo, Action.OpenShopMenu); break;
+            case 3:
+                {
+                    print("1");
+                    if (bought)
+                    {
+                        print("2");
+                        StartShopkeeperDialogue(leaveBoughtConvo, Action.ExitShop);
+                    }
+                    else
+                    {
+                        print("3");
+                        StartShopkeeperDialogue(leaveNotBoughtConvo, Action.ExitShop);
+                    }
+                    break;
+                }
+        }
     }
+
+    public void ReturnToShop()
+    {
+        //StartShopkeeperDialogue(returnConvo, Action.OpenShopMenu);
+        OpenShopMenu();
+    }
+
     private void OpenShopCatalog()
     {
         shopMenu.Close();
@@ -72,13 +97,15 @@ public class ShopManager : MonoBehaviour
     }
     public void EndShopkeeperDialogue()
     {
-        if (onClose == Action.OpenShopMenu)
-            OpenShopMenu();
-        else if (onClose == Action.OpenCatalog)
-            OpenShopCatalog();
-        else if (onClose == Action.ExitShop)
-            gameLoadHandler.OpenMainMenu();
+        switch (onClose)
+        {
+            case Action.OpenShopMenu: OpenShopMenu(); break;
+            //case Action.ReturnToShopMenu: ReturnToShop(); break;
+            case Action.OpenCatalog: OpenShopCatalog(); break;
+            case Action.ExitShop: gameLoadHandler.OpenMainMenu(); break;
+        }
     }
+
     public void CloseShopScene()
     {
         CustomSceneEvent.CustomTransitionCalled(1);
