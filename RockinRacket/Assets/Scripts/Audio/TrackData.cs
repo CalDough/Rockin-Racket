@@ -9,8 +9,6 @@ using UnityEngine;
 [System.Serializable]
 public class TrackData
 {
-    public Attribute PrimaryRole;
     public string PrimaryTrackPath;
-    public Attribute SecondaryRole;
     public string SecondaryTrackPath;
 }

@@ -39,7 +39,6 @@ public class BandManager : MonoBehaviour
 
     public void SetPositionRole(BandPosition role, Attribute newRoleType)
     {
-        role.CurrentRole = newRoleType;
     }
 
     public List<Attribute> GetBandMemberInstruments(SongData songData)
@@ -59,21 +58,6 @@ public class BandManager : MonoBehaviour
         // Loop over the track data
         foreach (TrackData track in trackDataList)
         {
-            if (track.PrimaryRole != Attribute.Vocal)
-            {
-                // If the primary role is not Vocal, add it to the list
-                instrumentList.Add(track.PrimaryRole);
-            }
-            else if (track.SecondaryRole != Attribute.Vocal)
-            {
-                // If the primary role is Vocal but the secondary role is not, add the secondary role to the list
-                instrumentList.Add(track.SecondaryRole);
-            }
-            else
-            {
-                // If both roles are Vocal, add Vocal to the list
-                instrumentList.Add(Attribute.Vocal);
-            }
         }
 
         // Return the final list of instruments
@@ -142,68 +126,6 @@ public class BandManager : MonoBehaviour
 
     public void LoadDefaultBand()
     {
-        Debug.Log("Loading default band");
-        Manager = new BandPosition(); 
-        Manager.CurrentRole = Attribute.Management;
-        Manager.IsActivePosition = true;
-        Manager.Skills.Add(new Skill(Attribute.Brass, 25));
-        Manager.Skills.Add(new Skill(Attribute.Keyboard, 25));
-        Manager.Skills.Add(new Skill(Attribute.Management, 50));
-        Manager.Skills.Add(new Skill(Attribute.Percussion, 25));
-        Manager.Skills.Add(new Skill(Attribute.Repair, 25));
-        Manager.Skills.Add(new Skill(Attribute.Strings, 25));
-        Manager.Skills.Add(new Skill(Attribute.Vocal, 25));
-        Manager.Skills.Add(new Skill(Attribute.Woodwind, 25));
-
-        AnimalOne = new BandPosition(); // Upfront, usually Vocalist
-        AnimalOne.CurrentRole = Attribute.Vocal;
-        AnimalOne.IsActivePosition = true;
-        AnimalOne.Skills.Add(new Skill(Attribute.Brass, 25));
-        AnimalOne.Skills.Add(new Skill(Attribute.Keyboard, 25));
-        AnimalOne.Skills.Add(new Skill(Attribute.Management, 25));
-        AnimalOne.Skills.Add(new Skill(Attribute.Percussion, 25));
-        AnimalOne.Skills.Add(new Skill(Attribute.Repair, 25));
-        AnimalOne.Skills.Add(new Skill(Attribute.Strings, 25));
-        AnimalOne.Skills.Add(new Skill(Attribute.Vocal, 50));
-        AnimalOne.Skills.Add(new Skill(Attribute.Woodwind, 25));
-
-        AnimalTwo = new BandPosition();  // Right Side
-        AnimalTwo.CurrentRole = Attribute.Strings;
-        AnimalTwo.IsActivePosition = true;
-        AnimalTwo.Skills.Add(new Skill(Attribute.Brass, 25));
-        AnimalTwo.Skills.Add(new Skill(Attribute.Keyboard, 45));
-        AnimalTwo.Skills.Add(new Skill(Attribute.Management, 25));
-        AnimalTwo.Skills.Add(new Skill(Attribute.Percussion, 25));
-        AnimalTwo.Skills.Add(new Skill(Attribute.Repair, 25));
-        AnimalTwo.Skills.Add(new Skill(Attribute.Strings, 50));
-        AnimalTwo.Skills.Add(new Skill(Attribute.Vocal, 25));
-        AnimalTwo.Skills.Add(new Skill(Attribute.Woodwind, 25));
-
-        AnimalThree = new BandPosition(); // Left Side
-        AnimalThree.CurrentRole = Attribute.Strings;
-        AnimalThree.IsActivePosition = true;
-        AnimalThree.Skills.Add(new Skill(Attribute.Brass, 25));
-        AnimalThree.Skills.Add(new Skill(Attribute.Keyboard, 50));
-        AnimalThree.Skills.Add(new Skill(Attribute.Management, 25));
-        AnimalThree.Skills.Add(new Skill(Attribute.Percussion, 25));
-        AnimalThree.Skills.Add(new Skill(Attribute.Repair, 25));
-        AnimalThree.Skills.Add(new Skill(Attribute.Strings, 45));
-        AnimalThree.Skills.Add(new Skill(Attribute.Vocal, 25));
-        AnimalThree.Skills.Add(new Skill(Attribute.Woodwind, 25));
-        
-        AnimalFour = new BandPosition(); 
-        AnimalFour.CurrentRole = Attribute.Percussion;
-        AnimalFour.IsActivePosition = true;
-        AnimalFour.Skills.Add(new Skill(Attribute.Brass, 25));
-        AnimalFour.Skills.Add(new Skill(Attribute.Keyboard, 25));
-        AnimalFour.Skills.Add(new Skill(Attribute.Management, 25));
-        AnimalFour.Skills.Add(new Skill(Attribute.Percussion, 50));
-        AnimalFour.Skills.Add(new Skill(Attribute.Repair, 25));
-        AnimalFour.Skills.Add(new Skill(Attribute.Strings, 25));
-        AnimalFour.Skills.Add(new Skill(Attribute.Vocal, 25));
-        AnimalFour.Skills.Add(new Skill(Attribute.Woodwind, 25));
-
-
 
 
     }
@@ -214,12 +136,5 @@ public class BandManager : MonoBehaviour
 [System.Serializable]
 public class BandPosition 
 {
-    public BandPosition()
-    {
-        CurrentRole = Attribute.Management;
-    }
-
     public bool IsActivePosition = true;  
-    public Attribute CurrentRole;     
-    public List<Skill> Skills = new List<Skill>(); 
 }

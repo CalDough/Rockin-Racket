@@ -56,6 +56,7 @@ public class BandAudioController : MonoBehaviour
     
     public void StartSounds()
     {
+        //Debug.Log("Trying get song for " + bandName);
         instrumentEvent = "";
         voiceEvent = "";
         if (instrumentEmitterInstance != null)
@@ -63,30 +64,30 @@ public class BandAudioController : MonoBehaviour
         if (voiceEmitterInstance != null) 
         {Destroy(voiceEmitterInstance.gameObject);}
 
-        if(GameStateManager.Instance.CurrentGameState.Song == null)
+        if(StateManager.Instance.CurrentState.Song == null)
         {return;}
         
         switch(bandName)
         {
             case BandRoleName.Haley:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Haley.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Haley.SecondaryTrackPath;
+                this.instrumentEvent = StateManager.Instance.CurrentState.Song.Haley.PrimaryTrackPath;
+                this.voiceEvent = StateManager.Instance.CurrentState.Song.Haley.SecondaryTrackPath;
                 break;
             case BandRoleName.Kurt:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Kurt.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Kurt.SecondaryTrackPath;
+                this.instrumentEvent = StateManager.Instance.CurrentState.Song.Kurt.PrimaryTrackPath;
+                this.voiceEvent = StateManager.Instance.CurrentState.Song.Kurt.SecondaryTrackPath;
                 break;
             case BandRoleName.Ace:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Ace.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Ace.SecondaryTrackPath;
+                this.instrumentEvent = StateManager.Instance.CurrentState.Song.Ace.PrimaryTrackPath;
+                this.voiceEvent = StateManager.Instance.CurrentState.Song.Ace.SecondaryTrackPath;
                 break;
             case BandRoleName.MJ:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.MJ.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.MJ.SecondaryTrackPath;
+                this.instrumentEvent = StateManager.Instance.CurrentState.Song.MJ.PrimaryTrackPath;
+                this.voiceEvent = StateManager.Instance.CurrentState.Song.MJ.SecondaryTrackPath;
                 break;
             case BandRoleName.Speakers:
-                this.instrumentEvent = GameStateManager.Instance.CurrentGameState.Song.Speakers.PrimaryTrackPath;
-                this.voiceEvent = GameStateManager.Instance.CurrentGameState.Song.Speakers.SecondaryTrackPath;
+                this.instrumentEvent = StateManager.Instance.CurrentState.Song.Speakers.PrimaryTrackPath;
+                this.voiceEvent = StateManager.Instance.CurrentState.Song.Speakers.SecondaryTrackPath;
                 break;
             default:
                 Debug.Log("Trying to affect band member not on list: " + bandName);
@@ -176,11 +177,10 @@ public class BandAudioController : MonoBehaviour
     {
         TimeEvents.OnGamePaused += PauseConcert;    
         TimeEvents.OnGameResumed += ResumeConcert;  
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
         ConcertAudioEvent.OnAudioBroken += AudioBroken;
         ConcertAudioEvent.OnAudioFixed += AudioFixed;
-        
         ConcertAudioEvent.OnConcertEnd += ConcertEnd;
 
         ConcertAudioEvent.OnRequestBandPlayers += SendToRequester;
@@ -190,8 +190,8 @@ public class BandAudioController : MonoBehaviour
     {
         TimeEvents.OnGamePaused -= PauseConcert; 
         TimeEvents.OnGameResumed -= ResumeConcert; 
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
         ConcertAudioEvent.OnAudioBroken -= AudioBroken;
         ConcertAudioEvent.OnAudioFixed -= AudioFixed;
         
@@ -205,29 +205,31 @@ public class BandAudioController : MonoBehaviour
         ConcertAudioEvent.SendBandPlayers(this);
     }
 
-    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public void HandleGameStateStart(object sender, StateEventArgs e)
     {
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
+                //Debug.Log(this.bandName +" is Playing Music");
                 StartSounds();
                 break;
-            case GameModeType.Intermission:
+            case StateType.Intermission:
                 break;
             default:
                 break;
         }
     }
     
-    public void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    public void HandleGameStateEnd(object sender, StateEventArgs e)
     {
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
+                //Debug.Log(this.bandName +" is stopped Music");
                 StopSounds();
                 ResetAudio();
                 break;
-            case GameModeType.Intermission:
+            case StateType.Intermission:
                 break;
             default:
                 break;

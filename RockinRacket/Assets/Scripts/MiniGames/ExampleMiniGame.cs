@@ -190,15 +190,15 @@ public class ExampleMiniGame : MiniGame
     */
     void OnDestroy()
     {
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
     
     void Start()
     {   
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     
@@ -206,13 +206,13 @@ public class ExampleMiniGame : MiniGame
     If your mini-game lasts between segments such as intermission and songs, then we should replace the HandleClosing() and 
     End event code here. 
     */
-    public override void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public override void HandleGameStateStart(object sender, StateEventArgs e)
     {
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 break;
-            case GameModeType.Intermission:
+            case StateType.Intermission:
                 break;
             default:
                 break;
@@ -221,15 +221,15 @@ public class ExampleMiniGame : MiniGame
     
     //When the GameStateManager ends the current state, we can handle it here
     //Example: Song ends so we can turn off all instrument events.
-    public override void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    public override void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 HandleClosing();
                 if(isActiveEvent){Miss();}
                 break;
-            case GameModeType.Intermission:
+            case StateType.Intermission:
                 HandleClosing();
                 if(isActiveEvent){Miss();}
                 break;

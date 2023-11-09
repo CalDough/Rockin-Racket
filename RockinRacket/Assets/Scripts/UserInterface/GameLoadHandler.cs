@@ -129,9 +129,9 @@ public class GameLoadHandler : MonoBehaviour
     private void SetScene(int sceneIndex)
     {
         CustomSceneEvent.CustomTransitionCalled(sceneIndex);
-        if(GameStateManager.Instance != null)
+        if(StateManager.Instance != null)
         {
-            if (GameStateManager.Instance.ConcertActive) {GameStateManager.Instance.EndConcertEarly();}
+            if (StateManager.Instance.concertIsActive) {StateManager.Instance.EndConcertEarly();}
         }
     }
 }

@@ -32,36 +32,36 @@ public class IntermissionHandler : MonoBehaviour
     
     public void StartConcert()
     {
-        GameStateManager.Instance.StartConcert();
+        StateManager.Instance.InitializeConcertData();
         StartConcertButton.SetActive(false);
     }
     
     public void StartNextState()
     {
-        if(GameStateManager.Instance.CurrentGameState.UseDuration == false)
+        if(StateManager.Instance.CurrentState.isManualDuration == true)
         {
-            GameStateManager.Instance.EndCurrentGameState();
+            StateManager.Instance.CompleteState();
         }
     }
 
     void Start()
     {
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
 
         intermissionScreen.SetActive(false); // Ken added code
     }
     
     void OnDestroy()
     {
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
-    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public void HandleGameStateStart(object sender, StateEventArgs e)
     {
-        Debug.Log("State Started: " + e.stateType);
-        if(e.state.UseDuration == false)
+        Debug.Log("State Started: " + e.state.stateType);
+        if(e.state.isManualDuration == true)
         {
             nextStateButton.gameObject.SetActive(true);
             
@@ -69,7 +69,7 @@ public class IntermissionHandler : MonoBehaviour
         }
     }
     
-    private void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    private void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         
         //Debug.Log("Game state ended: " + e.state.GameType);
@@ -77,11 +77,12 @@ public class IntermissionHandler : MonoBehaviour
         
         intermissionScreen.SetActive(false); // Ken added code
     }
+
     public bool CheckIfStoryContinues()
     {
         //Call story manager to get our next cinematic after this concert 
         // still thinking through the logic on this class and need the story manager
-        if( GameStateManager.Instance.SelectedVenue != null)
+        if( StateManager.Instance.ConcertVenue != null)
         {
             return false;
         }
@@ -98,9 +99,7 @@ public class IntermissionHandler : MonoBehaviour
 
         if(presetVenue != null)
         {
-            GameStateManager.Instance.SelectedVenue = presetVenue;
-            //stagedMiniGames.MiniGamesPrefabs.Add(tutorialConcertMiniGame);
-            //stagedMiniGames.MiniGamesPrefabs.Add(tutorialIntermissionMiniGame);
+            StateManager.Instance.ConcertVenue = presetVenue;
             StartConcert();
         }
         if(Cinematic != null && leaveButton != null)
@@ -113,7 +112,6 @@ public class IntermissionHandler : MonoBehaviour
     public void leaveButtonReplacement(TransitionData SceneToLoad)
     {
         CustomSceneEvent.CustomTransitionCalled(SceneToLoad);
-        GameStateManager.Instance.ResetVariables();
         //Call story manager to set a bool flag that we completed X events too
     }
     

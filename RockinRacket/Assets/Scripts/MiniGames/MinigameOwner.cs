@@ -45,8 +45,8 @@ public class MinigameOwner : MonoBehaviour
         GameEvents.OnEventCancel += HandleEventCancel;
         GameEvents.OnEventComplete += HandleEventComplete;
         GameEvents.OnEventMiss += HandleEventMiss;
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void UnsubscribeEvents()
@@ -56,8 +56,8 @@ public class MinigameOwner : MonoBehaviour
         GameEvents.OnEventCancel -= HandleEventCancel;
         GameEvents.OnEventComplete -= HandleEventComplete;
         GameEvents.OnEventMiss -= HandleEventMiss;
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
     private void CheckInventory()
@@ -96,7 +96,7 @@ public class MinigameOwner : MonoBehaviour
 
     public void ActivateMiniGame()
     {   
-        if (!IsAvailable || GameStateManager.Instance.CurrentGameState.GameType != GameModeType.Song || 
+        if (!IsAvailable || StateManager.Instance.CurrentState.stateType != StateType.Song || 
             MinigameStatusManager.Instance.OpenedMiniGame != null || (useAttempts && attempts >= maxAttempts))
             {return;}
 
@@ -152,12 +152,12 @@ public class MinigameOwner : MonoBehaviour
 
     }
 
-    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         //Debug.Log("State Started: " + e.stateType);
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 gameButton.interactable = true; 
                 break;
             default:
@@ -165,12 +165,12 @@ public class MinigameOwner : MonoBehaviour
         }
     }
     
-    private void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    private void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         //Debug.Log("Game state ended: " + e.state.GameType);
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 gameButton.interactable = true; 
                 EndCooldowns();
                 break;

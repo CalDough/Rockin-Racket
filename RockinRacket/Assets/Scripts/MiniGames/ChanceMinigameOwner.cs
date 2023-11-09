@@ -53,8 +53,8 @@ public class ChanceMinigameOwner : MonoBehaviour
         GameEvents.OnEventCancel += HandleEventCancel;
         GameEvents.OnEventComplete += HandleEventComplete;
         GameEvents.OnEventMiss += HandleEventMiss;
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void UnsubscribeEvents()
@@ -64,8 +64,8 @@ public class ChanceMinigameOwner : MonoBehaviour
         GameEvents.OnEventCancel -= HandleEventCancel;
         GameEvents.OnEventComplete -= HandleEventComplete;
         GameEvents.OnEventMiss -= HandleEventMiss;
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
     private void CheckInventory()
@@ -98,7 +98,7 @@ public class ChanceMinigameOwner : MonoBehaviour
     public void OpenActiveMiniGame()
     {
         //Debug.Log("Attempting opening");
-        if(GameStateManager.Instance.CurrentGameState.GameType != GameModeType.Song)
+        if(StateManager.Instance.CurrentState.stateType != StateType.Song)
         {
             Debug.Log("Not a song right now");
             return;
@@ -121,7 +121,7 @@ public class ChanceMinigameOwner : MonoBehaviour
         if(!IsAvailable){return;}
         
         // if it's not a song, return
-        if(GameStateManager.Instance.CurrentGameState.GameType != GameModeType.Song)
+        if(StateManager.Instance.CurrentState.stateType != StateType.Song)
         { Debug.Log("Not a song right now"); return;}
 
         // if another game is open, return
@@ -229,15 +229,15 @@ public class ChanceMinigameOwner : MonoBehaviour
         // Logic for starting the mini-game goes here
     }
 
-    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         //Debug.Log("State Started: " + e.stateType);
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 BeginCooldowns();
                 break;
-            case GameModeType.Intermission:
+            case StateType.Intermission:
 
                 break;
             default:
@@ -246,12 +246,12 @@ public class ChanceMinigameOwner : MonoBehaviour
         }
     }
     
-    private void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    private void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         //Debug.Log("Game state ended: " + e.state.GameType);
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 EndCooldowns();
                 OpenMinigameButton.SetActive(false);
                 if(AvailableMiniGame && isMinigameActive)

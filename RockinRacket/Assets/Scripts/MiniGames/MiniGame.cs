@@ -142,26 +142,26 @@ public class MiniGame : MonoBehaviour
 
     void OnDestroy()
     {
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
     // Start is called before the first frame update
     void Start()
     {   
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     //When the GameStateManager starts a new state, we can handle it here
     //Example: Intermission starts and we know that this event should pop up instantly.
-    public virtual void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public virtual void HandleGameStateStart(object sender, StateEventArgs e)
     {
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 break;
-            case GameModeType.Intermission:
+            case StateType.Intermission:
                 break;
             default:
                 break;
@@ -170,15 +170,15 @@ public class MiniGame : MonoBehaviour
     
     //When the GameStateManager ends the current state, we can handle it here
     //Example: Song ends so we can turn off all instrument events.
-    public virtual void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    public virtual void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 HandleClosing();
                 if(isActiveEvent){Miss();}
                 break;
-            case GameModeType.Intermission:
+            case StateType.Intermission:
                 HandleClosing();
                 if(isActiveEvent){Miss();}
                 break;

@@ -37,8 +37,8 @@ public class MoodBars : MonoBehaviour
     private void Start()
     {
         InitializeSliders();
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void Update()
@@ -119,16 +119,16 @@ public class MoodBars : MonoBehaviour
     
     void OnDestroy()
     {
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
-    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         //Debug.Log("State Started: " + e.stateType);
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 InitializeSliders();
                 break;
             default:
@@ -136,12 +136,12 @@ public class MoodBars : MonoBehaviour
         }
     }
     
-    private void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    private void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         //Debug.Log("Game state ended: " + e.state.GameType);
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 InitializeSliders();
                 break;
             default:

@@ -11,13 +11,8 @@ using UnityEngine;
 public class Venue : ScriptableObject
 {
     public string VenueName;
-    public int Difficulty;
-    public int SongSlots;
-    public List<Environment> environments;
-    public VenueSize venueSize;
-
-    [SerializeField] public List<GameState> StagedGameStates;
-
+    [SerializeField] public List<State> ConcertStates;
+    /*
     [Header("Band Battle Settings")]
     [Header("Set their Songs in the Staged States")]
     public bool IsBandBattle;
@@ -25,6 +20,6 @@ public class Venue : ScriptableObject
     public int MoneyToBeat;
     public int StyleScoreToBeat;
     [Header("Scene To Load")]
-    
-    public int SceneIndex;
+    */
+    //public int SceneIndex;
 }

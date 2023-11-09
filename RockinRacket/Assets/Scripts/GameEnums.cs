@@ -42,14 +42,7 @@ public static class BandRoleEnumHelper
     }
 }
 [System.Serializable]
-public enum SongType
-{
-    Rock,
-    Punk,
-    Pop,
-}
-[System.Serializable]
-public enum GameModeType
+public enum StateType
 {
     Default, //
     SceneIntro, // Scene intro with characters entering location
@@ -66,46 +59,6 @@ public enum GameModeType
     Cutscene, //
     Dialogue, //
     BandBattle,
-
-}
-/*
-    I was planning on having Venue size determine max occupancy of Attendees and stuff
-*/
-[System.Serializable]
-public enum VenueSize
-{
-    Default,
-    Small,
-    Medium,
-    Large
-}
-/*
-    I was planning on having enviroment determine potential mini-games that could occur
-*/
-[System.Serializable]
-public enum Environment
-{
-    Urban,
-    Rural,
-    City,
-    Indoors,
-    Outdoors,
-}
-/*
-    This script is an enum that has the core values related to items, skills, and roles in the game.
-    It is meant to simplify what an item is for, what skills can be, and what instruement or job a raccoon is doing in the concert at the time.
-*/
-
-public enum Attribute
-{
-    Vocal,
-    Strings,
-    Percussion,
-    Keyboard,
-    Brass,
-    Woodwind,
-    Repair,
-    Management
 
 }
 [System.Serializable]

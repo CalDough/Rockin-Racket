@@ -83,10 +83,10 @@ public class ShopManager : MonoBehaviour
     {
         CustomSceneEvent.CustomTransitionCalled(1);
         TimeEvents.GameResumed();
-        if (GameStateManager.Instance != null)
+        if (StateManager.Instance != null)
         {
-            if (GameStateManager.Instance.ConcertActive)
-            { GameStateManager.Instance.EndConcertEarly(); }
+            if (StateManager.Instance.concertIsActive)
+            { StateManager.Instance.EndConcertEarly(); }
         }
     }
 }

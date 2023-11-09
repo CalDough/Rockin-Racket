@@ -289,21 +289,21 @@ public class AudienceController : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void UnsubscribeEvents()
     {
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
-    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 CalculateThresholds();
                 ManageAudienceMembersCoroutine = StartCoroutine(ManageAudienceMembers());
                 RandomizeAudienceMoodsCoroutine = StartCoroutine(RandomizeAudienceMoods());
@@ -313,11 +313,11 @@ public class AudienceController : MonoBehaviour
         }
     }
     
-    private void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    private void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 if(ManageAudienceMembersCoroutine != null)
                 {
                     StopCoroutine(ManageAudienceMembersCoroutine);

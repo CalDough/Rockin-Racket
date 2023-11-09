@@ -16,8 +16,6 @@ public class SongData : ScriptableObject
     [Multiline]
     public string Description;
     public float Duration;
-    public int Difficulty; 
-    public List<SongType> SongTypes;
 
     public TrackData Ace; //Usually Vocalist + Guitar Strings
     public TrackData Haley; //Usually Bass Strings + Vocals

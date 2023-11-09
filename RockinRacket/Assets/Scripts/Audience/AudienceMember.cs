@@ -213,8 +213,8 @@ public class AudienceMember : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
         MoodEvent.OnHypeAndComfortChange += HandleNewHypeAndComfortChange;
     }
 
@@ -229,16 +229,16 @@ public class AudienceMember : MonoBehaviour
 
     private void UnsubscribeEvents()
     {
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
         MoodEvent.OnHypeAndComfortChange -= HandleNewHypeAndComfortChange;
     }
 
-    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 UpdateBehavior();
                 MoveCoroutine = StartCoroutine(MoveRoutine());
                 break;
@@ -247,11 +247,11 @@ public class AudienceMember : MonoBehaviour
         }
     }
     
-    private void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    private void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         switch(e.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 if(MoveCoroutine != null)
                 {
                     StopCoroutine(MoveCoroutine);

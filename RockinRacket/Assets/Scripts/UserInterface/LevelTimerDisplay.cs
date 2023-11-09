@@ -18,13 +18,13 @@ public class LevelTimerDisplay : MonoBehaviour
 
     private void Update()
     {
-        if (GameStateManager.Instance == null || GameStateManager.Instance.CurrentGameState == null)
+        if (StateManager.Instance == null || StateManager.Instance.CurrentState == null|| StateManager.Instance.CurrentState.stateType != StateType.Song)
         {
             return;
         }
 
-        float duration = GameStateManager.Instance.CurrentGameState.Duration;
-        float currentTime = GameStateManager.Instance.levelTime;
+        float duration = StateManager.Instance.stateDuration;
+        float currentTime = StateManager.Instance.stateRemainder;
 
         UpdateTimerSlider(duration, currentTime);
     }

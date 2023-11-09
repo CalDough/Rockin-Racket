@@ -73,15 +73,15 @@ public class BandAnimationController : MonoBehaviour
         particleSystem.Stop();
     }
 
-    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.SongIntro:
+            case StateType.SongIntro:
                 MoveToTarget("Stage");
                 break;
-            case GameModeType.Song:
+            case StateType.Song:
                 MoveToTarget("Stage");
                 PlayAnimation(playName); //For now i'll always force the characters to play with this
                 if(moveAndPlay)
@@ -89,17 +89,17 @@ public class BandAnimationController : MonoBehaviour
                     StartCoroutine(MoveAndPlayRoutine());
                 }
                 break;
-            case GameModeType.SongOutro:
-                if(GameStateManager.Instance.NextStateType() == GameModeType.IntermissionIntro)
+            case StateType.SongOutro:
+                if(StateManager.Instance.GetNextStateType() == StateType.IntermissionIntro)
                 {MoveToTarget("Backstage");}
                 break;
-            case GameModeType.IntermissionIntro:
+            case StateType.IntermissionIntro:
                 MoveToTarget("Backstage");
                 break;
-            case GameModeType.Intermission:
+            case StateType.Intermission:
                 MoveToTarget("Backstage");
                 break;
-            case GameModeType.IntermissionOutro:
+            case StateType.IntermissionOutro:
                 MoveToTarget("Stage");
                 break;
             default:
@@ -108,15 +108,15 @@ public class BandAnimationController : MonoBehaviour
         
     }
     
-    public void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    public void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         StopAnimation();
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 PlayAnimation(idleName);
                 break;
-            case GameModeType.Intermission:
+            case StateType.Intermission:
                 break;
             default:
                 break;
@@ -131,8 +131,8 @@ public class BandAnimationController : MonoBehaviour
         
         ConcertAudioEvent.OnPlayingAudio += HandleAudioStart;
         
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void OnDestroy()
@@ -141,8 +141,8 @@ public class BandAnimationController : MonoBehaviour
         ConcertAudioEvent.OnAudioFixed -= HandleAudioFixed;
         ConcertAudioEvent.OnConcertEnd -= HandleConcertEnd;
         
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
     
     private void HandleAudioStart(object sender, ConcertAudioEventArgs e)

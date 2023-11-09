@@ -144,7 +144,7 @@ public class MinigameStatusManager : MonoBehaviour
         {
             yield return new WaitForSeconds(hypeInterval);
 
-            if (GameStateManager.Instance.CurrentGameState.GameType == GameModeType.Song) 
+            if (StateManager.Instance.CurrentState.stateType == StateType.Song) 
             {
                 foreach (BandAudioController member in bandMembers)
                 {
@@ -175,7 +175,7 @@ public class MinigameStatusManager : MonoBehaviour
         {
             yield return new WaitForSeconds(comfortInterval);
 
-            if (GameStateManager.Instance.CurrentGameState.GameType == GameModeType.Song) 
+            if (StateManager.Instance.CurrentState.stateType == StateType.Song) 
             {
                 ModifyComfort(comfortLossPerSecond * comfortModifier);
             }
@@ -227,14 +227,14 @@ public class MinigameStatusManager : MonoBehaviour
         missedMiniGamesCount++;
     }
 
-    public void HandleGameStateStart(object sender, GameStateEventArgs e)
+    public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         //Debug.Log("State Started: " + e.stateType);
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 hype = 0;
-                this.PotentialHype = GameStateManager.Instance.CurrentGameState.Duration * 50;
+                this.PotentialHype = StateManager.Instance.CurrentState.duration * 50;
                 this.maxHype = PotentialHype + 1000;
                 float maxHypePotential = PotentialHype+ 1000;
                 PotentialHypeFromAllSongs.Add(maxHypePotential);
@@ -246,12 +246,12 @@ public class MinigameStatusManager : MonoBehaviour
         }
     }
     
-    private void HandleGameStateEnd(object sender, GameStateEventArgs e)
+    private void HandleGameStateEnd(object sender, StateEventArgs e)
     {
         //Debug.Log("Game state ended: " + e.state.GameType);
-        switch(e.stateType)
+        switch(e.state.stateType)
         {
-            case GameModeType.Song:
+            case StateType.Song:
                 HypeEarnedFromAllSongs.Add(hype);
                 hype = 0;
                 StopCoroutine(HypeGeneration());
@@ -286,8 +286,8 @@ public class MinigameStatusManager : MonoBehaviour
         GameEvents.OnEventComplete += HandleEventComplete;
         GameEvents.OnEventMiss += HandleEventMiss;
         
-        GameStateEvent.OnGameStateStart += HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd += HandleGameStateEnd;
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
 
         ConcertAudioEvent.OnSendBandPlayers += ReceiveBandMembers;
         GameEvents.OnEventOpen += HandleEventOpen;
@@ -302,8 +302,8 @@ public class MinigameStatusManager : MonoBehaviour
         GameEvents.OnEventComplete -= HandleEventComplete;
         GameEvents.OnEventMiss -= HandleEventMiss;
         
-        GameStateEvent.OnGameStateStart -= HandleGameStateStart;
-        GameStateEvent.OnGameStateEnd -= HandleGameStateEnd;
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
         
         ConcertAudioEvent.OnSendBandPlayers -= ReceiveBandMembers;
         GameEvents.OnEventOpen -= HandleEventOpen;
