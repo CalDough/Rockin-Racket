@@ -61,6 +61,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Color Ace_Color;
     [SerializeField] private Color Haley_Color;
     [SerializeField] private Color Kurt_Color;
+    [SerializeField] private Color Jay_Color;
 
     private const string PORTRAIT_TAG = "portrait";
     private const string LAYOUT_TAG = "layout";
@@ -271,6 +272,7 @@ public class DialogueManager : MonoBehaviour
                         case "Ace": speakerBackground.color = Ace_Color; break;
                         case "MJ": speakerBackground.color = MJ_Color; break;
                         case "Kurt": speakerBackground.color = Kurt_Color; break;
+                        case "Jay": speakerBackground.color = Jay_Color; break;
                         default: break;
                     }
                     
