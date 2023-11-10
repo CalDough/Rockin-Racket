@@ -4,7 +4,7 @@ INCLUDE ../globals.ink
 
 
 === Return ===
-#speaker: Jay #portrait: Jay_neutral
+#speaker: Jay #portrait: jay_speaking_normal
 Is there anything else I can do for you?
 
 

@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using static SceneInfo;
 
 public class PauseManager : MonoBehaviour
 {
@@ -19,6 +16,7 @@ public class PauseManager : MonoBehaviour
     private readonly Vector3 closedPosition = new(0, -1200, 0);
 
     private bool isPaused;
+    private bool pauseAnim;
 
     private void Awake()
     {
@@ -63,45 +61,24 @@ public class PauseManager : MonoBehaviour
             OpenPauseMenu();
         }
         isPaused = !isPaused;
-        //if (menuUI.activeSelf)
-        //{
-        //    ClosePauseMenu();
-        //}
-        //else
-        //{
-        //    OpenPauseMenu();
-        //}
     }
 
     public IEnumerator PauseMenuAnimation(bool toOpen)
     {
         Vector3 endPosition = closedPosition;
-        //Quaternion endRotation = closedRotation;
         if (toOpen)
         {
             menuUI.transform.localPosition = closedPosition;
             endPosition = openPosition;
-            //endRotation = openRotation;
         }
-
-        //if (currentSceneIndex == 8)
-        //{
-        //    menuUI.transform.localPosition = endPosition;
-        //    //menuUI.transform.localRotation = endRotation;
-        //    yield break;
-        //}
-
         float counter = 0;
-
         //Get the current scale of the object to be moved
         Vector3 startPosition = menuUI.transform.localPosition;
-        //Quaternion startRotation = menuUI.transform.localRotation;
 
         while (counter < animationDuration)
         {
             counter += Time.unscaledDeltaTime;
             menuUI.transform.localPosition = Vector3.Lerp(startPosition, endPosition, counter / animationDuration);
-            //menuUI.transform.localRotation = Quaternion.Lerp(startRotation, endRotation, counter / animationDuration);
             yield return null;
         }
     }

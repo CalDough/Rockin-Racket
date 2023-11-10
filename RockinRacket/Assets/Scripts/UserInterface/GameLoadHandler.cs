@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using static SceneInfo;
 /*
     This script is a test UI script the Pause Menu and Main Menu
 */
