@@ -8,9 +8,10 @@ using UnityEngine.UI;
 public class MicFixing : MiniGame, IPointerDownHandler
 {
     [SerializeField] private List<GameObject> screwObjects;
-    [SerializeField] private Image screwdriverImage;
-
-    [SerializeField] private bool isScrewdriverSelected;
+    [SerializeField] private GameObject plateCoveringBatteries;
+    [SerializeField] private List<GameObject> batteryObjects;
+    [SerializeField] public List<BatterySlot> batterySlots;
+    private List<Battery> batteries;
     private List<Screw> screws;
 
     public bool randomMember = false;
@@ -65,6 +66,23 @@ public class MicFixing : MiniGame, IPointerDownHandler
         
     }
 
+    private void SetBatteryList()
+    {
+        batteries = new List<Battery>();
+        foreach (var batteryObject in batteryObjects)
+        {
+            var battery = batteryObject.GetComponent<Battery>();
+            if (battery != null)
+            {
+                batteries.Add(battery);
+            }
+            else
+            {
+                Debug.LogWarning("Assigned GameObject does not have a Battery component", batteryObject);
+            }
+        }
+    }
+
     public void SetScrewList()
     {
         screws = new List<Screw>();
@@ -82,16 +100,6 @@ public class MicFixing : MiniGame, IPointerDownHandler
         }
     }
 
-     public void SelectScrewdriver()
-    {
-        isScrewdriverSelected = true;
-        UpdateToolVisuals();
-    }
-
-    private void UpdateToolVisuals()
-    {
-        screwdriverImage.color = isScrewdriverSelected ? Color.white : new Color(1f, 1f, 1f, 0.5f);
-    }
 
     private bool CheckAllScrewsUnscrewed()
     {
@@ -108,13 +116,15 @@ public class MicFixing : MiniGame, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isScrewdriverSelected)
+        ScrewInteraction(eventData);
+        if (CheckAllScrewsUnscrewed())
         {
-            ScrewInteraction(eventData);
-            if (CheckAllScrewsUnscrewed())
+            HandleMicPartRepaired();
+            foreach (BatterySlot battery in batterySlots)
             {
-                HandleMicPartRepaired();
+                battery.ResetSlot();
             }
+            
         }
     }
 
@@ -126,8 +136,6 @@ public class MicFixing : MiniGame, IPointerDownHandler
             if (screw != null && !screw.IsUnscrewed)
             {
                 screw.OnPointerClick(null);
-                //if (CheckAllScrewsUnscrewed())
-                //{HandleMicPartRepaired();}
             }
         }
     }
@@ -136,13 +144,21 @@ public class MicFixing : MiniGame, IPointerDownHandler
     public override void RestartMiniGameLogic()
     {
         IsCompleted = false;        
-        isScrewdriverSelected = false;
         SetScrewList();
+        SetBatteryList();
         foreach (Screw screw in screws)
         {
             screw.ResetScrew();
         }
-        SelectScrewdriver();
+        foreach (Battery battery in batteries)
+        {
+            battery.ResetPosition();
+        }
+        foreach (BatterySlot battery in batterySlots)
+        {
+            battery.MarkAsOccupied();
+        }
+        plateCoveringBatteries.SetActive(true);
     }
 
     private void HandleMicPartRepaired()
@@ -150,10 +166,24 @@ public class MicFixing : MiniGame, IPointerDownHandler
         if(!isActiveEvent || IsCompleted)
         {return;}
 
-        // All components are fixed
-        CompleteMiniGame();
+        plateCoveringBatteries.SetActive(false);
+
     }
-    
+
+    public bool CheckAllBatteriesPlaced()
+    {
+        foreach (Battery battery in batteries)
+        {
+            if (!battery.IsPlaced)
+            {
+                return false;
+            }
+        }
+        CompleteMiniGame();
+        return true;
+    }
+
+
     public override void HandleOpening()
     {
         if(!IsCompleted)
