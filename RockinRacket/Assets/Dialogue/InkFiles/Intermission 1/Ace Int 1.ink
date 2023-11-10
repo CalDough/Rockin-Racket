@@ -5,7 +5,7 @@ INCLUDE ../globals.ink
 
 === Convo ===
 #speaker: Ace #portrait: ace_speaking_normal
-#speaker: Harvey #portrait: harvey_chill_normal
+#portrait: harvey_chill_normal
 Yooo, Harv-man. What up?
 
     * [You're killing it]
@@ -24,7 +24,7 @@ Yooo, Harv-man. What up?
 
 = C1
 #speaker: Ace #portrait: ace_speaking_normal
-#speaker: Harvey #portrait: harvey_chill_normal
+#portrait: harvey_chill_normal
 You're too kind my guy. I'm just vibing with the others and playing from the heart.
 
     * [That's all it is?]
@@ -33,7 +33,7 @@ You're too kind my guy. I'm just vibing with the others and playing from the hea
     Is that really all it is? "Playing from the heart?"
     
     #speaker: Ace #portrait: ace_speaking_normal
-    #speaker: Harvey #portrait: harvey_chill_normal
+    #portrait: harvey_chill_normal
     Well that and a bunch of practice. As MJ says, "practice makes pizza." Or something like that I guess. Pizza's pretty good so it checks out.
         -> END
             
@@ -43,13 +43,13 @@ You're too kind my guy. I'm just vibing with the others and playing from the hea
     Regardless of what it is, it's still pretty cool. Keep up the good work!
     
     #speaker: Ace #portrait: ace_speaking_normal
-    #speaker: Harvey #portrait: harvey_chill_normal
+    #portrait: harvey_chill_normal
     You too man. I see you over there handling everything else. I see you, and I appreciate you.
         -> END
 
 = C2
 #speaker: Ace #portrait: ace_speaking_normal
-#speaker: Harvey #portrait: harvey_chill_normal
+#portrait: harvey_chill_normal
 Honestly man, sometimes I just zone out and let muscle memory take over. It's been working out so far.
 
     * [There's no way]
@@ -58,7 +58,7 @@ Honestly man, sometimes I just zone out and let muscle memory take over. It's be
     How does that even work though? It sounds like it isn't real.
     
     #speaker: Ace #portrait: ace_speaking_normal
-    #speaker: Harvey #portrait: harvey_chill_normal
+    #portrait: harvey_chill_normal
     I'm telling you man. I hit a zen state and everything just flows. Maybe you'll hit that kind of state eventually?
         -> END
 
@@ -68,7 +68,7 @@ Honestly man, sometimes I just zone out and let muscle memory take over. It's be
     That sounds pretty risky to me though, zoning out in the middle of playing? Do the others care about it at all?
     
     #speaker: Ace #portrait: ace_speaking_normal
-    #speaker: Harvey #portrait: harvey_chill_normal
+    #portrait: harvey_chill_normal
     Nah. We talked about it one night during practice and they all seemed cool with it. Or at least until I mess up, and then they might be mad at me for it. Just worry baout your stuff for now man, you're still learning after all.
         -> END
 

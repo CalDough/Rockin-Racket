@@ -279,13 +279,23 @@ public class DialogueManager : MonoBehaviour
                     
                     break;
                 case PORTRAIT_TAG:
-                    if (currentAnimator == harveyAnimator)
+                    switch(tagValue)
                     {
-                        harveyAnimator.Play(tagValue.ToLower());
-                    }
-                    else
-                    {
-                        characterAnimator.Play(tagValue.ToLower());
+                        case "harvey_chill_normal": 
+                        {
+                            harveyAnimator.Play(tagValue);
+                            break;
+                        }
+                        case "harvey_speaking_normal": 
+                        {
+                            harveyAnimator.Play(tagValue);
+                            break;
+                        }
+                        default:
+                        {
+                            characterAnimator.Play(tagValue);
+                            break;
+                        }
                     }
                     break;
                 case LAYOUT_TAG:
