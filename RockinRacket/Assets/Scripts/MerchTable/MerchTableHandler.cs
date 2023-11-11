@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using System.Linq;
 using Unity.VisualScripting;
 using System.Diagnostics.Tracing;
+using UnityEngine.ProBuilder.Shapes;
 
 public class MerchTableHandler : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class MerchTableHandler : MonoBehaviour
     public SerializedDictionary<CustomerWants, Texture2D> cursorTextures;
     [SerializeField] UnityEngine.CursorMode cursorMode;
     [SerializedDictionary("Merch Item", "Customer Wants Icon")]
-    public SerializedDictionary<CustomerWants, Sprite> customerWantIcons;
+    public SerializedDictionary<CustomerWants, UnityEngine.Sprite> customerWantIcons;
     [SerializedDictionary("Encoded Char", "Merch Item")]
     public SerializedDictionary<string, CustomerWants> wantsDecoder;
     [Header("UI Objects")]
@@ -40,7 +41,7 @@ public class MerchTableHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateHeldMerchItem();
+        //UpdateHeldMerchItem();
 
         UpdateCustomerCloudBox();
 
@@ -145,52 +146,52 @@ public class MerchTableHandler : MonoBehaviour
         MerchTableEvents.instance.e_cueNextCustomer.Invoke();
     }
 
-    private void UpdateHeldMerchItem()
-    {
-        Texture2D value;
-        bool hasValue;
+    //private void UpdateHeldMerchItem()
+    //{
+    //    Texture2D value;
+    //    bool hasValue;
 
-        switch (currentGameState.currentlyHeldObject)
-        {
-            case CustomerWants.None:
-                Cursor.SetCursor(null, Vector2.zero, cursorMode);
-                break;
-            case CustomerWants.tshirt:
-                hasValue = cursorTextures.TryGetValue(CustomerWants.tshirt, out value);
-                if (hasValue)
-                {
-                    Cursor.SetCursor(value, Vector2.zero, cursorMode);
-                }
-                else
-                {
-                    Debug.LogError("Item Texture Missing");
-                }
-                break;
-            case CustomerWants.mug:
-                hasValue = cursorTextures.TryGetValue(CustomerWants.mug, out value);
-                if (hasValue)
-                {
-                    Cursor.SetCursor(value, Vector2.zero, cursorMode);
-                }
-                else
-                {
-                    Debug.LogError("Item Texture Missing");
-                }
-                break;
-            case CustomerWants.button:
-                hasValue = cursorTextures.TryGetValue(CustomerWants.button, out value);
-                if (hasValue)
-                {
-                    Cursor.SetCursor(value, Vector2.zero, cursorMode);
-                }
-                else
-                {
-                    Debug.LogError("Item Texture Missing");
-                }
-                break;
-            default:
-                Debug.Log("<color=red>MISSING CURSOR TEXTURE MERCHTABLEHANDLER.CS </color>");
-                break;
-        }
-    }
+    //    switch (currentGameState.currentlyHeldObject)
+    //    {
+    //        case CustomerWants.None:
+    //            Cursor.SetCursor(null, Vector2.zero, cursorMode);
+    //            break;
+    //        case CustomerWants.tshirt:
+    //            hasValue = cursorTextures.TryGetValue(CustomerWants.tshirt, out value);
+    //            if (hasValue)
+    //            {
+    //                Cursor.SetCursor(value, Vector2.zero, cursorMode);
+    //            }
+    //            else
+    //            {
+    //                Debug.LogError("Item Texture Missing");
+    //            }
+    //            break;
+    //        case CustomerWants.mug:
+    //            hasValue = cursorTextures.TryGetValue(CustomerWants.mug, out value);
+    //            if (hasValue)
+    //            {
+    //                Cursor.SetCursor(value, Vector2.zero, cursorMode);
+    //            }
+    //            else
+    //            {
+    //                Debug.LogError("Item Texture Missing");
+    //            }
+    //            break;
+    //        case CustomerWants.button:
+    //            hasValue = cursorTextures.TryGetValue(CustomerWants.button, out value);
+    //            if (hasValue)
+    //            {
+    //                Cursor.SetCursor(value, Vector2.zero, cursorMode);
+    //            }
+    //            else
+    //            {
+    //                Debug.LogError("Item Texture Missing");
+    //            }
+    //            break;
+    //        default:
+    //            Debug.Log("<color=red>MISSING CURSOR TEXTURE MERCHTABLEHANDLER.CS </color>");
+    //            break;
+    //    }
+    //}
 }
