@@ -9,6 +9,7 @@ using System.Xml;
 using UnityEngine.UI;
 using System.Linq;
 using Unity.VisualScripting;
+using System.Diagnostics.Tracing;
 
 public class MerchTableHandler : MonoBehaviour
 {
@@ -41,11 +42,13 @@ public class MerchTableHandler : MonoBehaviour
     {
         UpdateHeldMerchItem();
 
-        if (isMerchTableActiveYet)
-        {
-            UpdateCustomerCloudBox();
+        UpdateCustomerCloudBox();
 
-        }
+
+        //if (isMerchTableActiveYet)
+        //{
+
+        //}
     }
 
     /*
@@ -53,13 +56,24 @@ public class MerchTableHandler : MonoBehaviour
      */
     private void UpdateCustomerCloudBox()
     {
-        for (int i = 0; i < ItemBoxes.Length; i++)
+        int i = 0;
+
+        foreach (KeyValuePair<CustomerWants, bool> entry in currentCustomerStatus)
         {
-            if (currentCustomerStatus.ElementAt(i).Value == true)
+            if (entry.Value == true)
             {
                 ItemBoxes[i].gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
+            i++;
         }
+
+        //for (int i = 0; i < ItemBoxes.Length; i++)
+        //{
+        //    if (currentCustomerStatus.ElementAt(i).Value == true)
+        //    {
+        //        ItemBoxes[i].gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        //    }
+        //}
     }
 
     /*
@@ -74,8 +88,7 @@ public class MerchTableHandler : MonoBehaviour
 
         for (int i = 0; i < decodedWants.Length; i++)
         {
-
-            if (decodedWants[i] != " ")
+            if (wantsDecoder.ContainsKey(decodedWants[i]))
             {
                 Debug.Log("Wants: " + decodedWants[i]);
 
@@ -95,15 +108,26 @@ public class MerchTableHandler : MonoBehaviour
      */
     private void PopulateWantsInCloud()
     {
-        Debug.Log("Populating Wants In Cloud");
-        if (ItemBoxes.Length != currentWants.Length)
+        for (int i = 0; i < currentWants.Length; i++)
         {
+            Debug.Log("Wants: " + currentWants[i]);
+        }
+
+        Debug.Log("Populating Wants In Cloud");
+        if (currentWants.Length > ItemBoxes.Length)
+        {
+            Debug.Log("ItemBoxes Length: " + ItemBoxes.Length + " | Currentwants Length " + currentWants.Length);
             Debug.LogError("Item wants is greater than the alloted UI for the current customer's wants");
         }
 
-        for (int i = 0; i < ItemBoxes.Length; i++)
+        for (int i = 0; i < currentWants.Length; i++)
         {
-            //ItemBoxes[i].gameObject.GetComponent<SpriteRenderer>().sprite = customerWantIcons[currentCustomerStatus.ElementAt(i).Key];
+
+            if (customerWantIcons.ContainsKey(currentWants[i]))
+            {
+                Debug.Log("i: " + i + " | ItemBoxes length: " + ItemBoxes.Length + " | Current wants length: " + currentWants.Length);
+                ItemBoxes[i].gameObject.GetComponent<Image>().sprite = customerWantIcons[currentWants[i]];
+            }
         }
         isMerchTableActiveYet = true;
     }
@@ -112,6 +136,12 @@ public class MerchTableHandler : MonoBehaviour
     {
         currentCustomerStatus = new Dictionary<CustomerWants, bool>();
         Debug.Log("Order Fulfilled");
+
+        for (int i = 0; i < ItemBoxes.Length; i++)
+        {
+            ItemBoxes[i].gameObject.GetComponent<Image>().sprite = null;
+        }
+
         MerchTableEvents.instance.e_cueNextCustomer.Invoke();
     }
 

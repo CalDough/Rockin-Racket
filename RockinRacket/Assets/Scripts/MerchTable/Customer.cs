@@ -18,27 +18,34 @@ public class Customer : MonoBehaviour
     public void GenerateNewWants()
     {
         Debug.Log("Generating new wants with a max value of " + maxWants);
-        //numWants = Random.Range(1 , maxWants);
-        //wants = new CustomerWants[numWants];
-        wants = new CustomerWants[1];
+        numWants = Random.Range(1 , maxWants + 1);
+        wants = new CustomerWants[numWants];
 
         wants[0] = CustomerWants.tshirt;
 
-        //for (int i = 0; i < wants.Length; i++)
-        //{
-        //    wants[i] = merchItemEncoding.ElementAt(Random.Range(0 , merchItemEncoding.Count)).Key;
-        //    Debug.Log("Wants of i = " + merchItemEncoding.ElementAt(Random.Range(0, merchItemEncoding.Count)).Key);
+        for (int i = 0; i < wants.Length; i++)
+        {
+            CustomerWants tempWant = merchItemEncoding.ElementAt(Random.Range(0, merchItemEncoding.Count)).Key;
 
-        //    //if (wants[i] > 0)
-        //    //{
-        //    //    if (wants[i] == wants[i - 1])
-        //    //    {
-        //    //        wants[i] = merchItemEncoding.ElementAt(Random.Range(0, merchItemEncoding.Count)).Key;
-        //    //    }
-        //    //}
-        //}
+            if (!wants.Contains(tempWant))
+            {
+                wants[i] = tempWant;
+                Debug.Log("Wants of i = " + wants[i]);
+            }
 
+            //wants[i] = merchItemEncoding.ElementAt(Random.Range(0, merchItemEncoding.Count)).Key;
+            //Debug.Log("Wants of i = " + merchItemEncoding.ElementAt(Random.Range(0, merchItemEncoding.Count)).Key);
 
+            //if (wants[i] > 0)
+            //{
+            //    if (wants[i] == wants[i - 1])
+            //    {
+            //        wants[i] = merchItemEncoding.ElementAt(Random.Range(0, merchItemEncoding.Count)).Key;
+            //    }
+            //}
+        }
+
+        Debug.Log("Method ran");
         EncodeWants();
     }
 
@@ -48,7 +55,11 @@ public class Customer : MonoBehaviour
 
         for (int i = 0; i < wants.Length; i++)
         {
-            encodedCustomerWants = encodedCustomerWants + merchItemEncoding[wants[i]] + " ";
+            if (merchItemEncoding.ContainsKey(wants[i]))
+            {
+                encodedCustomerWants = encodedCustomerWants + merchItemEncoding[wants[i]] + " ";
+                Debug.Log(merchItemEncoding[wants[i]]);
+            }
         }
 
         Debug.Log("Encoding wants complete, encoded string: " + encodedCustomerWants);
