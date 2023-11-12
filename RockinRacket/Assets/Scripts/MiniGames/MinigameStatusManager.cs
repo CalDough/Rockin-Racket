@@ -55,7 +55,6 @@ public class MinigameStatusManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(this);
         }
     }
 

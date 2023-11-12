@@ -27,7 +27,6 @@ public class StateManager : MonoBehaviour
         else 
         { 
             Instance = this; 
-            DontDestroyOnLoad(this);
         } 
     }
 
@@ -37,12 +36,12 @@ public class StateManager : MonoBehaviour
     public void InitializeConcertData()
     {
         Debug.Log("Init Concert");
+        MinigameStatusManager.Instance.ResetVariables();
         AllStates = new List<State>();
         foreach (var state in ConcertVenue.ConcertStates)
         {
             AllStates.Add(new State(state));
         }
-        ConcertVenue = null;
         stateDuration = 0;
         stateRemainder = 0;
         canBeginConcert = true;

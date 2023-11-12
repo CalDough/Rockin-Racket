@@ -218,11 +218,11 @@ public class SceneLoader : MonoBehaviour
         if (canvasObj != null)
         {return canvasObj.GetComponent<Canvas>();}
 
-        Debug.LogWarning("canvas with tag 'MainCanvas' or name 'MainCanvas' not found in the scene");
+        //Debug.LogWarning("canvas with tag 'MainCanvas' or name 'MainCanvas' not found in the scene");
         Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas == null)
         {
-            Debug.LogError("No canvas found in the scene.");
+            //Debug.LogError("No canvas found in the scene.");
             return null;
         }
         return canvas;
