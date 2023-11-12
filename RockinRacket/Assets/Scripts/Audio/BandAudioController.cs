@@ -71,23 +71,18 @@ public class BandAudioController : MonoBehaviour
         {
             case BandRoleName.Haley:
                 this.instrumentEvent = StateManager.Instance.CurrentState.Song.Haley.PrimaryTrackPath;
-                this.voiceEvent = StateManager.Instance.CurrentState.Song.Haley.SecondaryTrackPath;
                 break;
             case BandRoleName.Kurt:
                 this.instrumentEvent = StateManager.Instance.CurrentState.Song.Kurt.PrimaryTrackPath;
-                this.voiceEvent = StateManager.Instance.CurrentState.Song.Kurt.SecondaryTrackPath;
                 break;
             case BandRoleName.Ace:
                 this.instrumentEvent = StateManager.Instance.CurrentState.Song.Ace.PrimaryTrackPath;
-                this.voiceEvent = StateManager.Instance.CurrentState.Song.Ace.SecondaryTrackPath;
                 break;
             case BandRoleName.MJ:
                 this.instrumentEvent = StateManager.Instance.CurrentState.Song.MJ.PrimaryTrackPath;
-                this.voiceEvent = StateManager.Instance.CurrentState.Song.MJ.SecondaryTrackPath;
                 break;
             case BandRoleName.Speakers:
                 this.instrumentEvent = StateManager.Instance.CurrentState.Song.Speakers.PrimaryTrackPath;
-                this.voiceEvent = StateManager.Instance.CurrentState.Song.Speakers.SecondaryTrackPath;
                 break;
             default:
                 Debug.Log("Trying to affect band member not on list: " + bandName);
@@ -183,7 +178,7 @@ public class BandAudioController : MonoBehaviour
         ConcertAudioEvent.OnAudioFixed += AudioFixed;
         ConcertAudioEvent.OnConcertEnd += ConcertEnd;
 
-        ConcertAudioEvent.OnRequestBandPlayers += SendToRequester;
+        //ConcertAudioEvent.OnRequestBandPlayers += SendToRequester;
     }
 
     void OnDestroy()
@@ -196,15 +191,15 @@ public class BandAudioController : MonoBehaviour
         ConcertAudioEvent.OnAudioFixed -= AudioFixed;
         
         ConcertAudioEvent.OnConcertEnd -= ConcertEnd;
-        ConcertAudioEvent.OnRequestBandPlayers -= SendToRequester;
+        //ConcertAudioEvent.OnRequestBandPlayers -= SendToRequester;
 
     }
-
+    /*
     public void SendToRequester(object sender, ConcertAudioEventArgs e)
     {
-        ConcertAudioEvent.SendBandPlayers(this);
+        //ConcertAudioEvent.SendBandPlayers(this);
     }
-
+    */
     public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         switch(e.state.stateType)

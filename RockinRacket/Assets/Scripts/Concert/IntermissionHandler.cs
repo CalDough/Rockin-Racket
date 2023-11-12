@@ -61,7 +61,7 @@ public class IntermissionHandler : MonoBehaviour
     public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         Debug.Log("State Started: " + e.state.stateType);
-        if(e.state.isManualDuration == true)
+        if(e.state.stateType == StateType.Intermission)
         {
             nextStateButton.gameObject.SetActive(true);
             

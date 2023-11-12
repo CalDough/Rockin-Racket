@@ -1314,11 +1314,11 @@ MonoBehaviour:
   comfortModifier: 1
   hypeModifier: 1
   bandMembers:
-  - {fileID: 399361562651792829}
-  - {fileID: 6298172886686583980}
-  - {fileID: 3037181773552356937}
-  - {fileID: 2367836999311759382}
-  - {fileID: 761977042092151313}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   OpenedMiniGame: {fileID: 0}
   ImmuneMiniGames: {fileID: 11400000, guid: 33d76c34f0ad6ba42a3498f427b2820a, type: 2}
   PotentialHype: 0
@@ -18342,27 +18342,27 @@ PrefabInstance:
         type: 3}
       propertyPath: bandMembers.Array.data[0]
       value: 
-      objectReference: {fileID: 399361562651792829}
+      objectReference: {fileID: 0}
     - target: {fileID: 6651588620859644378, guid: c2bda2e7f4b2da643beb589108bf15fe,
         type: 3}
       propertyPath: bandMembers.Array.data[1]
       value: 
-      objectReference: {fileID: 6298172886686583980}
+      objectReference: {fileID: 0}
     - target: {fileID: 6651588620859644378, guid: c2bda2e7f4b2da643beb589108bf15fe,
         type: 3}
       propertyPath: bandMembers.Array.data[2]
       value: 
-      objectReference: {fileID: 3037181773552356937}
+      objectReference: {fileID: 0}
     - target: {fileID: 6651588620859644378, guid: c2bda2e7f4b2da643beb589108bf15fe,
         type: 3}
       propertyPath: bandMembers.Array.data[3]
       value: 
-      objectReference: {fileID: 2367836999311759382}
+      objectReference: {fileID: 0}
     - target: {fileID: 6651588620859644378, guid: c2bda2e7f4b2da643beb589108bf15fe,
         type: 3}
       propertyPath: bandMembers.Array.data[4]
       value: 
-      objectReference: {fileID: 761977042092151313}
+      objectReference: {fileID: 0}
     - target: {fileID: 7762844053631542588, guid: c2bda2e7f4b2da643beb589108bf15fe,
         type: 3}
       propertyPath: ConcertVenue
@@ -19982,7 +19982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 5
-  BandMember: {fileID: 3037181773552356937}
+  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 6061707343669544530}
   goodParticleEffect: {fileID: 693508789911196864}
   characterAnimator: {fileID: 6202518760993482518}
@@ -20043,31 +20043,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &399361562651792829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7466403347059844904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01eedbd3be965714ca2b0ae46d64b59a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bandName: 2
-  instrumentEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  voiceEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  instrumentEvent: 
-  voiceEvent: 
-  parameterName: BrokenValue
-  isPlaying: 0
-  isSinging: 0
-  HypeGeneration: 10
-  instrumentBrokenValue: 0
-  voiceBrokenValue: 0
 --- !u!1 &469224283761404611
 GameObject:
   m_ObjectHideFlags: 0
@@ -20126,7 +20101,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7766656410464883503}
   - component: {fileID: 157606067772939205}
-  - component: {fileID: 3037181773552356937}
   m_Layer: 0
   m_Name: Band-MJ
   m_TagString: Untagged
@@ -24962,31 +24936,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &761977042092151313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3680470706255849095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01eedbd3be965714ca2b0ae46d64b59a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bandName: 6
-  instrumentEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  voiceEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  instrumentEvent: 
-  voiceEvent: 
-  parameterName: BrokenValue
-  isPlaying: 0
-  isSinging: 0
-  HypeGeneration: 5
-  instrumentBrokenValue: 0
-  voiceBrokenValue: 0
 --- !u!4 &841737098955539427
 Transform:
   m_ObjectHideFlags: 0
@@ -25120,7 +25069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 4
-  BandMember: {fileID: 2367836999311759382}
+  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 7042605876388263738}
   goodParticleEffect: {fileID: 5807066691172398100}
   characterAnimator: {fileID: 5992590468675376411}
@@ -25192,31 +25141,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &2367836999311759382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7828096934458776132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01eedbd3be965714ca2b0ae46d64b59a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bandName: 4
-  instrumentEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  voiceEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  instrumentEvent: 
-  voiceEvent: 
-  parameterName: BrokenValue
-  isPlaying: 0
-  isSinging: 0
-  HypeGeneration: 10
-  instrumentBrokenValue: 0
-  voiceBrokenValue: 0
 --- !u!1 &2539188474936496871
 GameObject:
   m_ObjectHideFlags: 0
@@ -30062,31 +29986,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3037181773552356937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539494122673903914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01eedbd3be965714ca2b0ae46d64b59a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bandName: 5
-  instrumentEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  voiceEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  instrumentEvent: 
-  voiceEvent: 
-  parameterName: BrokenValue
-  isPlaying: 0
-  isSinging: 0
-  HypeGeneration: 10
-  instrumentBrokenValue: 0
-  voiceBrokenValue: 0
 --- !u!4 &3043356888781883860
 Transform:
   m_ObjectHideFlags: 0
@@ -30286,7 +30185,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3043356888781883860}
-  - component: {fileID: 761977042092151313}
   m_Layer: 0
   m_Name: Band-Speakers
   m_TagString: Untagged
@@ -35338,7 +35236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 2
-  BandMember: {fileID: 399361562651792829}
+  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 2644541228458975637}
   goodParticleEffect: {fileID: 3930187602231934917}
   characterAnimator: {fileID: 6573545281245412952}
@@ -40219,7 +40117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 1
-  BandMember: {fileID: 6298172886686583980}
+  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 5539434358473504706}
   goodParticleEffect: {fileID: 5995080411966410524}
   characterAnimator: {fileID: 7781368311096905450}
@@ -54536,31 +54434,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4967118074921187491}
   m_CullTransparentMesh: 1
---- !u!114 &6298172886686583980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9158767028541934223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01eedbd3be965714ca2b0ae46d64b59a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bandName: 1
-  instrumentEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  voiceEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
-    type: 3}
-  instrumentEvent: 
-  voiceEvent: 
-  parameterName: BrokenValue
-  isPlaying: 0
-  isSinging: 0
-  HypeGeneration: 10
-  instrumentBrokenValue: 0
-  voiceBrokenValue: 0
 --- !u!1 &6377404938137473830
 GameObject:
   m_ObjectHideFlags: 0
@@ -54685,6 +54558,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2164034765423849450}
+  - component: {fileID: 6579643345208410691}
   m_Layer: 0
   m_Name: Band
   m_TagString: Untagged
@@ -54692,6 +54566,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6579643345208410691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6579643345208410690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628ae8f5fce2749479a8f7a3abe119cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConcertAudioEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
+    type: 3}
+  ConcertAudioPath: 
+  parameterName: BrokenValue
+  isPlaying: 0
 --- !u!212 &6663308950816022105
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -59649,7 +59540,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6546498996430023684}
   - component: {fileID: 5124328084001040671}
-  - component: {fileID: 399361562651792829}
   m_Layer: 0
   m_Name: Band-Haley
   m_TagString: Untagged
@@ -59828,7 +59718,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8154132867621084641}
   - component: {fileID: 1669275485325333702}
-  - component: {fileID: 2367836999311759382}
   m_Layer: 0
   m_Name: Band-Kurt
   m_TagString: Untagged
@@ -60299,7 +60188,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3261607245807652479}
   - component: {fileID: 5667818493401515645}
-  - component: {fileID: 6298172886686583980}
   m_Layer: 0
   m_Name: Band-Ace
   m_TagString: Untagged

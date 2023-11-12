@@ -10,8 +10,8 @@ public static class ConcertAudioEvent
     public static event EventHandler<ConcertAudioEventArgs> OnAudioBroken; 
     public static event EventHandler<ConcertAudioEventArgs> OnAudioFixed; 
     
-    public static event EventHandler<ConcertAudioEventArgs> OnRequestBandPlayers; 
-    public static event EventHandler<ConcertAudioEventArgs> OnSendBandPlayers; 
+    //public static event EventHandler<ConcertAudioEventArgs> OnRequestBandPlayers; 
+    //public static event EventHandler<ConcertAudioEventArgs> OnSendBandPlayers; 
     
     public static event EventHandler<ConcertAudioEventArgs> OnConcertEnd; 
 
@@ -34,7 +34,7 @@ public static class ConcertAudioEvent
     {
         OnConcertEnd?.Invoke(null, new ConcertAudioEventArgs( ));
     }
-
+    /*
     public static void RequestBandPlayers()
     {
         OnRequestBandPlayers?.Invoke(null, new ConcertAudioEventArgs( ));
@@ -44,12 +44,13 @@ public static class ConcertAudioEvent
     {
         OnSendBandPlayers?.Invoke(null, new ConcertAudioEventArgs( bandAudioPlayer ));
     }
+    */
 }
 
 public class ConcertAudioEventArgs : EventArgs
 {
     public MiniGame EventObject { get; private set; }
-    public BandAudioController BandAudioPlayer { get; private set; }
+    //public BandAudioController BandAudioPlayer { get; private set; }
     public float BrokenValue { get; set; }
     public BandRoleName ConcertPosition { get; set; }
     public bool AffectInstrument { get; set; }
@@ -63,12 +64,12 @@ public class ConcertAudioEventArgs : EventArgs
     {
         ConcertPosition = concertPosition;
     }
-
+    /*
     public ConcertAudioEventArgs(BandAudioController bandRoleAudioPlayer)
     {
         BandAudioPlayer = bandRoleAudioPlayer;
     }
-
+    */
     public ConcertAudioEventArgs(MiniGame eventData, float brokenValue, BandRoleName concertPosition, bool affectInstrument)
     {
         EventObject = eventData;

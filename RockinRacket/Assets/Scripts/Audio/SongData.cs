@@ -16,6 +16,7 @@ public class SongData : ScriptableObject
     [Multiline]
     public string Description;
     public float Duration;
+    public TrackData FMODMultiTrack; //All Tracks in logic form in FMOD
 
     public TrackData Ace; //Usually Vocalist + Guitar Strings
     public TrackData Haley; //Usually Bass Strings + Vocals

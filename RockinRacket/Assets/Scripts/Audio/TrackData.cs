@@ -10,5 +10,4 @@ using UnityEngine;
 public class TrackData
 {
     public string PrimaryTrackPath;
-    public string SecondaryTrackPath;
 }

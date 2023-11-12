@@ -61,6 +61,9 @@ public class StateManager : MonoBehaviour
             StartCoroutine(PlayState(CurrentState));
         }
     }
+    /*
+    This functionality will be moved to Intermission handler to listen for the event for concert end instead of this script handling it.
+    */
     public void LocateConcertUIAndEndConcert()
     {
         IntermissionHandler intermissionHandler = FindObjectOfType<IntermissionHandler>(); 

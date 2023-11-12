@@ -27,10 +27,9 @@ public class MinigameStatusManager : MonoBehaviour
     [SerializeField] public float comfortModifier = 1f;
     [SerializeField] public float hypeModifier = 1f;
 
-    [SerializeField] private List<BandAudioController> bandMembers;
-
-    
     [SerializeField] public MiniGame OpenedMiniGame;
+
+    [SerializeField] public List<BandRoleName> AvailableMembers = new List<BandRoleName>();
 
     [Header("Active Scriptable Objects")] 
     [SerializeField] private MinigameContainer ImmuneMiniGames;
@@ -77,11 +76,10 @@ public class MinigameStatusManager : MonoBehaviour
         HypeEarnedFromAllSongs.Clear();
 
         OpenedMiniGame = null;
-
+        AvailableMembers.Clear();
+        AvailableMembers = ConcertAudioManager.Instance.AvailableConcertMembers();
         StopCoroutine(HypeGeneration());
         StopCoroutine(ComfortGeneration());
-        bandMembers.Clear();
-        ConcertAudioEvent.RequestBandPlayers();
         
     }
 
@@ -121,16 +119,6 @@ public class MinigameStatusManager : MonoBehaviour
         return true;
     }
 
-
-    public void ReceiveBandMembers(object sender, ConcertAudioEventArgs e)
-    {
-        if(e.BandAudioPlayer != null)
-        {
-            bandMembers.Add(e.BandAudioPlayer);
-        }
-    }
-    
-
     public void CheckInventory()
     {
         //get a list of all games the player is immune to here
@@ -145,7 +133,7 @@ public class MinigameStatusManager : MonoBehaviour
 
             if (StateManager.Instance.CurrentState.stateType == StateType.Song) 
             {
-                foreach (BandAudioController member in bandMembers)
+                foreach (BandRoleName member in AvailableMembers)
                 {
                     /*
                     if (member.isPlaying )
@@ -157,7 +145,8 @@ public class MinigameStatusManager : MonoBehaviour
                         hype += CalculateHypeContribution(member.voiceBrokenValue, member.HypeGeneration);
                     }
                     */
-                    hype += CalculateHypeContribution(member.instrumentBrokenValue, member.HypeGeneration);
+                    // Replacing this section later after complete rework.
+                    hype += CalculateHypeContribution(0, 10);
                 }
 
                 if (hype > maxHype)
@@ -288,7 +277,6 @@ public class MinigameStatusManager : MonoBehaviour
         StateEvent.OnStateStart += HandleGameStateStart;
         StateEvent.OnStateEnd += HandleGameStateEnd;
 
-        ConcertAudioEvent.OnSendBandPlayers += ReceiveBandMembers;
         GameEvents.OnEventOpen += HandleEventOpen;
         GameEvents.OnEventOpen += HandleEventClose;
     }
@@ -304,7 +292,6 @@ public class MinigameStatusManager : MonoBehaviour
         StateEvent.OnStateStart -= HandleGameStateStart;
         StateEvent.OnStateEnd -= HandleGameStateEnd;
         
-        ConcertAudioEvent.OnSendBandPlayers -= ReceiveBandMembers;
         GameEvents.OnEventOpen -= HandleEventOpen;
         GameEvents.OnEventOpen -= HandleEventClose;
     }
