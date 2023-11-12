@@ -2,7 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+/*
+All Audio Events that affect the band member go through this class.
+When sending a BrokenValue, leave it as positive values only.
+The instruments broken range is 0-5, 0 being the least broken and 5 being the most broken.
+This class could be combined with the Mini-game Concert Events
 
+*/
 public static class ConcertAudioEvent 
 {
     

@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+/*
+This class will be unused in the project now as ConcertAudioManager will manage all FMOD Concert Songs
+This class is for individual concert band members, but selecting specific FMOD Logic tracks is easier in a singleton
 
+
+*/
 public class BandAudioController : MonoBehaviour
 {
     

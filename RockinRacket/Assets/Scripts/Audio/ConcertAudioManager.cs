@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+/*
+This class manages all the songs played during the concert as well as manages the broken levels of each member
+It gets the path of the current song from the  StateManager.Instance.CurrentState.Song.FMODMultiTrack.PrimaryTrackPath;
+Then it uses that to access the FMOD Multi track with each Logic Track to access the "BrokenValue" parameter
 
+*/
 public class ConcertAudioManager : MonoBehaviour
 {
 
