@@ -17,7 +17,7 @@ public class Customer : MonoBehaviour
 
     public void GenerateNewWants()
     {
-        Debug.Log("Generating new wants with a max value of " + maxWants);
+        //Debug.Log("Generating new wants with a max value of " + maxWants);
         numWants = Random.Range(1 , maxWants + 1);
         wants = new CustomerWants[numWants];
 
@@ -30,7 +30,7 @@ public class Customer : MonoBehaviour
             if (!wants.Contains(tempWant))
             {
                 wants[i] = tempWant;
-                Debug.Log("Wants of i = " + wants[i]);
+                //Debug.Log("Wants of i = " + wants[i]);
             }
 
             //wants[i] = merchItemEncoding.ElementAt(Random.Range(0, merchItemEncoding.Count)).Key;
@@ -45,7 +45,7 @@ public class Customer : MonoBehaviour
             //}
         }
 
-        Debug.Log("Method ran");
+        //Debug.Log("Method ran");
         EncodeWants();
     }
 
@@ -58,16 +58,16 @@ public class Customer : MonoBehaviour
             if (merchItemEncoding.ContainsKey(wants[i]))
             {
                 encodedCustomerWants = encodedCustomerWants + merchItemEncoding[wants[i]] + " ";
-                Debug.Log(merchItemEncoding[wants[i]]);
+                //Debug.Log(merchItemEncoding[wants[i]]);
             }
         }
 
-        Debug.Log("Encoding wants complete, encoded string: " + encodedCustomerWants);
+        //Debug.Log("Encoding wants complete, encoded string: " + encodedCustomerWants);
     }
 
     public string GetCustomerWants()
     {
-        Debug.Log("Returning Customer Wants");
+        //Debug.Log("Returning Customer Wants");
         return encodedCustomerWants;
     }
 

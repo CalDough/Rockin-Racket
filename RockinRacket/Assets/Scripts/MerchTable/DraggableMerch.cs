@@ -9,10 +9,16 @@ public class DraggableMerch : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private Vector3 startPosition;
     public CustomerWants merchType;
     public MerchTableHandler merchHandler;
-    [SerializeField] RectTransform destination;
+    public RectTransform destination;
 
     private void Awake()
     {
+    }
+
+    private void Start()
+    {
+        merchHandler = GameObject.FindObjectOfType<MerchTableHandler>();
+        destination = merchHandler.destination;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -29,7 +35,20 @@ public class DraggableMerch : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         if (RectTransformUtility.RectangleContainsScreenPoint(destination, eventData.position))
         {
+            //Debug.Log("reached destination");
 
+            bool isRequired = merchHandler.CheckIfIsRequired(merchType);
+
+            if (isRequired)
+            {
+                Debug.Log("Correct merch type - depositing in bag");
+                merchHandler.UpdateCustomerCloud(merchType);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.Log("Incorrect Merch type - throw in trash");
+            }
         }
 
             // Check if we're over a dumpster

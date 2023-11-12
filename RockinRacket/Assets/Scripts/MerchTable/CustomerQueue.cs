@@ -152,7 +152,7 @@ public class CustomerQueue : MonoBehaviour
      */
     private void MoveCustomertoBackOfLine(GameObject customer)
     {
-        Debug.Log("Moving customer to back of line");
+        //Debug.Log("Moving customer to back of line");
         Vector3 startingPos = customer.gameObject.transform.position;
         customer.transform.position = Vector3.Lerp(startingPos, offscreenDespawn.position, Time.deltaTime);
 

@@ -25,10 +25,11 @@ public class MerchTableHandler : MonoBehaviour
     [Header("UI Objects")]
     [SerializeField] RawImage cloudContainer;
     [SerializeField] GameObject[] ItemBoxes;
+    public RectTransform destination;
 
     private CustomerWants[] currentWants;
     private Dictionary<CustomerWants, bool> currentCustomerStatus = new Dictionary<CustomerWants, bool>();
-    private bool isMerchTableActiveYet = false;
+    //private bool isMerchTableActiveYet = false;
 
 
     // Start is called before the first frame update
@@ -82,16 +83,16 @@ public class MerchTableHandler : MonoBehaviour
      */
     private void NewCustomer(string encodedWants)
     {
-        Debug.Log("New Customer method called");
+        //Debug.Log("New Customer method called");
         string[] decodedWants = encodedWants.Split(" ");
-        Debug.Log("Finished decoding wants = " + decodedWants.Length);
+        //Debug.Log("Finished decoding wants = " + decodedWants.Length);
         currentWants = new CustomerWants[decodedWants.Length];
 
         for (int i = 0; i < decodedWants.Length; i++)
         {
             if (wantsDecoder.ContainsKey(decodedWants[i]))
             {
-                Debug.Log("Wants: " + decodedWants[i]);
+                //Debug.Log("Wants: " + decodedWants[i]);
 
                 currentWants[i] = wantsDecoder[decodedWants[i]];
                 currentCustomerStatus.Add(currentWants[i], false);
@@ -99,7 +100,7 @@ public class MerchTableHandler : MonoBehaviour
 
         }
 
-        Debug.Log("Dictionary filled in with wants");
+        //Debug.Log("Dictionary filled in with wants");
 
         PopulateWantsInCloud();
     }
@@ -111,13 +112,13 @@ public class MerchTableHandler : MonoBehaviour
     {
         for (int i = 0; i < currentWants.Length; i++)
         {
-            Debug.Log("Wants: " + currentWants[i]);
+            //Debug.Log("Wants: " + currentWants[i]);
         }
 
-        Debug.Log("Populating Wants In Cloud");
+        //Debug.Log("Populating Wants In Cloud");
         if (currentWants.Length > ItemBoxes.Length)
         {
-            Debug.Log("ItemBoxes Length: " + ItemBoxes.Length + " | Currentwants Length " + currentWants.Length);
+            //Debug.Log("ItemBoxes Length: " + ItemBoxes.Length + " | Currentwants Length " + currentWants.Length);
             Debug.LogError("Item wants is greater than the alloted UI for the current customer's wants");
         }
 
@@ -126,24 +127,61 @@ public class MerchTableHandler : MonoBehaviour
 
             if (customerWantIcons.ContainsKey(currentWants[i]))
             {
-                Debug.Log("i: " + i + " | ItemBoxes length: " + ItemBoxes.Length + " | Current wants length: " + currentWants.Length);
+                //Debug.Log("i: " + i + " | ItemBoxes length: " + ItemBoxes.Length + " | Current wants length: " + currentWants.Length);
                 ItemBoxes[i].gameObject.GetComponent<Image>().sprite = customerWantIcons[currentWants[i]];
             }
         }
-        isMerchTableActiveYet = true;
+        //isMerchTableActiveYet = true;
     }
 
     public void OrderFulfilled()
     {
         currentCustomerStatus = new Dictionary<CustomerWants, bool>();
-        Debug.Log("Order Fulfilled");
+        //Debug.Log("Order Fulfilled");
 
         for (int i = 0; i < ItemBoxes.Length; i++)
         {
             ItemBoxes[i].gameObject.GetComponent<Image>().sprite = null;
+            ItemBoxes[i].gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         MerchTableEvents.instance.e_cueNextCustomer.Invoke();
+    }
+
+    public bool CheckIfIsRequired(CustomerWants draggedWant)
+    {
+        if (currentWants.Contains(draggedWant))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void UpdateCustomerCloud(CustomerWants draggedWant)
+    {
+        //Debug.Log("Dragged want is: " + draggedWant);
+        if (currentCustomerStatus.ContainsKey(draggedWant))
+        {
+            //Debug.Log("Setting dictionary value to true");
+            currentCustomerStatus[draggedWant] = true;
+        }
+
+        int i = 0;
+        bool isCustomerDone = true;
+
+        foreach (KeyValuePair<CustomerWants, bool> entry in currentCustomerStatus)
+        {
+            if (entry.Value == false)
+            {
+                isCustomerDone = false;
+            }
+            i++;
+        }
+
+        if (isCustomerDone)
+        {
+            OrderFulfilled();
+        }
     }
 
     //private void UpdateHeldMerchItem()

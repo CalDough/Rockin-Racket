@@ -11,6 +11,7 @@ public class MerchSource : MonoBehaviour, IPointerDownHandler
     [SerializeField] bool isDestination;
     [SerializeField] Color highlightColor;
     [SerializeField] GameObject draggablePrefab;
+    [SerializeField] Canvas canvas;
 
     private Color baseColor;
     private RawImage imageRenderer;
@@ -27,8 +28,8 @@ public class MerchSource : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         //currentGameState.currentlyHeldObject = sourceType;
-        Debug.Log("Player Clicked on " + gameObject.name);
-        Instantiate(draggablePrefab, eventData.position, Quaternion.identity);
+        //Debug.Log("Player Clicked on " + gameObject.name);
+        Instantiate(draggablePrefab, canvas.transform);
     }
 
     public void OnMouseEnter()
