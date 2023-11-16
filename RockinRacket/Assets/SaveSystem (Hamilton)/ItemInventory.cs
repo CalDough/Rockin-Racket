@@ -17,8 +17,8 @@ public static class ItemInventory
     //private static string itemPath = "Items/";
 
     private static List<ItemTest> ownedItems = new();
-    private static List<ItemTest> equippedItems = new();
     private static ItemTest[] allItems;
+    private static Dictionary<Bandmate, ItemTest> equippedItems = new();
     private static Dictionary<Bandmate, GameObject> minigamesByType;
 
     public static void AddItem(ItemTest item) { ownedItems.Add(item); }
@@ -26,7 +26,7 @@ public static class ItemInventory
     public static void RemoveItem(ItemTest item) { ownedItems.Remove(item); }
     public static List<ItemTest> GetItems() { return ownedItems; }
     public static bool ContainsItem(ItemTest item) { return ownedItems.Contains(item); }
-    public static bool IsEquipped(ItemTest item) { return equippedItems.Contains(item); }
+    public static bool IsEquipped(ItemTest item) { return equippedItems.Values.Contains(item); }
     public static ItemTest[] GetAllItems() { return allItems; }
 
     private static readonly Dictionary<Bandmate, ItemTest[]> BandmateItems = new();
@@ -34,14 +34,17 @@ public static class ItemInventory
     public static ItemTest[] GetItemsByBandmate(Bandmate bandmate) { return BandmateItems[bandmate]; }
 
     // TODO: set to true to build with saving, false to build without saving
-    private static readonly bool buildHasSaving = true;
+    private static readonly bool buildHasSaving = false;
     // TODO: ALSO SET IN GameSaver
 
     public static void Initialize(ItemTest[] completeListOfItems)
     {
+        // TODO figure out why equipped items aren't showign up as equipped
+        Debug.Log("hit!");
         allItems = completeListOfItems;
         AddItems(Load());
         AddBandmateItems();
+        AddEquippedItems();
     }
 
     public static GameObject GetMinigameByName(Bandmate type)
@@ -55,13 +58,13 @@ public static class ItemInventory
         Bandmate[] minigameTypesIncludingNone = (Bandmate[])Enum.GetValues(typeof(Bandmate));
         Bandmate[] minigameTypes = (Bandmate[])minigameTypesIncludingNone.Skip(1);
 
-        foreach (ItemTest item in ownedItems)
-        {
-            //if (item.Minigame_Type != ItemTest.MinigameType.NONE)
-            //    minigamesByType.
-            //else
-            //    noneTypeMinigames.Add(item.MinigameObject);
-        }
+        //foreach (ItemTest item in ownedItems)
+        //{
+        //    if (item.Minigame_Type != ItemTest.MinigameType.NONE)
+        //        minigamesByType.
+        //    else
+        //        noneTypeMinigames.Add(item.MinigameObject);
+        //}
     }
 
     public static void GetBandmateItems()
@@ -109,6 +112,12 @@ public static class ItemInventory
                 case Bandmate.Haley: BandmateItems[Bandmate.Haley][item.ShopIndex] = item; break;
                 case Bandmate.Harvey: BandmateItems[Bandmate.Harvey][item.ShopIndex] = item; break;
             }
+    }
+
+    private static void AddEquippedItems()
+    {
+        foreach (Bandmate bandmate in BandmateItems.Keys)
+            equippedItems[bandmate] = BandmateItems[bandmate][0];
     }
 
     private static ItemTest[] Load()

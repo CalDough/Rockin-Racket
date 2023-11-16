@@ -9,16 +9,16 @@ using TMPro;
 public class ItemOption : MonoBehaviour,
 IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    public CatalogManager catalogManager;
+    [SerializeField] private CatalogManager catalogManager;
+    [SerializeField] private Image highlightImage;
+    [SerializeField] private Image itemImage;
+    [SerializeField] private Image soldImage;
+    [SerializeField] private Image equipImage;
 
-    public ItemTest item;
-    public Image Highlight;
-    public Image ItemImage;
-    public Image soldImage;
-
+    private ItemTest item;
     private bool forSale;
     private bool equipped;
-    //public bool IsEquipped() { return equipped; }
+    public ItemTest GetItem() { return item; }
 
     private void Awake()
     {
@@ -29,22 +29,22 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
         gameObject.SetActive(show);
     }
     // called from ShopCatalog
-    public void SetItem(ItemTest item, bool inCart, bool forSale, bool equipped)
+    public void SetItem(ItemTest item, bool forSale, bool inCart, bool equipped)
     {
         this.item = item;
-        ItemImage.sprite = item.sprite;
+        itemImage.sprite = item.sprite;
         UpdateOption(forSale, inCart, equipped);
         Show(true);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (forSale)
-            Highlight.color = new Color(1f, 1f, 1f, 1f);
+            highlightImage.color = new Color(1f, 1f, 1f, 1f);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         if (forSale)
-            Highlight.color = new Color(1f, 1f, 1f, 0f);
+            highlightImage.color = new Color(1f, 1f, 1f, 0f);
     }
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -54,32 +54,35 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     public void RemoveFromCart()
     {
         if (forSale)
-        ItemImage.color = new Color(1f, 1f, 1f, 1f);
+        itemImage.color = new Color(1f, 1f, 1f, 1f);
     }
-    public void UpdateOption(bool inCart, bool forSale, bool equipped)
+    public void UpdateOption(bool forSale, bool inCart, bool equipped)
     {
+        equipImage.color = new Color(1f, 1f, 1f, 0f);
         this.forSale = forSale;
         this.equipped = equipped;
         if (forSale)
         {
             soldImage.color = new Color(1f, 1f, 1f, 0f);
-            ItemImage.color = new Color(1f, 1f, 1f, 1f);
+            itemImage.color = new Color(1f, 1f, 1f, 1f);
         }
         else
         {
             soldImage.color = new Color(1f, 1f, 1f, 1f);
-            ItemImage.color = new Color(1f, 1f, 1f, .7f);
+            itemImage.color = new Color(1f, 1f, 1f, .7f);
+            if (equipped)
+                equipImage.color = new Color(1f, 1f, 1f, 1f);
         }
         if (inCart)
-            ItemImage.color = new Color(1f, 1f, 1f, .7f);
+            itemImage.color = new Color(1f, 1f, 1f, .7f);
     }
     public void ResetItem()
     {
+        print("hit!");
         // check if it's a default item
         if (item.cost == 0)
-            UpdateOption(false, true, true);
+            UpdateOption(true, false, true);
         else
-            UpdateOption(false, true, false);
-
+            UpdateOption(true, false, false);
     }
 }
