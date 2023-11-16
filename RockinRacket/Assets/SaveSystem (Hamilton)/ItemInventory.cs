@@ -19,7 +19,7 @@ public static class ItemInventory
     private static List<ItemTest> ownedItems = new();
     private static List<ItemTest> equippedItems = new();
     private static ItemTest[] allItems;
-    private static Dictionary<ItemTest.MinigameType, GameObject> minigamesByType;
+    private static Dictionary<Bandmate, GameObject> minigamesByType;
 
     public static void AddItem(ItemTest item) { ownedItems.Add(item); }
     public static void AddItems(ItemTest[] items) { ownedItems.AddRange(items); }
@@ -29,17 +29,22 @@ public static class ItemInventory
     public static bool IsEquipped(ItemTest item) { return equippedItems.Contains(item); }
     public static ItemTest[] GetAllItems() { return allItems; }
 
+    private static readonly Dictionary<Bandmate, ItemTest[]> BandmateItems = new();
+    // called by ShopCatalog
+    public static ItemTest[] GetItemsByBandmate(Bandmate bandmate) { return BandmateItems[bandmate]; }
+
     // TODO: set to true to build with saving, false to build without saving
-    private static readonly bool buildHasSaving = false;
+    private static readonly bool buildHasSaving = true;
     // TODO: ALSO SET IN GameSaver
 
     public static void Initialize(ItemTest[] completeListOfItems)
     {
         allItems = completeListOfItems;
         AddItems(Load());
+        AddBandmateItems();
     }
 
-    public static GameObject GetMinigameByName(ItemTest.MinigameType type)
+    public static GameObject GetMinigameByName(Bandmate type)
     {
         return minigamesByType[type];
     }
@@ -47,8 +52,8 @@ public static class ItemInventory
     // TODO only get EQUIPPED items
     public static void GetEquippedItems()
     {
-        ItemTest.MinigameType[] minigameTypesIncludingNone = (ItemTest.MinigameType[])Enum.GetValues(typeof(ItemTest.MinigameType));
-        ItemTest.MinigameType[] minigameTypes = (ItemTest.MinigameType[])minigameTypesIncludingNone.Skip(1);
+        Bandmate[] minigameTypesIncludingNone = (Bandmate[])Enum.GetValues(typeof(Bandmate));
+        Bandmate[] minigameTypes = (Bandmate[])minigameTypesIncludingNone.Skip(1);
 
         foreach (ItemTest item in ownedItems)
         {
@@ -57,6 +62,11 @@ public static class ItemInventory
             //else
             //    noneTypeMinigames.Add(item.MinigameObject);
         }
+    }
+
+    public static void GetBandmateItems()
+    {
+
     }
 
     public static void Save(ItemTest[] newItems)
@@ -82,6 +92,25 @@ public static class ItemInventory
         }
     }
 
+    private static void AddBandmateItems()
+    {
+        BandmateItems.Add(Bandmate.MJ, new ItemTest[4]);
+        BandmateItems.Add(Bandmate.Kurt, new ItemTest[4]);
+        BandmateItems.Add(Bandmate.Ace, new ItemTest[4]);
+        BandmateItems.Add(Bandmate.Haley, new ItemTest[4]);
+        BandmateItems.Add(Bandmate.Harvey, new ItemTest[4]);
+
+        foreach (ItemTest item in allItems)
+            switch (item.itemType)
+            {
+                case Bandmate.MJ: BandmateItems[Bandmate.MJ][item.ShopIndex] = item; break;
+                case Bandmate.Kurt: BandmateItems[Bandmate.Kurt][item.ShopIndex] = item; break;
+                case Bandmate.Ace: BandmateItems[Bandmate.Ace][item.ShopIndex] = item; break;
+                case Bandmate.Haley: BandmateItems[Bandmate.Haley][item.ShopIndex] = item; break;
+                case Bandmate.Harvey: BandmateItems[Bandmate.Harvey][item.ShopIndex] = item; break;
+            }
+    }
+
     private static ItemTest[] Load()
     {
         if (buildHasSaving)
@@ -91,6 +120,8 @@ public static class ItemInventory
             string filePath = saveFolderPath + saveFileName;
 
             List<string> itemNames = new(File.ReadAllLines(filePath));
+            //foreach (string itemName in itemNames)
+            //    Debug.Log(itemName);
             ItemTest[] loadedItems = new ItemTest[itemNames.Count];
 
             int successfullyLoaded = 0;
@@ -98,7 +129,8 @@ public static class ItemInventory
                 foreach (ItemTest item in allItems)
                     if (itemNames[i] == item.name)
                     {
-                        loadedItems[i] = allItems[i];
+                        //Debug.Log($"String: {itemNames[i]} || Item Name: {item.name}");
+                        loadedItems[i] = item;
                         successfullyLoaded++;
                     }
 
@@ -108,6 +140,8 @@ public static class ItemInventory
             //    Debug.Log(item.name);
 
             Debug.Log($"Inventory loaded {successfullyLoaded} items loaded out of {itemNames.Count}");
+            //foreach (ItemTest item in loadedItems)
+            //    Debug.Log(item.name);
             return loadedItems;
         }
         return new ItemTest[0];

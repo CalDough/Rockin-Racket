@@ -9,7 +9,7 @@ public class ShopMenu : MonoBehaviour
 
     private bool returningMenu;
 
-    public void Open() { gameObject.SetActive(true); }
+    public void Open() { gameObject.SetActive(true); print("hit!"); }
     public void Close() { gameObject.SetActive(false); }
 
     private void OnEnable()

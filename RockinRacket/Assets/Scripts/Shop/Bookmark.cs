@@ -14,7 +14,7 @@ public class Bookmark : MonoBehaviour, IPointerDownHandler
     [SerializeField] private TMP_Text text;
     //private Color color;
 
-    public void Initialize(Color color, ItemTest.ItemType itemType, bool show)
+    public void Initialize(Color color, Bandmate itemType, bool show)
     {
         //this.color = color;
         image.color = color;

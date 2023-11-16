@@ -52,10 +52,11 @@ public class CatalogManager : MonoBehaviour
         shopCatalog.UpdateItemOptions(shopReceipt);
     }
 
-    public void BookmarkPressed(ItemTest.ItemType itemType)
+    public void BookmarkPressed(Bandmate bandmate)
     {
         shopSelection.ResetSelection();
         shopCatalog.ResetItemOptions();
-        shopCatalog.DisplayItemsByCategory(ItemInventory.GetAllItems(), itemType, shopReceipt);
+        //shopCatalog.DisplayItemsByCategory(ItemInventory.GetAllItems(), bandmate, shopReceipt);
+        shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);
     }
 }

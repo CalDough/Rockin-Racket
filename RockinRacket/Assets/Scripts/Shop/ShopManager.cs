@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    private enum Action {OpenShopMenu, ReturnToShopMenu, OpenCatalog, ExitShop};
+    private enum Action {OpenShopMenu, OpenCatalog, ExitShop};
     [SerializeField] private TextAsset startConvo;
     [SerializeField] private TextAsset returnConvo;
     [SerializeField] private TextAsset openCatalogConvo;
@@ -35,15 +35,11 @@ public class ShopManager : MonoBehaviour
         // TODO find a better way to do this
         ItemInventory.Initialize(completeListOfItems);
 
-        OpenShopMenu();
+        //OpenShopMenu();
+        OpenShopCatalog(); // TODO switch back
     }
 
-    private void Update()
-    {
-        //StartShopkeeperDialogue(startConvo, Action.OpenShopMenu);
-        enabled = false; // stops update from running after first frame
-    }
-
+    // called by ShopMenu Dialogue Choices' buttons on press
     public void MakeChoice(int choice)
     {
         switch (choice)
@@ -65,11 +61,29 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    // called by catalog's "back to shop" button on press
     public void ReturnToShop()
     {
-        //StartShopkeeperDialogue(returnConvo, Action.OpenShopMenu);
         OpenShopMenu();
     }
+
+    // called by ShopDialogueEnds when DialogueBox is disabled
+    public void EndShopkeeperDialogue()
+    {
+        switch (onClose)
+        {
+            case Action.OpenShopMenu: OpenShopMenu(); break;
+            case Action.OpenCatalog: OpenShopCatalog(); break;
+            case Action.ExitShop: gameLoadHandler.OpenMainMenu(); break;
+        }
+    }
+
+    // TODO USE IF DIALOGUE NEEDED ON START
+    //private void Update()
+    //{
+    //    //StartShopkeeperDialogue(startConvo, Action.OpenShopMenu);
+    //    enabled = false; // stops update from running after first frame
+    //}
 
     private void OpenShopCatalog()
     {
@@ -91,15 +105,5 @@ public class ShopManager : MonoBehaviour
         this.onClose = onClose;
         CloseAll();
         dialogueManager.StartDialogue(textAsset);
-    }
-    public void EndShopkeeperDialogue()
-    {
-        switch (onClose)
-        {
-            case Action.OpenShopMenu: OpenShopMenu(); break;
-            //case Action.ReturnToShopMenu: ReturnToShop(); break;
-            case Action.OpenCatalog: OpenShopCatalog(); break;
-            case Action.ExitShop: gameLoadHandler.OpenMainMenu(); break;
-        }
     }
 }
