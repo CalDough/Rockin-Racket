@@ -36,7 +36,7 @@ public class MerchTableHandler : MonoBehaviour
     void Start()
     {
         MerchTableEvents.instance.e_sendCustomerData.AddListener(NewCustomer);
-        OrderFulfilled();
+        //OrderFulfilled();
     }
 
     // Update is called once per frame

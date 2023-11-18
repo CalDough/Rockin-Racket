@@ -14,6 +14,8 @@ public class AudienceController : MonoBehaviour
     [SerializeField] private float audienceChangeInterval = 5f;
     [SerializeField] private List<GameObject> audienceMemberPrefabs;
     [SerializeField] private Transform audienceSpawnPoint;
+    [Tooltip("X is minimum number of audience members, Y is maximum number")]
+    [SerializeField] Vector2 audienceSpawningRange;
 
     [SerializeField] private float moodRandomizationInterval = 15f;
 
@@ -234,15 +236,22 @@ public class AudienceController : MonoBehaviour
 
     private void InitializeAudience()
     {
-        if (audienceMembers.Count < 5)
-        {
-            int membersToSpawn = 5 - audienceMembers.Count;
+        int membersToSpawn = (int) Random.Range(audienceSpawningRange.x, audienceSpawningRange.y);
+        Debug.Log(membersToSpawn);
 
-            for (int i = 0; i < membersToSpawn; i++)
-            {
-                AddAudienceMember();
-            }
+        for (int i = 0; i < membersToSpawn; i++)
+        {
+            AddAudienceMember();
         }
+        //if (audienceMembers.Count < 5)
+        //{
+        //    int membersToSpawn = 5 - audienceMembers.Count;
+
+        //    for (int i = 0; i < membersToSpawn; i++)
+        //    {
+        //        AddAudienceMember();
+        //    }
+        //}
     }
 
     private void AddAudienceMember()
