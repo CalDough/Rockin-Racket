@@ -12,6 +12,7 @@ public class MerchSource : MonoBehaviour, IPointerDownHandler
     [SerializeField] Color highlightColor;
     [SerializeField] GameObject draggablePrefab;
     [SerializeField] Canvas canvas;
+    [SerializeField] GameObject shopAsParent;
 
     private Color baseColor;
     private RawImage imageRenderer;
@@ -29,7 +30,7 @@ public class MerchSource : MonoBehaviour, IPointerDownHandler
     {
         //currentGameState.currentlyHeldObject = sourceType;
         //Debug.Log("Player Clicked on " + gameObject.name);
-        Instantiate(draggablePrefab, canvas.transform);
+        Instantiate(draggablePrefab, shopAsParent.transform);
     }
 
     public void OnMouseEnter()
