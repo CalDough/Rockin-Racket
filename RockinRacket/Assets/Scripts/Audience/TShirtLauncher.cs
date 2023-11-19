@@ -5,21 +5,39 @@ using UnityEngine.InputSystem;
 public class TShirtLauncher : MonoBehaviour
 {
     public Rigidbody2D tShirtPrefab;
-    public Transform launchPoint;
+    [SerializeField] private float cooldown = 3;
+    [SerializeField] private GameObject spawnPos;
+    private Coroutine spawnRoutine;
 
     private void Start()
     {
-        StartCoroutine(TShirtSpawnRoutine());
+        StartTShirtSpawning();
+    }
+
+    public void StartTShirtSpawning()
+    {
+        if(spawnRoutine == null)
+        {
+            spawnRoutine = StartCoroutine(TShirtSpawnRoutine());
+        }
+    }
+
+    public void StopTShirtSpawning()
+    {
+        if(spawnRoutine != null)
+        {
+            StopCoroutine(spawnRoutine);
+        }
     }
 
     IEnumerator TShirtSpawnRoutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(3f); 
-            if (launchPoint.childCount == 0) 
+            yield return new WaitForSeconds(cooldown); 
+            if (spawnPos.transform.childCount == 0) 
             {
-                Instantiate(tShirtPrefab, launchPoint.position, Quaternion.identity, launchPoint);
+                Instantiate(tShirtPrefab, spawnPos.transform.position, Quaternion.identity, spawnPos.transform);
             }
         }
     }

@@ -11,6 +11,7 @@ public class CrowdShirt : MonoBehaviour
     [SerializeField] private int steps = 100;
     [SerializeField] private float stepDistance = 10;
 
+    [SerializeField] private bool hasLaunched = false;
     private Vector3 initialMousePos;
     private Vector3 endMousePos;
     private Vector2 _velocity;
@@ -21,6 +22,7 @@ public class CrowdShirt : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
+
     }
 
     void Update()
@@ -30,13 +32,17 @@ public class CrowdShirt : MonoBehaviour
 
     
     void OnMouseDown()
-    {
+    {       
+        if(hasLaunched)
+        {return;}
         initialMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         trajectoryLineRenderer.enabled = true;
     }
 
     void OnMouseDrag()
     {
+        if(hasLaunched)
+        {return;}
         endMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         _velocity = (endMousePos-initialMousePos) * power;
 
@@ -53,11 +59,17 @@ public class CrowdShirt : MonoBehaviour
 
     void OnMouseUp()
     {
+        if(hasLaunched)
+        {return;}
         endMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         _velocity = (endMousePos-initialMousePos) * power;
 
         _rb.velocity = _velocity;
         trajectoryLineRenderer.enabled = false;
+        _rb.isKinematic = false;
+        Destroy(this.gameObject, 10);
+        
+        hasLaunched = true;
     }
 
     public Vector2[] Plot(Rigidbody2D rb2, Vector2 pos, Vector2 vel, int steps)
@@ -78,5 +90,6 @@ public class CrowdShirt : MonoBehaviour
         return results;
     }
 
+    
 
 }
