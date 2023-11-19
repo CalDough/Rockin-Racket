@@ -9,6 +9,8 @@ public class TShirtLauncher : MonoBehaviour
     [SerializeField] private GameObject spawnPos;
     private Coroutine spawnRoutine;
 
+
+
     private void Start()
     {
         StartTShirtSpawning();
