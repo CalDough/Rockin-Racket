@@ -25,18 +25,8 @@ public class CrowdTrash : MonoBehaviour, IConcertInteractable
 
     public void ClickInteraction()
     {
+        CrowdController.Instance.currentTrashCount--;
         Destroy(gameObject); 
     }
 
-    public void OnDragStart(Vector2 point)
-    {
-    }
-
-    public void OnDrag(Vector2 point)
-    {
-    }
-
-    public void OnDragEnd(Vector2 point)
-    {
-    }
 }

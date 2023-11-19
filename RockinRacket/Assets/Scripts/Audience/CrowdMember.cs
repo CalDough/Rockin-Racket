@@ -9,32 +9,42 @@ public class CrowdMember : MonoBehaviour
 
     [SerializeField] private MoodState currentMood = MoodState.Pleased;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Collider2D col;
+    [SerializeField] private Animator characterAnimator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] ParticleSystem goodParticles;
+    [SerializeField] ParticleSystem badParticles; 
+    [SerializeField] private string HypedAnimation = "Audience_Happy";
+    [SerializeField] private string PleasedAnimation = "Audience_Excited";
+    [SerializeField] private string FrustratedAnimation = "Audience_Normal";
+
     [SerializeField] private float concertRating = 5f;
     [SerializeField] private bool wantsTShirt = false;
     [SerializeField] private bool isJumping = false;
     [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float tshirtIntervalMin = 20f;
-    [SerializeField] private float tshirtIntervalMax = 40f;
-    [SerializeField] private float trashSpawnIntervalMin = 20f;
-    [SerializeField] private float trashSpawnIntervalMax = 40f;
-    [SerializeField] private float trashStickDurationMin = 1f;
-    [SerializeField] private float trashStickDurationMax = 3.5f;
-    [SerializeField] private float concertRatingIncreaseForThrowingTrash = 1f;
-    [SerializeField] private float concertRatingDecreaseForGettingHit = 2f;
 
-    private Coroutine tShirtRoutine;
-    private Coroutine trashSpawnRoutine;
+    [SerializeField] private float concertRatingIncreaseForTShirt = 2f;
+    [SerializeField] private Vector2 movementRange = new Vector2(1f, 0f); 
+    [SerializeField] private float moveSpeed = 1f; 
+
 
     [SerializeField] private GameObject currentTrash; 
+    
 
+    private Vector3 originalPosition;
+    private Coroutine wantTShirtCoroutine;
+    private Coroutine currentMoveCoroutine; 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        col = GetComponent<Collider2D>();
-        tShirtRoutine = StartCoroutine(WantTShirtRoutine());
-        trashSpawnRoutine = StartCoroutine(TrashSpawnRoutine());
+        originalPosition = transform.position;
+        StartCoroutine(RandomMovementRoutine());
+        SubscribeEvents();
+    }
+
+    void OnDestroy()
+    {
+        UnsubscribeEvents();
     }
 
     void Update()
@@ -42,31 +52,72 @@ public class CrowdMember : MonoBehaviour
         if (isJumping)
         {
             Jump();
+            characterAnimator.Play(HypedAnimation); 
         }
+        else
+        {
+            UpdateAnimationBasedOnMood();
+        }
+    }
+
+    public void StartWantingShirts()
+    {
+        StartCoroutine( WantTShirtRoutine());
     }
 
     IEnumerator WantTShirtRoutine()
     {
-        while (true)
+        wantsTShirt = true;
+        isJumping = true;
+        thoughtBubble.SetActive(true);
+        yield return new WaitForSeconds(20f); 
+
+        if (wantsTShirt) 
         {
-            yield return new WaitForSeconds(Random.Range(tshirtIntervalMin, tshirtIntervalMax));
-            wantsTShirt = true;
-            isJumping = true;
-            thoughtBubble.SetActive(true); 
-            yield return new WaitForSeconds(20f); 
+            badParticles.Play();
+            if (concertRating > 5) 
+            {
+                UpdateConcertRating(-1); 
+            }
             StopJumping();
         }
+        wantTShirtCoroutine = null; 
     }
 
-    IEnumerator TrashSpawnRoutine()
+    public float GetConcertRating()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(Random.Range(trashSpawnIntervalMin, trashSpawnIntervalMax));
-            ThrowTrash();
-        }
+        return concertRating;
     }
+
+    public void UpdateConcertRating(float amount)
+    {
+        concertRating = Mathf.Clamp(concertRating + amount, 0, 10);
+        UpdateAnimationBasedOnMood(); 
+    }
+    private void UpdateAnimationBasedOnMood()
+    {
+        if (concertRating <= 5)
+        {
+            currentMood = MoodState.Frustrated;
+            characterAnimator.Play(FrustratedAnimation);
+        }
+        else
+        {
+            currentMood = MoodState.Pleased;
+            characterAnimator.Play(PleasedAnimation);
+        }
+    } 
     
+    private void StopAllCoroutinesOnEnd()
+    {
+        if (wantTShirtCoroutine != null)
+        {
+            StopCoroutine(wantTShirtCoroutine);
+            wantTShirtCoroutine = null;
+        }
+        StopJumping();
+    }
+
     void StopJumping()
     {
         wantsTShirt = false;
@@ -94,6 +145,9 @@ public class CrowdMember : MonoBehaviour
 
     public void ThrowTrash()
     {
+        if(!CrowdController.Instance.CanSpawnTrash() )
+        { return;}
+
         currentTrash = Instantiate(trashPrefab, transform.position, Quaternion.identity);
         currentTrash.layer = LayerMask.NameToLayer("Trash"); 
         Rigidbody2D trashRb = currentTrash.GetComponent<Rigidbody2D>();
@@ -106,7 +160,7 @@ public class CrowdMember : MonoBehaviour
 
         Vector2 throwDirection = GetRandomUpwardDirection();
         trashRb.AddForce(throwDirection * Random.Range(5f, 10f), ForceMode2D.Impulse);
-
+        CrowdController.Instance.currentTrashCount++;
         StartCoroutine(ActivateTrashProjectile(currentTrash));
     }
 
@@ -143,6 +197,7 @@ public class CrowdMember : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        /*
         if (collider.gameObject.CompareTag("Trash") && collider.gameObject != currentTrash)
         {
             Debug.Log("Trigger entered trash");
@@ -154,18 +209,72 @@ public class CrowdMember : MonoBehaviour
                 StartCoroutine(HandleTrashCollision());
             }
         }
-        else if (collider.gameObject.CompareTag("TShirt"))
+        */
+        if (collider.gameObject.CompareTag("TShirt"))
         {
             if (wantsTShirt)
             {
-                concertRating = Mathf.Clamp(concertRating + 1, 0, 10);
-                StopCoroutine(tShirtRoutine);
-                StopJumping();
+                UpdateConcertRating(concertRatingIncreaseForTShirt);
+                goodParticles.Play();
             }
+            else
+            {
+                badParticles.Play();
+            }
+            StopJumping();
             Destroy(collider.gameObject);
+        }
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Vector3 newTargetPosition = originalPosition - (transform.position - originalPosition);
+            newTargetPosition.x = Mathf.Clamp(newTargetPosition.x, originalPosition.x - movementRange.x, originalPosition.x + movementRange.x);
+
+            if (currentMoveCoroutine != null)
+            {
+                StopCoroutine(currentMoveCoroutine);
+            }
+            currentMoveCoroutine = StartCoroutine(MoveTowardsPosition(newTargetPosition));
         }
     }
 
+    IEnumerator RandomMovementRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(3f, 5f)); 
+            MoveRandomly();
+        }
+    }
+
+    private void MoveRandomly()
+    {
+        float moveDistance = Random.Range(-movementRange.x, movementRange.x);
+        Vector3 targetPosition = new Vector3(originalPosition.x + moveDistance, transform.position.y, transform.position.z);
+        targetPosition.x = Mathf.Clamp(targetPosition.x, originalPosition.x - movementRange.x, originalPosition.x + movementRange.x);
+
+        if (currentMoveCoroutine != null)
+        {
+            StopCoroutine(currentMoveCoroutine);
+        }
+        currentMoveCoroutine = StartCoroutine(MoveTowardsPosition(targetPosition));
+    }
+
+    IEnumerator MoveTowardsPosition(Vector3 targetPosition)
+    {
+        spriteRenderer.flipX = (targetPosition.x > transform.position.x);
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    /*
     IEnumerator HandleTrashCollision()
     {
         concertRating = Mathf.Clamp(concertRating - concertRatingDecreaseForGettingHit, 0, 10);
@@ -175,7 +284,9 @@ public class CrowdMember : MonoBehaviour
         ResetTrashSpawnTimer(); 
         ThrowTrash(); 
     }
+    */
 
+    //WIP AREA
     private void ShowAngryFace()
     {
        
@@ -186,12 +297,39 @@ public class CrowdMember : MonoBehaviour
 
     }
 
-    private void ResetTrashSpawnTimer()
+
+    private void SubscribeEvents()
     {
-        if (trashSpawnRoutine != null)
+        StateEvent.OnStateStart += HandleGameStateStart;
+        StateEvent.OnStateEnd += HandleGameStateEnd;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        StateEvent.OnStateStart -= HandleGameStateStart;
+        StateEvent.OnStateEnd -= HandleGameStateEnd;
+    }
+
+    public void HandleGameStateStart(object sender, StateEventArgs e)
+    {
+        switch(e.state.stateType)
         {
-            StopCoroutine(trashSpawnRoutine);
+            case StateType.Song:
+                break;
+            default:
+                break;
         }
-        trashSpawnRoutine = StartCoroutine(TrashSpawnRoutine());
+    }
+    
+    private void HandleGameStateEnd(object sender, StateEventArgs e)
+    {
+        switch(e.state.stateType)
+        {
+            case StateType.Song:
+                StopAllCoroutinesOnEnd();
+                break;
+            default:
+                break;
+        }
     }
 }
