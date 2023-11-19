@@ -73,6 +73,7 @@ public class CrowdController : MonoBehaviour
         {
             StopCoroutine(ShirtCoroutine);
         }
+        ShirtCoroutine = null;
     }
 
     public void StopTrashThrowing()
@@ -81,6 +82,7 @@ public class CrowdController : MonoBehaviour
         {
             StopCoroutine(TrashCoroutine);
         }
+        TrashCoroutine = null;
     }
     
     IEnumerator TrashSpawnRoutine()

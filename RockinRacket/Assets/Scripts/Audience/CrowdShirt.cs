@@ -10,6 +10,7 @@ public class CrowdShirt : MonoBehaviour
     [SerializeField] private float power = 5f;
     [SerializeField] private int steps = 100;
     [SerializeField] private float stepDistance = 10;
+    [SerializeField] private float decayTime = 2;
 
     [SerializeField] private bool hasLaunched = false;
     private Vector3 initialMousePos;
@@ -69,7 +70,7 @@ public class CrowdShirt : MonoBehaviour
         _rb.velocity = _velocity;
         trajectoryLineRenderer.enabled = false;
         _rb.isKinematic = false;
-        Destroy(this.gameObject, 3);
+        Destroy(this.gameObject, decayTime);
         
         hasLaunched = true;
     }
