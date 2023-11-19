@@ -5,67 +5,78 @@ using UnityEngine.InputSystem;
 
 public class CrowdShirt : MonoBehaviour
 {
-    public LineRenderer trajectoryLineRenderer;
-    public float launchPower = 10f;
+    [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private LineRenderer trajectoryLineRenderer;
+    [SerializeField] private float power = 5f;
+    [SerializeField] private int steps = 100;
+    [SerializeField] private float stepDistance = 10;
 
-    private Rigidbody2D rb;
+    private Vector3 initialMousePos;
+    private Vector3 endMousePos;
+    private Vector2 _velocity;
     private Camera mainCamera;
-    private Vector2 dragStartPos;
-    private bool isDragging = false;
+
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         mainCamera = Camera.main;
-        rb.isKinematic = true; 
     }
 
-    public void OnDragStart(InputAction.CallbackContext context)
+    void Update()
     {
-        if (context.phase != InputActionPhase.Started) return;
         
-        dragStartPos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        isDragging = true;
     }
 
-    public void OnDrag(InputAction.CallbackContext context)
+    
+    void OnMouseDown()
     {
-        if (!isDragging) return;
-        
-        Vector2 currentPos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2 direction = dragStartPos - currentPos;
-        Vector2 force = direction * launchPower;
-        trajectoryLineRenderer.positionCount = 10;
-        ShowTrajectory(rb.position, force);
+        initialMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        trajectoryLineRenderer.enabled = true;
     }
 
-    public void OnDragEnd(InputAction.CallbackContext context)
+    void OnMouseDrag()
     {
-        if (context.phase != InputActionPhase.Canceled || !isDragging) return;
+        endMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        _velocity = (endMousePos-initialMousePos) * power;
 
-        Vector2 currentPos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2 direction = dragStartPos - currentPos;
-        rb.isKinematic = false;
-        rb.AddForce(direction * launchPower, ForceMode2D.Impulse);
-        trajectoryLineRenderer.positionCount = 0;
-        isDragging = false;
-    }
-
-    void ShowTrajectory(Vector2 origin, Vector2 speed)
-    {
-        int numPoints = 10;
-        Vector3[] points = new Vector3[numPoints]; 
-
-        points[0] = origin;
-
-        for (int i = 1; i < numPoints; i++)
+        Vector2[] trajectory = Plot(_rb, transform.position, _velocity, steps);
+        trajectoryLineRenderer.positionCount = trajectory.Length;
+        Vector3[] positions = new Vector3[trajectory.Length];
+        for(int i = 0; i < trajectory.Length; i++)
         {
-            float time = i * 0.1f;
-            Vector2 point = origin + speed * time + Physics2D.gravity * time * time / 2f;
-            points[i] = new Vector3(point.x, point.y, 0);
+            positions[i] = trajectory[i];
         }
+        trajectoryLineRenderer.SetPositions(positions);
 
-        trajectoryLineRenderer.SetPositions(points);
     }
+
+    void OnMouseUp()
+    {
+        endMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        _velocity = (endMousePos-initialMousePos) * power;
+
+        _rb.velocity = _velocity;
+        trajectoryLineRenderer.enabled = false;
+    }
+
+    public Vector2[] Plot(Rigidbody2D rb2, Vector2 pos, Vector2 vel, int steps)
+    {
+        Vector2[] results = new Vector2[steps];
+        float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations * stepDistance; 
+        Vector2 gravityAccel = Physics2D.gravity * rb2.gravityScale * timestep * timestep;
+        float drag = 1f - timestep * rb2.drag;
+        Vector2 moveStep = _velocity * timestep;
+
+        for(int i = 0; i < steps; i++)
+        {
+            moveStep += gravityAccel;
+            moveStep *= drag;
+            pos += moveStep;
+            results[i] = pos;
+        }
+        return results;
+    }
+
 
 }
