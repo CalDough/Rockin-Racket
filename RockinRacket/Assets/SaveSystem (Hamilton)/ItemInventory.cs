@@ -39,8 +39,6 @@ public static class ItemInventory
 
     public static void Initialize(ItemTest[] completeListOfItems)
     {
-        // TODO figure out why equipped items aren't showign up as equipped
-        Debug.Log("hit!");
         allItems = completeListOfItems;
         AddItems(Load());
         AddBandmateItems();
@@ -95,6 +93,11 @@ public static class ItemInventory
         }
     }
 
+    public static void EquipItem(Bandmate bandmate, ItemTest item)
+    {
+        equippedItems[bandmate] = item;
+    }
+
     private static void AddBandmateItems()
     {
         BandmateItems.Add(Bandmate.MJ, new ItemTest[4]);
@@ -117,7 +120,11 @@ public static class ItemInventory
     private static void AddEquippedItems()
     {
         foreach (Bandmate bandmate in BandmateItems.Keys)
+        {
             equippedItems[bandmate] = BandmateItems[bandmate][0];
+            AddItem(BandmateItems[bandmate][0]);
+        }
+            
     }
 
     private static ItemTest[] Load()

@@ -10,41 +10,66 @@ using TMPro;
 
 public class ShopSelection : MonoBehaviour
 {
-    public TMP_Text nameText;
-    public TMP_Text descriptionText;
-    public TMP_Text costText;
-    public TMP_Text cartButtonText;
+    [SerializeField] private ShopReceipt shopReceipt;
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private TMP_Text costText;
+    [SerializeField] private GameObject cartBtn;
+    [SerializeField] private TMP_Text cartButtonText;
+    [SerializeField] private GameObject equipBtn;
+    [SerializeField] private TMP_Text equipButtonText;
 
     private ItemTest selectedItem;
 
     public ItemTest GetSelectedItem() { return selectedItem; }
 
-    public void SelectItem(ItemTest itemTest, bool isIncart)
+    public void SelectItem(ItemTest itemTest)
     {
         selectedItem = itemTest;
-        UpdateText(isIncart);
+        UpdateText();
     }
-    private void UpdateText(bool isIncart)
+
+    public void UpdateText()
     {
-        if (selectedItem == null)
+        // default values
+        nameText.text = "Item Name";
+        descriptionText.text = "Item Description";
+        costText.text = "Item Cost";
+        cartButtonText.text = "Cart";
+        equipButtonText.text = "Equip";
+
+        if (selectedItem != null)
         {
-            nameText.text = "Item Name";
-            descriptionText.text = "Item Description";
+            bool isInCart = shopReceipt.IsInCart(selectedItem);
+            bool isBought = ItemInventory.ContainsItem(selectedItem);
+            bool isEquipped = ItemInventory.IsEquipped(selectedItem);
+            cartBtn.SetActive(!isBought);
+            equipBtn.SetActive(isBought && !isEquipped);
+            nameText.text = selectedItem.name;
+            descriptionText.text = selectedItem.description;
             costText.text = "Item Cost";
-            cartButtonText.text = "Add To Cart";
-            return;
+
+            if (!isBought)
+            {
+                costText.text = "$" + selectedItem.cost.ToString();
+                if (isInCart)
+                    cartButtonText.text = "Remove From Cart";
+                else
+                    cartButtonText.text = "Add To Cart";
+            }
         }
-        nameText.text = selectedItem.name;
-        descriptionText.text = selectedItem.description;
-        costText.text = "$" + selectedItem.cost.ToString();
-        if (isIncart)
-            cartButtonText.text = "Remove From Cart";
         else
-            cartButtonText.text = "Add To Cart";
+        {
+            cartBtn.SetActive(false);
+            equipBtn.SetActive(false);
+            costText.text = "";
+        }
     }
+
+    // called by catalogManager when 
     public void ResetSelection()
     {
-        selectedItem = new();
-        UpdateText(false);
+        selectedItem = null;
+        UpdateText();
     }
 }

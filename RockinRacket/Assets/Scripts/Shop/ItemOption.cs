@@ -13,7 +13,7 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     [SerializeField] private Image highlightImage;
     [SerializeField] private Image itemImage;
     [SerializeField] private Image soldImage;
-    [SerializeField] private Image equipImage;
+    [SerializeField] private GameObject equipImageObject;
 
     private ItemTest item;
     private bool forSale;
@@ -38,17 +38,17 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (forSale)
+        //if (forSale)
             highlightImage.color = new Color(1f, 1f, 1f, 1f);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (forSale)
+        //if (forSale)
             highlightImage.color = new Color(1f, 1f, 1f, 0f);
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (forSale)
+        //if (forSale)
             catalogManager.ItemOptionPressed(item);
     }
     public void RemoveFromCart()
@@ -58,7 +58,7 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     }
     public void UpdateOption(bool forSale, bool inCart, bool equipped)
     {
-        equipImage.color = new Color(1f, 1f, 1f, 0f);
+        equipImageObject.SetActive(false);
         this.forSale = forSale;
         this.equipped = equipped;
         if (forSale)
@@ -71,7 +71,7 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
             soldImage.color = new Color(1f, 1f, 1f, 1f);
             itemImage.color = new Color(1f, 1f, 1f, .7f);
             if (equipped)
-                equipImage.color = new Color(1f, 1f, 1f, 1f);
+                equipImageObject.SetActive(true);
         }
         if (inCart)
             itemImage.color = new Color(1f, 1f, 1f, .7f);

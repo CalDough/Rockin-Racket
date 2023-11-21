@@ -35,8 +35,8 @@ public class ShopManager : MonoBehaviour
         // TODO find a better way to do this
         ItemInventory.Initialize(completeListOfItems);
 
-        //OpenShopMenu();
-        OpenShopCatalog(); // TODO switch back
+        OpenShopMenu();
+        //OpenShopCatalog(); // for testing
     }
 
     // called by ShopMenu Dialogue Choices' buttons on press

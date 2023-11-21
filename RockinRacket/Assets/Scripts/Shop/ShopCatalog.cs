@@ -25,7 +25,10 @@ public class ShopCatalog : MonoBehaviour
     public void UpdateItemOptions(ShopReceipt shopReceipt)
     {
         foreach (ItemOption itemOption in itemOptions)
+        {
+            //Debug.Log($"item: {itemOption.GetItem()} || equipped: {ItemInventory.IsEquipped(itemOption.GetItem())}");
             itemOption.UpdateOption(!ItemInventory.ContainsItem(itemOption.GetItem()), shopReceipt.IsInCart(itemOption.GetItem()), ItemInventory.IsEquipped(itemOption.GetItem()));
+        }
     }
 
     // called by DisplayItemsByBandmate
