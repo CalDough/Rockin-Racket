@@ -146,6 +146,7 @@ public class ConcertMinigameSpawner : MonoBehaviour
         radialTimerImage.fillAmount = 0;
         radialTimerImage.transform.parent.gameObject.SetActive(false);
         ActivateOrOpenSpawnedMiniGame();
+        StopCountdownCoroutine();
     }
 
     public void ActivateOrOpenSpawnedMiniGame()

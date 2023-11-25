@@ -4977,9 +4977,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2eee029798509584dbc9eed011c2557d, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.89411765}
+  m_Color: {r: 1, g: 0.18942153, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -9893,7 +9893,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3764706}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -9981,7 +9981,13 @@ MonoBehaviour:
   thoughtBubble: {fileID: 7723465556615569658}
   currentMood: 2
   rb: {fileID: 4763572103267229952}
-  col: {fileID: 2750792960585178257}
+  characterAnimator: {fileID: 7063161870544217935}
+  spriteRenderer: {fileID: 5349510353761641244}
+  goodParticles: {fileID: 6239863774288745641}
+  badParticles: {fileID: 8565276398573597836}
+  HypedAnimation: Audience_Happy_0
+  PleasedAnimation: Audience_Excited_0
+  FrustratedAnimation: Audience_Normal_0
   concertRating: 5
   wantsTShirt: 0
   isJumping: 0
@@ -9990,13 +9996,6 @@ MonoBehaviour:
   movementRange: {x: 1, y: 0}
   moveSpeed: 1
   currentTrash: {fileID: 0}
-  characterAnimator: {fileID: 7063161870544217935}
-  spriteRenderer: {fileID: 5349510353761641244}
-  goodParticles: {fileID: 6239863774288745641}
-  badParticles: {fileID: 8565276398573597836}
-  HypedAnimation: Audience_Happy_0
-  PleasedAnimation: Audience_Excited_0
-  FrustratedAnimation: Audience_Normal_0
 --- !u!212 &5349510353761641244
 SpriteRenderer:
   m_ObjectHideFlags: 0
