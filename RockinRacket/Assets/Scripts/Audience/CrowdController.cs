@@ -56,6 +56,10 @@ public class CrowdController : MonoBehaviour
 
     void Update()
     {
+        if(StateManager.Instance.CurrentState.stateType != StateType.Song)
+        {
+            return;
+        }
         CalculateAndReactToConcertRating();
     }
     
@@ -254,6 +258,7 @@ public class CrowdController : MonoBehaviour
             StartCoroutine(PlaySoundWithFadeOut(booSoundEvent, 2f, 2f));
         }
     }
+
     public void PlayCheerSound()
     {
         Debug.Log("Playing Cheer");

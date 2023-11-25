@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CrowdShirt : MonoBehaviour
 {
+
+    [SerializeField]private string shootSoundEvent = "";
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private LineRenderer trajectoryLineRenderer;
     [SerializeField] private float power = 5f;
@@ -32,7 +34,16 @@ public class CrowdShirt : MonoBehaviour
         
     }
 
-    
+    public void PlayShootSound()
+    {
+        Debug.Log("Playing shoot");
+        if (!string.IsNullOrEmpty(shootSoundEvent))
+        {
+            FMOD.Studio.EventInstance soundInstance = FMODUnity.RuntimeManager.CreateInstance(shootSoundEvent);
+            soundInstance.start();
+        }
+    }
+
     void OnMouseDown()
     {   
 
@@ -73,6 +84,7 @@ public class CrowdShirt : MonoBehaviour
         Destroy(this.gameObject, decayTime);
         
         hasLaunched = true;
+        PlayShootSound();
     }
 
     public Vector2[] Plot(Rigidbody2D rb2, Vector2 pos, Vector2 vel, int steps)

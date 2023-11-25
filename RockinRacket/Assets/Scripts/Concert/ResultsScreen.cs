@@ -38,12 +38,13 @@ public class ResultsScreen : MonoBehaviour
         resultsBuilder.AppendLine($"Mini Games Failed: {miniGamesFailed}");
         resultsBuilder.AppendLine($"Crowd Size: { crowdController.crowdMembers.Count}");
         resultsBuilder.AppendLine($"Money Earned: ${moneyEarned}");
-        resultsBuilder.AppendLine($"Trash Cleaned: ${crowdTrashcan.TotalTrashCleaned}");
+        resultsBuilder.AppendLine($"Trash Cleaned: {crowdTrashcan.TotalTrashCleaned}");
         for (int i = 0; i < crowdController.PotentialConcertRatings.Count; i++)
         {
             float segmentPotentialrating = crowdController.PotentialConcertRatings[i];
             float segmentEarnedrating = crowdController.EarnedConcertRatings[i];
-            resultsBuilder.AppendLine($"Song {i + 1}: {segmentEarnedrating}/{segmentPotentialrating} Rating");
+            string formattedSegmentEarnedRating = segmentEarnedrating.ToString("F2");
+            resultsBuilder.AppendLine($"Song {i + 1}: {formattedSegmentEarnedRating}/{segmentPotentialrating} Rating");
         }
 
         concertResultsText.text = resultsBuilder.ToString();

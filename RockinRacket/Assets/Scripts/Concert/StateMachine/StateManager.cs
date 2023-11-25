@@ -6,11 +6,13 @@ using UnityEngine;
 
 public class StateManager : MonoBehaviour
 {
-
+    [SerializeField]IntermissionHandler intermissionHandler;
     [SerializeField] public Venue ConcertVenue;
     [field:SerializeField] public State CurrentState { get; private set; }
     [field:SerializeField] public int CurrentIndex { get; private set; } = 0;
     [SerializeField] public List<State> AllStates;
+
+
 
     [Header("Live Values")]
     [SerializeField] public float stateDuration = 0;
@@ -66,8 +68,6 @@ public class StateManager : MonoBehaviour
     */
     public void LocateConcertUIAndEndConcert()
     {
-        IntermissionHandler intermissionHandler = FindObjectOfType<IntermissionHandler>(); 
-
         if (intermissionHandler != null)
         { intermissionHandler.EndConcert(); }
         else

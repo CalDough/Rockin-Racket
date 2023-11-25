@@ -56,6 +56,7 @@ public class ConcertMinigameSpawner : MonoBehaviour
             if (!MinigameIsActive && Random.Range(0f, 1f) < currentChanceToOccur)
             {
                 Debug.Log("Minigame Available "+ bandName.ToString());
+                
                 StartCountdownCoroutine();
                 currentChanceToOccur = defaultChanceToOccur; 
                 MinigameIsActive = true;
@@ -71,6 +72,11 @@ public class ConcertMinigameSpawner : MonoBehaviour
 
     private IEnumerator TimerCountdownRoutine()
     {
+        if(StateManager.Instance.CurrentState.stateType != StateType.Song)
+        {
+            StopCountdownCoroutine();
+            yield return null;
+        }
         StopRandomChanceCoroutine();
         radialTimerImage.fillAmount = 0;
         radialTimerImage.transform.parent.gameObject.SetActive(true);
@@ -86,6 +92,7 @@ public class ConcertMinigameSpawner : MonoBehaviour
         }
 
         FailMiniGame(); 
+        Debug.Log("Failed Countdown timer! "+ bandName.ToString());
         StopCountdownCoroutine();
     }
 
@@ -169,7 +176,7 @@ public class ConcertMinigameSpawner : MonoBehaviour
 
     private void FailMiniGame()
     {
-        if (SpawnedMiniGame != null)
+        if (SpawnedMiniGame == null)
         {return;}
         SpawnedMiniGame.Activate();
         SpawnedMiniGame.End();
@@ -177,7 +184,6 @@ public class ConcertMinigameSpawner : MonoBehaviour
         radialTimerImage.fillAmount = 0;
         radialTimerImage.transform.parent.gameObject.SetActive(false);
         button.SetActive(false);
-        ActivateOrOpenSpawnedMiniGame();
         StartRandomChanceCoroutine();
         ResetValuesToDefault();
     }

@@ -118,7 +118,7 @@ Transform:
   m_Children:
   - {fileID: 6808181271817325553}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6419708247535391123
 MonoBehaviour:
@@ -132,11 +132,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1cbdd4b6aa2194ea32fbc5caeb1df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootSoundEvent: event:/Sound Effects/T-shirt cannon shoot
   _rb: {fileID: 1663032450999736059}
   trajectoryLineRenderer: {fileID: 84955404651660078}
   power: 5
   steps: 100
   stepDistance: 10
+  decayTime: 2
   hasLaunched: 0
   GSData: {fileID: 11400000, guid: 7bbbb4a96005c3f4685fecb204468e9f, type: 2}
 --- !u!58 &6021017874410321787

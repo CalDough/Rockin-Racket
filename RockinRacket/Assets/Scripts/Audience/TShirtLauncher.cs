@@ -7,6 +7,9 @@ public class TShirtLauncher : MonoBehaviour
     public Rigidbody2D tShirtPrefab;
     [SerializeField] private float cooldown = 3;
     [SerializeField] private GameObject spawnPos;
+
+
+
     private Coroutine spawnRoutine;
 
 
@@ -31,6 +34,8 @@ public class TShirtLauncher : MonoBehaviour
             StopCoroutine(spawnRoutine);
         }
     }
+
+
 
     IEnumerator TShirtSpawnRoutine()
     {
