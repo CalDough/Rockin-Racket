@@ -14,6 +14,8 @@ public class ResultsScreen : MonoBehaviour
     [SerializeField] TMP_Text concertResultsText;
     [SerializeField] AudienceController audienceController;
     [SerializeField] MinigameStatusManager minigameStatusManager;
+    [SerializeField] CrowdController crowdController;
+    [SerializeField] CrowdTrashcan crowdTrashcan;
 
     [Header("Score Variables")]
     [SerializeField] float moneyMultiplier = 100f;
@@ -27,22 +29,21 @@ public class ResultsScreen : MonoBehaviour
     private void UpdateResultText()
     {
         StringBuilder resultsBuilder = new StringBuilder();
-
-        int crowdSize = audienceController.GetAudienceCount(); 
         int miniGamesCompleted = minigameStatusManager.completedMiniGamesCount; 
         int miniGamesFailed = minigameStatusManager.failedMiniGamesCount; 
-        float moneyEarned = crowdSize * moneyMultiplier;
+
+        float moneyEarned = crowdController.crowdMembers.Count * moneyMultiplier;
         
         resultsBuilder.AppendLine($"Mini Games Completed: {miniGamesCompleted}");
         resultsBuilder.AppendLine($"Mini Games Failed: {miniGamesFailed}");
-        resultsBuilder.AppendLine($"Crowd Size: {crowdSize}");
+        resultsBuilder.AppendLine($"Crowd Size: { crowdController.crowdMembers.Count}");
         resultsBuilder.AppendLine($"Money Earned: ${moneyEarned}");
-
-        for (int i = 0; i < minigameStatusManager.PotentialHypeFromAllSongs.Count; i++)
+        resultsBuilder.AppendLine($"Trash Cleaned: ${crowdTrashcan.TotalTrashCleaned}");
+        for (int i = 0; i < crowdController.PotentialConcertRatings.Count; i++)
         {
-            float segmentPotentialHype = minigameStatusManager.PotentialHypeFromAllSongs[i];
-            float segmentEarnedHype = minigameStatusManager.HypeEarnedFromAllSongs[i];
-            resultsBuilder.AppendLine($"Song {i + 1}: {segmentEarnedHype}/{segmentPotentialHype} Hype");
+            float segmentPotentialrating = crowdController.PotentialConcertRatings[i];
+            float segmentEarnedrating = crowdController.EarnedConcertRatings[i];
+            resultsBuilder.AppendLine($"Song {i + 1}: {segmentEarnedrating}/{segmentPotentialrating} Rating");
         }
 
         concertResultsText.text = resultsBuilder.ToString();

@@ -86,7 +86,7 @@ public class AudienceMember : MonoBehaviour
                 goodParticles.Play();
                 MinigameStatusManager.Instance.AddMinigameVariables(100,10);
                 this.currentComfortState = AudienceComfortState.HighComfort;
-                audienceController.PlayCheerReactionSound();
+
                 break;
 
             case TShirtCannon.PressureState.Weak:
@@ -98,7 +98,6 @@ public class AudienceMember : MonoBehaviour
             case TShirtCannon.PressureState.Bad:
                 characterAnimator.Play(normalAnimation);
                 badParticles.Play();
-                audienceController.PlayBooReactionSound();
                 break;
         }
     }

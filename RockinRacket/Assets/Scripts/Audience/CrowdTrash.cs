@@ -1,32 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class CrowdTrash : MonoBehaviour, IConcertInteractable
+public class CrowdTrash : MonoBehaviour
 {
     public bool IsProjectile { get; set; } = true;
+    private bool isDragging = false;
+    private Vector2 lastMousePosition;
+    private Rigidbody2D rb;
+    public float maxVelocity = 10f; 
 
-    public void StickToMember(GameObject member)
+    void Start()
     {
-        IsProjectile = false;
-        transform.SetParent(member.transform);
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-        Collider2D memberCollider = member.GetComponent<Collider2D>();
-        if (memberCollider != null)
+    void Update()
+    {
+        if (isDragging)
         {
-            Vector2 direction = (transform.position - member.transform.position).normalized;
-            transform.position = member.transform.position + (Vector3)(direction * memberCollider.bounds.extents.magnitude);
-        }
-        else
-        {
-            transform.localPosition = Vector2.zero; 
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            transform.position = mousePosition;
+            Vector2 velocity = (mousePosition - lastMousePosition) / Time.deltaTime;
+            velocity = Vector2.ClampMagnitude(velocity, maxVelocity);
+            rb.velocity = velocity;
+
+            lastMousePosition = mousePosition; 
         }
     }
 
-    public void ClickInteraction()
+    public void StartDragging()
     {
-        CrowdController.Instance.currentTrashCount--;
-        Destroy(gameObject); 
+        isDragging = true;
+        rb.gravityScale = 0; 
+        lastMousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
     }
 
+    public void StopDragging()
+    {
+        isDragging = false;
+        rb.gravityScale = 1; 
+    }
 }

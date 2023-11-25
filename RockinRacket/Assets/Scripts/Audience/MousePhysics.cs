@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class MousePhysics : MonoBehaviour
 {
     private Camera mainCamera;
-
+    private CrowdTrash currentlyDragging;
+    
     void Start()
     {
         mainCamera = Camera.main;
@@ -20,12 +21,19 @@ public class MousePhysics : MonoBehaviour
 
             if (hit.collider != null)
             {
-                IConcertInteractable interactable = hit.collider.GetComponent<IConcertInteractable>();
-                if (interactable != null)
+                currentlyDragging = hit.collider.GetComponent<CrowdTrash>();
+                if (currentlyDragging != null)
                 {
-                    interactable.ClickInteraction();
+                    currentlyDragging.StartDragging();
                 }
             }
         }
+
+        if (Mouse.current.leftButton.wasReleasedThisFrame && currentlyDragging != null)
+        {
+            currentlyDragging.StopDragging();
+            currentlyDragging = null;
+        }
     }
+    
 }

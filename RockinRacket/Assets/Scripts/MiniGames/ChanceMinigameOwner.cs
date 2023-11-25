@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChanceMinigameOwner : MonoBehaviour
 {
@@ -24,16 +25,16 @@ public class ChanceMinigameOwner : MonoBehaviour
 
     public bool isOnCooldown = false;
     public bool isMinigameActive = true;
+
+    public Image radialTimerImage;
+
     private Coroutine occurChanceCoroutine;
+    private Coroutine countdownCoroutine;
 
     public GameObject OpenMinigameButton;
     
     public GameObject MinigameParent;
-    [SerializeField] private MinigameContainer MiniGames;  //we randomly take from a pool of available minigames
-    //This random mini-game spawning is currently unimplemented but intended in the future
-    //as well as the list of games spawned
-    [SerializeField] private List<MiniGame> SpawnedMiniGames;  //old spawned minigames
-    
+
     [SerializeField] private GameObject DefaultMiniGame;
     [SerializeField] private MiniGame AvailableMiniGame;  //current minigame that is spawned
     
@@ -118,7 +119,6 @@ public class ChanceMinigameOwner : MonoBehaviour
 
     public void ActivateMiniGame()
     {
-        if(!IsAvailable){return;}
         
         // if it's not a song, return
         if(StateManager.Instance.CurrentState.stateType != StateType.Song)
@@ -197,18 +197,16 @@ public class ChanceMinigameOwner : MonoBehaviour
         isOnCooldown = true;
     }
 
-    private void SpawnMiniGame()
+    public void OnMinigameButtonClicked()
     {
-        OpenMinigameButton.SetActive(true);
+        Debug.Log("Attempting to start game now and stopping timer");
         if(AvailableMiniGame)
         {
-            Debug.Log("Minigame was available");
-            AvailableMiniGame.Activate();
+            Debug.Log("Minigame was available, already spawned");
         }
         else if (!AvailableMiniGame)
         {
-            
-            Debug.Log("Minigame was not available");
+            Debug.Log("Minigame was not available, spawning it");
             if(DefaultMiniGame && MinigameParent)
             {
                 GameObject newGame = Instantiate(DefaultMiniGame);
@@ -216,8 +214,6 @@ public class ChanceMinigameOwner : MonoBehaviour
                 if(newGame.TryGetComponent<MiniGame>(out MiniGame newMGComponent))
                 {
                     AvailableMiniGame = newMGComponent;
-                    SpawnedMiniGames.Add(newMGComponent);
-                    AvailableMiniGame.Activate();
                 }
                 else
                 {
@@ -225,8 +221,22 @@ public class ChanceMinigameOwner : MonoBehaviour
                 }
             }
         }
-        ResetToDefault();
-        // Logic for starting the mini-game goes here
+        if(countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+        }
+        radialTimerImage.fillAmount = 0;
+        radialTimerImage.transform.parent.gameObject.SetActive(false);
+    
+        isMinigameActive = true;
+        ActivateMiniGame();
+    }
+
+    private void SpawnMiniGame()
+    {
+        OpenMinigameButton.SetActive(true);
+        radialTimerImage.transform.parent.gameObject.SetActive(true);
+        countdownCoroutine = StartCoroutine(MiniGameActivationCountdown());
     }
 
     public void HandleGameStateStart(object sender, StateEventArgs e)
@@ -297,6 +307,7 @@ public class ChanceMinigameOwner : MonoBehaviour
             AvailableMiniGame.Miss();
             AvailableMiniGame.CloseEvent();
             BeginCooldowns();
+            radialTimerImage.transform.parent.gameObject.SetActive(false);
             OpenMinigameButton.SetActive(false);
             isMinigameActive = false;
             isOnCooldown = true;
@@ -311,6 +322,7 @@ public class ChanceMinigameOwner : MonoBehaviour
             this.TimesCompleted++;
             AvailableMiniGame.CloseEvent();
             BeginCooldowns();
+            radialTimerImage.transform.parent.gameObject.SetActive(false);
             OpenMinigameButton.SetActive(false);
             isMinigameActive = false;
             isOnCooldown = true;
@@ -326,10 +338,50 @@ public class ChanceMinigameOwner : MonoBehaviour
             //AvailableMiniGame.Miss();
             AvailableMiniGame.CloseEvent();
             BeginCooldowns();
+            radialTimerImage.transform.parent.gameObject.SetActive(false);
             OpenMinigameButton.SetActive(false);
             isMinigameActive = false;
             isOnCooldown = true;
         }
     }
 
+    private IEnumerator MiniGameActivationCountdown()
+    {
+        float countdownDuration = 30f; 
+        float startTime = Time.time;
+        while (Time.time - startTime < countdownDuration)
+        {
+            if (isMinigameActive)
+            {
+                yield break;
+            }
+
+            UpdateRadialTimer((Time.time - startTime) / countdownDuration); 
+
+            yield return null;
+        }
+
+        if (!isMinigameActive)
+        {
+            FailMiniGame();
+        }
+    }
+
+    private void FailMiniGame()
+    {
+         AvailableMiniGame.Activate();
+        if (AvailableMiniGame != null)
+        {
+            AvailableMiniGame.End();
+        }
+        isMinigameActive = false;
+        OpenMinigameButton.SetActive(false);
+        ResetToDefault();
+        BeginCooldowns();
+    }
+
+    private void UpdateRadialTimer(float progress)
+    {
+        radialTimerImage.fillAmount = 1 - progress; 
+    }
 }

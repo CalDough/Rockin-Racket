@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
+/*
+This script is being reworked. 
+
+*/
 public class AudienceController : MonoBehaviour
 {
     [SerializeField] private List<AudienceRow> audienceRows;
@@ -33,75 +37,6 @@ public class AudienceController : MonoBehaviour
 
     [SerializeField] private Transform audienceHolder;
 
-    public string cheerSoundEvent = "";
-    public string booSoundEvent = "";
-    public float soundStartVolume = 1;
-
-    [SerializeField] private float cheerCooldown = 10f;
-    [SerializeField] private float booCooldown = 10f;
-    private float lastCheerTime = -10f; 
-    private float lastBooTime = -10f;
-
-    public void PlayBooSound()
-    {
-        Debug.Log("Playing Boo");
-        if (!string.IsNullOrEmpty(booSoundEvent) && Time.time - lastBooTime > booCooldown)
-        {
-            lastBooTime = Time.time;
-            StartCoroutine(PlaySoundWithFadeOut(booSoundEvent, 3f, 2f));
-        }
-    }
-
-    public void PlayBooReactionSound()
-    {
-        if (!string.IsNullOrEmpty(booSoundEvent))
-        {
-            lastBooTime = Time.time;
-            StartCoroutine(PlaySoundWithFadeOut(booSoundEvent, 2f, 2f));
-        }
-    }
-    public void PlayCheerSound()
-    {
-        Debug.Log("Playing Cheer");
-        if (!string.IsNullOrEmpty(cheerSoundEvent) && Time.time - lastCheerTime > cheerCooldown)
-        {
-            lastCheerTime = Time.time;
-            StartCoroutine(PlaySoundWithFadeOut(cheerSoundEvent, 3f, 2f)); 
-        }
-    }
-
-    public void PlayCheerReactionSound()
-    {
-        if (!string.IsNullOrEmpty(cheerSoundEvent))
-        {
-            
-            StartCoroutine(PlaySoundWithFadeOut(cheerSoundEvent, 2f, 2f)); 
-        }
-    }
-
-    private IEnumerator PlaySoundWithFadeOut(string soundEventPath, float playDuration, float fadeOutDuration)
-    {
-
-        FMOD.Studio.EventInstance soundInstance = FMODUnity.RuntimeManager.CreateInstance(soundEventPath);
-        soundInstance.start();
-
-        yield return new WaitForSeconds(playDuration);
-
-        float elapsedTime = 0f;
-        float startVolume = soundStartVolume;
-        soundInstance.setVolume(soundStartVolume);
-
-        while (elapsedTime < fadeOutDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float newVolume = Mathf.Lerp(startVolume, 0f, elapsedTime / fadeOutDuration);
-            soundInstance.setVolume(newVolume);
-            yield return null;
-        }
-
-        soundInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        soundInstance.release();
-    }
     
     void Start()
     {
@@ -187,15 +122,6 @@ public class AudienceController : MonoBehaviour
             UpdateAudienceState();
             MoodEvent.HypeAndComfortChange(this.currentHypeState, this.currentComfortState);
 
-            if(currentComfortState == AudienceComfortState.LowComfort)
-            {
-                PlayBooSound();
-            }
-            else if(currentHypeState == AudienceHypeState.HighHype)
-            {
-                PlayCheerSound();
-            }
-
             if ((currentComfortState == AudienceComfortState.MidComfort || currentComfortState == AudienceComfortState.HighComfort)   
                 && currentHypeState == AudienceHypeState.HighHype && audienceMembers.Count < 20)
             {
@@ -243,15 +169,6 @@ public class AudienceController : MonoBehaviour
         {
             AddAudienceMember();
         }
-        //if (audienceMembers.Count < 5)
-        //{
-        //    int membersToSpawn = 5 - audienceMembers.Count;
-
-        //    for (int i = 0; i < membersToSpawn; i++)
-        //    {
-        //        AddAudienceMember();
-        //    }
-        //}
     }
 
     private void AddAudienceMember()

@@ -16,6 +16,14 @@ public class CrowdController : MonoBehaviour
     [SerializeField] private float tshirtRequestIntervalMax = 24f;
     [SerializeField] private float tshirtRequestMembers = 3f;
 
+    [SerializeField]private string cheerSoundEvent = "";
+    [SerializeField]private string booSoundEvent = "";
+    [SerializeField]private float cheerCooldown = 10f; 
+    [SerializeField]private float booCooldown = 10f;
+    [SerializeField]private float lastCheerTime = -10f; 
+    [SerializeField]private float lastBooTime = -10f; 
+    [SerializeField]private float soundStartVolume = 1;
+
     private Coroutine TrashCoroutine;
     private Coroutine ShirtCoroutine;
 
@@ -48,7 +56,7 @@ public class CrowdController : MonoBehaviour
 
     void Update()
     {
-        
+        CalculateAndReactToConcertRating();
     }
     
     public void StartShirtRequests()
@@ -200,4 +208,93 @@ public class CrowdController : MonoBehaviour
 
         EarnedConcertRatings.Add(earnedRating);
     }
+
+    private void CalculateAndReactToConcertRating()
+    {
+        float averageConcertRating = CalculateAverageConcertRating();
+        
+        if (averageConcertRating <= 2 && Time.time - lastBooTime > booCooldown)
+        {
+            PlayBooSound();
+            lastBooTime = Time.time;
+        }
+        else if (averageConcertRating >= 7 && Time.time - lastCheerTime > cheerCooldown)
+        {
+            PlayCheerSound();
+            lastCheerTime = Time.time;
+        }
+    }
+
+    private float CalculateAverageConcertRating()
+    {
+        float totalRating = 0;
+        foreach (CrowdMember member in crowdMembers)
+        {
+            totalRating += member.GetConcertRating();
+        }
+        return totalRating / crowdMembers.Count;
+    }
+
+
+    public void PlayBooSound()
+    {
+        Debug.Log("Playing Boo");
+        if (!string.IsNullOrEmpty(booSoundEvent) && Time.time - lastBooTime > booCooldown)
+        {
+            lastBooTime = Time.time;
+            StartCoroutine(PlaySoundWithFadeOut(booSoundEvent, 3f, 2f));
+        }
+    }
+
+    public void PlayBooReactionSound()
+    {
+        if (!string.IsNullOrEmpty(booSoundEvent))
+        {
+            lastBooTime = Time.time;
+            StartCoroutine(PlaySoundWithFadeOut(booSoundEvent, 2f, 2f));
+        }
+    }
+    public void PlayCheerSound()
+    {
+        Debug.Log("Playing Cheer");
+        if (!string.IsNullOrEmpty(cheerSoundEvent) && Time.time - lastCheerTime > cheerCooldown)
+        {
+            lastCheerTime = Time.time;
+            StartCoroutine(PlaySoundWithFadeOut(cheerSoundEvent, 3f, 2f)); 
+        }
+    }
+    
+    public void PlayCheerReactionSound()
+    {
+        if (!string.IsNullOrEmpty(cheerSoundEvent))
+        {
+            
+            StartCoroutine(PlaySoundWithFadeOut(cheerSoundEvent, 2f, 2f)); 
+        }
+    }
+
+    private IEnumerator PlaySoundWithFadeOut(string soundEventPath, float playDuration, float fadeOutDuration)
+    {
+
+        FMOD.Studio.EventInstance soundInstance = FMODUnity.RuntimeManager.CreateInstance(soundEventPath);
+        soundInstance.start();
+
+        yield return new WaitForSeconds(playDuration);
+
+        float elapsedTime = 0f;
+        float startVolume = soundStartVolume;
+        soundInstance.setVolume(soundStartVolume);
+
+        while (elapsedTime < fadeOutDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float newVolume = Mathf.Lerp(startVolume, 0f, elapsedTime / fadeOutDuration);
+            soundInstance.setVolume(newVolume);
+            yield return null;
+        }
+
+        soundInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        soundInstance.release();
+    }
+    
 }
