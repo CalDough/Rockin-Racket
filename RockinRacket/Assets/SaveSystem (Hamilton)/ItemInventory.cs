@@ -34,7 +34,7 @@ public static class ItemInventory
     public static ItemTest[] GetItemsByBandmate(Bandmate bandmate) { return BandmateItems[bandmate]; }
 
     // TODO: set to true to build with saving, false to build without saving
-    private static readonly bool buildHasSaving = false;
+    private static readonly bool buildHasSaving = true;
     // TODO: ALSO SET IN GameSaver
 
     public static void Initialize(ItemTest[] completeListOfItems)
@@ -43,6 +43,10 @@ public static class ItemInventory
         AddItems(Load());
         AddBandmateItems();
         AddEquippedItems();
+        foreach (ItemTest s in ownedItems)
+        {
+            Debug.Log(s);
+        }
     }
 
     public static GameObject GetMinigameByName(Bandmate type)
@@ -82,11 +86,16 @@ public static class ItemInventory
                 File.WriteAllText(filePath, "");
 
             List<string> itemStrings = new();
+            itemStrings.Add("hi");
             if (newItems != null)
                 foreach (ItemTest newItem in newItems)
                     ownedItems.Add(newItem);
             foreach (ItemTest item in ownedItems)
+            {
+                Debug.Log(item);
                 itemStrings.Add(item.name);
+            }
+                
             File.WriteAllLines(filePath, itemStrings);
 
             Debug.Log($"Inventory saved {itemStrings.Count} items");
@@ -104,7 +113,7 @@ public static class ItemInventory
         BandmateItems.Add(Bandmate.Kurt, new ItemTest[4]);
         BandmateItems.Add(Bandmate.Ace, new ItemTest[4]);
         BandmateItems.Add(Bandmate.Haley, new ItemTest[4]);
-        BandmateItems.Add(Bandmate.Harvey, new ItemTest[4]);
+        //BandmateItems.Add(Bandmate.Harvey, new ItemTest[4]);
 
         foreach (ItemTest item in allItems)
             switch (item.itemType)
@@ -113,7 +122,7 @@ public static class ItemInventory
                 case Bandmate.Kurt: BandmateItems[Bandmate.Kurt][item.ShopIndex] = item; break;
                 case Bandmate.Ace: BandmateItems[Bandmate.Ace][item.ShopIndex] = item; break;
                 case Bandmate.Haley: BandmateItems[Bandmate.Haley][item.ShopIndex] = item; break;
-                case Bandmate.Harvey: BandmateItems[Bandmate.Harvey][item.ShopIndex] = item; break;
+                //case Bandmate.Harvey: BandmateItems[Bandmate.Harvey][item.ShopIndex] = item; break;
             }
     }
 
