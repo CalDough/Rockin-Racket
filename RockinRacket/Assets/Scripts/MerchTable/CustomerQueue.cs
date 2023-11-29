@@ -20,6 +20,7 @@ public class CustomerQueue : MonoBehaviour
     [SerializeField] Transform spawnOriginPoint;
     [SerializeField] Transform shopPoint;
     [SerializeField] Transform offScreenDespawnPoint;
+    [SerializeField] int maxNumCustomers;
     [Header("Shop Parameters")]
     [SerializeField] int customerRewardTimer;
     [SerializeField] int customerSpawnDelay;
@@ -35,6 +36,8 @@ public class CustomerQueue : MonoBehaviour
     private float journeyLength;
     private Transform origin;
     private Transform destination;
+    private int currentNumCustomers;
+    private bool noMoreCustomers = false;
 
     // Start is called before the first frame update
     void Start()
@@ -43,23 +46,39 @@ public class CustomerQueue : MonoBehaviour
 
         // Initiate Customer Delay, then we can attempt to spawn the first customer
         StartCoroutine(CustomerSpawnCooldown(customerSpawnDelay));
+
+        currentNumCustomers = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (customerHasSpawned == true)
+        if (!noMoreCustomers)
         {
-            customerHasSpawned = false;
-            allowCustomerSpawning = false;
-            //isLerping = true;
-            //startTime = Time.time;
-            //StartCoroutine(StopLerp(lerpLength));
-        }
+            if (customerHasSpawned == true)
+            {
+                currentNumCustomers++;
 
-        if (allowCustomerSpawning == true)
-        {
-            AttemptCustomerSpawn();
+                if (currentNumCustomers >= maxNumCustomers)
+                {
+                    noMoreCustomers = true;
+                    Debug.Log("Next Customer is the last one");
+                    return;
+                }
+                else
+                {
+                    customerHasSpawned = false;
+                    allowCustomerSpawning = false;
+                }
+                //isLerping = true;
+                //startTime = Time.time;
+                //StartCoroutine(StopLerp(lerpLength));
+            }
+
+            if (allowCustomerSpawning == true)
+            {
+                AttemptCustomerSpawn();
+            }
         }
 
         // Safeguard for our lerping

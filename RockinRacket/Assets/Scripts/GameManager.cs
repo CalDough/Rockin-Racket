@@ -128,6 +128,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("Difficulty set to " + mode.ToString() + ". Modifier is now " + difficultyModifier);
     }
 
+    public void IncrementMoney(int amount)
+    {
+        globalMoney += amount;
+    }
+
 
     [System.Serializable]
     private class GameData

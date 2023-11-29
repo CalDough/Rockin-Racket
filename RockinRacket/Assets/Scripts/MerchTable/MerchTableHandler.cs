@@ -28,14 +28,20 @@ public class MerchTableHandler : MonoBehaviour
     [SerializeField] GameObject[] ItemBoxes;
     public RectTransform destination;
     [SerializeField] int customerThinkingTime;
+    [SerializeField] GameObject moneyText;
+    [SerializeField] int moneyTextTimer;
+    [SerializeField] int moneyIncrementAmount;
 
     private CustomerWants[] currentWants;
     private Dictionary<CustomerWants, bool> currentCustomerStatus = new Dictionary<CustomerWants, bool>();
+    private int totalMoney;
     //private bool isMerchTableActiveYet = false;
 
     void Start()
     {
         MerchTableEvents.instance.e_sendCustomerData.AddListener(NewCustomer);
+
+        totalMoney = 0;
     }
 
     // Update is called once per frame
@@ -149,6 +155,10 @@ public class MerchTableHandler : MonoBehaviour
             ItemBoxes[i].gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
         itemContainer.SetActive(false);
+        moneyText.SetActive(true);
+        StartCoroutine(MoneyTextRemovalTimer(moneyTextTimer));
+        totalMoney += moneyIncrementAmount;
+        GameManager.Instance.IncrementMoney(moneyIncrementAmount);
         MerchTableEvents.instance.e_cueNextCustomer.Invoke();
     }
 
@@ -159,5 +169,16 @@ public class MerchTableHandler : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    IEnumerator MoneyTextRemovalTimer(int seconds)
+    {
+        int counter = seconds;
+        while (counter > 0)
+        {
+            yield return new WaitForSeconds(counter);
+            counter--;
+        }
+        moneyText.SetActive(false);
     }
 }
