@@ -8,6 +8,8 @@ public class IntermissionHandler : MonoBehaviour
 {
     [Header("Needed Settings")]
     [SerializeField] private GameObject intermissionScreen; // Ken added code
+    [SerializeField] GameStateData currentGameState;
+
 
     public Button nextStateButton;
     
@@ -21,6 +23,30 @@ public class IntermissionHandler : MonoBehaviour
     [SerializeField] TransitionData Cinematic;
     [SerializeField] Button leaveButton;
     [SerializeField] Venue presetVenue;
+
+    private bool intermissionActive = false;
+
+    private void Update()
+    {
+        if (intermissionActive && currentGameState.CurrentConcertState == ConcertState.BackstageView)
+        {
+            //nextStateButton.gameObject.SetActive(true);
+
+            if (!intermissionScreen.activeSelf)
+            {
+                intermissionScreen.SetActive(true); // Ken added code
+            }
+        }
+        else if (intermissionActive && currentGameState.CurrentConcertState != ConcertState.BackstageView)
+        {
+            //nextStateButton.gameObject.SetActive(true);
+
+            if (intermissionScreen.activeSelf)
+            {
+                intermissionScreen.SetActive(false); // Ken added code
+            }
+        }
+    }
 
     public void EndConcert()
     {
@@ -63,7 +89,8 @@ public class IntermissionHandler : MonoBehaviour
         Debug.Log("State Started: " + e.state.stateType);
         if(e.state.stateType == StateType.Intermission)
         {
-            nextStateButton.gameObject.SetActive(true);
+            //nextStateButton.gameObject.SetActive(true);
+            intermissionActive = true;
             
             intermissionScreen.SetActive(true); // Ken added code
         }
@@ -71,10 +98,10 @@ public class IntermissionHandler : MonoBehaviour
     
     private void HandleGameStateEnd(object sender, StateEventArgs e)
     {
-        
+
         //Debug.Log("Game state ended: " + e.state.GameType);
-        nextStateButton.gameObject.SetActive(false);
-        
+        //nextStateButton.gameObject.SetActive(false);
+        intermissionActive = false;
         intermissionScreen.SetActive(false); // Ken added code
     }
 

@@ -9,6 +9,8 @@ public class CanvasController : MonoBehaviour
     // Public variables
     [SerializeField] GameStateData currentGameState;
 
+    public static CanvasController instance;
+
     // Private Variables
     private GameObject BandViewPanel;
     private GameObject ShopViewPanel;
@@ -17,6 +19,11 @@ public class CanvasController : MonoBehaviour
     private GameObject VenueViewPanel;
     private static List<GameObject> panels = new List<GameObject>();
     private ConcertState previousState;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
 
     // Start is called before the first frame update

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class StateManager : MonoBehaviour
 {
+    [SerializeField] GameStateData currentGameState;
     [SerializeField]IntermissionHandler intermissionHandler;
     [SerializeField] public Venue ConcertVenue;
     [field:SerializeField] public State CurrentState { get; private set; }
@@ -22,6 +23,8 @@ public class StateManager : MonoBehaviour
 
     public static StateManager Instance { get; private set; }
 
+    private bool alreadySwappedToIntermission = false;
+
     void Awake()
     {
         if (Instance != null && Instance != this) 
@@ -33,7 +36,9 @@ public class StateManager : MonoBehaviour
     }
 
     void Update()
-    {}
+    {
+        CheckForIntermission();
+    }
     
     public void InitializeConcertData()
     {
@@ -146,6 +151,27 @@ public class StateManager : MonoBehaviour
         {return AllStates[CurrentIndex + 1].stateType;}
 
         return null;
+    }
+
+    // Changes the game state to BackstageView when the concert switches to intermission
+    private void CheckForIntermission()
+    {
+        if (CurrentState.stateType == StateType.Intermission && !alreadySwappedToIntermission)
+        {
+            alreadySwappedToIntermission = true;
+            CanvasController.instance.SwapToBackstageView();
+            //CameraSwapEvents.instance.e_SwapToBackstageView.Invoke();
+            //currentGameState.CurrentConcertState = ConcertState.BackstageView;
+        }
+
+        if (CurrentState.stateType == StateType.IntermissionOutro)
+        {
+            Debug.Log("Runs");
+            alreadySwappedToIntermission = false;
+            CanvasController.instance.SwapToBandView();
+            //CameraSwapEvents.instance.e_SwapToBandView.Invoke();
+            //currentGameState.CurrentConcertState = ConcertState.BandView;
+        }
     }
 
 }
