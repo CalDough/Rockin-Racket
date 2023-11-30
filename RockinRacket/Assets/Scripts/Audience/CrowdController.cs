@@ -13,18 +13,18 @@ public class CrowdController : MonoBehaviour
     [SerializeField] private float trashSpawnIntervalMax = 14f;
     [SerializeField] private float trashCreatingMembers = 3f;
 
-    public float CrowdMoodBonusFromTrash = .2f;
+    public float trashRatingBonus = .2f;
 
     [Header("T-Shirt Variables")]
     public float tshirtSpawningCooldown = 1f;
     [SerializeField] private float tshirtRequestIntervalMin = 14f;
     [SerializeField] private float tshirtRequestIntervalMax = 24f;
     [SerializeField] private float tshirtRequestMembers = 3f;
-    public float concertRatingIncreaseForTShirt = 2f;
+    public float tShirtRatingBonus = 2f;
 
     [Header("Minigame Variables")]
     public int MinigameFailValue = -2;
-    public int MinigameCompleteValue = -2;
+    public int MinigameCompleteValue = 2;
 
     [Header("Cheering Variables")]
     [SerializeField]private string cheerSoundEvent = "";

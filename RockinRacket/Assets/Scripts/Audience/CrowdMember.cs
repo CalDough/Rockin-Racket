@@ -217,7 +217,7 @@ public class CrowdMember : MonoBehaviour
         {
             if (wantsTShirt)
             {
-                UpdateConcertRating(CrowdController.Instance.concertRatingIncreaseForTShirt);
+                UpdateConcertRating(CrowdController.Instance.tShirtRatingBonus);
                 goodParticles.Play();
             }
             else

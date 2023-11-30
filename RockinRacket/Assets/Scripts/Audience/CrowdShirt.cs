@@ -47,7 +47,7 @@ public class CrowdShirt : MonoBehaviour
     void OnMouseDown()
     {   
 
-        if(hasLaunched && GSData.CurrentConcertState != ConcertState.AudienceView)
+        if(hasLaunched)
         {return;}
         initialMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         trajectoryLineRenderer.enabled = true;
@@ -55,7 +55,7 @@ public class CrowdShirt : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if(hasLaunched || GSData.CurrentConcertState != ConcertState.AudienceView)
+        if(hasLaunched)
         {return;}
         endMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         _velocity = (endMousePos-initialMousePos) * power;
@@ -73,7 +73,7 @@ public class CrowdShirt : MonoBehaviour
 
     void OnMouseUp()
     {
-        if(hasLaunched || GSData.CurrentConcertState != ConcertState.AudienceView)
+        if(hasLaunched)
         {return;}
         endMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         _velocity = (endMousePos-initialMousePos) * power;
