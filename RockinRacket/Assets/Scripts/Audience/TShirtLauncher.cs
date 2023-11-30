@@ -16,6 +16,9 @@ public class TShirtLauncher : MonoBehaviour
 
     private void Start()
     {
+        if(CrowdController.Instance != null)
+        {cooldown = CrowdController.Instance.tshirtSpawningCooldown;}
+        
         StartTShirtSpawning();
     }
 

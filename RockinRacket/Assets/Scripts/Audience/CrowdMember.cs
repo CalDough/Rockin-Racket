@@ -4,6 +4,8 @@ using UnityEngine;
 public class CrowdMember : MonoBehaviour
 {
     public enum MoodState { Hyped, Frustrated, Pleased }
+
+    [Header("Required Fields")]
     public GameObject trashPrefab;
     public GameObject thoughtBubble;
 
@@ -13,23 +15,24 @@ public class CrowdMember : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] ParticleSystem goodParticles;
     [SerializeField] ParticleSystem badParticles; 
+
+    [Header("Concert Variables")]
+    [SerializeField] public int groupSize = 3;
+    [SerializeField] private float concertRating = 5f;
+
+    [Header("Private Variables")]
+    [SerializeField] private bool wantsTShirt = false;
+    [SerializeField] private bool isJumping = false;
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private Vector2 movementRange = new Vector2(1f, 0f); 
+    [SerializeField] private float moveSpeed = 1f; 
+
+    [Header("Animation States")]
     [SerializeField] private string HypedAnimation = "Audience_Happy";
     [SerializeField] private string PleasedAnimation = "Audience_Excited";
     [SerializeField] private string FrustratedAnimation = "Audience_Normal";
 
-    [SerializeField] private float concertRating = 5f;
-    [SerializeField] private bool wantsTShirt = false;
-    [SerializeField] private bool isJumping = false;
-    [SerializeField] private float jumpForce = 5f;
-
-    [SerializeField] private float concertRatingIncreaseForTShirt = 2f;
-    [SerializeField] private Vector2 movementRange = new Vector2(1f, 0f); 
-    [SerializeField] private float moveSpeed = 1f; 
-
-
-    [SerializeField] private GameObject currentTrash; 
-    
-
+    private GameObject currentTrash; // crowd members spawned trash, to be removed later depending on design change
     private Vector3 originalPosition;
     private Coroutine wantTShirtCoroutine;
     private Coroutine currentMoveCoroutine; 
@@ -214,7 +217,7 @@ public class CrowdMember : MonoBehaviour
         {
             if (wantsTShirt)
             {
-                UpdateConcertRating(concertRatingIncreaseForTShirt);
+                UpdateConcertRating(CrowdController.Instance.concertRatingIncreaseForTShirt);
                 goodParticles.Play();
             }
             else

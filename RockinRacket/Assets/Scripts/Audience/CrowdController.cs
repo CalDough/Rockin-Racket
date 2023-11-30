@@ -5,17 +5,28 @@ using UnityEngine;
 public class CrowdController : MonoBehaviour
 {
     public List<CrowdMember> crowdMembers;
+    
+    [Header("Trash Variables")]
     [SerializeField] public int maxTrashCount = 10;
     [SerializeField] public int currentTrashCount = 0;
-
     [SerializeField] private float trashSpawnIntervalMin = 7f;
     [SerializeField] private float trashSpawnIntervalMax = 14f;
     [SerializeField] private float trashCreatingMembers = 3f;
 
+    public float CrowdMoodBonusFromTrash = .2f;
+
+    [Header("T-Shirt Variables")]
+    public float tshirtSpawningCooldown = 1f;
     [SerializeField] private float tshirtRequestIntervalMin = 14f;
     [SerializeField] private float tshirtRequestIntervalMax = 24f;
     [SerializeField] private float tshirtRequestMembers = 3f;
+    public float concertRatingIncreaseForTShirt = 2f;
 
+    [Header("Minigame Variables")]
+    public int MinigameFailValue = -2;
+    public int MinigameCompleteValue = -2;
+
+    [Header("Cheering Variables")]
     [SerializeField]private string cheerSoundEvent = "";
     [SerializeField]private string booSoundEvent = "";
     [SerializeField]private float cheerCooldown = 10f; 
@@ -158,12 +169,12 @@ public class CrowdController : MonoBehaviour
 
     public void HandleEventFail(object sender, GameEventArgs e)
     {
-        UpdateCrowdMood(-2);
+        UpdateCrowdMood(MinigameFailValue);
     }
 
     public void HandleEventComplete(object sender, GameEventArgs e)
     {
-        UpdateCrowdMood(1);
+        UpdateCrowdMood(MinigameCompleteValue);
     }
 
     public void HandleGameStateStart(object sender, StateEventArgs e)
@@ -239,6 +250,20 @@ public class CrowdController : MonoBehaviour
         return totalRating / crowdMembers.Count;
     }
 
+    public int CalculateGroupSizeFromRatings(int RatingMinimun)
+    {
+        int totalGroupSize = 0;
+
+        foreach(CrowdMember member in crowdMembers)
+        {
+            if (member.GetConcertRating() > RatingMinimun)
+            {
+                totalGroupSize += member.groupSize;
+            }
+        }
+
+        return totalGroupSize;
+    }
 
     public void PlayBooSound()
     {

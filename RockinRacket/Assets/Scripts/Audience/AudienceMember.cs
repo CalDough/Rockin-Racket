@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
+ * OLD AUDIENCE // USE CROWDMEMBER SCRIPT
  * This class is to be used in conjunction with the Audience Prefab and the T-Shirt Cannon minigame and may reference values from
  * Animal.cs and AnimalManager.cs
  */
