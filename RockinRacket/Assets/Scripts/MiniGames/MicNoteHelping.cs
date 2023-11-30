@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MicNoteHelping : MiniGame
@@ -7,11 +8,13 @@ public class MicNoteHelping : MiniGame
     [Header("UI Elements")]
     [SerializeField] GameObject PlayerCircle;
     [SerializeField] GameObject singingNote;
-    [SerializeField] Transform[] spawnPoints;
+    [SerializeField] RectTransform[] spawnPoints;
+    [SerializeField] RectTransform[] endPoints;
     [Header("Customization Settings")]
     [SerializeField] int numberOfNotes;
+    [SerializeField] int moveDistance;
 
-    private Queue<Transform> spawnQueue;
+    private Queue<RectTransform> spawnQueue;
     private bool isActive = false;
     private bool begunSpawning = false;
 
@@ -34,7 +37,8 @@ public class MicNoteHelping : MiniGame
     // This method populates the spawn queue with the list of notes that will be spawning
     private void PopulateSpawnQueue()
     {
-        spawnQueue = new Queue<Transform>();
+        Debug.Log("Populating spawn queue");
+        spawnQueue = new Queue<RectTransform>();
 
         for (int i = 0; i < numberOfNotes; i++)
         {
@@ -46,6 +50,7 @@ public class MicNoteHelping : MiniGame
     {
         if (!begunSpawning)
         {
+            Debug.Log("Begun spawning notes");
             begunSpawning = true;
             StartCoroutine(SpawnNotes(spawnQueue.Count));
         }
@@ -57,8 +62,10 @@ public class MicNoteHelping : MiniGame
         while (counter > 0)
         {
             yield return new WaitForSeconds(counter);
-            Transform spawnTransform = spawnQueue.Dequeue();
-            Instantiate(singingNote, spawnTransform);
+            RectTransform spawnTransform = spawnQueue.Dequeue();
+            GameObject note = Instantiate(singingNote, spawnTransform.transform);
+            note.gameObject.GetComponent<SingingNote>().destination = new Vector3(spawnTransform.position.x - moveDistance, spawnTransform.position.y, 0);
+            Debug.Log("Spawned one note");
             counter--;
         }
         Debug.Log("Note spawning complete");
@@ -66,6 +73,7 @@ public class MicNoteHelping : MiniGame
 
     public override void Activate()
     {
+        Debug.Log("Event activated");
         base.Activate();
         PopulateSpawnQueue();
         isActive = true;
@@ -73,6 +81,7 @@ public class MicNoteHelping : MiniGame
 
     public override void Complete()
     {
+        Debug.Log("Event complete");
         base.Complete();
     }
 
