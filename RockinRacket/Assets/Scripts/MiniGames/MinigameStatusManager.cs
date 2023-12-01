@@ -31,8 +31,6 @@ public class MinigameStatusManager : MonoBehaviour
 
     [SerializeField] public List<BandRoleName> AvailableMembers = new List<BandRoleName>();
 
-    [Header("Active Scriptable Objects")] 
-    [SerializeField] private MinigameContainer ImmuneMiniGames;
 
     public static MinigameStatusManager Instance { get; private set; }
 
@@ -85,6 +83,7 @@ public class MinigameStatusManager : MonoBehaviour
 
     public bool IsMinigameAvailable(GameObject minigamePrefab)
     {
+        /*
         MiniGame game = minigamePrefab.GetComponent<MiniGame>();
 
         if (game == null)
@@ -98,15 +97,16 @@ public class MinigameStatusManager : MonoBehaviour
                 return false; // Found in immune list, so not available
             }
         }
-
+        */
         return true;
     }
 
     public bool IsMinigameAvailable(MiniGame minigamePrefab)
     {
+        /*
         if (minigamePrefab == null)
         {return true;} // If there's no Minigame component, then it's considered available
-
+        
         foreach (GameObject immuneGamePrefab in ImmuneMiniGames.MiniGamesPrefabs)
         {
             MiniGame immuneGame = immuneGamePrefab.GetComponent<MiniGame>();
@@ -115,7 +115,7 @@ public class MinigameStatusManager : MonoBehaviour
                 return false; // Found in immune list, so not available
             }
         }
-
+        */
         return true;
     }
 

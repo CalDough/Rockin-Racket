@@ -13,7 +13,7 @@ public class ChanceMinigameOwner : MonoBehaviour
     public float defaultChanceIncrease = 0.05f;
     public float defaultChanceTimer = 1f;
     
-    public bool IsAvailable = false; 
+    //public bool IsAvailable = false; 
     public int TimesCompleted = 0;
     public int TimesFailed = 0;
 
@@ -44,7 +44,7 @@ public class ChanceMinigameOwner : MonoBehaviour
         ResetToDefault();
         CheckInventory();
         SubscribeEvents();
-        IsAvailable = MinigameStatusManager.Instance.IsMinigameAvailable(AvailableMiniGame);
+        //IsAvailable = MinigameStatusManager.Instance.IsMinigameAvailable(AvailableMiniGame);
     }
 
     private void SubscribeEvents()

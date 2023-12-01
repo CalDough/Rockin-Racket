@@ -17,7 +17,7 @@ public class MinigameOwner : MonoBehaviour
     public int TimesCompleted = 0;
     public int TimesFailed = 0;
     
-    public bool IsAvailable = false; //bool based on whether the player has unlocked the game or cannot play it
+    //public bool IsAvailable = false; //bool based on whether the player has unlocked the game or cannot play it
 
     [Header("Attempt Settings")]
     public bool useAttempts = false;
@@ -35,7 +35,7 @@ public class MinigameOwner : MonoBehaviour
         ResetToDefault();
         CheckInventory();
         
-        IsAvailable = MinigameStatusManager.Instance.IsMinigameAvailable(AvailableMiniGame);
+        //IsAvailable = MinigameStatusManager.Instance.IsMinigameAvailable(AvailableMiniGame);
     }
 
     private void SubscribeEvents()
@@ -96,7 +96,7 @@ public class MinigameOwner : MonoBehaviour
 
     public void ActivateMiniGame()
     {   
-        if (!IsAvailable || StateManager.Instance.CurrentState.stateType != StateType.Song || 
+        if (StateManager.Instance.CurrentState.stateType != StateType.Song || 
             MinigameStatusManager.Instance.OpenedMiniGame != null || (useAttempts && attempts >= maxAttempts))
             {return;}
 
