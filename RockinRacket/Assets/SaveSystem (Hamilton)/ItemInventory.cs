@@ -43,10 +43,6 @@ public static class ItemInventory
         AddItems(Load());
         AddBandmateItems();
         AddEquippedItems();
-        foreach (ItemTest s in ownedItems)
-        {
-            Debug.Log(s);
-        }
     }
 
     public static GameObject GetMinigameByName(Bandmate type)

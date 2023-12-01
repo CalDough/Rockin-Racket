@@ -14,6 +14,7 @@ public class CatalogManager : MonoBehaviour
     [SerializeField] private ShopSelection shopSelection;
     [SerializeField] private ShopReceipt shopReceipt;
     [SerializeField] private ShopCatalog shopCatalog;
+    [SerializeField] private ShopAudio shopAudio;
 
     private Bandmate currentBandmate;
 
@@ -64,6 +65,7 @@ public class CatalogManager : MonoBehaviour
 
     public void BookmarkPressed(Bandmate bandmate)
     {
+        shopAudio.PlayFlipPage();
         currentBandmate = bandmate;
         shopSelection.ResetSelection();
         shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);
