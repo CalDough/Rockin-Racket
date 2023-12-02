@@ -6,6 +6,8 @@ using UnityEngine;
  * activates/deactivates UI groups in scene
  * handles DialogueMenu choices
  * starts dialogue with shopkeeper
+ * handles saving and loading with ItemInventory
+ * initializes and keeps track of money
 */
 
 public class ShopManager : MonoBehaviour
@@ -26,17 +28,21 @@ public class ShopManager : MonoBehaviour
     // TODO Temporary until items can be loaded at runtime
     [SerializeField] private ItemTest[] completeListOfItems;
 
-    private bool bought;
+    public bool Bought { get; set; }
+    public int Money { get; set; }
+
     private Action onClose;
 
     private void Start()
     {
-        bought = false;
+        Bought = false;
+        Money = 175;
         // TODO find a better way to do this
         ItemInventory.Initialize(completeListOfItems);
 
-        OpenShopMenu();
-        //OpenShopCatalog(); // for testing
+        catalogManager.UpdateMoneyText();
+        //OpenShopMenu();
+        OpenShopCatalog(); // for testing
     }
 
     // called by ShopMenu Dialogue Choices' buttons on press
@@ -48,7 +54,7 @@ public class ShopManager : MonoBehaviour
             case 1: StartShopkeeperDialogue(justChattingConvo, Action.OpenShopMenu); break;
             case 2:
                 {
-                    if (bought)
+                    if (Bought)
                     {
                         StartShopkeeperDialogue(leaveBoughtConvo, Action.ExitShop);
                     }

@@ -72,7 +72,7 @@ public class PauseManager : MonoBehaviour
             endPosition = openPosition;
         }
         float counter = 0;
-        //Get the current scale of the object to be moved
+        //Get the current position of the object to be moved
         Vector3 startPosition = menuUI.transform.localPosition;
 
         while (counter < animationDuration)

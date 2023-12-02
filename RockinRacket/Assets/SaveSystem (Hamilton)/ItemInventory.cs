@@ -82,7 +82,6 @@ public static class ItemInventory
                 File.WriteAllText(filePath, "");
 
             List<string> itemStrings = new();
-            itemStrings.Add("hi");
             if (newItems != null)
                 foreach (ItemTest newItem in newItems)
                     ownedItems.Add(newItem);
