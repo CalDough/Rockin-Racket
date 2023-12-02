@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class SingingNote : MonoBehaviour
+public class SingingNote : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] float moveSpeed;
+    [SerializeField] float lerpDuration;
+    [SerializeField] int destroyTimer;
+    [SerializeField] MicNoteHelping parent;
     public Vector3 destination;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(LerpToPosition(destination, moveSpeed));
+        StartCoroutine(LerpToPosition(destination, lerpDuration));
+        StartCoroutine(DestroyAfterXSeconds(destroyTimer));
     }
 
     // Update is called once per frame
@@ -32,5 +37,23 @@ public class SingingNote : MonoBehaviour
         }
 
         transform.position = targetPosition;
+    }
+
+    private IEnumerator DestroyAfterXSeconds(int destroyAfter)
+    {
+        int counter = destroyAfter;
+        while (counter > 0)
+        {
+            yield return new WaitForSeconds(counter);
+            counter--;
+        }
+        Debug.Log("Destroying Note");
+        Destroy(gameObject);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        gameObject.GetComponent<RawImage>().color = Color.green;
+        parent.IncrementClickCount();
     }
 }

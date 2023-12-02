@@ -17,12 +17,12 @@ public class MicNoteHelping : MiniGame
     private Queue<RectTransform> spawnQueue;
     private bool isActive = false;
     private bool begunSpawning = false;
+    private int clickedCount = 0;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -52,31 +52,39 @@ public class MicNoteHelping : MiniGame
         {
             Debug.Log("Begun spawning notes");
             begunSpawning = true;
-            StartCoroutine(SpawnNotes(spawnQueue.Count));
+            //StartCoroutine(SpawnNotes(spawnQueue.Count));
+
+            InvokeRepeating("SpawnNotesAltWay", 0f, .5f);
         }
     }
 
-    IEnumerator SpawnNotes(int numberOfNotes)
+    private void SpawnNotesAltWay()
     {
-        int counter = numberOfNotes;
-        while (counter > 0)
+        if (spawnQueue.Count > 0)
         {
-            yield return new WaitForSeconds(counter);
             RectTransform spawnTransform = spawnQueue.Dequeue();
             GameObject note = Instantiate(singingNote, spawnTransform.transform);
             note.gameObject.GetComponent<SingingNote>().destination = new Vector3(spawnTransform.position.x - moveDistance, spawnTransform.position.y, 0);
             Debug.Log("Spawned one note");
-            counter--;
         }
-        Debug.Log("Note spawning complete");
+    }
+
+    public void IncrementClickCount()
+    {
+        clickedCount++;
+        if (clickedCount >= numberOfNotes)
+        {
+            Complete();
+        }
     }
 
     public override void Activate()
     {
+        isActive = true;
         Debug.Log("Event activated");
         base.Activate();
         PopulateSpawnQueue();
-        isActive = true;
+        clickedCount = 0;
     }
 
     public override void Complete()
