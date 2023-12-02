@@ -80,6 +80,7 @@ public class MicNoteHelping : MiniGame
 
     public override void Activate()
     {
+        IsCompleted = false;
         isActive = true;
         Debug.Log("Event activated");
         base.Activate();
