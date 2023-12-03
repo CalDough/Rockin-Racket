@@ -13,9 +13,10 @@ public class DrumGuiding : MiniGame
     private int sequenceLength = 5;
     public BandRoleName bandRole = BandRoleName.Ace;
     public float BrokenLevelChange = 1;
+    private List<Color> originalColors;
 
 
-private void InitializeText()
+    private void InitializeText()
     {
         indicatorText.text = string.Join(" ", new string('~', sequenceLength).ToCharArray());
     }
@@ -62,19 +63,22 @@ private void InitializeText()
 
     void Start()
     {
+        originalColors = new List<Color>();
         for (int i = 0; i < Drums.Count; i++)
         {
             int index = i; 
             Drums[i].onClick.AddListener(() => OnDrumClicked(index));
+
+            originalColors.Add(Drums[i].colors.normalColor);
         }
     }
 
 
     public override void RestartMiniGameLogic()
     {
+        currentDrumIndex = 0;
         InitializeText(); 
         UpdateIndicator(currentDrumIndex, 'X');
-        currentDrumIndex = 0;
         IsCompleted = false;
         RandomizeDrumSequence();
         HighlightDrum(drumSequence[currentDrumIndex]);
@@ -93,14 +97,34 @@ private void InitializeText()
 
     private void HighlightDrum(int index)
     {
-        // remove highlights
-        foreach (Button drum in Drums)
+        for (int i = 0; i < Drums.Count; i++)
         {
+            Button drum = Drums[i];
+            ColorBlock colorBlock = drum.colors;
+
             Outline outline = drum.GetComponent<Outline>();
             if (outline != null)
             {
                 outline.enabled = false;
             }
+
+            if (i == index)
+            {
+                //not sure why but it literally requires all 4 to be white to look decent in game
+                colorBlock.normalColor = Color.white;
+                colorBlock.highlightedColor = Color.white;
+                colorBlock.pressedColor = Color.white;
+                colorBlock.selectedColor = Color.white;
+            }
+            else
+            {
+                colorBlock.normalColor = originalColors[i];
+                colorBlock.highlightedColor =  originalColors[i];
+                colorBlock.pressedColor = originalColors[i];
+                colorBlock.selectedColor = originalColors[i];
+            }
+
+            drum.colors = colorBlock;
         }
 
         // highlight the correct drum
@@ -114,12 +138,21 @@ private void InitializeText()
         currentOutline.enabled = true;
     }
 
-public void OnDrumClicked(int drumIndex)
+    public void OnDrumClicked(int drumIndex)
     {
         if (drumIndex == drumSequence[currentDrumIndex])
         {
             UpdateIndicator(currentDrumIndex, 'O');
             currentDrumIndex++;
+
+            Button drum = Drums[drumIndex];
+            ColorBlock colorBlock = drum.colors;
+
+            colorBlock.normalColor = originalColors[drumIndex];
+            colorBlock.highlightedColor =  originalColors[drumIndex];
+            colorBlock.pressedColor = originalColors[drumIndex];
+            colorBlock.selectedColor = originalColors[drumIndex];
+
             if (currentDrumIndex == sequenceLength)
             {
                 Complete();
