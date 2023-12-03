@@ -11,6 +11,7 @@ public class BandAnimationController : MonoBehaviour
     [SerializeField] BandAudioController BandMember;
     [SerializeField] ParticleSystem badParticleEffect;
     [SerializeField] ParticleSystem goodParticleEffect;
+    [SerializeField] ParticleSystem musicParticleEffect;
     [SerializeField] Animator characterAnimator;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] List<Transform> targetPoints = new List<Transform>();
@@ -84,6 +85,7 @@ public class BandAnimationController : MonoBehaviour
             case StateType.Song:
                 MoveToTarget("Stage");
                 PlayAnimation(playName); //For now i'll always force the characters to play with this
+                musicParticleEffect.Play();
                 if(moveAndPlay)
                 {
                     StartCoroutine(MoveAndPlayRoutine());
@@ -115,6 +117,7 @@ public class BandAnimationController : MonoBehaviour
         {
             case StateType.Song:
                 PlayAnimation(idleName);
+                musicParticleEffect.Stop(); 
                 break;
             case StateType.Intermission:
                 break;
@@ -158,6 +161,8 @@ public class BandAnimationController : MonoBehaviour
         if (e.ConcertPosition == this.bandName)
         {
             PlayProblemParticles();
+            var noise = musicParticleEffect.noise; 
+            noise.strength = 3;
         }
     }
 
@@ -166,6 +171,8 @@ public class BandAnimationController : MonoBehaviour
         if (e.ConcertPosition == this.bandName)
         {
             PlayFixedParticles();
+            var noise = musicParticleEffect.noise; 
+            noise.strength = 0;
         }
     }
 

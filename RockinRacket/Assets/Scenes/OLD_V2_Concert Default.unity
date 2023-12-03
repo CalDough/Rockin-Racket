@@ -196,6 +196,7 @@ MonoBehaviour:
   audienceMemberPrefabs:
   - {fileID: 7869654521980656519, guid: fa9395d6aacc4864686e77a31a52d125, type: 3}
   audienceSpawnPoint: {fileID: 1422031603}
+  audienceSpawningRange: {x: 0, y: 0}
   moodRandomizationInterval: 15
   currentHypeState: 1
   currentComfortState: 1
@@ -203,6 +204,7 @@ MonoBehaviour:
   highHypeThreshold: 0
   lowComfortThreshold: 0
   highComfortThreshold: 0
+  audienceHolder: {fileID: 0}
 --- !u!1 &10323624
 GameObject:
   m_ObjectHideFlags: 0
@@ -6157,7 +6159,6 @@ MonoBehaviour:
   defaultChanceToOccur: 0
   defaultChanceIncrease: 0.01
   defaultChanceTimer: 2
-  IsAvailable: 1
   TimesCompleted: 0
   TimesFailed: 0
   currentCooldown: 0
@@ -6166,10 +6167,10 @@ MonoBehaviour:
   chanceTimer: 0
   isOnCooldown: 0
   isMinigameActive: 0
+  radialTimerImage: {fileID: 0}
   OpenMinigameButton: {fileID: 469224283761404611}
-  MiniGames: {fileID: 11400000, guid: 3d24b5243ec27d947859046483bc524a, type: 2}
-  SpawnedMiniGames:
-  - {fileID: 2059728799}
+  MinigameParent: {fileID: 0}
+  DefaultMiniGame: {fileID: 0}
   AvailableMiniGame: {fileID: 2059728799}
 --- !u!1 &380849857
 GameObject:
@@ -6454,9 +6455,11 @@ MonoBehaviour:
   isOnCooldown: 0
   TimesCompleted: 0
   TimesFailed: 0
-  IsAvailable: 0
   useAttempts: 0
   maxAttempts: 5
+  gameButton: {fileID: 0}
+  MinigameParent: {fileID: 0}
+  DefaultMiniGame: {fileID: 0}
   AvailableMiniGame: {fileID: 1891279260}
 --- !u!114 &401295687
 MonoBehaviour:
@@ -6851,7 +6854,6 @@ RectTransform:
   - {fileID: 434865066}
   - {fileID: 1496383885}
   - {fileID: 1283882822}
-  - {fileID: 1552133521}
   - {fileID: 2059728800}
   - {fileID: 2043680277}
   - {fileID: 418156891}
@@ -7180,6 +7182,8 @@ MonoBehaviour:
   concertResultsText: {fileID: 638119010}
   audienceController: {fileID: 3246177}
   minigameStatusManager: {fileID: 0}
+  crowdController: {fileID: 0}
+  crowdTrashcan: {fileID: 0}
   moneyMultiplier: 25
 --- !u!1 &497403021
 GameObject:
@@ -9269,7 +9273,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 2057172728}
+      objectReference: {fileID: 0}
     - target: {fileID: 1773995890517432202, guid: c149c61be4771ff4bac24868adcaafe9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -10592,9 +10596,11 @@ MonoBehaviour:
   isOnCooldown: 0
   TimesCompleted: 0
   TimesFailed: 0
-  IsAvailable: 0
   useAttempts: 0
   maxAttempts: 5
+  gameButton: {fileID: 0}
+  MinigameParent: {fileID: 0}
+  DefaultMiniGame: {fileID: 0}
   AvailableMiniGame: {fileID: 418156890}
 --- !u!114 &1139089358
 MonoBehaviour:
@@ -10756,7 +10762,6 @@ MonoBehaviour:
   defaultChanceToOccur: 0
   defaultChanceIncrease: 0.01
   defaultChanceTimer: 2
-  IsAvailable: 1
   TimesCompleted: 0
   TimesFailed: 0
   currentCooldown: 0
@@ -10765,11 +10770,11 @@ MonoBehaviour:
   chanceTimer: 0
   isOnCooldown: 0
   isMinigameActive: 0
+  radialTimerImage: {fileID: 0}
   OpenMinigameButton: {fileID: 850447685}
-  MiniGames: {fileID: 11400000, guid: a3842bb5d74cc7f448113361d59feca4, type: 2}
-  SpawnedMiniGames:
-  - {fileID: 1552133520}
-  AvailableMiniGame: {fileID: 1552133520}
+  MinigameParent: {fileID: 0}
+  DefaultMiniGame: {fileID: 0}
+  AvailableMiniGame: {fileID: 0}
 --- !u!1 &1210038011
 GameObject:
   m_ObjectHideFlags: 0
@@ -11731,7 +11736,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intermissionScreen: {fileID: 2009722572}
+  currentGameState: {fileID: 0}
   nextStateButton: {fileID: 2116362740}
+  FinishConcertButton: {fileID: 0}
+  StartConcertButton: {fileID: 0}
+  ConcertCompletionTextBox: {fileID: 0}
+  Cinematic: {fileID: 0}
+  leaveButton: {fileID: 0}
+  presetVenue: {fileID: 0}
 --- !u!114 &1283882821 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 547903809830001038, guid: 5efe4b70483da19498d8405a82cf6998,
@@ -12102,7 +12114,6 @@ MonoBehaviour:
   defaultChanceToOccur: 0
   defaultChanceIncrease: 0.01
   defaultChanceTimer: 2
-  IsAvailable: 1
   TimesCompleted: 0
   TimesFailed: 0
   currentCooldown: 0
@@ -12111,10 +12122,10 @@ MonoBehaviour:
   chanceTimer: 0
   isOnCooldown: 0
   isMinigameActive: 0
+  radialTimerImage: {fileID: 0}
   OpenMinigameButton: {fileID: 289372803}
-  MiniGames: {fileID: 11400000, guid: 787607935c3f7b64397a81c26f6f36db, type: 2}
-  SpawnedMiniGames:
-  - {fileID: 1496383886}
+  MinigameParent: {fileID: 0}
+  DefaultMiniGame: {fileID: 0}
   AvailableMiniGame: {fileID: 1496383886}
 --- !u!1 &1388856578
 GameObject:
@@ -14423,24 +14434,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7dada030af3f9e458c56b435368b514, type: 3}
---- !u!114 &1552133520 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8731413439867069404, guid: a10804cd2ead45c42801efff0ae4411c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1684649067}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c1b5ebcf9522e43a188d2499597671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &1552133521 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1684649067}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1563753461
 GameObject:
   m_ObjectHideFlags: 0
@@ -14889,129 +14882,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637477649}
   m_CullTransparentMesh: 1
---- !u!1001 &1684649067
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 438330566}
-    m_Modifications:
-    - target: {fileID: 2077081206435703190, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_Name
-      value: Event-Drum Repair
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 1080
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2431620007493499243, guid: a10804cd2ead45c42801efff0ae4411c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a10804cd2ead45c42801efff0ae4411c, type: 3}
 --- !u!43 &1687272118
 Mesh:
   m_ObjectHideFlags: 0
@@ -15236,9 +15106,11 @@ MonoBehaviour:
   isOnCooldown: 0
   TimesCompleted: 0
   TimesFailed: 0
-  IsAvailable: 0
   useAttempts: 0
   maxAttempts: 5
+  gameButton: {fileID: 0}
+  MinigameParent: {fileID: 0}
+  DefaultMiniGame: {fileID: 0}
   AvailableMiniGame: {fileID: 434865067}
 --- !u!114 &1713745206
 MonoBehaviour:
@@ -15606,7 +15478,6 @@ MonoBehaviour:
   defaultChanceToOccur: 0
   defaultChanceIncrease: 0.01
   defaultChanceTimer: 2
-  IsAvailable: 1
   TimesCompleted: 0
   TimesFailed: 0
   currentCooldown: 0
@@ -15615,10 +15486,10 @@ MonoBehaviour:
   chanceTimer: 0
   isOnCooldown: 0
   isMinigameActive: 0
+  radialTimerImage: {fileID: 0}
   OpenMinigameButton: {fileID: 1121284545}
-  MiniGames: {fileID: 11400000, guid: 2c6ea6518e12db449a1e671fb021cc5a, type: 2}
-  SpawnedMiniGames:
-  - {fileID: 1283882821}
+  MinigameParent: {fileID: 0}
+  DefaultMiniGame: {fileID: 0}
   AvailableMiniGame: {fileID: 1283882821}
 --- !u!1 &1825488435
 GameObject:
@@ -17139,18 +17010,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2bda2e7f4b2da643beb589108bf15fe, type: 3}
---- !u!114 &2057172728 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7762844053631542588, guid: c2bda2e7f4b2da643beb589108bf15fe,
-    type: 3}
-  m_PrefabInstance: {fileID: 2057172727}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7c5f310e84c3d24ab8fab9e68de4182, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2059728799 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2955606316157362188, guid: b739c184f3334824d88d5d42baf856bc,
