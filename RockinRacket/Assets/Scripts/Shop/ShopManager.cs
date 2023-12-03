@@ -41,8 +41,8 @@ public class ShopManager : MonoBehaviour
         ItemInventory.Initialize(completeListOfItems);
 
         catalogManager.UpdateMoneyText();
-        //OpenShopMenu();
-        OpenShopCatalog(); // for testing
+        OpenShopMenu();
+        //OpenShopCatalog(); // for testing
     }
 
     // called by ShopMenu Dialogue Choices' buttons on press
