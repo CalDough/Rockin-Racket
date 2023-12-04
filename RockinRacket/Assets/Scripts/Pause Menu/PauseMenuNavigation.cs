@@ -12,7 +12,6 @@ public class PauseMenuNavigation : MonoBehaviour
     private float scalingDuration = .1f;
 
     public void Up() {
-        Debug.Log($"starting index: {index}");
         if (index > 0)
         {
             index--;
@@ -23,7 +22,6 @@ public class PauseMenuNavigation : MonoBehaviour
             index = ipodOptions.Length - 1;
             UpdateOptions(index + 1, index);
         }
-        Debug.Log($"finishing index: {index}");
     }
     public void Down() {
         if (index < ipodOptions.Length - 1)
