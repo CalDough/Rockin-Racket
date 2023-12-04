@@ -49,7 +49,7 @@ public class GameLoadHandler : MonoBehaviour
         //BandManager.Instance.SaveBand();
         //InventorySaver.Instance.SaveInventory();
         GameSaver.Save();
-        ItemInventory.Save(null);
+        ItemInventory.Save();
         Application.Quit();
     }
     public void Save()
@@ -58,7 +58,7 @@ public class GameLoadHandler : MonoBehaviour
         //BandManager.Instance.SaveBand();
         //InventorySaver.Instance.SaveInventory();
         GameSaver.Save();
-        ItemInventory.Save(null);
+        ItemInventory.Save();
     }
 
     public void GoBackScene()

@@ -13,6 +13,7 @@ using UnityEngine;
 public class ShopManager : MonoBehaviour
 {
     private enum Action {OpenShopMenu, OpenCatalog, ExitShop};
+    [Header("Dialogue Assets")]
     [SerializeField] private TextAsset startConvo;
     [SerializeField] private TextAsset returnConvo;
     [SerializeField] private TextAsset openCatalogConvo;
@@ -20,6 +21,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextAsset leaveNotBoughtConvo;
     [SerializeField] private TextAsset justChattingConvo;
 
+    [Header("Scripts")]
     [SerializeField] private CatalogManager catalogManager;
     [SerializeField] private ShopMenu shopMenu;
     [SerializeField] private DialogueManager dialogueManager;
@@ -41,8 +43,8 @@ public class ShopManager : MonoBehaviour
         ItemInventory.Initialize(completeListOfItems);
 
         catalogManager.UpdateMoneyText();
-        OpenShopMenu();
-        //OpenShopCatalog(); // for testing
+        //OpenShopMenu();
+        OpenShopCatalog(); // for testing
     }
 
     // called by ShopMenu Dialogue Choices' buttons on press

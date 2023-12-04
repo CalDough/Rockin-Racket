@@ -70,7 +70,7 @@ public static class ItemInventory
 
     }
 
-    public static void Save(ItemTest[] newItems)
+    public static void Save()
     {
         if (buildHasSaving)
         {
@@ -81,16 +81,16 @@ public static class ItemInventory
             if (!File.Exists(filePath))
                 File.WriteAllText(filePath, "");
 
-            List<string> itemStrings = new();
-            if (newItems != null)
-                foreach (ItemTest newItem in newItems)
-                    ownedItems.Add(newItem);
+            HashSet<string> itemStrings = new();
+            //if (newItems != null)
+            //    foreach (ItemTest newItem in newItems)
+            //        ownedItems.Add(newItem);
             foreach (ItemTest item in ownedItems)
             {
                 Debug.Log(item);
                 itemStrings.Add(item.name);
             }
-                
+            
             File.WriteAllLines(filePath, itemStrings);
 
             Debug.Log($"Inventory saved {itemStrings.Count} items");
