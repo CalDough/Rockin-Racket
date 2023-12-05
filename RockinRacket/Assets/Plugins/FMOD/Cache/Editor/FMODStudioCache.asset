@@ -75,6 +75,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-8843855275467617021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Shop SE/ShopEnter
+  m_EditorClassIdentifier: 
+  Path: event:/Shop SE/ShopEnter
+  Guid:
+    Data1: 897257817
+    Data2: 1183690020
+    Data3: 1980797091
+    Data4: 1148259533
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2314
 --- !u!114 &-8682625348045470290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +304,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-6772571591428435385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Shop SE/Checkout
+  m_EditorClassIdentifier: 
+  Path: event:/Shop SE/Checkout
+  Guid:
+    Data1: 79402941
+    Data2: 1086722282
+    Data3: 718386856
+    Data4: 46828477
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2089
 --- !u!114 &-6593986193238849531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1441,12 +1495,16 @@ MonoBehaviour:
   - {fileID: -2670783914838914763}
   - {fileID: -1972773391397236673}
   - {fileID: -6174653949300307224}
+  - {fileID: 7250536352710843624}
+  - {fileID: -8843855275467617021}
+  - {fileID: -6772571591428435385}
+  - {fileID: 803972977174858528}
   EditorParameters: []
   MasterBanks:
   - {fileID: 415837596568815990}
   StringsBanks:
   - {fileID: 2413609373349509689}
-  cacheTime: 638366358023297865
+  cacheTime: 638373673881850456
   cacheVersion: 131603
 --- !u!114 &75886067479314144
 MonoBehaviour:
@@ -1487,10 +1545,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638366358023287894
+  lastModified: 638373673880410472
   FileSizes:
   - Name: Desktop
-    Value: 23434560
+    Value: 23535808
   Exists: 1
 --- !u!114 &432812469506467807
 MonoBehaviour:
@@ -1596,6 +1654,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &803972977174858528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Shop SE/Page Turn
+  m_EditorClassIdentifier: 
+  Path: event:/Shop SE/Page Turn
+  Guid:
+    Data1: -2078152475
+    Data2: 1321715170
+    Data3: -150630721
+    Data4: 482364612
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2109
 --- !u!114 &1046994774755058058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1845,10 +1930,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638366358023297865
+  lastModified: 638373673880410472
   FileSizes:
   - Name: Desktop
-    Value: 3336
+    Value: 3540
   Exists: 1
 --- !u!114 &2570375586446154887
 MonoBehaviour:
@@ -2469,10 +2554,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/TipToe Song.bank
   Name: TipToe Song
   StudioPath: bank:/TipToe Song
-  lastModified: 638340936840956103
+  lastModified: 638373673881850456
   FileSizes:
   - Name: Desktop
-    Value: 7358624
+    Value: 7358560
   Exists: 1
 --- !u!114 &6609718643870858500
 MonoBehaviour:
@@ -2553,6 +2638,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &7250536352710843624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Button Press
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Button Press
+  Guid:
+    Data1: 1642878745
+    Data2: 1288719021
+    Data3: -2072736631
+    Data4: -389781030
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 821
 --- !u!114 &7486688280012919295
 MonoBehaviour:
   m_ObjectHideFlags: 0
