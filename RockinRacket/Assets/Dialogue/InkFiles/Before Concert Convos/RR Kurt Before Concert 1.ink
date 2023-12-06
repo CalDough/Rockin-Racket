@@ -9,7 +9,7 @@ Uh-um, hey bro. Glad you could join us. You'll do g-great, I know it! But um, go
 
     * [Pass out?]
         
-        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_normal
+        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: kurt_chill_normal
         You think you might PASS OUT?! You're one of the big kids now, you can't let the crowd get to you like that. Don't let them scare you. You may be the runt, but don't let that control you.
             
             #speaker: Kurt #portrait: harvey_chill_normal #portrait: kurt_speaking_normal
@@ -19,7 +19,7 @@ Uh-um, hey bro. Glad you could join us. You'll do g-great, I know it! But um, go
             
     * [Are you sure?]
         
-        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_normal
+        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: kurt_chill_normal
         You really think that I can do it? Who knew you had an encouraging side to you little guy. I'll keep your words of wisdom in mind out there then.
             
             #speaker: Kurt #portrait: harvey_chill_normal #portrait: kurt_speaking_normal
