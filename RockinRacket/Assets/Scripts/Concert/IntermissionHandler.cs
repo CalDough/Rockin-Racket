@@ -25,7 +25,6 @@ public class IntermissionHandler : MonoBehaviour
     [SerializeField] Venue presetVenue;
 
     private bool intermissionActive = false;
-    [SerializeField] private bool alreadySwappedToIntermission = false;
 
     private void Update()
     {
