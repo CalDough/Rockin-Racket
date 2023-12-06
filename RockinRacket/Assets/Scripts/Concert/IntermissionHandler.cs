@@ -25,6 +25,7 @@ public class IntermissionHandler : MonoBehaviour
     [SerializeField] Venue presetVenue;
 
     private bool intermissionActive = false;
+    [SerializeField] private bool alreadySwappedToIntermission = false;
 
     private void Update()
     {
@@ -55,6 +56,11 @@ public class IntermissionHandler : MonoBehaviour
         ConcertCompletionTextBox.gameObject.SetActive(true);
     }
 
+    public void EndDialogueSection()
+    {
+        StateManager.Instance.StartStateTimer();
+        CanvasController.instance.SwapToShopView();
+    }
     
     public void StartConcert()
     {
@@ -87,13 +93,15 @@ public class IntermissionHandler : MonoBehaviour
     public void HandleGameStateStart(object sender, StateEventArgs e)
     {
         Debug.Log("State Started: " + e.state.stateType);
+
         if(e.state.stateType == StateType.Intermission)
         {
             //nextStateButton.gameObject.SetActive(true);
             intermissionActive = true;
-            
+            CanvasController.instance.SwapToBackstageView();
             intermissionScreen.SetActive(true); // Ken added code
         }
+
     }
     
     private void HandleGameStateEnd(object sender, StateEventArgs e)
@@ -103,6 +111,11 @@ public class IntermissionHandler : MonoBehaviour
         //nextStateButton.gameObject.SetActive(false);
         intermissionActive = false;
         intermissionScreen.SetActive(false); // Ken added code
+        if(e.state.stateType == StateType.Intermission)
+        {
+            intermissionActive = false;
+            CanvasController.instance.SwapToBandView();
+        }
     }
 
     public bool CheckIfStoryContinues()
@@ -118,19 +131,22 @@ public class IntermissionHandler : MonoBehaviour
 
     public void SetUpConcert()
     {
+        /*
         if(CheckIfStoryContinues() == false)
         {
             StartConcert();
             return;
         }
-
+        */
         if(presetVenue != null)
         {
+            Debug.Log("Intermission Hander: Starting Concert");
             StateManager.Instance.ConcertVenue = presetVenue;
             StartConcert();
         }
         if(Cinematic != null && leaveButton != null)
         {
+            Debug.Log("Intermission Hander:  Changing leave button");
             leaveButton.onClick.RemoveAllListeners();
             leaveButton.onClick.AddListener(() => leaveButtonReplacement(Cinematic));
         }
@@ -142,4 +158,5 @@ public class IntermissionHandler : MonoBehaviour
         //Call story manager to set a bool flag that we completed X events too
     }
     
+
 }

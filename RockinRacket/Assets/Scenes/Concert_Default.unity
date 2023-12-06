@@ -882,9 +882,9 @@ MonoBehaviour:
   MinigameIsActive: 0
   MinigameIsOnCooldown: 0
   defaultCooldownDuration: 17
-  defaultChanceToOccur: 0.14
+  defaultChanceToOccur: 0.5
   defaultChanceIncrease: 0.05
-  defaultChanceTimer: 5
+  defaultChanceTimer: 4
   defaultCountDown: 15
   currentCooldown: 0
   currentChanceToOccur: 0
@@ -1983,8 +1983,8 @@ MonoBehaviour:
   MinigameIsOnCooldown: 0
   defaultCooldownDuration: 10
   defaultChanceToOccur: 0.4
-  defaultChanceIncrease: 0.03
-  defaultChanceTimer: 5.5
+  defaultChanceIncrease: 0.04
+  defaultChanceTimer: 4
   defaultCountDown: 15
   currentCooldown: 0
   currentChanceToOccur: 0
@@ -6336,6 +6336,7 @@ MonoBehaviour:
   Cinematic: {fileID: 11400000, guid: d57e3e78784145f4c8aeeec6c2542d10, type: 2}
   leaveButton: {fileID: 1916899133}
   presetVenue: {fileID: 11400000, guid: a65bcd02d48ff9941abf4b41a1ee9437, type: 2}
+  alreadySwappedToIntermission: 0
 --- !u!1 &586761200
 GameObject:
   m_ObjectHideFlags: 0
@@ -9851,6 +9852,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 575470621}
+        m_TargetAssemblyTypeName: IntermissionHandler, Assembly-CSharp
+        m_MethodName: EndDialogueSection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1068968039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9944,7 +9957,7 @@ MonoBehaviour:
   TimesMissed: 0
   MinigameIsActive: 0
   MinigameIsOnCooldown: 0
-  defaultCooldownDuration: 2
+  defaultCooldownDuration: 15
   defaultChanceToOccur: 1
   defaultChanceIncrease: 0.05
   defaultChanceTimer: 6
@@ -12489,9 +12502,9 @@ MonoBehaviour:
   MinigameIsActive: 0
   MinigameIsOnCooldown: 0
   defaultCooldownDuration: 15
-  defaultChanceToOccur: 0.11
-  defaultChanceIncrease: 0.04
-  defaultChanceTimer: 4
+  defaultChanceToOccur: 0.2
+  defaultChanceIncrease: 0.05
+  defaultChanceTimer: 2
   defaultCountDown: 15
   currentCooldown: 0
   currentChanceToOccur: 0

@@ -8,14 +8,14 @@ public class SingingNote : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] float lerpDuration;
     [SerializeField] int destroyTimer;
-    [SerializeField] MicNoteHelping parent;
+    [SerializeField] public MicNoteHelping parent;
     public Vector3 destination;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(LerpToPosition(destination, lerpDuration));
-        StartCoroutine(DestroyAfterXSeconds(destroyTimer));
+        //Destroy(this, destroyTimer);
     }
 
     // Update is called once per frame
@@ -37,18 +37,6 @@ public class SingingNote : MonoBehaviour, IPointerClickHandler
         }
 
         transform.position = targetPosition;
-    }
-
-    private IEnumerator DestroyAfterXSeconds(int destroyAfter)
-    {
-        int counter = destroyAfter;
-        while (counter > 0)
-        {
-            yield return new WaitForSeconds(counter);
-            counter--;
-        }
-        Debug.Log("Destroying Note");
-        Destroy(gameObject);
     }
 
     public void OnPointerClick(PointerEventData eventData)

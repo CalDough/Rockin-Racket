@@ -7,7 +7,8 @@ public class MicNoteHelping : MiniGame
 {
     [Header("UI Elements")]
     [SerializeField] GameObject PlayerCircle;
-    [SerializeField] GameObject singingNote;
+    [SerializeField] SingingNote singingNote;
+    [SerializeField] List<SingingNote> singingNotes;
     [SerializeField] RectTransform[] spawnPoints;
     [SerializeField] RectTransform[] endPoints;
     [Header("Customization Settings")]
@@ -17,7 +18,7 @@ public class MicNoteHelping : MiniGame
     private Queue<RectTransform> spawnQueue;
     private bool isActive = false;
     private bool begunSpawning = false;
-    private int clickedCount = 0;
+    [SerializeField] private int clickedCount = 0;
 
 
     // Start is called before the first frame update
@@ -63,8 +64,10 @@ public class MicNoteHelping : MiniGame
         if (spawnQueue.Count > 0)
         {
             RectTransform spawnTransform = spawnQueue.Dequeue();
-            GameObject note = Instantiate(singingNote, spawnTransform.transform);
-            note.gameObject.GetComponent<SingingNote>().destination = new Vector3(spawnTransform.position.x - moveDistance, spawnTransform.position.y, 0);
+            SingingNote note = Instantiate(singingNote, spawnTransform.transform);
+            note.parent = this;
+            note.destination  = new Vector3(spawnTransform.position.x - moveDistance, spawnTransform.position.y, 0);
+            singingNotes.Add(note);
             Debug.Log("Spawned one note");
         }
     }
@@ -84,14 +87,27 @@ public class MicNoteHelping : MiniGame
         isActive = true;
         Debug.Log("Event activated");
         base.Activate();
+        DestroyAllNotes();
         PopulateSpawnQueue();
         clickedCount = 0;
     }
 
+    void DestroyAllNotes()
+    {
+        foreach(SingingNote note in singingNotes)
+        {
+            if(note != null){
+            Destroy(note.gameObject);
+            }
+        }
+        singingNotes.Clear();
+    }
+
     public override void Complete()
     {
-        Debug.Log("Event complete");
+        Debug.Log("Event complete mic game");
         base.Complete();
+        DestroyAllNotes();
     }
 
     public override void Miss()
@@ -99,6 +115,13 @@ public class MicNoteHelping : MiniGame
         GameEvents.EventMiss(this);
         GameEvents.EventClosed(this);
         HandleClosing();
+        DestroyAllNotes();
+    }
+
+    public override void End()
+    {
+        base.End();
+        DestroyAllNotes();
     }
 
     public override void OpenEvent()

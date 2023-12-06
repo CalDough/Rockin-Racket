@@ -23,7 +23,7 @@ public class StateManager : MonoBehaviour
 
     public static StateManager Instance { get; private set; }
 
-    private bool alreadySwappedToIntermission = false;
+
 
     void Awake()
     {
@@ -37,7 +37,7 @@ public class StateManager : MonoBehaviour
 
     void Update()
     {
-        CheckForIntermission();
+
     }
     
     public void InitializeConcertData()
@@ -116,31 +116,38 @@ public class StateManager : MonoBehaviour
         }
     }
 
+    public void StartStateTimer()
+    {
+        CurrentState.isManualDuration = false;
+        Debug.Log("Setting state to not manuel Concert");
+    }
+
     IEnumerator PlayState(State state)
     {
         StateEvent.StateStart(state);
         state.isCompleted = false;
 
-        if (!state.isManualDuration)  
+        while(!state.isCompleted)
         {
-            stateDuration = state.duration;
-            float startTime = Time.time;
-            while (Time.time - startTime < stateDuration && !state.isCompleted)
+            if (!state.isManualDuration)  
             {
-                stateRemainder = stateDuration - (Time.time - startTime);
+                stateDuration = state.duration;
+                float startTime = Time.time;
+                while (Time.time - startTime < stateDuration && !state.isCompleted)
+                {
+                    stateRemainder = stateDuration - (Time.time - startTime);
+                    yield return null;
+                }
+                state.isCompleted = true;
+            }
+            else if (state.isManualDuration && !state.isCompleted)  
+            {
+                // for manual duration states, wait for manual trigger to call NextState()
                 yield return null;
             }
-        }
-        else
-        {
-            // for manual duration states, wait for manual trigger to call NextState()
-            while (!state.isCompleted)
-            {
-                stateRemainder = 0;
-                yield return null;
-            }
-        }
 
+        }
+        
         StateEvent.StateEnd(state);
         NextState();
     }
@@ -153,25 +160,6 @@ public class StateManager : MonoBehaviour
         return null;
     }
 
-    // Changes the game state to BackstageView when the concert switches to intermission
-    private void CheckForIntermission()
-    {
-        if (CurrentState.stateType == StateType.Intermission && !alreadySwappedToIntermission)
-        {
-            alreadySwappedToIntermission = true;
-            CanvasController.instance.SwapToBackstageView();
-            //CameraSwapEvents.instance.e_SwapToBackstageView.Invoke();
-            //currentGameState.CurrentConcertState = ConcertState.BackstageView;
-        }
-
-        if (CurrentState.stateType == StateType.IntermissionOutro)
-        {
-            Debug.Log("Runs");
-            alreadySwappedToIntermission = false;
-            CanvasController.instance.SwapToBandView();
-            //CameraSwapEvents.instance.e_SwapToBandView.Invoke();
-            //currentGameState.CurrentConcertState = ConcertState.BandView;
-        }
-    }
+    
 
 }

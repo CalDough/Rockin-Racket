@@ -87,11 +87,20 @@ public class DrumGuiding : MiniGame
     private void RandomizeDrumSequence()
     {
         drumSequence.Clear();
-        
+        int previousIndex = -1; 
+
         for (int i = 0; i < sequenceLength; i++)
         {
             int randomIndex = Random.Range(0, Drums.Count);
+
+           
+            while (randomIndex == previousIndex)
+            {
+                randomIndex = Random.Range(0, Drums.Count);
+            }
+
             drumSequence.Add(randomIndex);
+            previousIndex = randomIndex; 
         }
     }
 
