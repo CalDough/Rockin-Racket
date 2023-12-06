@@ -34,7 +34,7 @@ public static class ItemInventory
     public static ItemTest[] GetItemsByBandmate(Bandmate bandmate) { return BandmateItems[bandmate]; }
 
     // TODO: set to true to build with saving, false to build without saving
-    private static readonly bool buildHasSaving = true;
+    private static readonly bool buildHasSaving = false;
     // TODO: ALSO SET IN GameSaver
 
     public static void Initialize(ItemTest[] completeListOfItems)
