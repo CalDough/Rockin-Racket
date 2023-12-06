@@ -4,70 +4,72 @@ INCLUDE ../globals.ink
 
 === H1 ===
 = MJ
-#speaker: MJ #portrait: mj_speaking_normal
-#portrait: harvey_chill_normal
+
+#speaker: MJ #portrait: harvey_chill_normal #portrait: mj_speaking_normal
 What do you need? I'm busy.
     * [Sorry to interrupt...]
-        #speaker: MJ #portrait: mj_chill_normal
-        #speaker: Harvey #portrait: harvey_speaking_normal
-        Sorry to interrupt, I just wanted to see what you got going on.
+        
+        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: mj_chill_normal
+        Oh sorry. I just heard you playing and wanted to listen more.
         
         -> M_H1_C1
     * [How's your guitar?]
-        #speaker: MJ #portrait: mj_speaking_normal
-        #speaker: Harvey #portrait: harvey_speaking_normal
-        How's your guitar? Is it doing well?
+        
+        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: mj_chill_normal
+        How's your guitar doing? Do you need anything for it?
         
         -> M_H1_C2
     * [End convo]
         -> END
 
 = M_H1_C1
-#speaker: MJ #portrait: mj_speaking_normal
-#portrait: harvey_chill_normal
-I'm practicing some songs.
+
+#speaker: MJ #portrait: harvey_chill_normal #portrait: mj_speaking_normal
+Yeah, I'm practicing some songs.
     * [Practicing on a Sunday?]
-        #speaker: MJ #portrait: mj_speaking_normal
-        #speaker: Harvey #portrait: harvey_speaking_normal
-        Practicing on a Sunday? Shouldn't you be resting?
         
-        #speaker: MJ #portrait: mj_speaking_normal
-        #portrait: harvey_chill_normal
-        Rest is for the weak. And I'm not weak.
+        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: mj_chill_normal
+        Practicing on a Sunday tho? Don't you want to rest?
+        
+        
+        #speaker: MJ #portrait: harvey_chill_normal #portrait: mj_speaking_normal
+        Nah, rest is for the weak. And I'm not weak.
         
             -> END
     * [How about taking...]
-        #speaker: MJ #portrait: mj_speaking_normal
-        #speaker: Harvey #portrait: harvey_speaking_normal
+        
+        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: mj_chill_normal
         How about taking a break?
         
-        #speaker: MJ #portrait: mj_speaking_normal
-        #portrait: harvey_chill_normal
+        
+        #speaker: MJ #portrait: harvey_chill_normal #portrait: mj_speaking_normal
         I'll take a break when I'm done. Can I get back to it now?
         
             -> END
 
 = M_H1_C2
-#speaker: MJ #portrait: mj_speaking_normal
-#portrait: harvey_chill_normal
-Yeah. It seems like it's holding up pretty well right now. I might have to get a new one later on, but I'm good so far.
+
+#speaker: MJ #portrait: harvey_chill_normal #portrait: mj_speaking_normal
+It seems like it's holding up pretty well right now. But I would love a new one if you want to get me one!
     * [That's good]
-        #speaker: MJ #portrait: mj_speaking_normal
-        #speaker: Harvey #portrait: harvey_speaking_normal
-        Sweet, just let me know if anything changes, okay?
         
-        #speaker: MJ #portrait: mj_speaking_normal
-        #portrait: harvey_chill_normal
-        I'll let you know then.
+        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: mj_chill_normal
+        Well that's good that it's still working. Let me know if that changes at all.
+        
+        
+        #speaker: MJ #portrait: harvey_chill_normal #portrait: mj_speaking_normal
+        Deal.
         
             -> END
     * [Maybe later on...]
-        #speaker: MJ #portrait: mj_speaking_normal
-        #speaker: Harvey #portrait: harvey_speaking_normal
-        Maybe later on I can get you a new one. Sure it may work right now, but it does look a bit beat up.
         
-        #speaker: MJ #portrait: mj_speaking_normal
-        #portrait: harvey_chill_normal
-        Do whatever you think works then.
+        #speaker: Harvey #portrait: harvey_speaking_normal #portrait: mj_chill_normal
+        Maybe later on I can get you a new one. Having a new one isn't gonna hurt at all.
+        
+        
+        #speaker: MJ #portrait: harvey_chill_normal #portrait: mj_speaking_normal
+        You have a point there. Having them line the walls of my room would be great.
         
             -> END
+
+
