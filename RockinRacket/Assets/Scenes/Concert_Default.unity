@@ -3844,7 +3844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &411990280
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5795,6 +5795,7 @@ MonoBehaviour:
   currentGameState: {fileID: 11400000, guid: 7bbbb4a96005c3f4685fecb204468e9f, type: 2}
   nextStateButton: {fileID: 1196416636}
   FinishConcertButton: {fileID: 1916899131}
+  MerchStandButton: {fileID: 1068968036}
   StartConcertButton: {fileID: 386650493}
   ConcertCompletionTextBox: {fileID: 488336571}
   Cinematic: {fileID: 11400000, guid: d57e3e78784145f4c8aeeec6c2542d10, type: 2}
@@ -8273,13 +8274,14 @@ RectTransform:
   - {fileID: 2017871371}
   - {fileID: 1556113951}
   - {fileID: 119551775}
-  - {fileID: 2063624593}
   - {fileID: 1523056502}
   - {fileID: 1499707246}
   - {fileID: 438330566}
   - {fileID: 969792554}
   - {fileID: 575470620}
+  - {fileID: 2063624593}
   - {fileID: 2037818391}
+  - {fileID: 1068968037}
   - {fileID: 1050360604}
   - {fileID: 2096554350}
   m_Father: {fileID: 0}
@@ -8930,7 +8932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1068968037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8944,7 +8946,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 805371078}
-  m_Father: {fileID: 2063624593}
+  m_Father: {fileID: 966805511}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -17546,8 +17548,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1068968037}
+  m_Children: []
   m_Father: {fileID: 966805511}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

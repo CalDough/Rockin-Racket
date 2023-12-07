@@ -14,7 +14,7 @@ public class IntermissionHandler : MonoBehaviour
     public Button nextStateButton;
     
     public GameObject FinishConcertButton;
-
+    public GameObject MerchStandButton;
     public GameObject StartConcertButton;
     
     public TextMeshProUGUI ConcertCompletionTextBox; 
@@ -48,6 +48,7 @@ public class IntermissionHandler : MonoBehaviour
         }
     }
 
+
     public void EndConcert()
     {
         FinishConcertButton.SetActive(true);
@@ -58,6 +59,8 @@ public class IntermissionHandler : MonoBehaviour
     public void EndDialogueSection()
     {
         StateManager.Instance.StartStateTimer();
+        CanvasController.instance.SwapToShopView();
+        MerchStandButton.SetActive(false);
         CanvasController.instance.SwapToShopView();
     }
     
@@ -96,6 +99,7 @@ public class IntermissionHandler : MonoBehaviour
         if(e.state.stateType == StateType.Intermission)
         {
             //nextStateButton.gameObject.SetActive(true);
+            MerchStandButton.SetActive(true);
             intermissionActive = true;
             CanvasController.instance.SwapToBackstageView();
             intermissionScreen.SetActive(true); // Ken added code
