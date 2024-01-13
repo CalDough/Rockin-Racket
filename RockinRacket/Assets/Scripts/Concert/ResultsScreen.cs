@@ -12,8 +12,6 @@ public class ResultsScreen : MonoBehaviour
 {
     [Header("Object References")]
     [SerializeField] TMP_Text concertResultsText;
-    [SerializeField] AudienceController audienceController;
-    [SerializeField] MinigameStatusManager minigameStatusManager;
     [SerializeField] CrowdController crowdController;
     [SerializeField] CrowdTrashcan crowdTrashcan;
 
@@ -22,18 +20,15 @@ public class ResultsScreen : MonoBehaviour
 
     void Start()
     {
-        minigameStatusManager = MinigameStatusManager.Instance;
         UpdateResultText();
     }
 
     private void UpdateResultText()
     {
         StringBuilder resultsBuilder = new StringBuilder();
-        int miniGamesCompleted = minigameStatusManager.completedMiniGamesCount; 
-        int miniGamesFailed = minigameStatusManager.failedMiniGamesCount; 
 
         float moneyEarned = crowdController.crowdMembers.Count * moneyMultiplier;
-        
+        /*        
         resultsBuilder.AppendLine($"Mini Games Completed: {miniGamesCompleted}");
         resultsBuilder.AppendLine($"Mini Games Failed: {miniGamesFailed}");
         resultsBuilder.AppendLine($"Crowd Size: { crowdController.crowdMembers.Count}");
@@ -46,7 +41,7 @@ public class ResultsScreen : MonoBehaviour
             string formattedSegmentEarnedRating = segmentEarnedrating.ToString("F2");
             resultsBuilder.AppendLine($"Song {i + 1}: {formattedSegmentEarnedRating}/{segmentPotentialrating} Rating");
         }
-
+        */
         concertResultsText.text = resultsBuilder.ToString();
     }
 }

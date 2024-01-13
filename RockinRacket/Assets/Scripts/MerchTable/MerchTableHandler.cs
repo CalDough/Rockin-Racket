@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TShirtCannon;
 using UnityEngine.EventSystems;
 using static UnityEngine.InputSystem.UI.VirtualMouseInput;
 using AYellowpaper.SerializedCollections;

@@ -21,14 +21,14 @@ public static class ConcertAudioEvent
     
     public static event EventHandler<ConcertAudioEventArgs> OnConcertEnd; 
 
-    public static void AudioBroken(MiniGame eventData, float brokenValue, BandRoleName concertPosition, bool affectInstrument)
+    public static void AudioBroken(MinigameController eventData, float stressFactor, BandRoleName concertPosition, bool affectInstrument)
     {
-        OnAudioBroken?.Invoke(null, new ConcertAudioEventArgs( eventData,  brokenValue,  concertPosition,  affectInstrument));
+        OnAudioBroken?.Invoke(null, new ConcertAudioEventArgs( eventData,  stressFactor,  concertPosition,  affectInstrument));
     }
 
-    public static void AudioFixed(MiniGame eventData, float brokenValue, BandRoleName concertPosition, bool affectInstrument)
+    public static void AudioFixed(MinigameController eventData, float stressFactor, BandRoleName concertPosition, bool affectInstrument)
     {
-        OnAudioFixed?.Invoke(null, new ConcertAudioEventArgs( eventData,  brokenValue,  concertPosition,  affectInstrument));
+        OnAudioFixed?.Invoke(null, new ConcertAudioEventArgs( eventData,  stressFactor,  concertPosition,  affectInstrument));
     }
 
     public static void PlayingAudio(BandRoleName concertPosition)
@@ -55,9 +55,9 @@ public static class ConcertAudioEvent
 
 public class ConcertAudioEventArgs : EventArgs
 {
-    public MiniGame EventObject { get; private set; }
+    public MinigameController EventObject { get; private set; }
     //public BandAudioController BandAudioPlayer { get; private set; }
-    public float BrokenValue { get; set; }
+    public float StressFactor { get; set; }
     public BandRoleName ConcertPosition { get; set; }
     public bool AffectInstrument { get; set; }
 
@@ -76,10 +76,10 @@ public class ConcertAudioEventArgs : EventArgs
         BandAudioPlayer = bandRoleAudioPlayer;
     }
     */
-    public ConcertAudioEventArgs(MiniGame eventData, float brokenValue, BandRoleName concertPosition, bool affectInstrument)
+    public ConcertAudioEventArgs(MinigameController eventData, float stressFactor, BandRoleName concertPosition, bool affectInstrument)
     {
         EventObject = eventData;
-        BrokenValue = brokenValue;
+        StressFactor = stressFactor;
         ConcertPosition = concertPosition;
         AffectInstrument = affectInstrument;
     }

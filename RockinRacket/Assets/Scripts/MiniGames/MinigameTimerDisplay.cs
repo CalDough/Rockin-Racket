@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MiniGameTimerDisplay : MonoBehaviour
 {
-    [SerializeField] private MiniGame miniGame;
+    [SerializeField] private MinigameController miniGame;
     [SerializeField] private Slider timerSlider;
 
     private void Awake()
@@ -25,12 +25,12 @@ public class MiniGameTimerDisplay : MonoBehaviour
 
     private void Update()
     {
-        if (!miniGame.isActiveEvent)
+        if (!miniGame.IsActive)
         {
             return;
         }
 
-        UpdateTimerSlider(miniGame.duration, miniGame.remainingDuration);
+        UpdateTimerSlider(miniGame.gameplayTimerDuration, miniGame.gameplayRemainingDuration);
     }
 
     private void UpdateTimerSlider(float duration, float remainingDuration)
