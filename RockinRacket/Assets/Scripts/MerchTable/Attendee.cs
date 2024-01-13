@@ -16,20 +16,15 @@ public abstract class Attendee : MonoBehaviour
 {
     [Header("Lerp Variables")]
     public float duration;
-    [SerializeField] private Vector3 lerpStart;
-    [SerializeField] private Vector3 lerpEnd;
+    [SerializeField] private Transform lerpStart;
+    [SerializeField] private Transform lerpEnd;
 
     [Header("Mood Variables")]
     public int currentMoodRating;
 
     [Header("Appearance Variables")]
     public Sprite[] appearanceVariations;
-    private SpriteRenderer sr;
-
-    private void Start()
-    {
-        sr = gameObject.GetComponent<SpriteRenderer>();
-    }
+    
 
     /*
      * This method triggers a positive reaction from the attendee
@@ -48,12 +43,9 @@ public abstract class Attendee : MonoBehaviour
     /*
      * This method randomizes the attendee's appearance when called
      * 
-     * This method cannot be overriden in a subclass
+     * This method must be implemented in a subclass
      */
-    public void RandomizeAppearance()
-    {
-        sr.sprite = appearanceVariations[Random.Range(0, appearanceVariations.Length)];
-    }
+    public abstract void RandomizeAppearance();
 
     /*
      * This method, and its associated coroutine, lerps the attendee from one Vector position to another
@@ -62,8 +54,8 @@ public abstract class Attendee : MonoBehaviour
      */
     public void StartLerp(Vector3 start, Vector3 end)
     {
-        lerpStart = start;
-        lerpEnd = end;
+        lerpStart.position = start;
+        lerpEnd.position = end;
         StartCoroutine(LerpAttendee());
     }
 
@@ -73,11 +65,11 @@ public abstract class Attendee : MonoBehaviour
 
         while (timeElapsed < duration)
         {
-            transform.position = Vector3.Lerp(lerpStart, lerpEnd, timeElapsed / duration);
+            transform.position = Vector3.Lerp(lerpStart.position, lerpEnd.position, timeElapsed / duration);
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-        transform.position = lerpEnd;
+        transform.position = lerpEnd.position;
     }
 
 }

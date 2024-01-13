@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  * This class is the main embodiment of the merch table. It controls all of the logical related to the timing of the customers. For logic related to the UI,
@@ -18,21 +19,26 @@ public class MerchTable : MonoBehaviour
     private Queue<GameObject> customerQueue = new Queue<GameObject>();
 
     [Header("Location Variables")]
-    public Vector3 customerSpawnPosition;
-    public Vector3 customerAtMerchTablePosition;
-    public Vector3 customerOffscreenDeathPosition;
+    public Transform customerSpawnPosition;
+    public Transform customerAtMerchTablePosition;
+    public Transform customerOffscreenDeathPosition;
 
     [Header("Object/Prefab References")]
     public GameObject customerPrefab;
     [SerializeField] private MerchTableUIHandler merchTableUIHandler;
 
     [Header("Purchaseable Item Details")]
+    public Vector2 minMaxItemPurchaseAmounts;
     [SerializeField] private Sprite tShirtSprite;
     [SerializeField] private Sprite buttonSprite;
     [SerializeField] private Sprite posterSprite;
     private PurchaseableItem tShirt;
     private PurchaseableItem button;
     private PurchaseableItem poster;
+    private List<PurchaseableItem> masterItemList = new List<PurchaseableItem>();
+
+    [Header("Debug Data")]
+    public Button initializeMerchTableManually;
 
     /*
      * In Awake, we are initializing classes for each of our purchaseable items
@@ -42,6 +48,13 @@ public class MerchTable : MonoBehaviour
         tShirt = new PurchaseableItem(1, "Tshirt", tShirtSprite);
         button = new PurchaseableItem(2, "Button", buttonSprite);
         poster = new PurchaseableItem(3, "Poster", posterSprite);
+        masterItemList.Add(tShirt);
+        masterItemList.Add(button);
+        masterItemList.Add(poster);
+
+
+        // Temporary Debug Code
+        initializeMerchTableManually.onClick.AddListener(() => InitalizeMerchTable(5));
     }
 
     /*
@@ -62,7 +75,7 @@ public class MerchTable : MonoBehaviour
     {
         for (int i = 0; i < numCustomers; i++)
         {
-            GameObject curSpawnedPrefab = Instantiate(customerPrefab, customerSpawnPosition, Quaternion.identity);
+            GameObject curSpawnedPrefab = Instantiate(customerPrefab, customerSpawnPosition.position, Quaternion.identity);
             curSpawnedPrefab.GetComponent<MTCustomer>().RandomizeAppearance();
             customerQueue.Enqueue(curSpawnedPrefab);
         }
@@ -80,7 +93,9 @@ public class MerchTable : MonoBehaviour
         if (customerQueue.Count > 0)
         {
             GameObject curCustomer = customerQueue.Dequeue();
-            curCustomer.GetComponent<MTCustomer>().StartLerp(customerSpawnPosition, customerAtMerchTablePosition);
+            curCustomer.GetComponent<MTCustomer>().StartLerp(customerSpawnPosition.position, customerAtMerchTablePosition.position);
+
+            List<PurchaseableItem> curCustomerList = GenerateRandomPurchaseableItemList();
         }
     }
 
@@ -88,9 +103,18 @@ public class MerchTable : MonoBehaviour
      * This method randomly generates a new list of purchaseable items that the current customer wants. This data
      * will be sent to the MerchTableUIHandler class to display
      */
-    public void GenerateRandomPurchaseableItemList()
+    private List<PurchaseableItem> GenerateRandomPurchaseableItemList()
     {
+        List<PurchaseableItem > list = new List<PurchaseableItem>();
 
+        int requiredWants = (int)Random.Range(minMaxItemPurchaseAmounts.x, minMaxItemPurchaseAmounts.y);
+
+        for (int i = 0; i < requiredWants; i++)
+        {
+            list.Add(masterItemList[Random.Range(0, masterItemList.Count)]);
+        }
+
+        return list;
     }
 
 

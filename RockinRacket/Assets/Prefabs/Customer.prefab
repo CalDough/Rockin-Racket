@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 6680980700513817041}
   - component: {fileID: 1855419658293990804}
   - component: {fileID: 8523434473641676625}
-  - component: {fileID: 3528733616726915520}
+  - component: {fileID: -6005884028083921674}
   m_Layer: 0
   m_Name: Customer
   m_TagString: Customer
@@ -164,7 +164,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3528733616726915520
+--- !u!114 &-6005884028083921674
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,19 +173,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5893828084192702231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92b787e776d4af44f8b10c1dd08a02c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 062887f704c188840b2f6de3c0a290cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wants: 
-  maxWants: 3
-  merchItemEncoding:
-    _serializedList:
-    - Key: 1
-      Value: t
-    - Key: 2
-      Value: m
-    - Key: 3
-      Value: b
+  duration: 5
+  lerpStart: {fileID: 0}
+  lerpEnd: {fileID: 0}
+  currentMoodRating: 0
+  appearanceVariations:
+  - {fileID: 21300000, guid: 1ce082e795435eb49b5b3ca92e153984, type: 3}
+  - {fileID: 21300000, guid: a43eeee8df9369d4a87fc30b9cf4bea5, type: 3}
+  - {fileID: 21300000, guid: bf8780dcc4fe9d44586833c91a18c7cf, type: 3}
 --- !u!1 &6451301264940946565
 GameObject:
   m_ObjectHideFlags: 0

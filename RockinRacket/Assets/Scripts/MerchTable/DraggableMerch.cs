@@ -8,7 +8,11 @@ public class DraggableMerch : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 {
     private Vector3 startPosition;
     public CustomerWants merchType;
-    public MerchTableHandler merchHandler;
+    public int merchID;
+    public string merchName;
+    public Sprite merchSprite;
+    //public MerchTableHandler merchHandler;
+    public MerchTableUIHandler uiHandler;
     public RectTransform destination;
 
     private void Awake()
@@ -17,8 +21,10 @@ public class DraggableMerch : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     private void Start()
     {
-        merchHandler = GameObject.FindObjectOfType<MerchTableHandler>();
-        destination = merchHandler.destination;
+        //merchHandler = GameObject.FindObjectOfType<MerchTableHandler>();
+        //destination = merchHandler.destination;
+        uiHandler = GetComponent<MerchTableUIHandler>();
+        destination = uiHandler.destination;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -37,12 +43,15 @@ public class DraggableMerch : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             //Debug.Log("reached destination");
 
-            bool isRequired = merchHandler.CheckIfIsRequired(merchType);
+
+            //bool isRequired = merchHandler.CheckIfIsRequired(merchType);
+            bool isRequired = uiHandler.CheckIfIsRequired(merchID);
 
             if (isRequired)
             {
                 Debug.Log("Correct merch type - depositing in bag");
-                merchHandler.UpdateCustomerCloud(merchType);
+                //merchHandler.UpdateCustomerCloud(merchType);
+                uiHandler.CustomerWantFulfilled(new PurchaseableItem(merchID, merchName, merchSprite));
                 Destroy(gameObject);
             }
             else
