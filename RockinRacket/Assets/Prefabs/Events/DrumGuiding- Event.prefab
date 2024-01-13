@@ -144,7 +144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1484899391261307148}
-  - component: {fileID: 1097110923670992568}
+  - component: {fileID: 978844511086182242}
   m_Layer: 5
   m_Name: DrumGuiding- Event
   m_TagString: Untagged
@@ -173,7 +173,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1097110923670992568
+--- !u!114 &978844511086182242
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,30 +182,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1932029503578014384}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7da10003c93c7b748a647c602c4b5213, type: 3}
+  m_Script: {fileID: 11500000, guid: ae7ec014e4c1d3744943e129108bbbbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Panels: {fileID: 2691268374772534706}
-  IsCompleted: 0
-  duration: 20
-  remainingDuration: 0
-  infiniteDuration: 0
-  isActiveEvent: 0
-  isUniqueEvent: 0
-  isOneTimeEvent: 0
-  hypeBonus: 100
-  comfortBonus: 100
-  hypePenalty: -100
-  comfortPenalty: -100
+  spawnTimerDuration: 10
+  spawnTimerRemainingDuration: 0
+  gameplayTimerDuration: 10
+  gameplayRemainingDuration: 0
+  ChildCanvasPanels: {fileID: 0}
+  TargetBandMember: 4
+  StressFactor: 1
   Drums:
   - {fileID: 2957625898744314605}
   - {fileID: 7952065143652164389}
   - {fileID: 3715973016340020296}
   - {fileID: 307556391026265422}
   drumSequence: 
-  indicatorText: {fileID: 2420299933454165628}
-  bandRole: 1
-  BrokenLevelChange: 1
 --- !u!1 &2691268374772534706
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3456647683841794384
 RectTransform:
   m_ObjectHideFlags: 0
@@ -576,7 +568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4165800602393556331
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1371,7 +1363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4320583772626806239
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1768,7 +1760,7 @@ PrefabInstance:
     - target: {fileID: 1726408259759394703, guid: ced433bdc201e6749a2289b5b66ac9ec,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4041593181445172552, guid: ced433bdc201e6749a2289b5b66ac9ec,
         type: 3}
@@ -1875,11 +1867,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7089877934583388197, guid: ced433bdc201e6749a2289b5b66ac9ec,
-        type: 3}
-      propertyPath: miniGame
-      value: 
-      objectReference: {fileID: 1097110923670992568}
     - target: {fileID: 7633155395334201201, guid: ced433bdc201e6749a2289b5b66ac9ec,
         type: 3}
       propertyPath: m_Name

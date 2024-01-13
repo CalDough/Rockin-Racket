@@ -253,7 +253,7 @@ public class ConcertAudioManager : MonoBehaviour
         if(e.AffectInstrument)
         {
             string instrumentName = BandMemberToInstrument(e.ConcertPosition);
-            UpdateBrokenValue(instrumentName, e.BrokenValue);
+            UpdateBrokenValue(instrumentName, e.StressFactor);
             SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
         }
         else
@@ -267,7 +267,7 @@ public class ConcertAudioManager : MonoBehaviour
         if(e.AffectInstrument)
         {
             string instrumentName = BandMemberToInstrument(e.ConcertPosition);
-            UpdateBrokenValue(instrumentName, -e.BrokenValue); // Assuming negative value fixes the instrument
+            UpdateBrokenValue(instrumentName, -e.StressFactor); // Assuming negative value fixes the instrument
             SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
         }
         else

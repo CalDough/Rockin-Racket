@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class MicNoteHelp : MinigameController
 {
@@ -9,16 +11,17 @@ public class MicNoteHelp : MinigameController
     public BandRoleName TargetBandMember = BandRoleName.MJ;
     public float StressFactor = 1;
 
-    public GameObject chordPrefab; 
+    [SerializeField] private Gradient noteColorGradient = new Gradient();
+    public RectTransform NoteParentRect;
+    public GameObject vocalNotePrefab; 
     public List<VocalNote> notes; 
     public List<Chord> chords;
 
-    float delayBetweenNotes = 1f; 
-    private int numberOfVocalNotes = 6;
-    
-    private int vocalNotesRemaining = 0;
-    private int totalScore;
-    private int currentScore;
+    [SerializeField] float delayBetweenNotes = 1f; 
+    [SerializeField] private int numberOfVocalNotes = 6;
+
+    [SerializeField] private int notesAtEnd = 0; 
+    [SerializeField] private int currentScore;
 
     /*
     Event and State Logic
@@ -82,8 +85,8 @@ public class MicNoteHelp : MinigameController
         IsActive = true;
         MinigameEvents.EventStart(this);
         // Start minigame logic        
-        totalScore = numberOfVocalNotes;
         currentScore = 0;
+        notesAtEnd = 0;
         RestartMiniGameLogic();
         ResetGameplayTimer();
         StartCoroutine(SpawnVocalNotesWithDelay());
@@ -143,37 +146,56 @@ public class MicNoteHelp : MinigameController
     void SpawnSingleVocalNote()
     {
         Chord randomChord = chords[Random.Range(0, chords.Count)];
-        GameObject vocalNoteObject = Instantiate(chordPrefab, randomChord.StringStart, Quaternion.identity, transform);
+        GameObject vocalNoteObject = Instantiate(vocalNotePrefab, Vector3.zero, Quaternion.identity, NoteParentRect);
+
+        RectTransform rectTransform = vocalNoteObject.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = randomChord.GetWorldPosition(randomChord.StringStart);
+
         VocalNote vocalNote = vocalNoteObject.GetComponent<VocalNote>();
         vocalNote.AssignedChord = randomChord;
-        vocalNote.GameInstance = this; 
+        vocalNote.GameInstance = this;
+
+        if (noteColorGradient != null)
+        {
+            float colorPosition = (float)notes.Count / numberOfVocalNotes;
+            RawImage noteImage = vocalNoteObject.GetComponent<RawImage>();
+            if (noteImage != null)
+            {
+                noteImage.color = noteColorGradient.Evaluate(colorPosition);
+            }
+        }
+
         notes.Add(vocalNote);
     }
 
-
     public void NoteClicked(VocalNote vocalNote)
     {
-
+        //Debug.Log("Note Clicked");
+        currentScore++;
+        CheckForCompletion();
     }
 
     public void NoteReachedEnd(VocalNote vocalNote)
     {
-        // Handle note reaching the end logic
+        // notesAtEnd++; 
+        //Debug.Log("Note At End");
         if (!vocalNote.WasClicked)
         {
-            currentScore--; 
+            currentScore--;
         }
-        else
-        {
-            currentScore++; 
-        }
+
+        vocalNote.DisableNote();
 
         CheckForCompletion();
     }
 
     private void CheckForCompletion()
     {
-        if (notes.Count == 0)
+        if (notesAtEnd == numberOfVocalNotes)
+        {
+            HandleChordsCompleted();
+        }
+        if (currentScore == numberOfVocalNotes)
         {
             HandleChordsCompleted();
         }
@@ -181,9 +203,15 @@ public class MicNoteHelp : MinigameController
 
     private void HandleChordsCompleted()
     {
-        // Implement logic for completion
-        Debug.Log($"Game completed with score: {currentScore}/{totalScore}");
-        FinishMinigame();
+        if(currentScore > 0)
+        {
+            FinishMinigame();
+        }
+        else
+        {
+            FailMinigame();
+        }
+        RestartMiniGameLogic();
     }
 
     public void RestartMiniGameLogic()

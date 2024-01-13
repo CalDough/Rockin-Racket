@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6833245987301227439
 RectTransform:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4201901640154532612
 RectTransform:
   m_ObjectHideFlags: 0
@@ -261,18 +261,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219053479920fa1418ef60ae880daca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Panels: {fileID: 2044143230226848267}
-  IsCompleted: 0
-  duration: 20
-  remainingDuration: 0
-  infiniteDuration: 0
-  isActiveEvent: 0
-  isUniqueEvent: 0
-  isOneTimeEvent: 0
-  hypeBonus: 200
-  comfortBonus: 200
-  hypePenalty: -500
-  comfortPenalty: -100
+  spawnTimerDuration: 10
+  spawnTimerRemainingDuration: 0
+  gameplayTimerDuration: 10
+  gameplayRemainingDuration: 0
+  ChildCanvasPanels: {fileID: 2044143230226848267}
+  TargetBandMember: 4
+  StressFactor: 1
   dialPrefab: {fileID: 7069585394635021124, guid: 782e54c3be4f1cf4fb31bfb77e26f572,
     type: 3}
   positionObjects:
@@ -280,9 +275,6 @@ MonoBehaviour:
   - {fileID: 4889049844011295988}
   - {fileID: 9175006733798336988}
   dials: []
-  randomMember: 0
-  bandRole: 4
-  BrokenLevelChange: 2
 --- !u!1 &2818773575204732747
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5225576239279719317
 RectTransform:
   m_ObjectHideFlags: 0
@@ -888,7 +880,7 @@ PrefabInstance:
     - target: {fileID: 1726408259759394703, guid: ced433bdc201e6749a2289b5b66ac9ec,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4041593181445172552, guid: ced433bdc201e6749a2289b5b66ac9ec,
         type: 3}

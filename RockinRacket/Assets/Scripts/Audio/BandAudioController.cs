@@ -243,12 +243,12 @@ public class BandAudioController : MonoBehaviour
 
         if(e.AffectInstrument)
         {
-            instrumentBrokenValue += e.BrokenValue;
+            instrumentBrokenValue += e.StressFactor;
             SetInstrumentBrokeLevel();
         }
         else
         {
-            voiceBrokenValue += e.BrokenValue;
+            voiceBrokenValue += e.StressFactor;
             SetInstrumentBrokeLevel();
         }
     }
@@ -260,13 +260,13 @@ public class BandAudioController : MonoBehaviour
 
         if(e.AffectInstrument)
         {
-            instrumentBrokenValue -= e.BrokenValue;
+            instrumentBrokenValue -= e.StressFactor;
             SetInstrumentBrokeLevel();
             //ResyncAudio();
         }
         else
         {
-            voiceBrokenValue -= e.BrokenValue;
+            voiceBrokenValue -= e.StressFactor;
             SetInstrumentBrokeLevel();
         }
     }

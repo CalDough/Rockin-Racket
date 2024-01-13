@@ -137,16 +137,16 @@ public class CrowdController : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        GameEvents.OnEventFail += HandleEventFail;
-        GameEvents.OnEventComplete += HandleEventComplete;
+        MinigameEvents.OnMinigameFail += HandleEventFail;
+        MinigameEvents.OnMinigameComplete += HandleEventComplete;
         StateEvent.OnStateStart += HandleGameStateStart;
         StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void UnsubscribeEvents()
     {
-        GameEvents.OnEventFail -= HandleEventFail;
-        GameEvents.OnEventComplete -= HandleEventComplete;
+        MinigameEvents.OnMinigameFail -= HandleEventFail;
+        MinigameEvents.OnMinigameComplete -= HandleEventComplete;
         StateEvent.OnStateStart -= HandleGameStateStart;
         StateEvent.OnStateEnd -= HandleGameStateEnd;
     }

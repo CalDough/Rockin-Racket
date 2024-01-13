@@ -15,8 +15,8 @@ public class DrumGuide : MinigameController
     [SerializeField] public List<Button> Drums;
     [SerializeField] private List<int> drumSequence = new List<int>();
     private List<Color> originalColors;
-    private int sequenceLength = 5;
-    private int currentDrumIndex = 0;
+    [SerializeField]private int sequenceLength = 5;
+    [SerializeField]private int currentDrumIndex = 0;
 
     /*
     Event and State Logic

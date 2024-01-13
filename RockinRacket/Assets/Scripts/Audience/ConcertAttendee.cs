@@ -46,7 +46,7 @@ public class ConcertAttendee : Attendee
 
     }
 
-    public void RandomizeAppearance()
+    public override void RandomizeAppearance()
     {
         sr.sprite = appearanceVariations[Random.Range(0, appearanceVariations.Length)];
     }

@@ -9,7 +9,7 @@ public class ChordFinding : MinigameController
     public BandRoleName TargetBandMember = BandRoleName.MJ;
     public float StressFactor = 1;
 
-    public GameObject chordPrefab; 
+    public GameObject chordnotePrefab; 
     public List<ChordNote> notes; 
     public List<Chord> chords;
 
@@ -144,7 +144,7 @@ public class ChordFinding : MinigameController
         for (int i = 0; i < chordnotesToPlay; i++)
         {
             Vector2 spawnPosition = Vector2.Lerp(currentChord.StringStart, currentChord.StringEnd, Random.value);
-            GameObject noteObject = Instantiate(chordPrefab, spawnPosition, Quaternion.identity, currentChord.transform);
+            GameObject noteObject = Instantiate(chordnotePrefab, spawnPosition, Quaternion.identity, currentChord.transform);
             ChordNote note = noteObject.GetComponent<ChordNote>();
             notes.Add(note);
             ChordNote.OnChordNoteClicked += HandleChordNoteClicked; // Subscribe to note clicked event

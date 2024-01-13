@@ -14,4 +14,5 @@ public class ChordNote : MonoBehaviour, IPointerClickHandler
         OnChordNoteClicked?.Invoke(this);
         Destroy(gameObject); // Destroy the note when clicked
     }
+    
 }

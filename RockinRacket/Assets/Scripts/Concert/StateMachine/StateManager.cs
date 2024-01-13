@@ -43,7 +43,7 @@ public class StateManager : MonoBehaviour
     public void InitializeConcertData()
     {
         Debug.Log("Init Concert");
-        MinigameStatusManager.Instance.ResetVariables();
+        //MinigameStatusManager.Instance.ResetVariables();
         AllStates = new List<State>();
         foreach (var state in ConcertVenue.ConcertStates)
         {
