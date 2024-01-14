@@ -9,7 +9,7 @@ public class DrumGuide : MinigameController
 
     public GameObject ChildCanvasPanels; 
     
-    public BandRoleName TargetBandMember = BandRoleName.Kurt;
+    public BandRoleName TargetBandMember = BandRoleName.Ace;
     public float StressFactor = 1;
 
     [SerializeField] public List<Button> Drums;

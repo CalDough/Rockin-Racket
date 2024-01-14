@@ -8,7 +8,7 @@ public class MicNoteHelp : MinigameController
 {
     public GameObject ChildCanvasPanels; 
     
-    public BandRoleName TargetBandMember = BandRoleName.MJ;
+    public BandRoleName TargetBandMember = BandRoleName.Haley;
     public float StressFactor = 1;
 
     [SerializeField] private Gradient noteColorGradient = new Gradient();
