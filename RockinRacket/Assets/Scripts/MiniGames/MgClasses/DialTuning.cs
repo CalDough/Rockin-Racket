@@ -59,6 +59,11 @@ public class DialTuning : MinigameController
         {
             case StateType.Song:
                 StopCoroutine(spawnTimerCoroutine);
+                if(IsActive)
+                {
+                    CancelMinigame();
+                }
+                StopCoroutine(availabilityTimerCoroutine);
                 break;
             default:
                 break;
@@ -86,6 +91,7 @@ public class DialTuning : MinigameController
         // Fail minigame logic 
         StopCoroutine(gameplayTimerCoroutine);
         CloseMinigame();
+        ResetSpawnTimer();
     }
 
     public override void FinishMinigame()
@@ -95,6 +101,7 @@ public class DialTuning : MinigameController
         // Finish minigame logic 
         StopCoroutine(gameplayTimerCoroutine);
         CloseMinigame();
+        ResetSpawnTimer();
     }
 
     public override void CancelMinigame()
@@ -104,6 +111,7 @@ public class DialTuning : MinigameController
         // Cancel minigame logic 
         StopCoroutine(gameplayTimerCoroutine);
         CloseMinigame();
+        ResetSpawnTimer();
     }
 
     public override void OpenMinigame()
@@ -125,7 +133,6 @@ public class DialTuning : MinigameController
             
             if (newDial != null)
             {
-                // Set the local position to 0, 0 so it aligns with the positionObject
                 dialObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
                 newDial.SetMarkerAngle(Random.Range(0f, 360f));
@@ -142,7 +149,6 @@ public class DialTuning : MinigameController
 
     private void HandleDialMatched()
     {
-        // If any dial is not matched, exit the function
         foreach (Dial dial in dials)
         {
             if (!dial.MatchingAngle)

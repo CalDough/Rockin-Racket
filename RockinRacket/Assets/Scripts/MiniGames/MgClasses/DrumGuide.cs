@@ -27,6 +27,14 @@ public class DrumGuide : MinigameController
         CanActivate = false;
         IsActive = false;
         SubscribeEvents();
+        originalColors = new List<Color>();
+        for (int i = 0; i < Drums.Count; i++)
+        {
+            int index = i; 
+            Drums[i].onClick.AddListener(() => OnDrumClicked(index));
+
+            originalColors.Add(Drums[i].colors.normalColor);
+        }
     }
 
     void OnDestroy()
@@ -64,6 +72,11 @@ public class DrumGuide : MinigameController
         {
             case StateType.Song:
                 StopCoroutine(spawnTimerCoroutine);
+                if(IsActive)
+                {
+                    CancelMinigame();
+                }
+                StopCoroutine(availabilityTimerCoroutine);
                 break;
             default:
                 break;
@@ -91,6 +104,7 @@ public class DrumGuide : MinigameController
         // Fail minigame logic 
         StopCoroutine(gameplayTimerCoroutine);
         CloseMinigame();
+        ResetSpawnTimer();
     }
 
     public override void FinishMinigame()
@@ -100,6 +114,7 @@ public class DrumGuide : MinigameController
         // Finish minigame logic 
         StopCoroutine(gameplayTimerCoroutine);
         CloseMinigame();
+        ResetSpawnTimer();
     }
 
     public override void CancelMinigame()
@@ -109,6 +124,7 @@ public class DrumGuide : MinigameController
         // Cancel minigame logic 
         StopCoroutine(gameplayTimerCoroutine);
         CloseMinigame();
+        ResetSpawnTimer();
     }
 
     public override void OpenMinigame()

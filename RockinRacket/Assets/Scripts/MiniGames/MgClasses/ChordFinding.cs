@@ -9,17 +9,16 @@ public class ChordFinding : MinigameController
     public BandRoleName TargetBandMember = BandRoleName.MJ;
     public float StressFactor = 1;
 
+    public RectTransform NoteParentRect;
     public GameObject chordnotePrefab; 
     public List<ChordNote> notes; 
     public List<Chord> chords;
 
-    private int numberOfChords = 3;
-    
-    private int chordnotesToPlay = 0;
-    private int chordnotesRemaining = 0;
-    private int chordIndex = 0; 
+    [SerializeField] private int numberOfChordsToPlayInTotal = 3;
+    [SerializeField] private int numberOfChordnotesToSpawn = 3;
+    [SerializeField] private int chordnotesRemaining = 0;
+    private int chordIndex = 0;
 
-    private int chordsRemaining;
     /*
     Event and State Logic
     */
@@ -66,6 +65,11 @@ public class ChordFinding : MinigameController
         {
             case StateType.Song:
                 StopCoroutine(spawnTimerCoroutine);
+                if(IsActive)
+                {
+                    CancelMinigame();
+                }
+                StopCoroutine(availabilityTimerCoroutine);
                 break;
             default:
                 break;
@@ -84,10 +88,7 @@ public class ChordFinding : MinigameController
         // Start minigame logic 
         RestartMiniGameLogic();
         ResetGameplayTimer();
-        
-        chordsRemaining = numberOfChords;
-        chordIndex = 0; // Start from the first chord
-        SpawnChordNotes();
+        chordIndex = 0; 
     }
 
     public override void FailMinigame()
@@ -132,59 +133,79 @@ public class ChordFinding : MinigameController
 
     public void SpawnChordNotes()
     {
-        if (chordIndex >= chords.Count)
-        {
-            Debug.LogError("Chord index out of range.");
-            return;
-        }
+        List<Chord> availableChords = new List<Chord>(chords);
+        chordnotesRemaining = numberOfChordnotesToSpawn;
 
-        Chord currentChord = chords[chordIndex];
-        chordnotesRemaining = chordnotesToPlay;
-
-        for (int i = 0; i < chordnotesToPlay; i++)
+        for (int i = 0; i < numberOfChordnotesToSpawn; i++)
         {
+            if (availableChords.Count == 0)
+            {
+                availableChords = new List<Chord>(chords);
+            }
+
+            int chordIndex = Random.Range(0, availableChords.Count);
+            Chord currentChord = availableChords[chordIndex];
+            availableChords.RemoveAt(chordIndex); 
+
             Vector2 spawnPosition = Vector2.Lerp(currentChord.StringStart, currentChord.StringEnd, Random.value);
-            GameObject noteObject = Instantiate(chordnotePrefab, spawnPosition, Quaternion.identity, currentChord.transform);
+            Vector2 worldPosition = currentChord.GetWorldPosition(spawnPosition);
+
+            GameObject noteObject = Instantiate(chordnotePrefab, Vector3.zero, Quaternion.identity, NoteParentRect);
+            RectTransform noteRectTransform = noteObject.GetComponent<RectTransform>();
+            noteRectTransform.anchoredPosition = worldPosition;
+
             ChordNote note = noteObject.GetComponent<ChordNote>();
             notes.Add(note);
-            ChordNote.OnChordNoteClicked += HandleChordNoteClicked; // Subscribe to note clicked event
+        }
+        foreach (ChordNote note in notes)
+        {
+            note.GameInstance = this; 
         }
     }
 
-    private void HandleChordNoteClicked(ChordNote chordNote)
+    public void NoteClicked(ChordNote chordNote)
     {
         chordnotesRemaining--;
-        ChordNote.OnChordNoteClicked -= HandleChordNoteClicked; // Unsubscribe from note clicked event
-        notes.Remove(chordNote);
 
         if (chordnotesRemaining <= 0)
         {
             chordIndex++;
-            chordsRemaining--;
+            DeleteOldChordnotes();
 
-            if (chordsRemaining > 0)
+            if (chordIndex < numberOfChordsToPlayInTotal)
             {
-                SpawnChordNotes(); // Spawn next set of chord notes
+                SpawnChordNotes(); 
             }
             else
             {
-                HandleChordsCompleted(); // All chords completed
+                HandleChordsCompleted(); 
             }
         }
     }
 
     private void HandleChordsCompleted()
     {
+        //maybe do something fancy here
         FinishMinigame();
     }
 
     public void RestartMiniGameLogic()
     {
+        DeleteOldChordnotes();
+        
+        chordIndex = 0;
+        SpawnChordNotes();
+    }
+
+    public void DeleteOldChordnotes()
+    {
         foreach (ChordNote chordNote in notes)
         {
-            Destroy(chordNote.gameObject);
+            if (chordNote != null)
+            {
+                Destroy(chordNote.gameObject);
+            }
         }
         notes.Clear();
-        SpawnChordNotes();
     }
 }

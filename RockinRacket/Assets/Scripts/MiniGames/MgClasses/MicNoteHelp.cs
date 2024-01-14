@@ -69,6 +69,11 @@ public class MicNoteHelp : MinigameController
         {
             case StateType.Song:
                 StopCoroutine(spawnTimerCoroutine);
+                if(IsActive)
+                {
+                    CancelMinigame();
+                }
+                StopCoroutine(availabilityTimerCoroutine);
                 break;
             default:
                 break;
