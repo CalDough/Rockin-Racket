@@ -186,10 +186,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae7ec014e4c1d3744943e129108bbbbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTimerDuration: 10
+  <CanActivate>k__BackingField: 0
+  <IsActive>k__BackingField: 0
+  spawnTimerDuration: 16
   spawnTimerRemainingDuration: 0
   gameplayTimerDuration: 10
   gameplayRemainingDuration: 0
+  availabilityTimerDuration: 10
+  availabilityRemainingDuration: 0
   ChildCanvasPanels: {fileID: 2691268374772534706}
   TargetBandMember: 1
   StressFactor: 1
@@ -218,7 +222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3456647683841794384
 RectTransform:
   m_ObjectHideFlags: 0
@@ -297,7 +301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6933236231826839731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2044,7 +2048,7 @@ PrefabInstance:
     - target: {fileID: 1726408259759394703, guid: ced433bdc201e6749a2289b5b66ac9ec,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4041593181445172552, guid: ced433bdc201e6749a2289b5b66ac9ec,
         type: 3}

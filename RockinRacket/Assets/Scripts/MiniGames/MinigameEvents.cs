@@ -5,10 +5,16 @@ using System;
 
 public static class MinigameEvents 
 {
+    public static event EventHandler<GameEventArgs> OnMinigameAvailable;
     public static event EventHandler<GameEventArgs> OnMinigameStart; 
     public static event EventHandler<GameEventArgs> OnMinigameFail; 
     public static event EventHandler<GameEventArgs> OnMinigameCancel; 
     public static event EventHandler<GameEventArgs> OnMinigameComplete; 
+
+    public static void EventAvailable(MinigameController eventData)
+    {
+        OnMinigameAvailable?.Invoke(null, new GameEventArgs(eventData));
+    }
 
     public static void EventStart(MinigameController eventData)
     {

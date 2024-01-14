@@ -41,7 +41,7 @@ public class VocalNote : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (IsClickable)
+        if (IsClickable && !WasClicked)
         {
             WasClicked = true;
             ChangeOpacity(0.25f); 

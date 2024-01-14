@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class MinigameController : MonoBehaviour
 {
-    public bool CanActivate { get; set; }
-    public bool IsActive { get; set; }
+    [field:SerializeField] public bool CanActivate { get; set; }
+    [field:SerializeField] public bool IsActive { get; set; }
 
     //Variables for how long between adding the game back to queue
     public float spawnTimerDuration = 10f; 
@@ -75,6 +75,7 @@ public abstract class MinigameController : MonoBehaviour
         }
         // gameplay timer logic
         // If the player took too long during the gameplay, the game closes and they fail
+        Debug.Log("Minigame Failed, opened and took too long");
         FailMinigame();
     }
 
@@ -90,15 +91,26 @@ public abstract class MinigameController : MonoBehaviour
         // If the game was never opened (active) then the player missed it so they fail it
         if(!IsActive)
         {
+            Debug.Log("Minigame Failed, never opened");
             FailMinigame();
         }
     }
+
+    public void StopGameplayTimer()
+    {
+        if(gameplayTimerCoroutine != null)
+        {
+            StopCoroutine(gameplayTimerCoroutine);
+        }
+    }
+
 
     public virtual void MakeMinigameAvailable()
     {
         CanActivate = true;
         RestartAvailabilityGameplayTimer();
-
+        MinigameEvents.EventAvailable(this);
+        Debug.Log("Minigame Available");
     }
 
     public abstract void StartMinigame();

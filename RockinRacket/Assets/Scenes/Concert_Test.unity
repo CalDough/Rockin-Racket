@@ -843,7 +843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &119551775
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2206,12 +2206,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc7127f68f84e94e86f589eba0d5333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minigamePrefabs:
-  - {fileID: 1932029503578014384, guid: e877cfd76183f0245adcbaebf113414e, type: 3}
-  - {fileID: 1932029503578014384, guid: ef891f0c1544bdd44bf385edeab584d6, type: 3}
-  - {fileID: 2077081206435703190, guid: 5efe4b70483da19498d8405a82cf6998, type: 3}
-  - {fileID: 4698080953133866123, guid: 36f5b3696bf8e9d4b9a37cc4ea2d7499, type: 3}
-  MaxActiveMinigames: 1
+  parentCanvasTransform: {fileID: 438330566}
+  HaleyMinigame: {fileID: 1932029503578014384, guid: e877cfd76183f0245adcbaebf113414e,
+    type: 3}
+  AceMinigame: {fileID: 1932029503578014384, guid: ef891f0c1544bdd44bf385edeab584d6,
+    type: 3}
+  KurtMinigame: {fileID: 2077081206435703190, guid: 5efe4b70483da19498d8405a82cf6998,
+    type: 3}
+  MJMinigame: {fileID: 4698080953133866123, guid: 36f5b3696bf8e9d4b9a37cc4ea2d7499,
+    type: 3}
+  ExtraMinigame: {fileID: 0}
+  HaleyMinigameButton: {fileID: 1423574422}
+  AceMinigameButton: {fileID: 1535306160}
+  KurtMinigameButton: {fileID: 986315683}
+  MJMinigameButton: {fileID: 685039743}
+  ExtraMinigameButton: {fileID: 0}
+  MaxActiveMinigames: 2
+  MinigameQueueSize: 0
   activeMinigamesCount: 0
 --- !u!1 &287783178
 GameObject:
@@ -2434,9 +2445,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConcertMinigameSpawner, Assembly-CSharp
-        m_MethodName: OnMinigameButtonClicked
+      - m_Target: {fileID: 986315683}
+        m_TargetAssemblyTypeName: MinigameButton, Assembly-CSharp
+        m_MethodName: OnGameButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3741,7 +3752,7 @@ GameObject:
   m_Component:
   - component: {fileID: 438330566}
   m_Layer: 5
-  m_Name: EventContainer
+  m_Name: MinigameContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6231,16 +6242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dcb63781015f3d479b9336f5d14c8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGameState: {fileID: 11400000, guid: 7bbbb4a96005c3f4685fecb204468e9f, type: 2}
-  cursorTextures:
-    _serializedList:
-    - Key: 0
-      Value: {fileID: 0}
-    - Key: 1
-      Value: {fileID: 0}
-    - Key: 2
-      Value: {fileID: 0}
-  cursorMode: 0
 --- !u!4 &669597782
 Transform:
   m_ObjectHideFlags: 0
@@ -6293,6 +6294,7 @@ GameObject:
   - component: {fileID: 685039742}
   - component: {fileID: 685039741}
   - component: {fileID: 685039740}
+  - component: {fileID: 685039743}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -6385,6 +6387,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &685039743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685039738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f26389b15fa0342bd1fb695e841530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minigameController: {fileID: 0}
+  radialTimerImage: {fileID: 1591977491}
+  button: {fileID: 1121284545}
 --- !u!1 &691191585
 GameObject:
   m_ObjectHideFlags: 0
@@ -7389,9 +7406,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConcertMinigameSpawner, Assembly-CSharp
-        m_MethodName: OnMinigameButtonClicked
+      - m_Target: {fileID: 1535306160}
+        m_TargetAssemblyTypeName: MinigameButton, Assembly-CSharp
+        m_MethodName: OnGameButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8075,6 +8092,7 @@ GameObject:
   - component: {fileID: 986315682}
   - component: {fileID: 986315681}
   - component: {fileID: 986315680}
+  - component: {fileID: 986315683}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -8167,6 +8185,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &986315683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986315678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f26389b15fa0342bd1fb695e841530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minigameController: {fileID: 0}
+  radialTimerImage: {fileID: 777550852}
+  button: {fileID: 289372803}
 --- !u!1 &987772926
 GameObject:
   m_ObjectHideFlags: 0
@@ -8951,9 +8984,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConcertMinigameSpawner, Assembly-CSharp
-        m_MethodName: OnMinigameButtonClicked
+      - m_Target: {fileID: 685039743}
+        m_TargetAssemblyTypeName: MinigameButton, Assembly-CSharp
+        m_MethodName: OnGameButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11091,6 +11124,7 @@ GameObject:
   - component: {fileID: 1423574421}
   - component: {fileID: 1423574420}
   - component: {fileID: 1423574419}
+  - component: {fileID: 1423574422}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -11183,6 +11217,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1423574422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423574417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f26389b15fa0342bd1fb695e841530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minigameController: {fileID: 0}
+  radialTimerImage: {fileID: 469665698}
+  button: {fileID: 469224283761404611}
 --- !u!1 &1444517811
 GameObject:
   m_ObjectHideFlags: 0
@@ -12366,6 +12415,7 @@ GameObject:
   - component: {fileID: 1535306159}
   - component: {fileID: 1535306158}
   - component: {fileID: 1535306157}
+  - component: {fileID: 1535306160}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -12458,6 +12508,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1535306160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535306155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f26389b15fa0342bd1fb695e841530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minigameController: {fileID: 0}
+  radialTimerImage: {fileID: 1180885924}
+  button: {fileID: 850447685}
 --- !u!1 &1556113950
 GameObject:
   m_ObjectHideFlags: 0
@@ -73869,9 +73934,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConcertMinigameSpawner, Assembly-CSharp
-        m_MethodName: OnMinigameButtonClicked
+      - m_Target: {fileID: 1423574422}
+        m_TargetAssemblyTypeName: MinigameButton, Assembly-CSharp
+        m_MethodName: OnGameButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

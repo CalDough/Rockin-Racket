@@ -58,12 +58,18 @@ public class DialTuning : MinigameController
         switch(e.state.stateType)
         {
             case StateType.Song:
-                StopCoroutine(spawnTimerCoroutine);
                 if(IsActive)
                 {
                     CancelMinigame();
                 }
+                if(CanActivate)
+                {
+                    CanActivate = false;
+                    CancelMinigame();
+                }
                 StopCoroutine(availabilityTimerCoroutine);
+                StopCoroutine(spawnTimerCoroutine);
+                
                 break;
             default:
                 break;
@@ -89,7 +95,7 @@ public class DialTuning : MinigameController
         IsActive = false;
         MinigameEvents.EventFail(this);
         // Fail minigame logic 
-        StopCoroutine(gameplayTimerCoroutine);
+        StopGameplayTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -99,7 +105,7 @@ public class DialTuning : MinigameController
         IsActive = false;
         MinigameEvents.EventComplete(this);
         // Finish minigame logic 
-        StopCoroutine(gameplayTimerCoroutine);
+        StopGameplayTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -109,7 +115,7 @@ public class DialTuning : MinigameController
         IsActive = false;
         MinigameEvents.EventCancel(this);
         // Cancel minigame logic 
-        StopCoroutine(gameplayTimerCoroutine);
+        StopGameplayTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
