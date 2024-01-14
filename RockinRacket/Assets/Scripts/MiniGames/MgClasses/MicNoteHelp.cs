@@ -77,8 +77,8 @@ public class MicNoteHelp : MinigameController
                     CanActivate = false;
                     CancelMinigame();
                 }
-                StopCoroutine(availabilityTimerCoroutine);
-                StopCoroutine(spawnTimerCoroutine);
+                StopSpawnTimer();
+                StopAvailabilityTimer();
                 
                 break;
             default:
@@ -100,6 +100,8 @@ public class MicNoteHelp : MinigameController
         notesAtEnd = 0;
         RestartMiniGameLogic();
         ResetGameplayTimer();
+        StopSpawnTimer();
+        StopAvailabilityTimer();
         StartCoroutine(SpawnVocalNotesWithDelay());
 
 
@@ -111,6 +113,7 @@ public class MicNoteHelp : MinigameController
         MinigameEvents.EventFail(this);
         // Fail minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -121,6 +124,7 @@ public class MicNoteHelp : MinigameController
         MinigameEvents.EventComplete(this);
         // Finish minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -131,6 +135,7 @@ public class MicNoteHelp : MinigameController
         MinigameEvents.EventCancel(this);
         // Cancel minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -188,25 +193,22 @@ public class MicNoteHelp : MinigameController
 
     public void NoteReachedEnd(VocalNote vocalNote)
     {
-        // notesAtEnd++; 
-        //Debug.Log("Note At End");
         if (!vocalNote.WasClicked)
         {
             currentScore--;
         }
 
         vocalNote.DisableNote();
+        vocalNote.HasReachedEnd = true; 
 
         CheckForCompletion();
     }
 
     private void CheckForCompletion()
     {
-        if (notesAtEnd == numberOfVocalNotes)
-        {
-            HandleChordsCompleted();
-        }
-        if (currentScore == numberOfVocalNotes)
+        bool allNotesProcessed = notes.TrueForAll(note => note.WasClicked || note.HasReachedEnd);
+
+        if (allNotesProcessed || currentScore == numberOfVocalNotes)
         {
             HandleChordsCompleted();
         }

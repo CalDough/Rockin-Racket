@@ -12,11 +12,13 @@ public class CanvasController : MonoBehaviour
     public static CanvasController instance;
 
     // Private Variables
-    private GameObject BandViewPanel;
-    private GameObject ShopViewPanel;
-    private GameObject BackStageViewPanel;
-    private GameObject AudienceViewPanel;
-    private GameObject VenueViewPanel;
+    // Better to serialize and we no longer have panels for many of these sections
+    // If we re-add this in the future though, we can just remove comments
+    [SerializeField] private GameObject BandViewPanel;
+    [SerializeField] private GameObject ShopViewPanel;
+    [SerializeField] private GameObject BackStageViewPanel;
+    [SerializeField] private GameObject AudienceViewPanel;
+    [SerializeField] private GameObject VenueViewPanel;
     private static List<GameObject> panels = new List<GameObject>();
     private ConcertState previousState;
 
@@ -29,18 +31,7 @@ public class CanvasController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Referencing the child panel objects associated with each view
-        BandViewPanel = gameObject.transform.GetChild(1).gameObject;
-        ShopViewPanel = gameObject.transform.GetChild(2).gameObject;
-        BackStageViewPanel = gameObject.transform.GetChild(3).gameObject;
-        AudienceViewPanel = gameObject.transform.GetChild(4).gameObject;
-        VenueViewPanel = gameObject.transform.GetChild(5).gameObject;
-
-        panels.Add(BandViewPanel);
-        panels.Add(ShopViewPanel);
-        panels.Add(BackStageViewPanel);
-        panels.Add(AudienceViewPanel);
-        panels.Add(VenueViewPanel);
+        
     }
 
     private void Update()
@@ -53,6 +44,7 @@ public class CanvasController : MonoBehaviour
 
         if (currentGameState.CurrentConcertState == ConcertState.BandView)
         {
+            /*
             if (BandViewPanel.activeSelf)
             {
                 return;
@@ -61,6 +53,7 @@ public class CanvasController : MonoBehaviour
             {
                 BandViewPanel.SetActive(true);
             }
+            */
         }
         else if (currentGameState.CurrentConcertState == ConcertState.ShopView)
         {
@@ -75,6 +68,7 @@ public class CanvasController : MonoBehaviour
         }
         else if (currentGameState.CurrentConcertState == ConcertState.BackstageView)
         {
+            /*
             if (BackStageViewPanel.activeSelf)
             {
                 return;
@@ -83,9 +77,11 @@ public class CanvasController : MonoBehaviour
             {
                 BackStageViewPanel.SetActive(true);
             }
+            */
         }
         else if (currentGameState.CurrentConcertState == ConcertState.AudienceView)
         {
+            /*
             if (AudienceViewPanel.activeSelf)
             {
                 return;
@@ -94,9 +90,11 @@ public class CanvasController : MonoBehaviour
             {
                 AudienceViewPanel.SetActive(true);
             }
+            */
         }
         else if (currentGameState.CurrentConcertState == ConcertState.VenueView)
         {
+            /*
             if (VenueViewPanel.activeSelf)
             {
                 return;
@@ -105,6 +103,7 @@ public class CanvasController : MonoBehaviour
             {
                 VenueViewPanel.SetActive(true);
             }
+            */
         }
     }
 
@@ -154,20 +153,20 @@ public class CanvasController : MonoBehaviour
         switch (state)
         {
             case ConcertState.BandView:
-                BandViewPanel.SetActive(false);
+                //BandViewPanel.SetActive(false);
                 break;
             case ConcertState.ShopView:
                 ShopViewPanel.SetActive(false);
                 break;
             case ConcertState.BackstageView:
-                BackStageViewPanel.SetActive(false);
+                //BackStageViewPanel.SetActive(false);
                 break;
             case ConcertState.AudienceView:
                 //Camera.main.orthographic = true;
-                AudienceViewPanel.SetActive(false);
+                //AudienceViewPanel.SetActive(false);
                 break;
             case ConcertState.VenueView:
-                VenueViewPanel.SetActive(false);
+                //VenueViewPanel.SetActive(false);
                 break;
             default: 
                 break;

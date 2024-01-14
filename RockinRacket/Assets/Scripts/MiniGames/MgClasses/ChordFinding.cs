@@ -73,8 +73,8 @@ public class ChordFinding : MinigameController
                     CanActivate = false;
                     CancelMinigame();
                 }
-                StopCoroutine(availabilityTimerCoroutine);
-                StopCoroutine(spawnTimerCoroutine);
+                StopSpawnTimer();
+                StopAvailabilityTimer();
                 
                 break;
             default:
@@ -94,6 +94,8 @@ public class ChordFinding : MinigameController
         // Start minigame logic 
         RestartMiniGameLogic();
         ResetGameplayTimer();
+        StopSpawnTimer();
+        StopAvailabilityTimer();
         chordIndex = 0; 
     }
 
@@ -103,6 +105,7 @@ public class ChordFinding : MinigameController
         MinigameEvents.EventFail(this);
         // Fail minigame logic
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -113,6 +116,7 @@ public class ChordFinding : MinigameController
         MinigameEvents.EventComplete(this);
         // Finish minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -123,6 +127,7 @@ public class ChordFinding : MinigameController
         MinigameEvents.EventCancel(this);
         // Cancel minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }

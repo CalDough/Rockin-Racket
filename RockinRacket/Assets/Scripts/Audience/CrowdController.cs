@@ -267,7 +267,7 @@ public class CrowdController : MonoBehaviour
 
     public void PlayBooSound()
     {
-        Debug.Log("Playing Boo");
+        //Debug.Log("Playing Boo");
         if (!string.IsNullOrEmpty(booSoundEvent) && Time.time - lastBooTime > booCooldown)
         {
             lastBooTime = Time.time;
@@ -286,7 +286,7 @@ public class CrowdController : MonoBehaviour
 
     public void PlayCheerSound()
     {
-        Debug.Log("Playing Cheer");
+        //Debug.Log("Playing Cheer");
         if (!string.IsNullOrEmpty(cheerSoundEvent) && Time.time - lastCheerTime > cheerCooldown)
         {
             lastCheerTime = Time.time;

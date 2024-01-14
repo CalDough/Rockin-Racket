@@ -8,6 +8,7 @@ public class VocalNote : MonoBehaviour, IPointerClickHandler
 {
     [field:SerializeField] public bool WasClicked { get; private set; } = false;
     [field:SerializeField] public bool IsClickable { get; private set; } = true;
+    [field:SerializeField] public bool HasReachedEnd { get; set; } = false;
     public Chord AssignedChord { get; set; }
     public MicNoteHelp GameInstance { get; set; } 
 

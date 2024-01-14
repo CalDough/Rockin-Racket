@@ -67,8 +67,8 @@ public class DialTuning : MinigameController
                     CanActivate = false;
                     CancelMinigame();
                 }
-                StopCoroutine(availabilityTimerCoroutine);
-                StopCoroutine(spawnTimerCoroutine);
+                StopSpawnTimer();
+                StopAvailabilityTimer();
                 
                 break;
             default:
@@ -88,6 +88,8 @@ public class DialTuning : MinigameController
         // Start minigame logic 
         RestartMiniGameLogic();
         ResetGameplayTimer();
+        StopSpawnTimer();
+        StopAvailabilityTimer();
     }
 
     public override void FailMinigame()
@@ -96,6 +98,7 @@ public class DialTuning : MinigameController
         MinigameEvents.EventFail(this);
         // Fail minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -106,6 +109,7 @@ public class DialTuning : MinigameController
         MinigameEvents.EventComplete(this);
         // Finish minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -116,6 +120,7 @@ public class DialTuning : MinigameController
         MinigameEvents.EventCancel(this);
         // Cancel minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }

@@ -80,8 +80,8 @@ public class DrumGuide : MinigameController
                     CanActivate = false;
                     CancelMinigame();
                 }
-                StopCoroutine(availabilityTimerCoroutine);
-                StopCoroutine(spawnTimerCoroutine);
+                StopSpawnTimer();
+                StopAvailabilityTimer();
                 
                 break;
             default:
@@ -101,6 +101,8 @@ public class DrumGuide : MinigameController
         // Start minigame logic 
         RestartMiniGameLogic();
         ResetGameplayTimer();
+        StopSpawnTimer();
+        StopAvailabilityTimer();
     }
 
     public override void FailMinigame()
@@ -109,6 +111,7 @@ public class DrumGuide : MinigameController
         MinigameEvents.EventFail(this);
         // Fail minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -119,6 +122,7 @@ public class DrumGuide : MinigameController
         MinigameEvents.EventComplete(this);
         // Finish minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }
@@ -129,6 +133,7 @@ public class DrumGuide : MinigameController
         MinigameEvents.EventCancel(this);
         // Cancel minigame logic 
         StopGameplayTimer();
+        StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
     }

@@ -17,7 +17,6 @@ public class IntermissionHandler : MonoBehaviour
     public GameObject MerchStandButton;
     public GameObject StartConcertButton;
     
-    public TextMeshProUGUI ConcertCompletionTextBox; 
     
     [Header("Default Settings For Test Concert")]
     [SerializeField] TransitionData Cinematic;
@@ -52,8 +51,6 @@ public class IntermissionHandler : MonoBehaviour
     public void EndConcert()
     {
         FinishConcertButton.SetActive(true);
-
-        ConcertCompletionTextBox.gameObject.SetActive(true);
     }
 
     public void EndDialogueSection()
@@ -143,13 +140,13 @@ public class IntermissionHandler : MonoBehaviour
         */
         if(presetVenue != null)
         {
-            Debug.Log("Intermission Hander: Starting Concert");
+            Debug.Log("Intermission Handler: Starting Concert");
             StateManager.Instance.ConcertVenue = presetVenue;
             StartConcert();
         }
         if(Cinematic != null && leaveButton != null)
         {
-            Debug.Log("Intermission Hander:  Changing leave button");
+            Debug.Log("Intermission Handler:  Changing leave button");
             leaveButton.onClick.RemoveAllListeners();
             leaveButton.onClick.AddListener(() => leaveButtonReplacement(Cinematic));
         }

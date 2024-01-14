@@ -7,16 +7,16 @@ public class ConcertAttendee : Attendee
     public enum MoodState { Hyped, Frustrated, Pleased }
 
     [Header("Lerp Variables")]
-    public float duration;
+    //public float duration;
     [SerializeField] private Vector3 lerpStart;
     [SerializeField] private Vector3 lerpEnd;
 
     [Header("Mood Variables")]
-    public int currentMoodRating;
+    //public int currentMoodRating;
     public MoodState currentMood = MoodState.Pleased;
 
     [Header("Appearance Variables")]
-    public Sprite[] appearanceVariations;
+    //public Sprite[] appearanceVariations;
     private SpriteRenderer sr;
     private Animator anim;
     public ParticleSystem goodParticles;
@@ -51,6 +51,7 @@ public class ConcertAttendee : Attendee
         sr.sprite = appearanceVariations[Random.Range(0, appearanceVariations.Length)];
     }
 
+    /*
     public void StartLerp(Vector3 start, Vector3 end)
     {
         lerpStart = start;
@@ -70,5 +71,5 @@ public class ConcertAttendee : Attendee
         }
         transform.position = lerpEnd;
     }
-
+    */
 }

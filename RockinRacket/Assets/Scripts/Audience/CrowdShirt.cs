@@ -36,7 +36,7 @@ public class CrowdShirt : MonoBehaviour
 
     public void PlayShootSound()
     {
-        Debug.Log("Playing shoot");
+        //Debug.Log("Playing shoot");
         if (!string.IsNullOrEmpty(shootSoundEvent))
         {
             FMOD.Studio.EventInstance soundInstance = FMODUnity.RuntimeManager.CreateInstance(shootSoundEvent);

@@ -73,9 +73,9 @@ public abstract class MinigameController : MonoBehaviour
             gameplayRemainingDuration -= Time.deltaTime;
             yield return null;
         }
-        // gameplay timer logic
+        // Gameplay timer logic
         // If the player took too long during the gameplay, the game closes and they fail
-        Debug.Log("Minigame Failed, opened and took too long");
+        Debug.Log("MGC: Minigame Failed, opened and took too long: " + this.name);
         FailMinigame();
     }
 
@@ -91,7 +91,7 @@ public abstract class MinigameController : MonoBehaviour
         // If the game was never opened (active) then the player missed it so they fail it
         if(!IsActive)
         {
-            Debug.Log("Minigame Failed, never opened");
+            Debug.Log("MGC: Minigame Failed, never opened " + this.name);
             FailMinigame();
         }
     }
@@ -104,13 +104,31 @@ public abstract class MinigameController : MonoBehaviour
         }
     }
 
+    public void StopAvailabilityTimer()
+    {
+        if(availabilityTimerCoroutine != null)
+        {
+            StopCoroutine(availabilityTimerCoroutine);
+        }
+    }
+
+    public void StopSpawnTimer()
+    {
+        if(spawnTimerCoroutine != null)
+        {
+            StopCoroutine(spawnTimerCoroutine);
+        }
+    }
 
     public virtual void MakeMinigameAvailable()
     {
         CanActivate = true;
         RestartAvailabilityGameplayTimer();
+        StopSpawnTimer();
+        StopGameplayTimer();
         MinigameEvents.EventAvailable(this);
-        Debug.Log("Minigame Available");
+        Debug.Log("MGC: Minigame " + this.name + " now available for clicking");
+
     }
 
     public abstract void StartMinigame();

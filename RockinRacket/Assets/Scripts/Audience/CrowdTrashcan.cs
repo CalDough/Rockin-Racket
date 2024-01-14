@@ -11,7 +11,7 @@ public class CrowdTrashcan : MonoBehaviour
         CrowdTrash trash = collider.GetComponent<CrowdTrash>();
         if (trash != null)
         {
-            Debug.Log("Destroyed Trash");
+            //Debug.Log("Destroyed Trash");
             Destroy(trash.gameObject); 
             TotalTrashCleaned++;
             CrowdController.Instance.currentTrashCount--;

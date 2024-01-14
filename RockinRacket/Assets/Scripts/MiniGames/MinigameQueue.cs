@@ -16,7 +16,8 @@ public class MinigameQueue : MonoBehaviour
     [SerializeField] private GameObject MJMinigame;
     [SerializeField] private GameObject ExtraMinigame; // For specific venue unique games
 
-    //These are the buttons that open the minigames and its 1:1 linked to the band member
+    //These are the buttons that open the minigames and its 1:1 linked to the band member/game
+    //Extra game is meant for future expansion such as speakers or harvey
     [SerializeField] private MinigameButton HaleyMinigameButton;
     [SerializeField] private MinigameButton AceMinigameButton;
     [SerializeField] private MinigameButton KurtMinigameButton;
@@ -27,6 +28,8 @@ public class MinigameQueue : MonoBehaviour
     public int MinigameQueueSize = 0;
     [SerializeField] private Queue<MinigameController> minigameQueue = new Queue<MinigameController>();
     [SerializeField] private int activeMinigamesCount = 0;
+    [SerializeField] private float delayBetweenMinigames = 4.5f; 
+    [SerializeField] private float nextMinigameActivationTime = 0f; // Helper var for time
 
     private void Awake()
     {
@@ -46,14 +49,20 @@ public class MinigameQueue : MonoBehaviour
     private void Update()
     {
         MinigameQueueSize = minigameQueue.Count;
-        if (minigameQueue.Count > 0 && activeMinigamesCount < MaxActiveMinigames)
+        if (minigameQueue.Count > 0 && activeMinigamesCount < MaxActiveMinigames && Time.time >= nextMinigameActivationTime)
         {
-            var minigame = minigameQueue.Dequeue();
-            if (minigame.CanActivate)
-            {
-                minigame.MakeMinigameAvailable();
-                activeMinigamesCount++;
-            }
+            ActivateNextMinigame();
+        }
+    }
+
+    private void ActivateNextMinigame()
+    {
+        var minigame = minigameQueue.Dequeue();
+        if (minigame.CanActivate)
+        {
+            Debug.Log("QUEUE: Minigame dequeued and available " + minigame.name);
+            minigame.MakeMinigameAvailable();
+            activeMinigamesCount++;
         }
     }
 
@@ -61,23 +70,27 @@ public class MinigameQueue : MonoBehaviour
     {
         if (!minigame.IsActive && minigame.CanActivate)
         {
+            Debug.Log("QUEUE: Minigame Added to queue " + minigame.name);
             minigameQueue.Enqueue(minigame);
         }
     }
 
-
-
     private void OnMinigameComplete(object sender, GameEventArgs e)
     {
         activeMinigamesCount--;
-        
-        if(activeMinigamesCount <= 0)
-        {activeMinigamesCount = 0;}
+        Debug.Log("QUEUE: Minigame ended " + e.EventObject.name);
+
+        nextMinigameActivationTime = Time.time + delayBetweenMinigames;
+
+        if (activeMinigamesCount <= 0)
+        {
+            activeMinigamesCount = 0;
+        }
     }
 
     public void GetMinigamesFromShop()
     {
-        Debug.Log("No Shop Minigame Behavior Added Yet");
+        Debug.Log("QUEUE: No Shop Minigame Behavior Added Yet");
     }
 
     private void InstantiateMinigames()
@@ -93,7 +106,7 @@ public class MinigameQueue : MonoBehaviour
     {
         if (minigamePrefab != null)
         {
-            Debug.Log("Spawning Minigames");
+            Debug.Log("QUEUE: Spawning Minigames");
             GameObject minigameObject = Instantiate(minigamePrefab, parentCanvasTransform);
             MinigameController minigameController = minigameObject.GetComponent<MinigameController>();
             if (minigameController != null)

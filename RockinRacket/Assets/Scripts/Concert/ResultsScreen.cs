@@ -17,8 +17,8 @@ public class ResultsScreenHandler : MonoBehaviour
     [SerializeField] CrowdTrashcan crowdTrashcan;
 
     [Header("Score Variables")]
-    [SerializeField] int attendees = 0;
-    [SerializeField] float moneyMultiplier = 100f;
+    public int attendees = 0;
+    public float moneyMultiplier = 100f;
     
     public int moneyEarned = 0;
 
