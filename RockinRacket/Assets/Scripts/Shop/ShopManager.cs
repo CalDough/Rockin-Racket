@@ -28,7 +28,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameLoadHandler gameLoadHandler;
 
     // TODO Temporary until items can be loaded at runtime
-    [SerializeField] private ItemTest[] completeListOfItems;
+    //[SerializeField] private ItemTest[] completeListOfItems;
 
     public bool Bought { get; set; }
     public int Money { get; set; }
@@ -40,7 +40,7 @@ public class ShopManager : MonoBehaviour
         Bought = false;
         Money = 175;
         // TODO find a better way to do this
-        ItemInventory.Initialize(completeListOfItems);
+        //ItemInventory.Initialize(completeListOfItems);
 
         catalogManager.UpdateMoneyText();
         //OpenShopMenu();

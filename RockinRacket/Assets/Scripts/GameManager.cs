@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour
     public int praise; //Multiplies fame and money potentials for next level
     public int attention; //Multiplies number of potential attendees
     public DifficultyMode SetMode = DifficultyMode.Normal;
-    public float difficultyModifier; 
+    public float difficultyModifier;
+
+    [Header("All Items")]
+    public ItemTest[] allItems;
 
 
     [Header("SaveFile Settings")]
@@ -39,10 +42,15 @@ public class GameManager : MonoBehaviour
         { 
             Instance = this; 
             DontDestroyOnLoad(this);
-        } 
+        }
     }
-    
-    
+
+    private void Start()
+    {
+        ItemInventory.Initialize(allItems);
+    }
+
+
 
     public void SaveGame()
     {

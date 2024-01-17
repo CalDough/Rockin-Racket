@@ -18,7 +18,7 @@ public static class GameSaver
     private static int Money { get; set; }
 
     // TODO: set to true to build with saving, false to build without saving
-    private static readonly bool buildHasSaving = false;
+    private static readonly bool buildHasSaving = true;
     // TODO: ALSO SET IN ItemInventory
 
     public static void Save()
@@ -83,6 +83,6 @@ public static class GameSaver
     {
         Hub = 0;
         Fame = 0;
-        Money = 0;
+        Money = 150;
     }
 }

@@ -20,7 +20,7 @@ public class ShopAudio : MonoBehaviour
     public void PlayEnterShop() { audioSource.PlayOneShot(shopBell); }
     public void PlayExitShop() { audioSource.PlayOneShot(shopBell); }
     // called by catalog manager when bookmark pressed
-    public void PlayFlipPage() { print("PlayFlipPage"); audioSource.PlayOneShot(pageTurn); }
+    public void PlayFlipPage() { audioSource.PlayOneShot(pageTurn); }
     // called by receipt button
-    public void PlayCheckout() { print("PlayCheckout"); audioSource.PlayOneShot(checkoutBell); }
+    public void PlayCheckout() { audioSource.PlayOneShot(checkoutBell); }
 }

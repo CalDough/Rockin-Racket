@@ -6,7 +6,7 @@ using UnityEngine.UI;
     This script is a scriptable object for easily making items in the editor
 */
 
-public enum Bandmate { MJ, Kurt, Ace, Haley, Harvey };
+public enum Bandmate { MJ, Kurt, Ace, Haley};
 
 [CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Test Item", order = 0)]
 public class ItemTest : ScriptableObject

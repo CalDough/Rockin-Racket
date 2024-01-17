@@ -2547,9 +2547,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1482962765}
-        m_TargetAssemblyTypeName: ShopAudio, Assembly-CSharp
-        m_MethodName: Play
+      - m_Target: {fileID: 505415873}
+        m_TargetAssemblyTypeName: Test, Assembly-CSharp
+        m_MethodName: getEquipped
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8595,7 +8595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1913471992
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10500,6 +10500,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DialogueSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 3368756197060175536, guid: e26d65456821027469438d9ec8ee8c4e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4952786936255810171, guid: e26d65456821027469438d9ec8ee8c4e,
         type: 3}

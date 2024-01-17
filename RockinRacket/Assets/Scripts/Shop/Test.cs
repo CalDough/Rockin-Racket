@@ -30,4 +30,12 @@ public class Test : MonoBehaviour, IPointerDownHandler
     {
         Debug.Log("HIT!");
     }
+
+    public void getEquipped()
+    {
+        //print("MJ: " + ItemInventory.GetBandmateEquippedItem(Bandmate.MJ).name);
+        //print("Kurt: " + ItemInventory.GetBandmateEquippedItem(Bandmate.Kurt).name);
+        //print("Ace: " + ItemInventory.GetBandmateEquippedItem(Bandmate.Ace).name);
+        //print("Haley: " + ItemInventory.GetBandmateEquippedItem(Bandmate.Haley).name);
+    }
 }
