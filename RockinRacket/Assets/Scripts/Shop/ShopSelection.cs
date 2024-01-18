@@ -19,11 +19,11 @@ public class ShopSelection : MonoBehaviour
     [SerializeField] private GameObject equipBtn;
     [SerializeField] private TMP_Text equipButtonText;
 
-    private ItemTest selectedItem;
+    private Item selectedItem;
 
-    public ItemTest GetSelectedItem() { return selectedItem; }
+    public Item GetSelectedItem() { return selectedItem; }
 
-    public void SelectItem(ItemTest itemTest)
+    public void SelectItem(Item itemTest)
     {
         selectedItem = itemTest;
         UpdateText();

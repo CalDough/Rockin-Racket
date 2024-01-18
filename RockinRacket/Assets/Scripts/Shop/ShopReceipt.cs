@@ -9,25 +9,25 @@ public class ShopReceipt : MonoBehaviour
 {
     public TMP_Text cartText;
 
-    private List<ItemTest> selectedItems = new();
+    private List<Item> selectedItems = new();
     private int cost;
 
-    public void AddToCart(ItemTest item)
+    public void AddToCart(Item item)
     {
         //Debug.Log(item.name + ": added to cart");
         selectedItems.Add(item);
         UpdateText();
     }
-    public void RemoveFromCart(ItemTest item)
+    public void RemoveFromCart(Item item)
     {
         selectedItems.Remove(item);
         UpdateText();
     }
-    public ItemTest[] GetItemsToBuy()
+    public Item[] GetItemsToBuy()
     {
         return selectedItems.ToArray();
     }
-    public bool IsInCart(ItemTest item)
+    public bool IsInCart(Item item)
     {
         return selectedItems.Contains(item);
     }
@@ -35,7 +35,7 @@ public class ShopReceipt : MonoBehaviour
     {
         StringBuilder stringBuilder = new();
         cost = 0;
-        foreach (ItemTest item in selectedItems)
+        foreach (Item item in selectedItems)
         {
             stringBuilder.Append(item.name);
             for (int i=0; i<20-item.name.Length; i++)

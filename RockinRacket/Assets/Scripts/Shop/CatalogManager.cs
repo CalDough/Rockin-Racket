@@ -27,7 +27,7 @@ public class CatalogManager : MonoBehaviour
     // called by shopmanager at start, then when items bought
     public void UpdateMoneyText() { moneyText.text = "$" + shopManager.Money; }
 
-    public void ItemOptionPressed(ItemTest item)
+    public void ItemOptionPressed(Item item)
     {
         shopSelection.SelectItem(item);
     }
@@ -35,12 +35,12 @@ public class CatalogManager : MonoBehaviour
     // called from receipt when items bought
     public void BuyBtnPressed()
     {
-        ItemTest[] itemsToBuy = shopReceipt.GetItemsToBuy();
+        Item[] itemsToBuy = shopReceipt.GetItemsToBuy();
         int cost = 0;
         // TODO: check if you have enough money
         if (itemsToBuy.Length > 0)
         {
-            foreach (ItemTest item in itemsToBuy)
+            foreach (Item item in itemsToBuy)
                 cost += item.cost;
 
             if (cost <= shopManager.Money)
@@ -59,7 +59,7 @@ public class CatalogManager : MonoBehaviour
     }
     public void CartBtnPressed()
     {
-        ItemTest currentItem = shopSelection.GetSelectedItem();
+        Item currentItem = shopSelection.GetSelectedItem();
         if (!shopReceipt.IsInCart(currentItem))
         {
             shopReceipt.AddToCart(currentItem);
@@ -73,7 +73,7 @@ public class CatalogManager : MonoBehaviour
 
     public void EquipBtnPressed()
     {
-        ItemTest currentItem = shopSelection.GetSelectedItem();
+        Item currentItem = shopSelection.GetSelectedItem();
         ItemInventory.EquipItem(currentBandmate, currentItem);
         shopCatalog.UpdateItemOptions(shopReceipt);
     }

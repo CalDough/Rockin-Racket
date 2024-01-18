@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public float difficultyModifier;
 
     [Header("All Items")]
-    public ItemTest[] allItems;
+    public Item[] allItems;
 
 
     [Header("SaveFile Settings")]

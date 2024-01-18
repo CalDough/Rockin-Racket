@@ -17,28 +17,28 @@ public static class ItemInventory
     // TODO get complete list of items by path at runtime
     //private static string itemPath = "Items/";
 
-    private static ItemTest[] allItems;
-    private static List<ItemTest> ownedItems = new();
-    private static Dictionary<Bandmate, ItemTest> equippedItem = new();
+    private static Item[] allItems;
+    private static List<Item> ownedItems = new();
+    private static Dictionary<Bandmate, Item> equippedItem = new();
     //private static Dictionary<Bandmate, GameObject> minigameByType;
 
-    public static void AddItem(ItemTest item) { ownedItems.Add(item); }
-    public static void AddItems(ItemTest[] items) { ownedItems.AddRange(items); }
-    public static void RemoveItem(ItemTest item) { ownedItems.Remove(item); }
-    public static List<ItemTest> GetItems() { return ownedItems; }
-    public static bool ContainsItem(ItemTest item) { return ownedItems.Contains(item); }
-    public static bool IsEquipped(ItemTest item) { return equippedItem.Values.Contains(item); }
-    public static ItemTest[] GetAllItems() { return allItems; }
+    public static void AddItem(Item item) { ownedItems.Add(item); }
+    public static void AddItems(Item[] items) { ownedItems.AddRange(items); }
+    public static void RemoveItem(Item item) { ownedItems.Remove(item); }
+    public static List<Item> GetItems() { return ownedItems; }
+    public static bool ContainsItem(Item item) { return ownedItems.Contains(item); }
+    public static bool IsEquipped(Item item) { return equippedItem.Values.Contains(item); }
+    public static Item[] GetAllItems() { return allItems; }
 
-    private static readonly Dictionary<Bandmate, ItemTest[]> BandmateItems = new();
+    private static readonly Dictionary<Bandmate, Item[]> BandmateItems = new();
     // called by ShopCatalog
-    public static ItemTest[] GetItemsByBandmate(Bandmate bandmate) { return BandmateItems[bandmate]; }
+    public static Item[] GetItemsByBandmate(Bandmate bandmate) { return BandmateItems[bandmate]; }
 
     // TODO: set to true to build with saving, false to build without saving
     private static readonly bool buildHasSaving = true;
     // TODO: ALSO SET IN GameSaver
 
-    public static void Initialize(ItemTest[] completeListOfItems)
+    public static void Initialize(Item[] completeListOfItems)
     {
         allItems = completeListOfItems;
         AddItems(LoadItems());
@@ -70,9 +70,9 @@ public static class ItemInventory
 
     //}
 
-    public static ItemTest GetBandmateMinigame(Bandmate bandmate)
+    public static GameObject GetBandmateMinigame(Bandmate bandmate)
     {
-        return equippedItem[bandmate];
+        return equippedItem[bandmate].minigameObject;
     }
 
     public static void Save()
@@ -97,7 +97,7 @@ public static class ItemInventory
             File.WriteAllText(filePath, "");
 
         HashSet<string> itemStrings = new();
-        foreach (ItemTest item in ownedItems)
+        foreach (Item item in ownedItems)
         {
             //Debug.Log(item);
             itemStrings.Add(item.name);
@@ -115,7 +115,7 @@ public static class ItemInventory
             File.WriteAllText(filePath, "");
 
         List<string> equippedItemStrings = new();
-        foreach (ItemTest item in equippedItem.Values)
+        foreach (Item item in equippedItem.Values)
         {
             Debug.Log("equipped item: " + item.name);
             equippedItemStrings.Add("" + item.ShopIndex);
@@ -131,20 +131,20 @@ public static class ItemInventory
         return equippedItemStrings.Count;
     }
     // called by CatalogManager when equip btn pressed
-    public static void EquipItem(Bandmate bandmate, ItemTest item)
+    public static void EquipItem(Bandmate bandmate, Item item)
     {
         equippedItem[bandmate] = item;
     }
 
     private static void AddBandmateItems()
     {
-        BandmateItems.Add(Bandmate.MJ, new ItemTest[4]);
-        BandmateItems.Add(Bandmate.Kurt, new ItemTest[4]);
-        BandmateItems.Add(Bandmate.Ace, new ItemTest[4]);
-        BandmateItems.Add(Bandmate.Haley, new ItemTest[4]);
+        BandmateItems.Add(Bandmate.MJ, new Item[4]);
+        BandmateItems.Add(Bandmate.Kurt, new Item[4]);
+        BandmateItems.Add(Bandmate.Ace, new Item[4]);
+        BandmateItems.Add(Bandmate.Haley, new Item[4]);
         //BandmateItems.Add(Bandmate.Harvey, new ItemTest[4]);
 
-        foreach (ItemTest item in allItems)
+        foreach (Item item in allItems)
             switch (item.itemType)
             {
                 case Bandmate.MJ: BandmateItems[Bandmate.MJ][item.ShopIndex] = item; break;
@@ -186,7 +186,7 @@ public static class ItemInventory
         Debug.Log("equipped Items on load: " + equippedItem.Values.Count);
     }
 
-    private static ItemTest[] LoadItems()
+    private static Item[] LoadItems()
     {
         if (buildHasSaving)
         {
@@ -197,11 +197,11 @@ public static class ItemInventory
             List<string> itemNames = new(File.ReadAllLines(filePath));
             //foreach (string itemName in itemNames)
             //    Debug.Log(itemName);
-            ItemTest[] loadedItems = new ItemTest[itemNames.Count];
+            Item[] loadedItems = new Item[itemNames.Count];
 
             int successfullyLoaded = 0;
             for (int i = 0; i < itemNames.Count; i++)
-                foreach (ItemTest item in allItems)
+                foreach (Item item in allItems)
                     if (itemNames[i] == item.name)
                     {
                         //Debug.Log($"String: {itemNames[i]} || Item Name: {item.name}");
@@ -219,7 +219,7 @@ public static class ItemInventory
             //    Debug.Log(item.name);
             return loadedItems;
         }
-        return new ItemTest[0];
+        return new Item[0];
     }
     // TODO reset equipped items
     public static void ResetInventory()

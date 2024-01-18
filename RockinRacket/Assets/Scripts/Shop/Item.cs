@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public enum Bandmate { MJ, Kurt, Ace, Haley};
 
 [CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObjects/Test Item", order = 0)]
-public class ItemTest : ScriptableObject
+public class Item : ScriptableObject
 {
     public int ShopIndex;
     public Sprite sprite;

@@ -15,10 +15,10 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     [SerializeField] private Image soldImage;
     [SerializeField] private GameObject equipImageObject;
 
-    private ItemTest item;
+    private Item item;
     private bool forSale;
     private bool equipped;
-    public ItemTest GetItem() { return item; }
+    public Item GetItem() { return item; }
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
         gameObject.SetActive(show);
     }
     // called from ShopCatalog
-    public void SetItem(ItemTest item, bool forSale, bool inCart, bool equipped)
+    public void SetItem(Item item, bool forSale, bool inCart, bool equipped)
     {
         this.item = item;
         itemImage.sprite = item.sprite;

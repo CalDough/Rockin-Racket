@@ -13,11 +13,11 @@ public class ShopCatalog : MonoBehaviour
     [SerializeField] private ItemOption[] itemOptions;
 
     // called from CatalogManager when bookmark pressed
-    public void DisplayItemsByBandmate(ItemTest[] items, ShopReceipt shopReceipt)
+    public void DisplayItemsByBandmate(Item[] items, ShopReceipt shopReceipt)
     {
         foreach (ItemOption itemOption in itemOptions)
             itemOption.Show(false);
-        foreach (ItemTest item in items)
+        foreach (Item item in items)
             DisplayItem(item, !ItemInventory.ContainsItem(item), shopReceipt.IsInCart(item), ItemInventory.IsEquipped(item));
     }
 
@@ -32,7 +32,7 @@ public class ShopCatalog : MonoBehaviour
     }
 
     // called by DisplayItemsByBandmate
-    private void DisplayItem(ItemTest item, bool forSale, bool isInCart, bool equipped)
+    private void DisplayItem(Item item, bool forSale, bool isInCart, bool equipped)
     {
         itemOptions[item.ShopIndex].SetItem(item, forSale, isInCart, equipped);
     }
