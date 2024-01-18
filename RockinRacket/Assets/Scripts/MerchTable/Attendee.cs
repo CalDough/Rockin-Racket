@@ -24,7 +24,12 @@ public abstract class Attendee : MonoBehaviour
 
     [Header("Appearance Variables")]
     public Sprite[] appearanceVariations;
-    
+    public SpriteRenderer sr;
+
+    protected void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
 
     /*
      * This method triggers a positive reaction from the attendee
@@ -43,9 +48,12 @@ public abstract class Attendee : MonoBehaviour
     /*
      * This method randomizes the attendee's appearance when called
      * 
-     * This method must be implemented in a subclass
+     * This method can be overidden in a subclass
      */
-    public abstract void RandomizeAppearance();
+    public virtual void RandomizeAppearance()
+    {
+        sr.sprite = appearanceVariations[Random.Range(0, appearanceVariations.Length)];
+    }
 
     /*
      * This method, and its associated coroutine, lerps the attendee from one Vector position to another
