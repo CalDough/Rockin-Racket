@@ -41,9 +41,8 @@ public static class ItemInventory
     public static void Initialize(Item[] completeListOfItems)
     {
         allItems = completeListOfItems;
-        AddItems(LoadItems());
         AddBandmateItems();
-        LoadEquippedItems();
+        Load();
     }
 
     //public static GameObject GetMinigameByName(Bandmate type)
@@ -65,11 +64,12 @@ public static class ItemInventory
     //    //}
     //}
 
-    //public static void GetBandmateItems()
-    //{
+    public static Item GetBandmateEquippedItem(Bandmate bandmate)
+    {
+        return equippedItem[bandmate];
+    }
 
-    //}
-
+    // Called to get the correct minigames for each bandmate at start of concert
     public static GameObject GetBandmateMinigame(Bandmate bandmate)
     {
         return equippedItem[bandmate].minigameObject;
@@ -136,29 +136,10 @@ public static class ItemInventory
         equippedItem[bandmate] = item;
     }
 
-    private static void AddBandmateItems()
+    public static void Load()
     {
-        BandmateItems.Add(Bandmate.MJ, new Item[4]);
-        BandmateItems.Add(Bandmate.Kurt, new Item[4]);
-        BandmateItems.Add(Bandmate.Ace, new Item[4]);
-        BandmateItems.Add(Bandmate.Haley, new Item[4]);
-        //BandmateItems.Add(Bandmate.Harvey, new ItemTest[4]);
-
-        foreach (Item item in allItems)
-            switch (item.itemType)
-            {
-                case Bandmate.MJ: BandmateItems[Bandmate.MJ][item.ShopIndex] = item; break;
-                case Bandmate.Kurt: BandmateItems[Bandmate.Kurt][item.ShopIndex] = item; break;
-                case Bandmate.Ace: BandmateItems[Bandmate.Ace][item.ShopIndex] = item; break;
-                case Bandmate.Haley: BandmateItems[Bandmate.Haley][item.ShopIndex] = item; break;
-                //case Bandmate.Harvey: BandmateItems[Bandmate.Harvey][item.ShopIndex] = item; break;
-            }
-    }
-
-    // TODO call LoadItems and Load EquippedItems
-    private static void Load()
-    {
-
+        AddItems(LoadItems());
+        LoadEquippedItems();
     }
 
     private static void LoadEquippedItems()
@@ -221,15 +202,40 @@ public static class ItemInventory
         }
         return new Item[0];
     }
-    // TODO reset equipped items
+
     public static void ResetInventory()
     {
-        if (buildHasSaving)
-        {
-            Debug.Log("Inventory Cleared");
-            string filePath = saveFolderPath + saveFileName;
-            File.WriteAllText(filePath, "");
-            ownedItems = new();
-        }
+        // owned items
+        string filePath = saveFolderPath + saveFileName;
+        string[] itemStrings = { "MJ_Basic", "Kurt_Basic", "Ace_Basic", "Haley_Basic" };
+        File.WriteAllLines(filePath, itemStrings);
+        LoadEquippedItems();
+
+        // equipped items
+        filePath = saveFolderPath + equippedSaveFileName;
+        string[] equippedStrings = { "0", "0", "0", "0" };
+        File.WriteAllLines(filePath, equippedStrings);
+        LoadItems();
+
+        Debug.Log("Item Inventory reset");
+    }
+
+    private static void AddBandmateItems()
+    {
+        BandmateItems.Add(Bandmate.MJ, new Item[4]);
+        BandmateItems.Add(Bandmate.Kurt, new Item[4]);
+        BandmateItems.Add(Bandmate.Ace, new Item[4]);
+        BandmateItems.Add(Bandmate.Haley, new Item[4]);
+        //BandmateItems.Add(Bandmate.Harvey, new ItemTest[4]);
+
+        foreach (Item item in allItems)
+            switch (item.itemType)
+            {
+                case Bandmate.MJ: BandmateItems[Bandmate.MJ][item.ShopIndex] = item; break;
+                case Bandmate.Kurt: BandmateItems[Bandmate.Kurt][item.ShopIndex] = item; break;
+                case Bandmate.Ace: BandmateItems[Bandmate.Ace][item.ShopIndex] = item; break;
+                case Bandmate.Haley: BandmateItems[Bandmate.Haley][item.ShopIndex] = item; break;
+                    //case Bandmate.Harvey: BandmateItems[Bandmate.Harvey][item.ShopIndex] = item; break;
+            }
     }
 }

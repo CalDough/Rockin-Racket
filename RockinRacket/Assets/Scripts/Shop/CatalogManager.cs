@@ -25,7 +25,7 @@ public class CatalogManager : MonoBehaviour
     public void Open() { gameObject.SetActive(true); }
     public void Close() { gameObject.SetActive(false); }
     // called by shopmanager at start, then when items bought
-    public void UpdateMoneyText() { moneyText.text = "$" + shopManager.Money; }
+    public void UpdateMoneyText() { moneyText.text = "$" + GameManager.Instance.globalMoney; }
 
     public void ItemOptionPressed(Item item)
     {
@@ -43,9 +43,9 @@ public class CatalogManager : MonoBehaviour
             foreach (Item item in itemsToBuy)
                 cost += item.cost;
 
-            if (cost <= shopManager.Money)
+            if (cost <= GameManager.Instance.globalMoney)
             {
-                shopManager.Money -= cost;
+                GameManager.Instance.globalMoney -= cost;
                 UpdateMoneyText();
                 ItemInventory.AddItems(shopReceipt.GetItemsToBuy());
                 shopManager.Bought = true;

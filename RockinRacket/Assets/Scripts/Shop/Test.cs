@@ -6,18 +6,23 @@ using UnityEngine.UI;
 
 public class Test : MonoBehaviour, IPointerDownHandler
 {
+    public GameLoadHandler gameLoadHandler;
+
     public void Save()
     {
-        int hub = 1;
-        int fame = 12;
-        int money = 120;
-        GameSaver.SaveStats(hub, fame, money);
-        GameSaver.Save();
+        gameLoadHandler.Save();
     }
     public void Load()
     {
-        GameSaver.Load();
-        GameSaver.PrintStats();
+        gameLoadHandler.Load();
+    }
+    public void NewGame()
+    {
+        gameLoadHandler.NewGame();
+    }
+    public void AddMoney()
+    {
+        GameManager.Instance.globalMoney += 100;
     }
     public void LoadDialogue()
     {
@@ -33,9 +38,9 @@ public class Test : MonoBehaviour, IPointerDownHandler
 
     public void getEquipped()
     {
-        //print("MJ: " + ItemInventory.GetBandmateEquippedItem(Bandmate.MJ).name);
-        //print("Kurt: " + ItemInventory.GetBandmateEquippedItem(Bandmate.Kurt).name);
-        //print("Ace: " + ItemInventory.GetBandmateEquippedItem(Bandmate.Ace).name);
-        //print("Haley: " + ItemInventory.GetBandmateEquippedItem(Bandmate.Haley).name);
+        print("MJ: " + ItemInventory.GetBandmateEquippedItem(Bandmate.MJ).name);
+        print("Kurt: " + ItemInventory.GetBandmateEquippedItem(Bandmate.Kurt).name);
+        print("Ace: " + ItemInventory.GetBandmateEquippedItem(Bandmate.Ace).name);
+        print("Haley: " + ItemInventory.GetBandmateEquippedItem(Bandmate.Haley).name);
     }
 }

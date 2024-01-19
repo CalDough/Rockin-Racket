@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         ItemInventory.Initialize(allItems);
+        LoadGame();
     }
 
 

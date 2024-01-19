@@ -18,47 +18,31 @@ public class GameLoadHandler : MonoBehaviour
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
     
-    public void NewData()
+    public void NewGame()
     {
         //AnimalManager.Instance.LoadNewAnimals();
         //BandManager.Instance.LoadDefaultBand();
         //InventoryManager.Instance.LoadDefaultItems();
         GameManager.Instance.NewGame();
-    }
-
-    // TODO replace in new script
-    public void LoadAllData()
-    {
-        //AnimalManager.Instance.LoadAnimals();
-        //BandManager.Instance.LoadBand();
-        //InventorySaver.Instance.LoadInventory();
-        GameSaver.Load();
-    }
-
-    public void SaveAllData()
-    {
-        //AnimalManager.Instance.SaveAnimals();
-        //BandManager.Instance.SaveBand();
-        //InventorySaver.Instance.SaveInventory();
-        GameSaver.Save();
+        ItemInventory.ResetInventory();
     }
 
     public void SaveAndExit()
     {
-        //AnimalManager.Instance.SaveAnimals();
-        //BandManager.Instance.SaveBand();
-        //InventorySaver.Instance.SaveInventory();
-        GameSaver.Save();
+        GameManager.Instance.SaveGame();
         ItemInventory.Save();
         Application.Quit();
     }
     public void Save()
     {
-        //AnimalManager.Instance.SaveAnimals();
-        //BandManager.Instance.SaveBand();
-        //InventorySaver.Instance.SaveInventory();
-        GameSaver.Save();
+        GameManager.Instance.SaveGame();
         ItemInventory.Save();
+    }
+
+    public void Load()
+    {
+        GameManager.Instance.LoadGame();
+        ItemInventory.Load();
     }
 
     public void GoBackScene()

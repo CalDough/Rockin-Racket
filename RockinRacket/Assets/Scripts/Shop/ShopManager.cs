@@ -31,14 +31,12 @@ public class ShopManager : MonoBehaviour
     //[SerializeField] private ItemTest[] completeListOfItems;
 
     public bool Bought { get; set; }
-    public int Money { get; set; }
 
     private Action onClose;
 
     private void Start()
     {
         Bought = false;
-        Money = 175;
         // TODO find a better way to do this
         //ItemInventory.Initialize(completeListOfItems);
 
