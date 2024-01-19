@@ -24,11 +24,12 @@ public abstract class Attendee : MonoBehaviour
 
     [Header("Appearance Variables")]
     public Sprite[] appearanceVariations;
-    public SpriteRenderer sr;
+    protected SpriteRenderer sr;
 
     protected void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        appearanceVariations = new Sprite[3];
     }
 
     /*
