@@ -41,10 +41,14 @@ public class MinigameQueue : MonoBehaviour
 
     void Start()
     {
+        SetupMinigames();
+    }
+
+    public void SetupMinigames()
+    {
         GetMinigamesFromShop();
         InstantiateMinigames();
     }
-
 
     private void Update()
     {
@@ -90,7 +94,48 @@ public class MinigameQueue : MonoBehaviour
 
     public void GetMinigamesFromShop()
     {
-        Debug.Log("QUEUE: No Shop Minigame Behavior Added Yet");
+        
+        if(ItemInventory.GetBandmateMinigame(Bandmate.Haley) != null)
+        {
+            HaleyMinigame = ItemInventory.GetBandmateMinigame(Bandmate.Haley);
+            Debug.Log("QUEUE: Shop Minigame Found "+ HaleyMinigame.name);
+        }
+        else
+        {
+            Debug.Log("QUEUE: No Shop Minigame Found for Haley");
+        }
+
+        if(ItemInventory.GetBandmateMinigame(Bandmate.Ace) != null)
+        {
+            AceMinigame = ItemInventory.GetBandmateMinigame(Bandmate.Ace);
+            Debug.Log("QUEUE: Shop Minigame Found "+ AceMinigame.name);
+        }
+        else
+        {
+            Debug.Log("QUEUE: No Shop Minigame Found for Ace");
+        }
+
+        if(ItemInventory.GetBandmateMinigame(Bandmate.MJ) != null)
+        {
+            MJMinigame = ItemInventory.GetBandmateMinigame(Bandmate.MJ);
+            Debug.Log("QUEUE: Shop Minigame Found "+ MJMinigame.name);
+        }
+        else
+        {
+            Debug.Log("QUEUE: No Shop Minigame Found for MJ");
+        }
+
+        if(ItemInventory.GetBandmateMinigame(Bandmate.Kurt) != null)
+        { 
+            KurtMinigame = ItemInventory.GetBandmateMinigame(Bandmate.Kurt);
+            Debug.Log("QUEUE: Shop Minigame Found "+ KurtMinigame.name);
+        }
+        else
+        {
+            Debug.Log("QUEUE: No Shop Minigame Found for Kurt");
+        }
+        
+
     }
 
     private void InstantiateMinigames()
