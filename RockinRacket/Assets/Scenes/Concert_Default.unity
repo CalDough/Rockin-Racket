@@ -777,7 +777,7 @@ GameObject:
   - component: {fileID: 119551776}
   m_Layer: 5
   m_Name: ShopView
-  m_TagString: Untagged
+  m_TagString: PurchaseableItemParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2962,6 +2962,7 @@ MonoBehaviour:
   customerPrefab: {fileID: 5893828084192702231, guid: 2b9717a8cad51d14e93acba87971a975,
     type: 3}
   merchTableUIHandler: {fileID: 401254908}
+  itemDestination: {fileID: 2099918325}
   minMaxItemPurchaseAmounts: {x: 1, y: 5}
   tShirtSprite: {fileID: 21300000, guid: 0ed6e6750bfa1394cb343a443d5174f3, type: 3}
   buttonSprite: {fileID: 21300000, guid: 6610d74563654b74b8eaf8520eb7bc21, type: 3}
@@ -4050,7 +4051,7 @@ MonoBehaviour:
   StartConcertButton: {fileID: 386650493}
   Cinematic: {fileID: 11400000, guid: d57e3e78784145f4c8aeeec6c2542d10, type: 2}
   leaveButton: {fileID: 1916899133}
-  presetVenue: {fileID: 11400000, guid: cca14f27fcbbdb44cb55022500fb7978, type: 2}
+  presetVenue: {fileID: 11400000, guid: a65bcd02d48ff9941abf4b41a1ee9437, type: 2}
 --- !u!1 &614604469
 GameObject:
   m_ObjectHideFlags: 0
@@ -7713,6 +7714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purchaseableItemName: 
   numToSpawn: 0
+  destination: {fileID: 0}
 --- !u!1 &1230379541
 GameObject:
   m_ObjectHideFlags: 0
@@ -8588,6 +8590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purchaseableItemName: 
   numToSpawn: 0
+  destination: {fileID: 0}
 --- !u!1 &1419168031
 GameObject:
   m_ObjectHideFlags: 0
@@ -13059,6 +13062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purchaseableItemName: 
   numToSpawn: 0
+  destination: {fileID: 0}
 --- !u!1 &2133949523
 GameObject:
   m_ObjectHideFlags: 0

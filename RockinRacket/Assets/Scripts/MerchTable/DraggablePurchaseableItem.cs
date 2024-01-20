@@ -13,7 +13,7 @@ public class DraggablePurchaseableItem : MonoBehaviour, IBeginDragHandler, IDrag
 {
     [Header("Destination Data")]
     [SerializeField] private RectTransform destination;
-    [SerializeField] private Sprite itemSprite;
+    [SerializeField] private string itemName;
 
     /*
      * The following three methods are implemented from the DragHandler interface set
@@ -32,8 +32,8 @@ public class DraggablePurchaseableItem : MonoBehaviour, IBeginDragHandler, IDrag
     {
         if (RectTransformUtility.RectangleContainsScreenPoint(destination, eventData.position))
         {
-            Debug.Log("<green>Correct PurchaseableItem Deposited</green>");
-            MerchTableEvents.instance.e_itemDeposited.Invoke(itemSprite);
+            Debug.Log("<color=green>Correct PurchaseableItem Deposited</color>");
+            MerchTableEvents.instance.e_itemDeposited.Invoke(itemName);
             Destroy(gameObject);
         }
     }
@@ -49,9 +49,9 @@ public class DraggablePurchaseableItem : MonoBehaviour, IBeginDragHandler, IDrag
     /*
      * The following method sets the name of the item prefab
      */
-    public void SetItemSprite(Sprite sprite)
+    public void SetItemName(string name)
     {
-        itemSprite = sprite;
+        itemName = name;
     }
         
 }

@@ -16,11 +16,13 @@ public class MerchBox : MonoBehaviour, IPointerDownHandler
     [SerializeField] private PurchaseableItem ownedItem;
     [SerializeField] private string purchaseableItemName;
     [SerializeField] int numToSpawn = 0;
+    [SerializeField] RectTransform destination;
 
-    public void Init(PurchaseableItem item, string itemName)
+    public void Init(PurchaseableItem item, string itemName, RectTransform destin)
     {
         ownedItem = item;
         purchaseableItemName = itemName;
+        destination = destin;
     }
 
 
@@ -32,8 +34,12 @@ public class MerchBox : MonoBehaviour, IPointerDownHandler
         if (ownedItem != null && numToSpawn != 0)
         {
             GameObject item = Instantiate(ownedItem.itemPrefab, Vector3.zero, Quaternion.identity);
+            Transform itemPos = item.transform;
+            //item.transform.SetParent(GameObject.FindGameObjectWithTag("PurchaseableItemParent").transform, false);
             item.transform.SetParent(gameObject.transform, false);
-            item.GetComponent<DraggablePurchaseableItem>().SetItemSprite(ownedItem.itemIcon);
+            //item.transform.position = itemPos.position;
+            item.GetComponent<DraggablePurchaseableItem>().SetItemName(ownedItem.itemName);
+            item.GetComponent<DraggablePurchaseableItem>().SetDestination(destination);
             numToSpawn--;
         }
     }

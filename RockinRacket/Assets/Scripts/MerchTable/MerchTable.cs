@@ -27,6 +27,8 @@ public class MerchTable : MonoBehaviour
     [Header("Object/Prefab References")]
     public GameObject customerPrefab;
     [SerializeField] private MerchTableUIHandler merchTableUIHandler;
+    [SerializeField] private RectTransform itemDestination;
+    private GameObject currentCustomer;
 
     [Header("Purchaseable Item Details")]
     public Vector2 minMaxItemPurchaseAmounts;
@@ -61,9 +63,9 @@ public class MerchTable : MonoBehaviour
         masterItemList.Add(button);
         masterItemList.Add(poster);
 
-        tShirtMerchBox.Init(tShirt, "Tshirt");
-        buttonMerchBox.Init(button, "Button");
-        posterMerchBox.Init(poster, "Poster");
+        tShirtMerchBox.Init(tShirt, "Tshirt", itemDestination);
+        buttonMerchBox.Init(button, "Button", itemDestination);
+        posterMerchBox.Init(poster, "Poster", itemDestination);
 
         // Temporary Debug Code
         initializeMerchTableManually.onClick.AddListener(() => InitalizeMerchTable(5));
@@ -101,7 +103,7 @@ public class MerchTable : MonoBehaviour
         }
 
         // After we spawn the customers we can trigger the first customer
-        TriggerNextCustomer();
+        TriggerNextCustomer(false);
     }
 
     /*
@@ -111,12 +113,23 @@ public class MerchTable : MonoBehaviour
      *      - After the customer arrives, the player is able to drop items into their bag
      *      - This method communicates with the MerchTableUIHandler class
      */
-    public void TriggerNextCustomer()
+    public void TriggerNextCustomer(bool preExistingCustomer)
     {
+        if (preExistingCustomer)
+        {
+            currentCustomer.GetComponent<MTCustomer>().MarkCustomerForDestruction();
+            currentCustomer.GetComponent<MTCustomer>().StartLerp(customerAtMerchTablePosition, customerOffscreenDeathPosition);
+        }
+
         if (customerQueue.Count > 0)
         {
             GameObject curCustomer = customerQueue.Dequeue();
             curCustomer.GetComponent<MTCustomer>().StartLerp(customerSpawnPosition, customerAtMerchTablePosition);
+            currentCustomer = curCustomer;
+        }
+        else
+        {
+            Debug.Log("<color=green> All Customers Fulfilled at Merch Stand </color>");
         }
     }
 

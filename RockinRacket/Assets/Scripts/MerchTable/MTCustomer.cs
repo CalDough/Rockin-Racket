@@ -10,7 +10,7 @@ using UnityEngine;
 public class MTCustomer : Attendee
 {
     private bool isInitialized = false;
-    private bool hasBeenServed = false;
+    private bool markForDestruction = false;
 
     /*
      * This method is called by the Awake() method in the parent abstract class to ensure that the abstract class was intialized before the MTCustomer class
@@ -41,7 +41,22 @@ public class MTCustomer : Attendee
      */
     protected override void EndLerp()
     {
-        MerchTableEvents.instance.e_customerHasArrived.Invoke();
+        if (markForDestruction)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            MerchTableEvents.instance.e_customerHasArrived.Invoke();
+        }
 
+    }
+
+    /*
+     * The following method marks the customer for destruction after they go offscreen
+     */
+    public void MarkCustomerForDestruction()
+    {
+        markForDestruction = true;
     }
 }

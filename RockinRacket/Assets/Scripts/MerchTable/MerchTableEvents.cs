@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,21 +10,16 @@ using UnityEngine.Events;
 public class MerchTableEvents : MonoBehaviour
 {
     public static MerchTableEvents instance;
-
     public UnityEvent e_customerHasArrived;
-    public UnityEvent<Sprite> e_itemDeposited;
-
+    public UnityEvent<string> e_itemDeposited;
 
     private void Awake()
     {
         instance = this;
-    }
 
-    void Start()
-    {
         if (e_itemDeposited != null)
         {
-            e_itemDeposited = new UnityEvent<Sprite>();
+            e_itemDeposited = new UnityEvent<string>();
         }
 
         if (e_customerHasArrived == null)
@@ -31,4 +27,5 @@ public class MerchTableEvents : MonoBehaviour
             e_customerHasArrived = new UnityEvent();
         }
     }
+
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 /*
  * This class controls the UI elements associated with the Merch Table minigame. 
@@ -62,22 +63,25 @@ public class MerchTableUIHandler : MonoBehaviour
     /*
      * The following method removes items from the Customer Wants box as they are fulfilled
      */
-    public void PurchaseableItemFulfilled(Sprite itemSprite)
+    public void PurchaseableItemFulfilled(string name)
     {
-        for (int i = 0; i < keyItemSprites.Length; i++)
+        Debug.Log("Called function");
+
+        for (int i = 0; i < currentItemsList.Count; i++)
         {
-            if (itemSprite == keyItemSprites[i].sprite)
+            if (currentItemsList[i].itemName == name)
             {
-                keyItemSprites[i].gameObject.SetActive(false);
+                currentItemsList.Remove(currentItemsList[i]);
             }
         }
 
+        ActivateAndUpdateCustomerWants(currentItemsList);
+
         if (!keyItemSprites[0].gameObject.activeSelf && !keyItemSprites[1].gameObject.activeSelf && !keyItemSprites[2].gameObject.activeSelf && !keyItemSprites[3].gameObject.activeSelf)
         {
-            //merchTableClass.TriggerNextCustomer();
-            Debug.Log("Customer Fulfilled");
             visualContainer.SetActive(false);
-
+            merchTableClass.TriggerNextCustomer(true);
+            Debug.Log("<color=green>Customer Fulfilled</color>");
         }
     }
 }
