@@ -40,6 +40,7 @@
 		</relationship>
 		<relationship name="banks">
 			<destination>{efe9fd54-3891-40c1-9963-3c56a169d4ba}</destination>
+			<destination>{35b0e0b2-0f83-44be-a55a-53604fc06841}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{1e77f1af-c162-4d9e-8c2b-759ad7015d10}">
@@ -63,7 +64,11 @@
 			<destination>{b7fba854-88ed-43e7-8d5b-2838f3c960fb}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{fd10dd8f-0eb3-499d-b79d-5b71fd598465}" />
+	<object class="EventAutomatableProperties" id="{fd10dd8f-0eb3-499d-b79d-5b71fd598465}">
+		<property name="dopplerEnabled">
+			<value>true</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{6353792d-738d-42a2-b5a3-0c257b8935c8}" />
 	<object class="GroupTrack" id="{052b54b9-a860-4f9d-8795-a19a552e05e5}">
 		<relationship name="modules">
@@ -115,6 +120,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{58cea31a-b761-4b98-8394-ef50bdb1c2f3}">
+		<property name="volume">
+			<value>-3</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{e4b0fa81-4142-4926-8fad-3c401f0cbf60}</destination>
 		</relationship>
