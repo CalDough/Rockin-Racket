@@ -31,7 +31,9 @@ public class MerchBox : MonoBehaviour, IPointerDownHandler
     {
         if (ownedItem != null && numToSpawn != 0)
         {
-            Instantiate(ownedItem.itemPrefab, eventData.position, Quaternion.identity);
+            GameObject item = Instantiate(ownedItem.itemPrefab, Vector3.zero, Quaternion.identity);
+            item.transform.SetParent(gameObject.transform, false);
+            item.GetComponent<DraggablePurchaseableItem>().SetItemSprite(ownedItem.itemIcon);
             numToSpawn--;
         }
     }

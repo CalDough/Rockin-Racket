@@ -137,7 +137,7 @@ public class MerchTable : MonoBehaviour
 
             switch (list[i].itemName)
             {
-                case "tShirt":
+                case "Tshirt":
                     numShirts++;
                     break;
                 case "Button":
@@ -147,7 +147,7 @@ public class MerchTable : MonoBehaviour
                     numPosters++;
                     break;
                 default:
-                    Debug.LogError("Invalid item name in GenerateRandomPurchaseableItemList");
+                    Debug.LogError("Invalid item name in GenerateRandomPurchaseableItemList: " + list[i].itemName);
                     break;
             }
         }

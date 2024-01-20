@@ -781,7 +781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &119551775
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2966,12 +2966,15 @@ MonoBehaviour:
   tShirtSprite: {fileID: 21300000, guid: 0ed6e6750bfa1394cb343a443d5174f3, type: 3}
   buttonSprite: {fileID: 21300000, guid: 6610d74563654b74b8eaf8520eb7bc21, type: 3}
   posterSprite: {fileID: 21300000, guid: ba77cb5c4572b49a6b6163126da95cb7, type: 3}
-  tShirtPrefab: {fileID: 0}
-  buttonPrefab: {fileID: 0}
-  posterPrefab: {fileID: 0}
-  tShirtMerchBox: {fileID: 0}
-  buttonMerchBox: {fileID: 0}
-  posterMerchBox: {fileID: 0}
+  tShirtPrefab: {fileID: 9108366415737063760, guid: 9d0f0b7e40ccb224fa5260cdad937af9,
+    type: 3}
+  buttonPrefab: {fileID: 9108366415737063760, guid: b64b8e97c3c2ed746b70461d6daa04f1,
+    type: 3}
+  posterPrefab: {fileID: 9108366415737063760, guid: c5dcdd6d3e2182840ba078009fe3ec09,
+    type: 3}
+  tShirtMerchBox: {fileID: 2108827450}
+  buttonMerchBox: {fileID: 1228998975}
+  posterMerchBox: {fileID: 1418619546}
   initializeMerchTableManually: {fileID: 305436003}
 --- !u!114 &401254910
 MonoBehaviour:
@@ -2985,13 +2988,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27204d0a2d4baa14dafd74b7c4e57edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  e_cueNextCustomer:
-    m_PersistentCalls:
-      m_Calls: []
-  e_sendCustomerData:
-    m_PersistentCalls:
-      m_Calls: []
   e_customerHasArrived:
+    m_PersistentCalls:
+      m_Calls: []
+  e_itemDeposited:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &411990279
