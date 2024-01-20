@@ -10,8 +10,9 @@ public class MerchTableEvents : MonoBehaviour
 {
     public static MerchTableEvents instance;
 
-    public UnityEvent e_cueNextCustomer;
-    public UnityEvent<string> e_sendCustomerData;
+    public UnityEvent e_customerHasArrived;
+    public UnityEvent<Sprite> e_itemDeposited;
+
 
     private void Awake()
     {
@@ -20,14 +21,14 @@ public class MerchTableEvents : MonoBehaviour
 
     void Start()
     {
-        if (e_cueNextCustomer == null)
+        if (e_itemDeposited != null)
         {
-            e_cueNextCustomer = new UnityEvent();
+            e_itemDeposited = new UnityEvent<Sprite>();
         }
 
-        if (e_sendCustomerData == null)
+        if (e_customerHasArrived == null)
         {
-            e_sendCustomerData = new UnityEvent<string>();
+            e_customerHasArrived = new UnityEvent();
         }
     }
 }

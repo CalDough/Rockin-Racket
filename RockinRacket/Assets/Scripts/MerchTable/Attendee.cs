@@ -16,8 +16,8 @@ public abstract class Attendee : MonoBehaviour
 {
     [Header("Lerp Variables")]
     public float duration;
-    [SerializeField] private Transform lerpStart;
-    [SerializeField] private Transform lerpEnd;
+    [SerializeField] protected Transform lerpStart;
+    [SerializeField] protected Transform lerpEnd;
 
     [Header("Mood Variables")]
     public int currentMoodRating;
@@ -26,11 +26,20 @@ public abstract class Attendee : MonoBehaviour
     public Sprite[] appearanceVariations;
     protected SpriteRenderer sr;
 
-    protected void Start()
+    protected void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        appearanceVariations = new Sprite[3];
+        //appearanceVariations = new Sprite[3];
+
+        Init();
     }
+
+    /*
+     * This method ensures the order of execution remains consistent between parent and child
+     * 
+     * This method must be implemented in a subclass
+     */
+    public abstract void Init();
 
     /*
      * This method triggers a positive reaction from the attendee
@@ -61,10 +70,10 @@ public abstract class Attendee : MonoBehaviour
      * 
      * This method cannot be overriden in a subclass
      */
-    public void StartLerp(Vector3 start, Vector3 end)
+    public void StartLerp(Transform start, Transform end)
     {
-        lerpStart.position = start;
-        lerpEnd.position = end;
+        lerpStart = start;
+        lerpEnd = end;
         StartCoroutine(LerpAttendee());
     }
 
@@ -79,6 +88,15 @@ public abstract class Attendee : MonoBehaviour
             yield return null;
         }
         transform.position = lerpEnd.position;
+
+        EndLerp();
     }
+
+    /*
+     * This method handles any actions you want the attendee to perform at the end of their lerp
+     * 
+     * This method must be implemented in a subclass
+     */
+    protected abstract void EndLerp();
 
 }

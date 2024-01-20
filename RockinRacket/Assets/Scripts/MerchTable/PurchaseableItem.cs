@@ -12,11 +12,20 @@ public class PurchaseableItem
     public int itemID;
     public string itemName;
     public Sprite itemIcon;
+    public GameObject itemPrefab;
 
     public PurchaseableItem(int itemID, string itemName, Sprite itemIcon)
     {
         this.itemID = itemID;
         this.itemName = itemName;
         this.itemIcon = itemIcon;
+    }
+
+    public PurchaseableItem(int itemID, string itemName, Sprite itemIcon, GameObject itemPrefab)
+    {
+        this.itemID = itemID;
+        this.itemName = itemName;
+        this.itemIcon = itemIcon;
+        this.itemPrefab = itemPrefab;
     }
 }

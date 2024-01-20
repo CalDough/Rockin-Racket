@@ -26,6 +26,13 @@ public class MerchTableUIHandler : MonoBehaviour
     [Header("MerchTable Class Variables")]
     public MerchTable merchTableClass;
 
+    /*
+     * In the Start method we are adding listeners for any relevant UI events
+     */
+    private void Start()
+    {
+        MerchTableEvents.instance.e_itemDeposited.AddListener(PurchaseableItemFulfilled);
+    }
 
     /*
      * The following method activates the Customer Wants box and updates it with new information
@@ -53,41 +60,24 @@ public class MerchTableUIHandler : MonoBehaviour
     }
 
     /*
-     * The following method deactivates the customer want item box when the current customer leaves
+     * The following method removes items from the Customer Wants box as they are fulfilled
      */
-    public void EndCurrentCustomer()
-    {
-        visualContainer.SetActive(false);
-    }
-
-    public bool CheckIfIsRequired(int id)
-    {
-        for (int i = 0; i < currentItemsList.Count; i++)
-        {
-            if (currentItemsList[i].itemID == id)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public void CustomerWantFulfilled(PurchaseableItem fulfilledItem)
+    public void PurchaseableItemFulfilled(Sprite itemSprite)
     {
         for (int i = 0; i < keyItemSprites.Length; i++)
         {
-            if (keyItemSprites[i].sprite == fulfilledItem.itemIcon)
+            if (itemSprite == keyItemSprites[i].sprite)
             {
                 keyItemSprites[i].gameObject.SetActive(false);
             }
         }
 
-        // To be replaced, temporary
-        if (keyItemSprites[0].gameObject.activeSelf == false && keyItemSprites[1].gameObject.activeSelf == false && keyItemSprites[2].gameObject.activeSelf == false && keyItemSprites[3].gameObject.activeSelf == false)
+        if (!keyItemSprites[0].gameObject.activeSelf && !keyItemSprites[1].gameObject.activeSelf && !keyItemSprites[2].gameObject.activeSelf && !keyItemSprites[3].gameObject.activeSelf)
         {
-            merchTableClass.TriggerNextCustomer();
+            //merchTableClass.TriggerNextCustomer();
+            Debug.Log("Customer Fulfilled");
+            visualContainer.SetActive(false);
+
         }
     }
-
 }

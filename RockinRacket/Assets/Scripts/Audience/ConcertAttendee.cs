@@ -51,6 +51,16 @@ public class ConcertAttendee : Attendee
         sr.sprite = appearanceVariations[Random.Range(0, appearanceVariations.Length)];
     }
 
+    public override void Init()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void EndLerp()
+    {
+        throw new System.NotImplementedException();
+    }
+
     /*
     public void StartLerp(Vector3 start, Vector3 end)
     {
