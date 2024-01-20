@@ -65,7 +65,6 @@ public class MerchTableUIHandler : MonoBehaviour
      */
     public void PurchaseableItemFulfilled(string name)
     {
-        Debug.Log("Called function");
 
         for (int i = 0; i < currentItemsList.Count; i++)
         {
