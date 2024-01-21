@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static ConcertAttendee;
 
 public class CrowdShirt : MonoBehaviour
 {
@@ -13,14 +14,12 @@ public class CrowdShirt : MonoBehaviour
     [SerializeField] private int steps = 100;
     [SerializeField] private float stepDistance = 10;
     [SerializeField] private float decayTime = 2;
-
     [SerializeField] private bool hasLaunched = false;
+    public RequestableItem ShirtType;
     private Vector3 initialMousePos;
     private Vector3 endMousePos;
     private Vector2 _velocity;
     private Camera mainCamera;
-
-    [SerializeField] GameStateData GSData;
 
     void Start()
     {

@@ -14,8 +14,9 @@ public class CrowdTrashcan : MonoBehaviour
             //Debug.Log("Destroyed Trash");
             Destroy(trash.gameObject); 
             TotalTrashCleaned++;
-            CrowdController.Instance.currentTrashCount--;
-            CrowdController.Instance.UpdateCrowdMood(CrowdController.Instance.trashRatingBonus);
+            //CrowdController.Instance.currentTrashCount--;
+            //CrowdController.Instance.UpdateCrowdMood(CrowdController.Instance.trashRatingBonus);
+            AttendeeController.Instance.currentTrashCleanedCount++;
         }
     }
 }

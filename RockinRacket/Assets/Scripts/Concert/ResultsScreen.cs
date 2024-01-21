@@ -14,6 +14,7 @@ public class ResultsScreenHandler : MonoBehaviour
     [SerializeField] GameObject resultPanels;
     [SerializeField] TMP_Text concertResultsText;
     [SerializeField] CrowdController crowdController;
+    [SerializeField] AttendeeController attendeeController;
     [SerializeField] CrowdTrashcan crowdTrashcan;
 
     [Header("Score Variables")]
@@ -47,13 +48,13 @@ public class ResultsScreenHandler : MonoBehaviour
 
         resultsBuilder.AppendLine($"Mini Games Completed: {minigamesCompleted}");
         resultsBuilder.AppendLine($"Mini Games Failed: {minigamesFailed}");
-        resultsBuilder.AppendLine($"Crowd Size: { crowdController.crowdMembers.Count}");
+        resultsBuilder.AppendLine($"Crowd Size: { attendeeController.Attendees.Count}");
         resultsBuilder.AppendLine($"Money Earned: ${moneyEarned}");
         resultsBuilder.AppendLine($"Trash Cleaned: {crowdTrashcan.TotalTrashCleaned}");
-        for (int i = 0; i < crowdController.PotentialConcertRatings.Count; i++)
+        for (int i = 0; i < attendeeController.PotentialConcertRatings.Count; i++)
         {
-            float segmentPotentialrating = crowdController.PotentialConcertRatings[i];
-            float segmentEarnedrating = crowdController.EarnedConcertRatings[i];
+            float segmentPotentialrating = attendeeController.PotentialConcertRatings[i];
+            float segmentEarnedrating = attendeeController.EarnedConcertRatings[i];
             string formattedSegmentEarnedRating = segmentEarnedrating.ToString("F2");
             resultsBuilder.AppendLine($"Song {i + 1}: {formattedSegmentEarnedRating}/{segmentPotentialrating} Rating");
         }
