@@ -43,13 +43,19 @@ public class DialogueManager : MonoBehaviour
     private bool continuePressed;
     public int numChoices = 0;
     
+    //
+    private string[] splitLines;
+    private bool isSplitLines = false;
+    private int splitLineIndex = 0;
+
+
     // Used to determine if a DisplayLine() coroutine is already active
     private Coroutine displayLineCoroutine;
     // Used to determine when the continueButton can be pressed
     private bool canContinueToNextLine = false;
-
     // Tracks which animator to update
     private Animator currentAnimator;
+
 
 
     // Tag values that will get checked for and processed in the HandleTags() method called in the ContinueStory() method
@@ -152,6 +158,17 @@ public class DialogueManager : MonoBehaviour
     // Method that does what it says
     private void ContinueStory() 
     {
+        if (isSplitLines)
+        {
+            string nextLine = splitLines[splitLineIndex];
+            displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
+            splitLineIndex++;
+            if (splitLineIndex >= splitLines.Length)
+            {
+                isSplitLines = false;
+                splitLineIndex = 0;
+            }
+        }
         if (currentStory.canContinue)
         {
             // Stops the active displayLineCoroutine, should it exist 
@@ -167,6 +184,18 @@ public class DialogueManager : MonoBehaviour
             {
                 nextLine = currentStory.Continue();
             }
+
+            // After checking for empty lines, if this story line is empty, and there are no choices, then the dialogue should be stopped
+            if(nextLine == "" && currentStory.currentChoices.Count == 0)
+            {
+                StopDialogue();
+            }
+
+            if (nextLine.Length > 200)
+            {
+                
+            }
+
             // Assigns the new coroutine to displayLineCoroutine, so that the above check can see if a coroutine is already running
             displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
 
@@ -265,6 +294,7 @@ public class DialogueManager : MonoBehaviour
                         harveyVignette.SetActive(false);
                         characterVignette.SetActive(true);
                     }
+                    // Changes the color of the Speaker Tag based on who is speaking
                     switch (tagValue)
                     {
                         case "Harvey": speakerBackground.color = Harvey_Color; break;
@@ -275,8 +305,6 @@ public class DialogueManager : MonoBehaviour
                         case "Jay": speakerBackground.color = Jay_Color; break;
                         default: break;
                     }
-                    
-                    
                     break;
                 case PORTRAIT_TAG:
                     switch(tagValue)
