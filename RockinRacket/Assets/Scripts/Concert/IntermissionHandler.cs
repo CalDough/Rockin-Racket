@@ -63,8 +63,8 @@ public class IntermissionHandler : MonoBehaviour
     
     public void StartConcert()
     {
-        StateManager.Instance.InitializeConcertData();
-        StartConcertButton.SetActive(false);
+        //StateManager.Instance.InitializeConcertData();
+        //StartConcertButton.SetActive(false);
     }
     
     public void StartNextState()

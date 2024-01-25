@@ -41,7 +41,8 @@ public class MinigameQueue : MonoBehaviour
 
     void Start()
     {
-        SetupMinigames();
+        //SetupMinigames();
+        ConcertEvents.instance.e_ConcertStarted.AddListener(SetupMinigames);
     }
 
     public void SetupMinigames()
