@@ -1,7 +1,7 @@
 public enum SceneIndex
 {
     StartMenu, // 0
-    MainMenu, // 1
+    MainMenu, // 1 TODO remove
     Loading, // 2
     VenueSelection, // 3
     BandManagement, // 4
@@ -13,4 +13,6 @@ public enum SceneIndex
     SettingsMenu, // 10
     Cinematic1, // 11
     Cinematic2, // 12
+    BeforeFirstConcert, // 13
+    Hub, // 14
 };

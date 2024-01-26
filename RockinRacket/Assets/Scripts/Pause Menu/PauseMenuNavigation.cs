@@ -39,11 +39,11 @@ public class PauseMenuNavigation : MonoBehaviour
     public void Select()
     {
         if (index == 0)
-            pauseManager.OpenMainMenu();
+            pauseManager.OpenHub();
         else if (index == 1)
-            pauseManager.OpenSettings();
+            gameLoadHandler.Save();
         else if (index == 2)
-            gameLoadHandler.SaveAndExit();
+            pauseManager.OpenMainMenu();
     }
 
     public void Reset()

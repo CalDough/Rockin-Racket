@@ -12,41 +12,30 @@ public class PauseManager : MonoBehaviour
     private InputAction pauseAction;
     private InputActionMap menuActionMap;
     private readonly float animationDuration = 1f;
-    private readonly Vector3 openPosition = new(0, 0, 0);
+    private readonly Vector3 openPosition = new(0, -100, 0);
     private readonly Vector3 closedPosition = new(0, -1200, 0);
 
     private bool isPaused;
-    private bool pauseAnim;
+    //private bool pauseAnim;
 
     private void Awake()
     {
         // Assuming you have an action map named "Menu" and a Pause action within it.
-        menuActionMap = actionAsset.FindActionMap("PauseMenu");
-        pauseAction = menuActionMap.FindAction("Pause");
+        //menuActionMap = actionAsset.FindActionMap("PauseMenu");
+        //pauseAction = menuActionMap.FindAction("Pause");
 
-        pauseAction.performed += _ => ToggleMenu();
+        //pauseAction.performed += _ => ToggleMenu();
         UIBlocker.SetActive(false);
     }
 
-    public void OpenStartMenu() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.StartMenu); }
     public void OpenMainMenu() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.MainMenu); }
+    public void OpenStartMenu() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.StartMenu); }
+    public void OpenHub() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.Hub); }
     public void OpenVenueSelection() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.VenueSelection); }
     public void OpenBandManagement() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.BandManagement); }
     public void OpenShop() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.Shop); }
-    public void OpenSettings() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.SettingsMenu); }
 
-    private void OpenPauseMenu()
-    {
-        TimeEvents.GamePaused();
-        StartCoroutine(PauseMenuAnimation(true));
-    }
-
-    private void ClosePauseMenu()
-    {
-        TimeEvents.GameResumed();
-        //menuUI.SetActive(false);
-        StartCoroutine(PauseMenuAnimation(false));
-    }
+    
 
     public void ToggleMenu()
     {
@@ -95,14 +84,27 @@ public class PauseManager : MonoBehaviour
         menuActionMap.Enable();
     }
 
-    // TODO: THESE DON'T WORK
+    private void OpenPauseMenu()
+    {
+        TimeEvents.GamePaused();
+        StartCoroutine(PauseMenuAnimation(true));
+    }
+
+    private void ClosePauseMenu()
+    {
+        TimeEvents.GameResumed();
+        //menuUI.SetActive(false);
+        StartCoroutine(PauseMenuAnimation(false));
+    }
+
+    // TODO: THESE DON'T WORK. OKAY THEY DO NOW?!?!
     private void OnDisable()
     {
-        DisablePauseAction();
+        //DisablePauseAction();
     }
 
     private void OnDestroy()
     {
-        DisablePauseAction();
+        //DisablePauseAction();
     }
 }
