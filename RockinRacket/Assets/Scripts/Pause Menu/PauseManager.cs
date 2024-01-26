@@ -80,8 +80,8 @@ public class PauseManager : MonoBehaviour
 
     private void OnEnable()
     {
-        pauseAction.Enable();
-        menuActionMap.Enable();
+        //pauseAction.Enable();
+        //menuActionMap.Enable();
     }
 
     private void OpenPauseMenu()
