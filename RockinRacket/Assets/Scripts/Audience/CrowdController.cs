@@ -41,6 +41,8 @@ public class CrowdController : MonoBehaviour
     [SerializeField] public List<float> PotentialConcertRatings;
     [SerializeField] public List<float> EarnedConcertRatings;
 
+    private bool hasConcertStarted = false;
+
     public static CrowdController Instance { get; private set; }
 
     void Awake()
@@ -58,6 +60,9 @@ public class CrowdController : MonoBehaviour
     void Start()
     {
         SubscribeEvents();
+
+        ConcertEvents.instance.e_ConcertStarted.AddListener(StartCrowd);
+        ConcertEvents.instance.e_ConcertEnded.AddListener(EndCrowd);
     }
 
     void OnDestroy()
@@ -67,11 +72,15 @@ public class CrowdController : MonoBehaviour
 
     void Update()
     {
-        if(StateManager.Instance.CurrentState.stateType != StateType.Song)
-        {
-            return;
-        }
-        CalculateAndReactToConcertRating();
+        //if(StateManager.Instance.CurrentState.stateType != StateType.Song)
+        //{
+        //    return;
+        //}
+        
+        //if (hasConcertStarted)
+        //{
+        //    CalculateAndReactToConcertRating();
+        //}
     }
     
     public void StartShirtRequests()
@@ -139,16 +148,16 @@ public class CrowdController : MonoBehaviour
     {
         MinigameEvents.OnMinigameFail += HandleEventFail;
         MinigameEvents.OnMinigameComplete += HandleEventComplete;
-        StateEvent.OnStateStart += HandleGameStateStart;
-        StateEvent.OnStateEnd += HandleGameStateEnd;
+        //StateEvent.OnStateStart += HandleGameStateStart;
+        //StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void UnsubscribeEvents()
     {
         MinigameEvents.OnMinigameFail -= HandleEventFail;
         MinigameEvents.OnMinigameComplete -= HandleEventComplete;
-        StateEvent.OnStateStart -= HandleGameStateStart;
-        StateEvent.OnStateEnd -= HandleGameStateEnd;
+        //StateEvent.OnStateStart -= HandleGameStateStart;
+        //StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
     public void UpdateCrowdMood(float amount)
@@ -177,32 +186,48 @@ public class CrowdController : MonoBehaviour
         UpdateCrowdMood(MinigameCompleteValue);
     }
 
-    public void HandleGameStateStart(object sender, StateEventArgs e)
+    //public void HandleGameStateStart(object sender, StateEventArgs e)
+    //{
+    //    switch(e.state.stateType)
+    //    {
+    //        case StateType.Song:
+    //            StartShirtRequests();
+    //            StartTrashThrowing();
+    //            CalculatePotentialRating();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    public void StartCrowd()
     {
-        switch(e.state.stateType)
-        {
-            case StateType.Song:
-                StartShirtRequests();
-                StartTrashThrowing();
-                CalculatePotentialRating();
-                break;
-            default:
-                break;
-        }
+        StartShirtRequests();
+        StartTrashThrowing();
+        CalculatePotentialRating();
+
+        hasConcertStarted = true;
     }
-    
-    private void HandleGameStateEnd(object sender, StateEventArgs e)
+
+    //private void HandleGameStateEnd(object sender, StateEventArgs e)
+    //{
+    //    switch(e.state.stateType)
+    //    {
+    //        case StateType.Song:
+    //            StopShirtRequests();
+    //            StopTrashThrowing();
+    //            CalculateEarnedRating();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    public void EndCrowd()
     {
-        switch(e.state.stateType)
-        {
-            case StateType.Song:
-                StopShirtRequests();
-                StopTrashThrowing();
-                CalculateEarnedRating();
-                break;
-            default:
-                break;
-        }
+        StopShirtRequests();
+        StopTrashThrowing();
+        CalculateEarnedRating();
     }
 
     private void CalculatePotentialRating()

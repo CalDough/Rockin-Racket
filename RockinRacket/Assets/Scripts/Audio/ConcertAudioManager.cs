@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using UnityEngine.Events;
 /*
 This class manages all the songs played during the concert as well as manages the broken levels of each member
 It gets the path of the current song from the  StateManager.Instance.CurrentState.Song.FMODMultiTrack.PrimaryTrackPath;
@@ -61,11 +62,13 @@ public class ConcertAudioManager : MonoBehaviour
 
     void Start()
     {
-        SubscribeEvents();
+        //SubscribeEvents();
+
+        ConcertEvents.instance.e_SongStarted.AddListener(StartConcertAudio);
     }
     void OnDestroy()
     {
-        UnsubscribeEvents();
+        //UnsubscribeEvents();
     }
 
     void Update()
@@ -150,9 +153,10 @@ public class ConcertAudioManager : MonoBehaviour
         if (ConcertAudioEmitterPrefab == null)
         {return;}
 
-        if(StateManager.Instance.CurrentState.Song == null)
-        {return;}
-        ConcertAudioPath = StateManager.Instance.CurrentState.Song.FMODMultiTrack.PrimaryTrackPath;
+        //if(StateManager.Instance.CurrentState.Song == null)
+        //{return;}
+        //ConcertAudioPath = StateManager.Instance.CurrentState.Song.FMODMultiTrack.PrimaryTrackPath;
+        ConcertAudioPath = ConcertController.instance.currentSong.FMODMultiTrack.PrimaryTrackPath;
 
 
         if (!string.IsNullOrEmpty(ConcertAudioPath) && DoesEventExist(ConcertAudioPath))
@@ -193,93 +197,93 @@ public class ConcertAudioManager : MonoBehaviour
     }
 
 
-    void SubscribeEvents()
-    {
-        TimeEvents.OnGamePaused += PauseConcert;    
-        TimeEvents.OnGameResumed += ResumeConcert;  
-        StateEvent.OnStateStart += HandleGameStateStart;
-        StateEvent.OnStateEnd += HandleGameStateEnd;
+    //void SubscribeEvents()
+    //{
+    //    TimeEvents.OnGamePaused += PauseConcert;    
+    //    TimeEvents.OnGameResumed += ResumeConcert;  
+    //    StateEvent.OnStateStart += HandleGameStateStart;
+    //    StateEvent.OnStateEnd += HandleGameStateEnd;
 
-        ConcertAudioEvent.OnAudioBroken += AudioBroken;
-        ConcertAudioEvent.OnAudioFixed += AudioFixed;
+    //    ConcertAudioEvent.OnAudioBroken += AudioBroken;
+    //    ConcertAudioEvent.OnAudioFixed += AudioFixed;
 
-        ConcertAudioEvent.OnConcertEnd += ConcertEnd;
+    //    ConcertAudioEvent.OnConcertEnd += ConcertEnd;
 
-    }
+    //}
 
-    void UnsubscribeEvents()
-    {
-        TimeEvents.OnGamePaused -= PauseConcert; 
-        TimeEvents.OnGameResumed -= ResumeConcert; 
-        StateEvent.OnStateStart -= HandleGameStateStart;
-        StateEvent.OnStateEnd -= HandleGameStateEnd;
+    //void UnsubscribeEvents()
+    //{
+    //    TimeEvents.OnGamePaused -= PauseConcert; 
+    //    TimeEvents.OnGameResumed -= ResumeConcert; 
+    //    StateEvent.OnStateStart -= HandleGameStateStart;
+    //    StateEvent.OnStateEnd -= HandleGameStateEnd;
 
-        ConcertAudioEvent.OnAudioBroken -= AudioBroken;
-        ConcertAudioEvent.OnAudioFixed -= AudioFixed;
+    //    ConcertAudioEvent.OnAudioBroken -= AudioBroken;
+    //    ConcertAudioEvent.OnAudioFixed -= AudioFixed;
         
-        ConcertAudioEvent.OnConcertEnd -= ConcertEnd;
-    }
+    //    ConcertAudioEvent.OnConcertEnd -= ConcertEnd;
+    //}
 
-    public void HandleGameStateStart(object sender, StateEventArgs e)
-    {
-        switch(e.state.stateType)
-        {
-            case StateType.Song:
-                StartConcertAudio();
-                break;
-            case StateType.Intermission:
-                break;
-            default:
-                break;
-        }
-    }
+    //public void HandleGameStateStart(object sender, StateEventArgs e)
+    //{
+    //    switch(e.state.stateType)
+    //    {
+    //        case StateType.Song:
+    //            StartConcertAudio();
+    //            break;
+    //        case StateType.Intermission:
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
     
-    public void HandleGameStateEnd(object sender, StateEventArgs e)
-    {
-        switch(e.state.stateType)
-        {
-            case StateType.Song:
-                StopSounds();
-                break;
-            case StateType.Intermission:
-                break;
-            default:
-                break;
-        }
-    }
+    //public void HandleGameStateEnd(object sender, StateEventArgs e)
+    //{
+    //    switch(e.state.stateType)
+    //    {
+    //        case StateType.Song:
+    //            StopSounds();
+    //            break;
+    //        case StateType.Intermission:
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
-    public void AudioBroken(object sender, ConcertAudioEventArgs e)
-    {
-        if(e.AffectInstrument)
-        {
-            string instrumentName = BandMemberToInstrument(e.ConcertPosition);
-            UpdateBrokenValue(instrumentName, e.StressFactor);
-            SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
-        }
-        else
-        {
+    //public void AudioBroken(object sender, ConcertAudioEventArgs e)
+    //{
+    //    if(e.AffectInstrument)
+    //    {
+    //        string instrumentName = BandMemberToInstrument(e.ConcertPosition);
+    //        UpdateBrokenValue(instrumentName, e.StressFactor);
+    //        SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
+    //    }
+    //    else
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    public void AudioFixed(object sender, ConcertAudioEventArgs e)
-    {
-        if(e.AffectInstrument)
-        {
-            string instrumentName = BandMemberToInstrument(e.ConcertPosition);
-            UpdateBrokenValue(instrumentName, -e.StressFactor); // Assuming negative value fixes the instrument
-            SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
-        }
-        else
-        {
+    //public void AudioFixed(object sender, ConcertAudioEventArgs e)
+    //{
+    //    if(e.AffectInstrument)
+    //    {
+    //        string instrumentName = BandMemberToInstrument(e.ConcertPosition);
+    //        UpdateBrokenValue(instrumentName, -e.StressFactor); // Assuming negative value fixes the instrument
+    //        SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
+    //    }
+    //    else
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    public void ConcertEnd(object sender, ConcertAudioEventArgs e)
-    {
-        this.StopSounds();
-    }
+    //public void ConcertEnd(object sender, ConcertAudioEventArgs e)
+    //{
+    //    this.StopSounds();
+    //}
 
     private void CheckAndPrintTrackStatus()
     {

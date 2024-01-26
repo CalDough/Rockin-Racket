@@ -74,6 +74,9 @@ public class ConcertAttendee : Attendee
         currentMoodRating = 50;
         defaultLocation = this.gameObject.transform.position;
         //StartMoveCoroutine();
+
+        ConcertEvents.instance.e_ConcertStarted.AddListener(StartAttendeeMovement);
+        ConcertEvents.instance.e_ConcertEnded.AddListener(StopAttendeeMovement);
     }
 
     void OnDestroy()
@@ -129,16 +132,16 @@ public class ConcertAttendee : Attendee
     {
         MinigameEvents.OnMinigameFail += HandleEventFail;
         MinigameEvents.OnMinigameComplete += HandleEventComplete;
-        StateEvent.OnStateStart += HandleGameStateStart;
-        StateEvent.OnStateEnd += HandleGameStateEnd;
+        //StateEvent.OnStateStart += HandleGameStateStart;
+        //StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void UnsubscribeEvents()
     {
         MinigameEvents.OnMinigameFail -= HandleEventFail;
         MinigameEvents.OnMinigameComplete -= HandleEventComplete;
-        StateEvent.OnStateStart -= HandleGameStateStart;
-        StateEvent.OnStateEnd -= HandleGameStateEnd;
+        //StateEvent.OnStateStart -= HandleGameStateStart;
+        //StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
     public void CalculateAttendeeMoodstate(int moodValueChange)
@@ -364,30 +367,41 @@ public class ConcertAttendee : Attendee
         }
     }
 
-    public void HandleGameStateStart(object sender, StateEventArgs e)
-    {
-        switch(e.state.stateType)
-        {
-            case StateType.Song:
-                StartItemCoroutine();
-                StartMoveCoroutine();
+    //public void HandleGameStateStart(object sender, StateEventArgs e)
+    //{
+    //    switch(e.state.stateType)
+    //    {
+    //        case StateType.Song:
+    //            StartItemCoroutine();
+    //            StartMoveCoroutine();
                 
-                break;
-            default:
-                break;
-        }
-    }
-    
-    private void HandleGameStateEnd(object sender, StateEventArgs e)
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    public void StartAttendeeMovement()
     {
-        switch(e.state.stateType)
-        {
-            case StateType.Song:
-                StopAllCoroutinesForState();
-                break;
-            default:
-                break;
-        }
+        StartItemCoroutine();
+        StartMoveCoroutine();
+    }
+
+    //private void HandleGameStateEnd(object sender, StateEventArgs e)
+    //{
+    //    switch(e.state.stateType)
+    //    {
+    //        case StateType.Song:
+    //            StopAllCoroutinesForState();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    public void StopAttendeeMovement()
+    {
+        StopAllCoroutinesForState();
     }
 
     public void HandleEventFail(object sender, GameEventArgs e)

@@ -50,16 +50,16 @@ public class AttendeeController : MonoBehaviour
     {
         MinigameEvents.OnMinigameFail += HandleEventFail;
         MinigameEvents.OnMinigameComplete += HandleEventComplete;
-        StateEvent.OnStateStart += HandleGameStateStart;
-        StateEvent.OnStateEnd += HandleGameStateEnd;
+        //StateEvent.OnStateStart += HandleGameStateStart;
+        //StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void UnsubscribeEvents()
     {
         MinigameEvents.OnMinigameFail -= HandleEventFail;
         MinigameEvents.OnMinigameComplete -= HandleEventComplete;
-        StateEvent.OnStateStart -= HandleGameStateStart;
-        StateEvent.OnStateEnd -= HandleGameStateEnd;
+        //StateEvent.OnStateStart -= HandleGameStateStart;
+        //StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
     public void HandleEventFail(object sender, GameEventArgs e)
@@ -72,30 +72,30 @@ public class AttendeeController : MonoBehaviour
         //TODO 
     }
 
-    public void HandleGameStateStart(object sender, StateEventArgs e)
-    {
-        switch(e.state.stateType)
-        {
-            case StateType.Song:
-                //TODO 
-                break;
-            default:
-                break;
-        }
-    }
+    //public void HandleGameStateStart(object sender, StateEventArgs e)
+    //{
+    //    switch(e.state.stateType)
+    //    {
+    //        case StateType.Song:
+    //            //TODO 
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
     
-    private void HandleGameStateEnd(object sender, StateEventArgs e)
-    {
-        switch(e.state.stateType)
-        {
-            case StateType.Song:
-                CalculateTotalTrash();
-                CalculateTotalRatings();
-                break;
-            default:
-                break;
-        }
-    }
+    //private void HandleGameStateEnd(object sender, StateEventArgs e)
+    //{
+    //    switch(e.state.stateType)
+    //    {
+    //        case StateType.Song:
+    //            CalculateTotalTrash();
+    //            CalculateTotalRatings();
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
     private void CalculateTotalRatings()
     {

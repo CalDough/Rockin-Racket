@@ -15,8 +15,11 @@ using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class ConcertController : MonoBehaviour
 {
+    public static ConcertController instance;
+
     [Header("Concert Details")]
     public ConcertData cData;
+    public SongData currentSong;
     
     
     [Header("Start Screen Details")]
@@ -24,6 +27,18 @@ public class ConcertController : MonoBehaviour
     [SerializeField] private Button startConcert;
 
 
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -44,9 +59,18 @@ public class ConcertController : MonoBehaviour
         // Disable Start Screen
         startScreen.SetActive(false);
 
+        // Setting the current song
+        currentSong = cData.concertSongsFirstHalf[0];
+
         // Start the concert by calling the 
         ConcertEvents.instance.e_ConcertStarted.Invoke();
+        ConcertEvents.instance.e_SongStarted.Invoke();
+
+       
+
         Debug.Log("<color=green> Song Started Called </color>");
-        StateManager.Instance.InitializeConcertData();
+        //StateManager.Instance.InitializeConcertData();
     }
+
+
 }

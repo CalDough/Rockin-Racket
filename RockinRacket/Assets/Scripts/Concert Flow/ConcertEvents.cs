@@ -17,6 +17,8 @@ public class ConcertEvents : MonoBehaviour
     public UnityEvent e_ConcertStarted;
     public UnityEvent e_ConcertEnded;
     public UnityEvent e_TriggerIntermission;
+    public UnityEvent e_SongStarted;
+    public UnityEvent e_SongEnded;
 
 
 
@@ -45,6 +47,16 @@ public class ConcertEvents : MonoBehaviour
         if (e_TriggerIntermission == null)
         {
             e_TriggerIntermission = new UnityEvent();
+        }
+
+        if (e_SongStarted == null)
+        {
+            e_SongStarted = new UnityEvent();
+        }
+
+        if (e_SongEnded == null)
+        {
+            e_SongEnded = new UnityEvent();
         }
     }
 }
