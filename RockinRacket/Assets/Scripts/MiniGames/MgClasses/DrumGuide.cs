@@ -26,7 +26,6 @@ public class DrumGuide : MinigameController
     {
         CanActivate = false;
         IsActive = false;
-        SubscribeEvents();
         originalColors = new List<Color>();
         for (int i = 0; i < Drums.Count; i++)
         {
@@ -35,58 +34,28 @@ public class DrumGuide : MinigameController
 
             originalColors.Add(Drums[i].colors.normalColor);
         }
+        ConcertEvents.instance.e_SongStarted.AddListener(HandleGameStateStart);
+        ConcertEvents.instance.e_SongEnded.AddListener(HandleGameStateEnd);
     }
 
-    void OnDestroy()
+    public void HandleGameStateStart()
     {
-        UnsubscribeEvents();
-    }
-
-    private void SubscribeEvents()
-    {
-        StateEvent.OnStateStart += HandleGameStateStart;
-        StateEvent.OnStateEnd += HandleGameStateEnd;
-    }
-
-    private void UnsubscribeEvents()
-    {
-        StateEvent.OnStateStart -= HandleGameStateStart;
-        StateEvent.OnStateEnd -= HandleGameStateEnd;
-    }
-
-    public void HandleGameStateStart(object sender, StateEventArgs e)
-    {
-        switch(e.state.stateType)
-        {
-            case StateType.Song:
-                ResetSpawnTimer();
-                break;
-            default:
-                break;
-        }
+        ResetSpawnTimer();
     }
     
-    private void HandleGameStateEnd(object sender, StateEventArgs e)
+    private void HandleGameStateEnd()
     {
-        switch(e.state.stateType)
+        if(IsActive)
         {
-            case StateType.Song:
-                if(IsActive)
-                {
-                    CancelMinigame();
-                }
-                if(CanActivate)
-                {
-                    CanActivate = false;
-                    CancelMinigame();
-                }
-                StopSpawnTimer();
-                StopAvailabilityTimer();
-                
-                break;
-            default:
-                break;
+            CancelMinigame();
         }
+        if(CanActivate)
+        {
+            CanActivate = false;
+            CancelMinigame();
+        }
+        StopSpawnTimer();
+        StopAvailabilityTimer();
     }
 
 
