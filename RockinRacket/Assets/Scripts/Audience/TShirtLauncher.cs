@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+/*
+    OLD CLASS
+*/
 public class TShirtLauncher : MonoBehaviour
 {
     public Rigidbody2D tShirtPrefab;

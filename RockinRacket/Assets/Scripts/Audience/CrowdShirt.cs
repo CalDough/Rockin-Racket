@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static ConcertAttendee;
-
+/*
+    OLD CLASS
+*/
 public class CrowdShirt : MonoBehaviour
 {
 

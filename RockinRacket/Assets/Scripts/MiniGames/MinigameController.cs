@@ -63,7 +63,10 @@ public abstract class MinigameController : MonoBehaviour
         }
         CanActivate = true;
         // The game is no longer on cooldown, so it will add itself to the minigame queue
-        MinigameQueue.Instance.TryActivateMinigame(this);
+        if(MinigameQueue.Instance)
+        {
+            MinigameQueue.Instance.TryActivateMinigame(this);
+        }
     }
 
     public IEnumerator GameplayTimerCoroutine()

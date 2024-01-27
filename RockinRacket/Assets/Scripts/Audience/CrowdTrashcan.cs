@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CrowdTrashcan : MonoBehaviour
 {
+    public UnityEvent TrashCleanedUp;
     public int TotalTrashCleaned = 0;
-
+    
     private void OnTriggerEnter2D(Collider2D collider)
     {
         CrowdTrash trash = collider.GetComponent<CrowdTrash>();
@@ -16,7 +18,12 @@ public class CrowdTrashcan : MonoBehaviour
             TotalTrashCleaned++;
             //CrowdController.Instance.currentTrashCount--;
             //CrowdController.Instance.UpdateCrowdMood(CrowdController.Instance.trashRatingBonus);
-            AttendeeController.Instance.currentTrashCleanedCount++;
+            TrashCleanedUp.Invoke();
         }
+    }
+
+    private void Awake()
+    {
+
     }
 }

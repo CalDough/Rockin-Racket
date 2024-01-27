@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ConcertAttendee : Attendee
 {
     public enum MoodState { Hyped, Frustrated, Pleased }
     public enum RequestableItem { RedShirt, GreenShirt,  BlueShirt }
-
+    [Header("Events")]
+    public UnityEvent onItemUnfulfilledEvent;
+    public UnityEvent onItemFulfilledEvent;
+    public UnityEvent onEnterConcert;
+    
     [Header("Lerp Variables")]
     //public float duration;
     //[SerializeField] private Vector3 lerpStart;
@@ -16,6 +21,8 @@ public class ConcertAttendee : Attendee
     [SerializeField] private Vector2 moveSpeed = new Vector2(1f, 3f); 
     [SerializeField] private float minTrashForce = 5f;
     [SerializeField] private float maxTrashForce = 10f;
+    public bool isInConcert = false;
+
 
     [Header("Mood Variables")]
     public MoodState currentMood = MoodState.Pleased;
@@ -40,13 +47,17 @@ public class ConcertAttendee : Attendee
     public float itemPatienceMin = 15f;
     public float itemPatienceMax = 25f;
 
+    public float trashMinAngle = 0f;
+    public float trashMaxAngle = 90f;
+
     public float jumpStrength = 5f; 
 
     [Header("Appearance Variables")]
     //public Sprite[] appearanceVariations;
     //private SpriteRenderer sr;
-    private Animator anim;
-    private Rigidbody2D rb;
+    public Collider2D solidCollider2D;
+    [SerializeField] Animator anim;
+    [SerializeField] Rigidbody2D rb;
     [SerializeField] ParticleSystem frustratedParticles;
     [SerializeField] ParticleSystem pleasedParticles; 
     [SerializeField] ParticleSystem hypedParticles; 
@@ -104,7 +115,7 @@ public class ConcertAttendee : Attendee
         }
     }
 
-    private void StartLerp(Vector3 start, Vector3 end, float speed)
+    public void StartLerp(Vector3 start, Vector3 end, float speed)
     {
         if (LerpAttendeeCoroutine != null)
         {
@@ -116,6 +127,8 @@ public class ConcertAttendee : Attendee
 
     private IEnumerator LerpAttendee(Vector3 start, Vector3 end, float speed)
     {
+        solidCollider2D.isTrigger = true;
+        this.rb.bodyType = RigidbodyType2D.Kinematic;
         float journeyLength = Vector3.Distance(start, end);
         float journeyDuration = journeyLength / speed;
         float elapsedTime = 0;
@@ -126,6 +139,7 @@ public class ConcertAttendee : Attendee
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        EndLerp();
     }
 
     private void SubscribeEvents()
@@ -182,13 +196,13 @@ public class ConcertAttendee : Attendee
 
     public override void TriggerAttendeeHappyEffect()
     {
-        if(currentMood == MoodState.Pleased)
-        {
-            pleasedParticles.Play();
-        }
-        else if(currentMood == MoodState.Hyped)
+        if(currentMood == MoodState.Hyped)
         {
             hypedParticles.Play();
+        }
+        else
+        {
+            pleasedParticles.Play();
         }
     }
 
@@ -204,7 +218,13 @@ public class ConcertAttendee : Attendee
 
     protected override void EndLerp()
     {
-        throw new System.NotImplementedException();
+        solidCollider2D.isTrigger = false;
+        this.rb.bodyType = RigidbodyType2D.Dynamic;
+        if(!isInConcert)
+        {
+            onEnterConcert.Invoke();
+            isInConcert = true;
+        }
     }
 
     /*
@@ -235,7 +255,7 @@ public class ConcertAttendee : Attendee
         {
             yield return new WaitForSeconds(Random.Range(itemWaitMin, itemWaitMax));
             StartJumpCoroutine();
-            wantedItem = (RequestableItem)Random.Range(0, System.Enum.GetValues(typeof(RequestableItem)).Length);
+            wantedItem = TShirtCannon.Instance.SelectRandomShirtType();
             Debug.Log("Attendee wants " + wantedItem);
             thoughtBubble.ShowItemThought(wantedItem);
 
@@ -246,9 +266,12 @@ public class ConcertAttendee : Attendee
             StopJumpCoroutine();
             if (thoughtBubble.IsOpenedBubble)
             {
-                TriggerAttendeeAngryEffect( );
+                Debug.Log("Attendee Did not get any item");
+                OnItemUnfulfilled();
+                TriggerAttendeeAngryEffect();
                 CalculateAttendeeMoodstate(itemMoodNegative);
                 thoughtBubble.HideItemThought(wantedItem);
+
             }
             
         }
@@ -256,21 +279,16 @@ public class ConcertAttendee : Attendee
 
     public void OnItemObtained()
     {
-        if (thoughtBubble.IsOpenedBubble)
-        {
-            TriggerAttendeeHappyEffect();
-            thoughtBubble.HideItemThought(wantedItem);
-            CalculateAttendeeMoodstate(itemMoodBonus);
-        }
+        TriggerAttendeeHappyEffect();
+        CalculateAttendeeMoodstate(itemMoodBonus);
+        onItemFulfilledEvent.Invoke();
     }
 
     public void OnItemUnfulfilled()
     {
-        if (thoughtBubble.IsOpenedBubble)
-        {
-            thoughtBubble.HideItemThought(wantedItem);
-            CalculateAttendeeMoodstate(itemMoodNegative);
-        }
+        TriggerAttendeeAngryEffect();
+        CalculateAttendeeMoodstate(itemMoodNegative);
+        onItemUnfulfilledEvent.Invoke();
         CreateTrash();
     }
 
@@ -294,33 +312,6 @@ public class ConcertAttendee : Attendee
         }
     }
 
-    public void StartItemCoroutine()
-    {
-        Debug.Log("Attendee starting item coroutine");
-        ShirtCoroutine = StartCoroutine(RequestItemRoutine());
-    }
-
-    public void StartJumpCoroutine()
-    {
-        Debug.Log("Attendee starting jump coroutine");
-        JumpCoroutine = StartCoroutine(JumpRoutine());
-    }
-
-    public void StopJumpCoroutine()
-    {
-        if (JumpCoroutine != null)
-        {
-            StopCoroutine(JumpCoroutine);
-            JumpCoroutine = null;
-        }
-    }
-
-    public void StartMoveCoroutine()
-    {
-        Debug.Log("Attendee starting move coroutine");
-        MoveCoroutine = StartCoroutine(RandomMovementRoutine());
-    }
-
     public void CreateTrash()
     {
         if (Trash.Length > 0)
@@ -341,9 +332,10 @@ public class ConcertAttendee : Attendee
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        Debug.Log("Collider Entered" + collider.name);
         if (collider.gameObject.CompareTag("TShirt"))
         {
-            CrowdShirt shirt = collider.gameObject.GetComponent<CrowdShirt>();
+            Shirt shirt = collider.gameObject.GetComponent<Shirt>();
             if (shirt != null)
             {
                 HandleShirtReceived(shirt);
@@ -353,7 +345,7 @@ public class ConcertAttendee : Attendee
         }
     }
 
-    private void HandleShirtReceived(CrowdShirt shirt)
+    private void HandleShirtReceived(Shirt shirt)
     {
         RequestableItem receivedShirtType = shirt.ShirtType;
         StopJumpCoroutine();
@@ -365,6 +357,8 @@ public class ConcertAttendee : Attendee
         {
             OnItemUnfulfilled();
         }
+        if(thoughtBubble.IsOpenedBubble)
+        {thoughtBubble.HideItemThought(wantedItem);}
     }
 
     //public void HandleGameStateStart(object sender, StateEventArgs e)
@@ -417,11 +411,7 @@ public class ConcertAttendee : Attendee
 
     private void StopAllCoroutinesForState()
     {
-        if (ShirtCoroutine != null)
-        {
-            StopCoroutine(ShirtCoroutine);
-            ShirtCoroutine = null;
-        }
+        StopItemCoroutine();
 
         if (LerpAttendeeCoroutine != null)
         {
@@ -439,5 +429,39 @@ public class ConcertAttendee : Attendee
         thoughtBubble.HideItemThought(wantedItem);
     }
 
+    public void StartItemCoroutine()
+    {
+        Debug.Log("Attendee starting item coroutine");
+        ShirtCoroutine = StartCoroutine(RequestItemRoutine());
+    }
 
+    public void StopItemCoroutine()
+    {
+        if (ShirtCoroutine != null)
+        {
+            StopCoroutine(ShirtCoroutine);
+            ShirtCoroutine = null;
+        }
+    }
+
+    public void StartJumpCoroutine()
+    {
+        Debug.Log("Attendee starting jump coroutine");
+        JumpCoroutine = StartCoroutine(JumpRoutine());
+    }
+
+    public void StopJumpCoroutine()
+    {
+        if (JumpCoroutine != null)
+        {
+            StopCoroutine(JumpCoroutine);
+            JumpCoroutine = null;
+        }
+    }
+
+    public void StartMoveCoroutine()
+    {
+        Debug.Log("Attendee starting move coroutine");
+        MoveCoroutine = StartCoroutine(RandomMovementRoutine());
+    }
 }
