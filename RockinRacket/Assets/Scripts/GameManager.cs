@@ -29,6 +29,13 @@ public class GameManager : MonoBehaviour
     private string saveFolderPath = "Player/SaveFiles/";
     private string saveFileName = "GameData.json";
 
+    [Header("Concert Related Variables")]
+    public bool isPostIntermission = false;
+    public float currentAudienceRating = 0;
+    public int localMoney = 0;
+    public int numMerchTableCustomers = 5;
+    public SceneIndex currentLevel;
+
 
     public static GameManager Instance { get; private set; }
 

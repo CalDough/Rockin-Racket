@@ -15,4 +15,6 @@ public enum SceneIndex
     Cinematic2, // 12
     BeforeFirstConcert, // 13
     Hub, // 14
+    LevelOne, //15
+    Intermission, //16
 };
