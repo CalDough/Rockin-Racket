@@ -332,7 +332,7 @@ public class ConcertAttendee : Attendee
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Collider Entered" + collider.name);
+        //Debug.Log("Collider Entered" + collider.name);
         if (collider.gameObject.CompareTag("TShirt"))
         {
             Shirt shirt = collider.gameObject.GetComponent<Shirt>();
@@ -431,7 +431,7 @@ public class ConcertAttendee : Attendee
 
     public void StartItemCoroutine()
     {
-        Debug.Log("Attendee starting item coroutine");
+        //Debug.Log("Attendee starting item coroutine");
         ShirtCoroutine = StartCoroutine(RequestItemRoutine());
     }
 
@@ -446,7 +446,7 @@ public class ConcertAttendee : Attendee
 
     public void StartJumpCoroutine()
     {
-        Debug.Log("Attendee starting jump coroutine");
+        //Debug.Log("Attendee starting jump coroutine");
         JumpCoroutine = StartCoroutine(JumpRoutine());
     }
 
@@ -461,7 +461,7 @@ public class ConcertAttendee : Attendee
 
     public void StartMoveCoroutine()
     {
-        Debug.Log("Attendee starting move coroutine");
+        //Debug.Log("Attendee starting move coroutine");
         MoveCoroutine = StartCoroutine(RandomMovementRoutine());
     }
 }
