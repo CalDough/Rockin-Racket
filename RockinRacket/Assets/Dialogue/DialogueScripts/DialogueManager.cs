@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using System;
 using Unity.VisualScripting;
 using UnityEngine.UI;
+using System.Threading;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -44,9 +45,9 @@ public class DialogueManager : MonoBehaviour
     public int numChoices = 0;
     
     //
-    private string[] splitLines;
+    private List<string> splitLines = new List<string>();
     private bool isSplitLines = false;
-    private int splitLineIndex = 0;
+    private int splitLineIndex = 1;
 
 
     // Used to determine if a DisplayLine() coroutine is already active
@@ -119,7 +120,10 @@ public class DialogueManager : MonoBehaviour
            && currentStory.currentChoices.Count == 0 
            && continuePressed)
         {
-            continuePressed = false;
+            ContinueStory();
+        }
+        else if (!canContinueToNextLine && isSplitLines)
+        {
             ContinueStory();
         }
         else if (currentStory.currentChoices.Count == 0 || !canContinueToNextLine)
@@ -130,6 +134,7 @@ public class DialogueManager : MonoBehaviour
         {
             continueButton.SetActive(false);
         }
+
         continuePressed = false;
     }
 
@@ -163,10 +168,11 @@ public class DialogueManager : MonoBehaviour
             string nextLine = splitLines[splitLineIndex];
             displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
             splitLineIndex++;
-            if (splitLineIndex >= splitLines.Length)
+            if (splitLineIndex >= splitLines.Count)
             {
                 isSplitLines = false;
-                splitLineIndex = 0;
+                splitLineIndex = 1;
+                splitLines.Clear();
             }
         }
         if (currentStory.canContinue)
@@ -191,10 +197,37 @@ public class DialogueManager : MonoBehaviour
                 StopDialogue();
             }
 
-            if (nextLine.Length > 200)
-            {
-                
-            }
+            // if (nextLine.Length > 200)
+            // {
+            //     isSplitLines = true;
+            //     string[] splitWords = nextLine.Split(' ');
+            //     string jointLine = "";
+            //     for (int i = 0; i < splitWords.Length; i++)
+            //     {
+            //         string currentWord = splitWords[i];
+            //         string projectedLine = jointLine + currentWord;
+            //         if (projectedLine.Length >= 200)
+            //         {
+            //             splitLines.Add(jointLine);
+            //             jointLine = "";
+            //         }
+                    
+            //         jointLine += currentWord + " ";
+            //     }
+
+            //     if (jointLine != "")
+            //     {
+            //         splitLines.Add(jointLine);
+            //     }
+
+            //     Debug.Log("splitLines = ");
+            //     foreach (string line in splitLines)
+            //     {
+            //         Debug.Log(line);
+            //     }
+
+            //     nextLine = splitLines[0];
+            // }
 
             // Assigns the new coroutine to displayLineCoroutine, so that the above check can see if a coroutine is already running
             displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
