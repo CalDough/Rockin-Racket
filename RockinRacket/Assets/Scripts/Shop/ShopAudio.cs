@@ -1,26 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 public class ShopAudio : MonoBehaviour
 {
-    [SerializeField] private AudioListener audioListener;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip shopBell;
-    [SerializeField] private AudioClip pageTurn;
-    [SerializeField] private AudioClip checkoutBell;
+    public StudioEventEmitter checkout;
+    public StudioEventEmitter shopEnter;
+    public StudioEventEmitter pageFlip;
 
-    private void Start()
-    {
-        audioSource.clip = shopBell;
-        audioSource.Play();
-    }
+    //private void Start()
+    //{
+    //    audioSource.clip = shopBell;
+    //    audioSource.Play();
+    //}
 
-    public void Play() { audioSource.Play(); }
-    public void PlayEnterShop() { audioSource.PlayOneShot(shopBell); }
-    public void PlayExitShop() { audioSource.PlayOneShot(shopBell); }
-    // called by catalog manager when bookmark pressed
-    public void PlayFlipPage() { audioSource.PlayOneShot(pageTurn); }
+    //public void Play() { audioSource.Play(); }
+    //public void PlayEnterShop() { audioSource.PlayOneShot(shopBell); }
+    //public void PlayExitShop() { audioSource.PlayOneShot(shopBell); }
+    //// called by catalog manager when bookmark pressed
+    //public void PlayFlipPage() { audioSource.PlayOneShot(pageTurn); }
     // called by receipt button
-    public void PlayCheckout() { audioSource.PlayOneShot(checkoutBell); }
+    public void PlayCheckout() { checkout.Play(); }
+    public void PlayShopEnter() { shopEnter.Play(); }
+    public void PlayPageFlip() { pageFlip.Play(); }
 }

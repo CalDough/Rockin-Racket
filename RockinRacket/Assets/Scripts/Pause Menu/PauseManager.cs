@@ -21,10 +21,10 @@ public class PauseManager : MonoBehaviour
     private void Awake()
     {
         // Assuming you have an action map named "Menu" and a Pause action within it.
-        //menuActionMap = actionAsset.FindActionMap("PauseMenu");
-        //pauseAction = menuActionMap.FindAction("Pause");
+        menuActionMap = actionAsset.FindActionMap("PauseMenu");
+        pauseAction = menuActionMap.FindAction("Pause");
 
-        //pauseAction.performed += _ => ToggleMenu();
+        pauseAction.performed += _ => ToggleMenu();
         UIBlocker.SetActive(false);
     }
 
@@ -80,8 +80,8 @@ public class PauseManager : MonoBehaviour
 
     private void OnEnable()
     {
-        //pauseAction.Enable();
-        //menuActionMap.Enable();
+        pauseAction.Enable();
+        menuActionMap.Enable();
     }
 
     private void OpenPauseMenu()
@@ -100,11 +100,12 @@ public class PauseManager : MonoBehaviour
     // TODO: THESE DON'T WORK. OKAY THEY DO NOW?!?!
     private void OnDisable()
     {
-        //DisablePauseAction();
+        pauseAction.performed -= _ => ToggleMenu();
+        DisablePauseAction();
     }
 
     private void OnDestroy()
     {
-        //DisablePauseAction();
+        DisablePauseAction();
     }
 }

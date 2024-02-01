@@ -10,10 +10,10 @@ using UnityEditor;
 public static class ItemInventory
 {
     // CHANGE TO THIS FOR FINAL BUILD
-    // private string saveFolderPath = "Player/SaveFiles/";
-    private static string saveFolderPath = "Assets/SaveFiles/";
-    private static string saveFileName = "Items.txt";
-    private static string equippedSaveFileName = "EquippedItems.txt";
+     private static readonly string saveFolderPath = "Player/SaveFiles/";
+    //private static string saveFolderPath = "Assets/SaveFiles/";
+    private static readonly string saveFileName = "Items.txt";
+    private static readonly string equippedSaveFileName = "EquippedItems.txt";
     // TODO get complete list of items by path at runtime
     //private static string itemPath = "Items/";
 
