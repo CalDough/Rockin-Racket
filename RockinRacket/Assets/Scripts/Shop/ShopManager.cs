@@ -24,6 +24,7 @@ public class ShopManager : MonoBehaviour
     [Header("Scripts")]
     [SerializeField] private CatalogManager catalogManager;
     [SerializeField] private ShopMenu shopMenu;
+    [SerializeField] private CheckoutDialogue checkoutDialogue;
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private GameLoadHandler gameLoadHandler;
 
