@@ -10,7 +10,6 @@ public class Bookmark : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private BookmarkPair bookmarkPair;
     [SerializeField] private Image image;
-    [SerializeField] private Image block;
     [SerializeField] private TMP_Text text;
     //private Color color;
 
@@ -28,11 +27,11 @@ public class Bookmark : MonoBehaviour, IPointerDownHandler
     }
     public void Open()
     {
-        block.color = new Color(0, 0, 0, 0);
+        //block.color = new Color(0, 0, 0, 0);
     }
     public void Close()
     {
-        block.color = new Color(0, 0, 0, 255);
+        //block.color = new Color(0, 0, 0, 255);
     }
     public void Show(bool show)
     {
