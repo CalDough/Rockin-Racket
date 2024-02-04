@@ -13,4 +13,9 @@ public class ConcertData : ScriptableObject
 {
     public List<SongData> concertSongsFirstHalf;
     public List<SongData> concertSongsSecondHalf;
+
+    public string concertName;
+    public Material concertBackground;
+    public Sprite backstageBackground;
+    public TransitionData returnToConcertLoader;
 }

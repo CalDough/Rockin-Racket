@@ -33,7 +33,7 @@ public class MerchBox : MonoBehaviour, IPointerDownHandler
     {
         if (ownedItem != null && numToSpawn != 0)
         {
-            GameObject item = Instantiate(ownedItem.itemPrefab, new Vector3(0, 50, 0), Quaternion.identity);
+            GameObject item = Instantiate(ownedItem.itemPrefab, new Vector3(0, 200, 0), Quaternion.identity);
             Transform itemPos = item.transform;
             //item.transform.SetParent(GameObject.FindGameObjectWithTag("PurchaseableItemParent").transform, false);
             item.transform.SetParent(gameObject.transform, false);

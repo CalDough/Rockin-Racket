@@ -17,4 +17,7 @@ public enum SceneIndex
     Hub, // 14
     LevelOne, //15
     Intermission, //16
+    LevelTwo, //17
+    LevelThree, //18
+    LevelFour //19
 };

@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     public int localMoney = 0;
     public int numMerchTableCustomers = 5;
     public SceneIndex currentLevel;
+    public int currentConcertScore;
+    public string currentConcertLetter;
+    public ConcertData currentConcertData;
 
 
     public static GameManager Instance { get; private set; }

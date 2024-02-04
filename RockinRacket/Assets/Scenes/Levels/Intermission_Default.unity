@@ -4729,12 +4729,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59dc0d6cfee2acf40939adb5f299f725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IntermissionObjects: {fileID: 1238035427}
-  merchTable: {fileID: 401254909}
-  merchStandObjects: {fileID: 119551774}
+  concertData: {fileID: 0}
+  concertLevelName: 
+  concertBackgroundMaterial: {fileID: 0}
+  concertBackstageBackground: {fileID: 0}
+  concertSceneData: {fileID: 0}
   sceneLoader: {fileID: 1287254534}
-  returnToConcert:
-  - {fileID: 11400000, guid: 85392af68e4f5ed4382033900631da81, type: 2}
+  dialogBackground: {fileID: 0}
+  merchTableBackground: {fileID: 0}
+  intermissionGroup: {fileID: 1238035427}
+  merchTableGroup: {fileID: 119551774}
+  merchTableBackWall: {fileID: 1285547780}
+  merchTableScoreConversions:
+  - {x: 6, y: 12}
+  - {x: 4, y: 8}
+  - {x: 2, y: 4}
+  - {x: 1, y: 2}
+  - {x: 0, y: 1}
+  merchTable: {fileID: 401254909}
+  isInDebugMode: 0
+  debugData: {fileID: 11400000, guid: 186b8c0161c58cc4e837b57557998c8f, type: 2}
 --- !u!4 &1834701507
 Transform:
   m_ObjectHideFlags: 0
