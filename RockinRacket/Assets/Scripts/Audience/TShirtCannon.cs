@@ -84,13 +84,13 @@ public class TShirtCannon : MonoBehaviour
 
     private void StartDrag()
     {
-        Debug.Log("Drag Start");
+        //Debug.Log("Drag Start");
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
         if (hit.collider != null && hit.collider.transform.IsChildOf(cannonBody))
         {
-            Debug.Log("Is Drag");
+            Debug.Log("Is Dragging Cannon");
             isDragging = true;
             initialMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             initialMousePos.z = 0; 
