@@ -6,17 +6,21 @@ using UnityEngine.UI;
 
 public class DrumGuide : MinigameController
 {
-
-    public GameObject ChildCanvasPanels; 
-    
-    public BandRoleName TargetBandMember = BandRoleName.Ace;
+    [Header("Score Variables")]
+    public int ScoreBonus = 25;
+    public int ScorePenalty = -25;
     public float StressFactor = 1;
+    public BandRoleName TargetBandMember = BandRoleName.Ace;
 
+    [Header("Reference Variables")]
+    public GameObject ChildCanvasPanels; 
     [SerializeField] public List<Button> Drums;
-    [SerializeField] private List<int> drumSequence = new List<int>();
-    private List<Color> originalColors;
+
+    [Header("Settings Variables")]
     [SerializeField]private int sequenceLength = 5;
     [SerializeField]private int currentDrumIndex = 0;
+    [SerializeField] private List<int> drumSequence = new List<int>();
+    private List<Color> originalColors;
 
     /*
     Event and State Logic
@@ -83,6 +87,7 @@ public class DrumGuide : MinigameController
         StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);
     }
 
     public override void FinishMinigame()
@@ -93,7 +98,8 @@ public class DrumGuide : MinigameController
         StopGameplayTimer();
         StopAvailabilityTimer();
         CloseMinigame();
-        ResetSpawnTimer();
+        ResetSpawnTimer();        
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScoreBonus);
     }
 
     public override void CancelMinigame()

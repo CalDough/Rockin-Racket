@@ -7,15 +7,17 @@ public class ConcertAttendee : Attendee
 {
     public enum MoodState { Hyped, Frustrated, Pleased }
     public enum RequestableItem { RedShirt, GreenShirt,  BlueShirt }
+
     [Header("Events")]
     public UnityEvent onItemUnfulfilledEvent;
     public UnityEvent onItemFulfilledEvent;
     public UnityEvent onEnterConcert;
-    
-    [Header("Lerp Variables")]
-    //public float duration;
-    //[SerializeField] private Vector3 lerpStart;
-    //[SerializeField] private Vector3 lerpEnd;
+
+    [Header("Score Variables")]
+    public int ScoreBonus = 10;
+    public int ScorePenalty = -5;
+
+    [Header("Movement Variables")]
     [SerializeField] private Vector3 defaultLocation;
     [SerializeField] private Vector2 movementRange = new Vector2(-1f, 1f); 
     [SerializeField] private Vector2 moveSpeed = new Vector2(1f, 3f); 
@@ -23,13 +25,11 @@ public class ConcertAttendee : Attendee
     [SerializeField] private float maxTrashForce = 10f;
     public bool isInConcert = false;
 
-
     [Header("Mood Variables")]
     public MoodState currentMood = MoodState.Pleased;
     public RequestableItem wantedItem = RequestableItem.RedShirt;
     [SerializeField] private CrowdTrash[] Trash; 
     [SerializeField] private ThoughtBubble thoughtBubble; 
-    //public int currentMoodRating;
     public int maxMoodRating = 100;
     public int minMoodRating = 0;
 
@@ -115,6 +115,7 @@ public class ConcertAttendee : Attendee
         }
     }
 
+    //Have to use custom lerp with speed variable since it makes movement more natural with custom timing
     public void StartLerp(Vector3 start, Vector3 end, float speed)
     {
         if (LerpAttendeeCoroutine != null)
@@ -146,16 +147,12 @@ public class ConcertAttendee : Attendee
     {
         MinigameEvents.OnMinigameFail += HandleEventFail;
         MinigameEvents.OnMinigameComplete += HandleEventComplete;
-        //StateEvent.OnStateStart += HandleGameStateStart;
-        //StateEvent.OnStateEnd += HandleGameStateEnd;
     }
 
     private void UnsubscribeEvents()
     {
         MinigameEvents.OnMinigameFail -= HandleEventFail;
         MinigameEvents.OnMinigameComplete -= HandleEventComplete;
-        //StateEvent.OnStateStart -= HandleGameStateStart;
-        //StateEvent.OnStateEnd -= HandleGameStateEnd;
     }
 
     public void CalculateAttendeeMoodstate(int moodValueChange)
@@ -193,7 +190,6 @@ public class ConcertAttendee : Attendee
         }
     }
 
-
     public override void TriggerAttendeeHappyEffect()
     {
         if(currentMood == MoodState.Hyped)
@@ -226,28 +222,6 @@ public class ConcertAttendee : Attendee
             isInConcert = true;
         }
     }
-
-    /*
-    public void StartLerp(Vector3 start, Vector3 end)
-    {
-        lerpStart = start;
-        lerpEnd = end;
-        StartCoroutine(LerpAttendee());
-    }
-
-    protected IEnumerator LerpAttendee()
-    {
-        float timeElapsed = 0f;
-
-        while (timeElapsed < duration)
-        {
-            transform.position = Vector3.Lerp(lerpStart, lerpEnd, timeElapsed / duration);
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-        transform.position = lerpEnd;
-    }
-    */
 
     IEnumerator RequestItemRoutine()
     {
@@ -282,6 +256,7 @@ public class ConcertAttendee : Attendee
         TriggerAttendeeHappyEffect();
         CalculateAttendeeMoodstate(itemMoodBonus);
         onItemFulfilledEvent.Invoke();
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScoreBonus);
     }
 
     public void OnItemUnfulfilled()
@@ -289,6 +264,7 @@ public class ConcertAttendee : Attendee
         TriggerAttendeeAngryEffect();
         CalculateAttendeeMoodstate(itemMoodNegative);
         onItemUnfulfilledEvent.Invoke();
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);
         CreateTrash();
     }
 
@@ -361,37 +337,11 @@ public class ConcertAttendee : Attendee
         {thoughtBubble.HideItemThought(wantedItem);}
     }
 
-    //public void HandleGameStateStart(object sender, StateEventArgs e)
-    //{
-    //    switch(e.state.stateType)
-    //    {
-    //        case StateType.Song:
-    //            StartItemCoroutine();
-    //            StartMoveCoroutine();
-                
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
-
     public void StartAttendeeMovement()
     {
         StartItemCoroutine();
         StartMoveCoroutine();
     }
-
-    //private void HandleGameStateEnd(object sender, StateEventArgs e)
-    //{
-    //    switch(e.state.stateType)
-    //    {
-    //        case StateType.Song:
-    //            StopAllCoroutinesForState();
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
 
     public void StopAttendeeMovement()
     {

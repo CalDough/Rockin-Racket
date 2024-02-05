@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChordFinding : MinigameController
-{
-    public GameObject ChildCanvasPanels; 
-    
-    public BandRoleName TargetBandMember = BandRoleName.MJ;
+{    
+    [Header("Score Variables")]
+    public int ScoreBonus = 25;
+    public int ScorePenalty = -25;
     public float StressFactor = 1;
+    public BandRoleName TargetBandMember = BandRoleName.MJ;
 
+    [Header("Reference Variables")]
+    public GameObject ChildCanvasPanels; 
     public RectTransform NoteParentRect;
     public GameObject chordnotePrefab; 
     public List<ChordNote> notes; 
     public List<Chord> chords;
 
+    [Header("Settings Variables")]
     [SerializeField] private int numberOfChordsToPlayInTotal = 3;
     [SerializeField] private int numberOfChordnotesToSpawn = 3;
     [SerializeField] private int chordnotesRemaining = 0;
@@ -77,6 +81,7 @@ public class ChordFinding : MinigameController
         StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);
     }
 
     public override void FinishMinigame()
@@ -88,6 +93,7 @@ public class ChordFinding : MinigameController
         StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScoreBonus);
     }
 
     public override void CancelMinigame()

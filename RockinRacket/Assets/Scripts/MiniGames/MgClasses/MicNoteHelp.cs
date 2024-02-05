@@ -6,20 +6,23 @@ using UnityEngine.UI;
 
 public class MicNoteHelp : MinigameController
 {
-    public GameObject ChildCanvasPanels; 
-    
-    public BandRoleName TargetBandMember = BandRoleName.Haley;
+    [Header("Score Variables")]
+    public int ScoreBonus = 25;
+    public int ScorePenalty = -25;
     public float StressFactor = 1;
+    public BandRoleName TargetBandMember = BandRoleName.Haley;
 
+    [Header("Reference Variables")]
+    public GameObject ChildCanvasPanels; 
     [SerializeField] private Gradient noteColorGradient = new Gradient();
     public RectTransform NoteParentRect;
     public GameObject vocalNotePrefab; 
     public List<VocalNote> notes; 
     public List<Chord> chords;
 
+    [Header("Settings Variables")]
     [SerializeField] float delayBetweenNotes = 1f; 
     [SerializeField] private int numberOfVocalNotes = 6;
-
     [SerializeField] private int notesAtEnd = 0; 
     [SerializeField] private int currentScore;
 
@@ -84,7 +87,8 @@ public class MicNoteHelp : MinigameController
         StopGameplayTimer();
         StopAvailabilityTimer();
         CloseMinigame();
-        ResetSpawnTimer();
+        ResetSpawnTimer();        
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);
     }
 
     public override void FinishMinigame()
@@ -95,7 +99,8 @@ public class MicNoteHelp : MinigameController
         StopGameplayTimer();
         StopAvailabilityTimer();
         CloseMinigame();
-        ResetSpawnTimer();
+        ResetSpawnTimer();        
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScoreBonus);
     }
 
     public override void CancelMinigame()

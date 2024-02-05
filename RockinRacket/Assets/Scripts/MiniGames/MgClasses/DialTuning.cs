@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class DialTuning : MinigameController
 {
-    public GameObject ChildCanvasPanels; 
-    
-    public BandRoleName TargetBandMember = BandRoleName.Kurt;
+    [Header("Score Variables")]
+    public int ScoreBonus = 25;
+    public int ScorePenalty = -25;
     public float StressFactor = 1;
+    public BandRoleName TargetBandMember = BandRoleName.Kurt;
 
+    [Header("Reference Variables")]
+    public GameObject ChildCanvasPanels; 
     public GameObject dialPrefab; 
     public List<RectTransform> positionObjects; // List of points where dials will be instantiated
     public List<Dial> dials = new List<Dial>();
@@ -70,6 +73,7 @@ public class DialTuning : MinigameController
         StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);
     }
 
     public override void FinishMinigame()
@@ -81,6 +85,7 @@ public class DialTuning : MinigameController
         StopAvailabilityTimer();
         CloseMinigame();
         ResetSpawnTimer();
+        ConcertEvents.instance.e_ScoreChange.Invoke(ScoreBonus);
     }
 
     public override void CancelMinigame()
