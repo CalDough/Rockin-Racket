@@ -18,8 +18,9 @@ public class Shirt : MonoBehaviour
         Destroy(this.gameObject, decayTime);
     }
 
-    public void SetColor()
+    public void SetColor(ConcertAttendee.RequestableItem item)
     {
+        ShirtType = item;
         switch(ShirtType)
         {
             case RequestableItem.RedShirt:

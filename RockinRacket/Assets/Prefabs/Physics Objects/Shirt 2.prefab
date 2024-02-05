@@ -168,8 +168,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.1
-  m_GravityScale: 3
+  m_AngularDrag: 0
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57165f490be3d824d84cf746b7feb911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasLaunched: 0
+  decayTime: 2
   ShirtType: 0
   rb: {fileID: 1663032450999736059}
   sr: {fileID: 4567897892174560689}

@@ -6,54 +6,42 @@ using static ConcertAttendee;
 
 public class TShirtCannon : MonoBehaviour
 {
+    public static TShirtCannon Instance { get; private set; }
+
+    [Header("Reference Variables")]
     public Shirt tShirtPrefab;
+    public SpriteRenderer readySprite;
     public GameObject shirtSpawnLocation;
     public LineRenderer trajectoryLineRenderer;
-    public SpriteRenderer readySprite;
+    public Transform cannonBody;
+    public Transform cannonRestTransform; 
+
+    [Header("Cannon Variables")]
+    public List<RequestableItem> AvailableShirtTypes;
+    public RequestableItem SelectedShirtType;
     public float power = 5f;
     public int steps = 100;
     public float stepDistance = 10;
     public float cooldown = 1f;
     private bool onCooldown = false;
     public float lerpSpeed = 1f;
-    public Transform cannonBody;
-    public Transform cannonRestTransform; 
-    public Transform LineRendererOrigin;
+    public float gravityScale;
+    [Header("Rotation Clamp")]
+    public float minRotationAngle = -45f; 
+    public float maxRotationAngle = 45f;
 
-    private Camera mainCamera;
     public Vector2 velocity;
     public bool isReadyToShoot = true;
+    private bool isDragging = false;
+    private Camera mainCamera;
     private Vector3 initialMousePos;
     private Vector3 currentMousePos;
-    private bool isDragging = false;
-
-
-    public List<RequestableItem> AvailableShirtTypes;
-    public RequestableItem SelectedShirtType;
-
     private OverworldControls controls;
     
-    public static TShirtCannon Instance { get; private set; }
 
     public void ChangeShirtType(ConcertAttendee.RequestableItem shirtType)
     {
         this.SelectedShirtType = shirtType;
-    }
-
-    public RequestableItem SelectRandomShirtType()
-    {
-        if (AvailableShirtTypes.Count > 0)
-        {
-            int randomIndex = Random.Range(0, AvailableShirtTypes.Count);
-            SelectedShirtType = AvailableShirtTypes[randomIndex];
-            return SelectedShirtType;
-        }
-        else
-        {
-            Debug.LogWarning("No available shirt types to select.");
-            return RequestableItem.RedShirt;
-            
-        }
     }
 
     private void Awake()
@@ -68,6 +56,22 @@ public class TShirtCannon : MonoBehaviour
         controls.Player.Fire.canceled += ctx => EndDrag();
     }
 
+    void Start()
+    {
+        mainCamera = Camera.main;
+        readySprite.enabled = true;
+        this.SelectedShirtType = RequestableItem.RedShirt;
+        trajectoryLineRenderer.enabled = false;
+
+        Rigidbody2D rbPrefab = tShirtPrefab.GetComponent<Rigidbody2D>();
+        if (rbPrefab != null) {
+            gravityScale = rbPrefab.gravityScale;
+        } else {
+            Debug.LogError("tShirtPrefab does not have a Rigidbody2D");
+            gravityScale = 1f; 
+        }
+    }
+
     private void OnEnable()
     {
         controls.Enable();
@@ -80,120 +84,142 @@ public class TShirtCannon : MonoBehaviour
 
     private void StartDrag()
     {
-        //Debug.Log("Drag Attempt");
-        if (isReadyToShoot)
+        Debug.Log("Drag Start");
+        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+
+        if (hit.collider != null && hit.collider.transform.IsChildOf(cannonBody))
         {
-            Vector3 mousePos = Mouse.current.position.ReadValue();
-            Vector3 worldMousePos = mainCamera.ScreenToWorldPoint(mousePos);
-            worldMousePos.z = 0;  
-
-            RaycastHit2D hit = Physics2D.Raycast(worldMousePos, Vector2.zero);
-
-            if (hit.collider != null && hit.collider.gameObject == this.gameObject)
-            {
-                initialMousePos = worldMousePos;
-                isDragging = true;
-            }
+            Debug.Log("Is Drag");
+            isDragging = true;
+            initialMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            initialMousePos.z = 0; 
         }
     }
 
     private void EndDrag()
     {
-        if (isDragging)
-        {
-            FireTShirt();
-            isDragging = false;
-            StartCoroutine(Cooldown());
-        }
-        else if (onCooldown)
-        {
-            LerpToRestPosition();
-        }
+        if (!isDragging) return;
+
+        currentMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        currentMousePos.z = 0;
+
+        Vector2 direction = currentMousePos - (Vector3)shirtSpawnLocation.transform.position;
+        float distance = direction.magnitude;
+        velocity = direction.normalized * power * Mathf.Clamp(distance, 0.5f, 10); 
+
+        isDragging = false;
+
+        FireShirt(direction, velocity);
     }
 
-    void Start()
+    private void FireShirt(Vector2 direction, Vector2 velocity)
     {
-        mainCamera = Camera.main;
+        trajectoryLineRenderer.enabled = false; 
+        if (!isReadyToShoot)
+        {
+            Debug.Log("Cannon is on cooldown. Cannot fire");
+            return;
+        }
+
+        Shirt firedShirt = Instantiate(tShirtPrefab, shirtSpawnLocation.transform.position, Quaternion.identity);
+        Rigidbody2D rb = firedShirt.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.velocity = velocity;
+        firedShirt.SetColor(this.SelectedShirtType);
+
+        isReadyToShoot = false;
+        StartCoroutine(ShootCooldown());
+    }
+
+    IEnumerator ShootCooldown()
+    {
+        readySprite.enabled = false;
+        onCooldown = true;
+        yield return new WaitForSeconds(cooldown);
         readySprite.enabled = true;
-        this.SelectedShirtType = RequestableItem.RedShirt;
+        onCooldown = false;
+        isReadyToShoot = true; 
     }
 
-    void Update() 
+    public RequestableItem SelectRandomShirtType()
     {
-        if (isDragging)
+        if (AvailableShirtTypes.Count > 0)
         {
-            currentMousePos = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            currentMousePos.z = 0;
-
-            Vector2 direction = (Vector2)currentMousePos - (Vector2)cannonBody.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            cannonBody.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
-
-            CalculateTrajectory(direction.magnitude, angle - 90);
+            int randomIndex = Random.Range(0, AvailableShirtTypes.Count);
+            SelectedShirtType = AvailableShirtTypes[randomIndex];
+            return SelectedShirtType;
         }
-        else if (onCooldown)
+        else
         {
-            LerpToRestPosition();
+            Debug.LogWarning("No available shirt types to select");
+            return RequestableItem.RedShirt;
+            
         }
-    }
-
-    void CalculateTrajectory(float dragDistance, float angle)
-    {
-        Vector2[] trajectory = Plot(tShirtPrefab.rb, (Vector2)transform.position, (currentMousePos - initialMousePos) * power, steps);
-        trajectoryLineRenderer.positionCount = trajectory.Length;
-        Vector3[] positions = new Vector3[trajectory.Length];
-        for (int i = 0; i < trajectory.Length; i++)
-        {
-            positions[i] = trajectory[i];
-        }
-        trajectoryLineRenderer.SetPositions(positions);
-    }
-
-    Vector2[] Plot(Rigidbody2D rb2, Vector2 pos, Vector2 vel, int steps)
-    {
-        Vector2[] results = new Vector2[steps];
-        float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations * stepDistance; 
-        Vector2 gravityAccel = Physics2D.gravity * rb2.gravityScale * timestep * timestep;
-        float drag = 1f - timestep * rb2.drag;
-        Vector2 moveStep = vel * timestep;
-
-        for (int i = 0; i < steps; i++)
-        {
-            moveStep += gravityAccel;
-            moveStep *= drag;
-            pos += moveStep;
-            results[i] = pos;
-        }
-        return results;
-    }
-
-    void FireTShirt()
-    {
-        trajectoryLineRenderer.enabled = false;
-        Shirt shirtInstance = Instantiate(tShirtPrefab, shirtSpawnLocation.transform.position, Quaternion.identity);
-        shirtInstance.rb.velocity = (currentMousePos - initialMousePos) * power;
-        shirtInstance.ShirtType = this.SelectedShirtType;
-        shirtInstance.SetColor();
-        StartCoroutine(Cooldown());
     }
 
     void LerpToRestPosition()
     {
-        //cannonBody.position = Vector3.Lerp(cannonBody.position, cannonRestTransform.position, Time.deltaTime);
         cannonBody.rotation = Quaternion.Lerp(cannonBody.rotation, cannonRestTransform.rotation, Time.deltaTime * lerpSpeed);
     }
 
-    IEnumerator Cooldown()
+    void Update()
     {
-        onCooldown = true;
-        readySprite.enabled = false;
-
-        yield return new WaitForSeconds(cooldown);
-
-        onCooldown = false;
-        readySprite.enabled = true;
-        isReadyToShoot = true;
+        if (isDragging)
+        {
+            RotateCannonTowardsMouse();
+            Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector2 direction = mousePosition - (Vector2)shirtSpawnLocation.transform.position;
+            float distance = direction.magnitude;
+            Vector2 initialVelocity = direction.normalized * power * Mathf.Clamp(distance, 1, 10); 
+            UpdateTrajectoryLine(shirtSpawnLocation.transform.position, new Vector3(initialVelocity.x, initialVelocity.y, 0));
+            trajectoryLineRenderer.enabled = true;
+        }
+        else if (!isDragging) 
+        {
+            LerpCannonToRestPosition();
+            trajectoryLineRenderer.enabled = false; 
+        }
     }
 
+    private void RotateCannonTowardsMouse()
+    {
+        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 direction = mousePosition - (Vector2)cannonBody.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
 
+        float restAngle = cannonRestTransform.eulerAngles.z;
+        
+        float relativeAngle = Mathf.DeltaAngle(restAngle, angle);
+        
+        relativeAngle = Mathf.Clamp(relativeAngle, minRotationAngle, maxRotationAngle);
+        
+        float clampedAngle = restAngle + relativeAngle;
+        
+        cannonBody.rotation = Quaternion.Euler(0, 0, clampedAngle);
+    }
+
+    void LerpCannonToRestPosition()
+    {
+        if (Quaternion.Angle(cannonBody.rotation, cannonRestTransform.rotation) > 0.1f) 
+        {
+            cannonBody.rotation = Quaternion.Lerp(cannonBody.rotation, cannonRestTransform.rotation, Time.deltaTime * lerpSpeed);
+        }
+    }
+
+    void UpdateTrajectoryLine(Vector3 initialPosition, Vector3 initialVelocity)
+    {
+        Vector3[] points = new Vector3[steps];
+        trajectoryLineRenderer.positionCount = steps;
+        
+        Vector3 gravity = new Vector3(0, Physics2D.gravity.y * gravityScale, 0);
+        
+        for (int i = 0; i < steps; ++i)
+        {
+            float time = i * (stepDistance / steps);
+            Vector3 position = initialPosition + initialVelocity * time + 0.5f * gravity * time * time;
+            points[i] = position;
+        }
+
+        trajectoryLineRenderer.SetPositions(points);
+    }
 }
