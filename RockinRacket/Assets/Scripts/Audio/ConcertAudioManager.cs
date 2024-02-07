@@ -4,6 +4,8 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using System;
 /*
 This class manages all the songs played during the concert as well as manages the broken levels of each member
 It gets the path of the current song from the  StateManager.Instance.CurrentState.Song.FMODMultiTrack.PrimaryTrackPath;
@@ -63,11 +65,18 @@ public class ConcertAudioManager : MonoBehaviour
     void Start()
     {
         //SubscribeEvents();
-
+        SceneManager.activeSceneChanged += OnSceneChange;
         ConcertEvents.instance.e_SongStarted.AddListener(StartConcertAudio);
     }
+
+    private void OnSceneChange(Scene arg0, Scene arg1)
+    {
+        StopSounds();
+    }
+
     void OnDestroy()
     {
+        SceneManager.activeSceneChanged -= OnSceneChange;
         //UnsubscribeEvents();
     }
 
@@ -78,6 +87,7 @@ public class ConcertAudioManager : MonoBehaviour
             UpdateFMODParameters();
         }
     }
+
 
     private void UpdateFMODParameters()
     {
