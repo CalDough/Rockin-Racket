@@ -10,9 +10,9 @@ using UnityEditor;
 public static class ItemInventory
 {
     // CHANGE TO THIS FOR FINAL BUILD
-     private static readonly string saveFolderPath = "Player/SaveFiles/";
-    //private static string saveFolderPath = "Assets/SaveFiles/";
-    private static readonly string saveFileName = "Items.txt";
+    private static readonly string saveFolderPath = "Player/SaveFiles/";
+    //private static readonly string saveFolderPath = "Assets/SaveFiles/";
+    private static readonly string saveFileName = "OwnedItems.txt";
     private static readonly string equippedSaveFileName = "EquippedItems.txt";
     // TODO get complete list of items by path at runtime
     //private static string itemPath = "Items/";
@@ -111,6 +111,11 @@ public static class ItemInventory
     {
         string filePath = saveFolderPath + equippedSaveFileName;
 
+        //itemStrings.Add("" + GetBandmateEquippedItem(Bandmate.MJ).ShopIndex);
+        //itemStrings.Add("" + GetBandmateEquippedItem(Bandmate.Kurt).ShopIndex);
+        //itemStrings.Add("" + GetBandmateEquippedItem(Bandmate.Ace).ShopIndex);
+        //itemStrings.Add("" + GetBandmateEquippedItem(Bandmate.Haley).ShopIndex);
+
         if (!File.Exists(filePath))
             File.WriteAllText(filePath, "");
 
@@ -122,10 +127,6 @@ public static class ItemInventory
         }
         Debug.Log("equipped items: " + equippedItem.Values.Count);
         Debug.Log("equipped items to save: " + equippedItemStrings.Count);
-        //itemStrings.Add("" + GetBandmateEquippedItem(Bandmate.MJ).ShopIndex);
-        //itemStrings.Add("" + GetBandmateEquippedItem(Bandmate.Kurt).ShopIndex);
-        //itemStrings.Add("" + GetBandmateEquippedItem(Bandmate.Ace).ShopIndex);
-        //itemStrings.Add("" + GetBandmateEquippedItem(Bandmate.Haley).ShopIndex);
 
         File.WriteAllLines(filePath, equippedItemStrings);
         return equippedItemStrings.Count;
