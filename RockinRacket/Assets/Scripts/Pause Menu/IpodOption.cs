@@ -1,10 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class IpodOption : MonoBehaviour
+public class IpodOption : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-    public IEnumerator ScaleOverTime(Vector3 toScale, Quaternion toRotation, float duration)
+    [SerializeField] private PauseManager pauseManeger;
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        StartCoroutine(ScaleOverTime(new Vector3(1.06f, 1.06f, 1f), .1f));
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        //StartCoroutine(ScaleOverTime(new Vector3(1f, 1f, 1f), .5f));
+        transform.localScale = new Vector3(1, 1, 1);
+    }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        pauseManeger.PlayBtnDown();
+    }
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        pauseManeger.PlayBtnUp();
+    }
+
+    private IEnumerator ScaleOverTime(Vector3 toScale, float duration)
     {
         float counter = 0;
 
@@ -13,7 +33,7 @@ public class IpodOption : MonoBehaviour
 
         while (counter < duration)
         {
-            counter += Time.deltaTime;
+            counter += Time.unscaledDeltaTime;
             transform.localScale = Vector3.Lerp(startScaleSize, toScale, counter / duration);
             //transform.rotation = 
             yield return null;

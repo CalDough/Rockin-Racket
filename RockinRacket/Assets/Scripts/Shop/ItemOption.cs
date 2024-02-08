@@ -40,6 +40,7 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         //if (forSale)
             highlightImage.color = new Color(1f, 1f, 1f, 1f);
+        catalogManager.SelectItem(item);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -48,8 +49,10 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        //if (forSale)
-            catalogManager.ItemOptionPressed(item);
+        if (forSale)
+            catalogManager.CartItem(item);
+        else
+            catalogManager.EquipItem(item);
     }
     public void RemoveFromCart()
     {

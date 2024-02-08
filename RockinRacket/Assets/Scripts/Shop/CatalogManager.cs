@@ -22,21 +22,32 @@ public class CatalogManager : MonoBehaviour
     private bool moneyAnim;
     private readonly float MoneyColorAnimTime = .5f;
 
-    public void Open() { gameObject.SetActive(true); }
+    public void Open() { gameObject.SetActive(true); UpdateMoneyText(); }
     public void Close() { gameObject.SetActive(false); }
     // called by shopmanager at start, then when items bought
     public void UpdateMoneyText() { moneyText.text = "$" + GameManager.Instance.globalMoney; }
 
-    public void ItemOptionPressed(Item item)
+    // THESE ARE CALLED BY ITEM OPTION
+    public void SelectItem(Item item)
     {
         shopSelection.SelectItem(item);
     }
+    public void CartItem(Item item)
+    {
+        AddToCart(item);
+    }
+    public void EquipItem(Item item)
+    {
+        Equip(item);
+    }
+
 
     // called from receipt when items bought
     public void BuyBtnPressed()
     {
         Item[] itemsToBuy = shopReceipt.GetItemsToBuy();
         int cost = 0;
+        print("AAAAAAA!");
         // TODO: check if you have enough money
         if (itemsToBuy.Length > 0)
         {
@@ -57,6 +68,7 @@ public class CatalogManager : MonoBehaviour
                 StartCoroutine(NotEnoughMoneyAnim());
         }
     }
+
     public void CartBtnPressed()
     {
         Item currentItem = shopSelection.GetSelectedItem();
@@ -98,7 +110,7 @@ public class CatalogManager : MonoBehaviour
     {
         moneyAnim = true;
         Color normalColor = new(1f, 1f, 1f);
-        Color goalColor = new(1f, .5f, .5f);
+        Color goalColor = new(1f, .1f, .1f);
         float counter = 0;
 
         // choose the portion of the animation that is leadup vs retract
@@ -119,5 +131,23 @@ public class CatalogManager : MonoBehaviour
             yield return null;
         }
         moneyAnim = false;
+    }
+
+    private void AddToCart(Item item)
+    {
+        if (!shopReceipt.IsInCart(item))
+        {
+            shopReceipt.AddToCart(item);
+        }
+        else
+        {
+            shopReceipt.RemoveFromCart(item);
+        }
+        shopCatalog.UpdateItemOptions(shopReceipt);
+    }
+    private void Equip(Item item)
+    {
+        ItemInventory.EquipItem(currentBandmate, item);
+        shopCatalog.UpdateItemOptions(shopReceipt);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using FMODUnity;
 
 public class PauseManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class PauseManager : MonoBehaviour
     public GameObject menuUI;
     public GameObject UIBlocker;
     public InputActionAsset actionAsset;
+
+    public StudioEventEmitter buttonPress;
+    public StudioEventEmitter buttonRelease;
 
     private InputAction pauseAction;
     private InputActionMap menuActionMap;
@@ -76,6 +80,16 @@ public class PauseManager : MonoBehaviour
     {
         pauseAction.Disable();
         pauseAction.Dispose();
+    }
+
+    public void PlayBtnDown()
+    {
+        buttonPress.Play();
+    }
+
+    public void PlayBtnUp()
+    {
+        buttonRelease.Play();
     }
 
     private void OnEnable()

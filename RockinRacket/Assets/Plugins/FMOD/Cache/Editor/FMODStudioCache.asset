@@ -406,6 +406,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-6973472861825920563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Button Press (split)
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Button Press (split)
+  Guid:
+    Data1: 1465882561
+    Data2: 1288400816
+    Data3: -1515019386
+    Data4: 1337437216
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 70
 --- !u!114 &-6772571591428435385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,7 +1555,7 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Guitar.bank
   Name: Guitar
   StudioPath: bank:/Guitar
-  lastModified: 638414125413662004
+  lastModified: 638414603635622720
   FileSizes:
   - Name: Desktop
     Value: 2203328
@@ -1689,12 +1716,14 @@ MonoBehaviour:
   - {fileID: 4461877294145446629}
   - {fileID: 8546590561467050229}
   - {fileID: -8265659145759596801}
+  - {fileID: 7958876926478176465}
+  - {fileID: -6973472861825920563}
   EditorParameters: []
   MasterBanks:
   - {fileID: 415837596568815990}
   StringsBanks:
   - {fileID: 2413609373349509689}
-  cacheTime: 638414125414480400
+  cacheTime: 638429045643411526
   cacheVersion: 131603
 --- !u!114 &75886067479314144
 MonoBehaviour:
@@ -1735,10 +1764,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638414125414470480
+  lastModified: 638429045643389891
   FileSizes:
   - Name: Desktop
-    Value: 27150528
+    Value: 27145536
   Exists: 1
 --- !u!114 &432812469506467807
 MonoBehaviour:
@@ -2144,10 +2173,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638414125414480400
+  lastModified: 638429045643411526
   FileSizes:
   - Name: Desktop
-    Value: 3872
+    Value: 3980
   Exists: 1
 --- !u!114 &2570375586446154887
 MonoBehaviour:
@@ -2874,7 +2903,7 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/TipToe Song.bank
   Name: TipToe Song
   StudioPath: bank:/TipToe Song
-  lastModified: 638372311261562217
+  lastModified: 638372207262322583
   FileSizes:
   - Name: Desktop
     Value: 7358560
@@ -2984,7 +3013,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 821
+  Length: 330
 --- !u!114 &7486688280012919295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3061,6 +3090,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &7958876926478176465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Button Release (split)
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Button Release (split)
+  Guid:
+    Data1: -353441607
+    Data2: 1228290785
+    Data3: 1407318659
+    Data4: -2103948397
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 66
 --- !u!114 &8005643576162976615
 MonoBehaviour:
   m_ObjectHideFlags: 0
