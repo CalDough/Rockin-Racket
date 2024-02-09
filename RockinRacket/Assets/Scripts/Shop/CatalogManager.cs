@@ -22,10 +22,10 @@ public class CatalogManager : MonoBehaviour
     private bool moneyAnim;
     private readonly float MoneyColorAnimTime = .5f;
 
-    public void Open() { gameObject.SetActive(true); UpdateMoneyText(); }
+    public void Open() { gameObject.SetActive(true); UpdateMoneyText(); print("HIT2"); }
     public void Close() { gameObject.SetActive(false); }
     // called by shopmanager at start, then when items bought
-    public void UpdateMoneyText() { moneyText.text = "$" + GameManager.Instance.globalMoney; }
+    public void UpdateMoneyText() { moneyText.text = "$" + GameManager.Instance.globalMoney; print(GameManager.Instance.globalMoney); }
 
     // THESE ARE CALLED BY ITEM OPTION
     public void SelectItem(Item item)
@@ -47,8 +47,6 @@ public class CatalogManager : MonoBehaviour
     {
         Item[] itemsToBuy = shopReceipt.GetItemsToBuy();
         int cost = 0;
-        print("AAAAAAA!");
-        // TODO: check if you have enough money
         if (itemsToBuy.Length > 0)
         {
             foreach (Item item in itemsToBuy)

@@ -99,7 +99,8 @@ public static class ItemInventory
         HashSet<string> itemStrings = new();
         foreach (Item item in ownedItems)
         {
-            //Debug.Log(item);
+            Debug.Log(item);
+            Debug.Log(item.name);
             itemStrings.Add(item.name);
         }
 

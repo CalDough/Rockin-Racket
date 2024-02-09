@@ -43,20 +43,20 @@ public class ShopSelection : MonoBehaviour
             bool isInCart = shopReceipt.IsInCart(selectedItem);
             bool isBought = ItemInventory.ContainsItem(selectedItem);
             bool isEquipped = ItemInventory.IsEquipped(selectedItem);
-            cartBtn.SetActive(!isBought);
-            equipBtn.SetActive(isBought && !isEquipped);
+            //cartBtn.SetActive(!isBought);
+            //equipBtn.SetActive(isBought && !isEquipped);
             nameText.text = selectedItem.name;
             descriptionText.text = selectedItem.description;
-            costText.text = "Item Cost";
+            //costText.text = "Item Cost";
 
-            if (!isBought)
-            {
-                costText.text = "$" + selectedItem.cost.ToString();
-                if (isInCart)
-                    cartButtonText.text = "Remove From Cart";
-                else
-                    cartButtonText.text = "Add To Cart";
-            }
+            //if (!isBought)
+            //{
+            //    costText.text = "$" + selectedItem.cost.ToString();
+            //    if (isInCart)
+            //        cartButtonText.text = "Remove From Cart";
+            //    else
+            //        cartButtonText.text = "Add To Cart";
+            //}
         }
         else
         {
