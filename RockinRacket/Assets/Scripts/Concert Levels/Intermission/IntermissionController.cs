@@ -112,7 +112,8 @@ public class IntermissionController : MonoBehaviour
         merchTableGroup.SetActive(true);
 
         // To determine the number of merch table customers we have, we need to read the score;
-        string concertLetter = GameManager.Instance.currentConcertLetter;
+        //string concertLetter = GameManager.Instance.currentConcertLetter;
+        string concertLetter = GameManager.Instance.currentConcertData.currentConcertLetter;
         int numMerchTableCustomers = 0;
 
         switch (concertLetter)
@@ -145,7 +146,8 @@ public class IntermissionController : MonoBehaviour
     public void TransitionBackToConcert()
     {
         // Setting the concert state
-        GameManager.Instance.isPostIntermission = true;
+        //GameManager.Instance.isPostIntermission = true;
+        GameManager.Instance.currentConcertData.isPostIntermission = true;
 
         sceneLoader.SwitchScene(concertSceneData);
     }

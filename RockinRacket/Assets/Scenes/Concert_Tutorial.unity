@@ -443,6 +443,9 @@ MonoBehaviour:
   currentTutorialIndex: 0
   isWaitingForNextTutorial: 0
   delayTimer: 0
+  afterIntermission: 0
+  sceneLoader: {fileID: 1707261570}
+  intermissionSwap: {fileID: 11400000, guid: ce8d7725c4b59eb4db353428e7ee0af3, type: 2}
   EndConcertSegment: {fileID: 0}
 --- !u!4 &158951864
 Transform:
@@ -473,7 +476,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConcertAudioEmitterPrefab: {fileID: 3066031724650825986, guid: 50ab489bdde84224780c6cdacfa7acb3,
     type: 3}
-  afterIntermission: 0
   isMusicPlaying: 0
   audioPath: event:/Full Tracks/Tutorial
   songTimer: 62
@@ -6599,18 +6601,6 @@ MonoBehaviour:
       - m_Target: {fileID: 158951863}
         m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
         m_MethodName: StartTutorialSequence
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 158951865}
-        m_TargetAssemblyTypeName: TutorialMusicHandler, Assembly-CSharp
-        m_MethodName: StartLoopingAudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14141,12 +14131,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1830863121}
     - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 158951865}
+    - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
@@ -14156,12 +14161,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StartLoopingAudio
+      objectReference: {fileID: 0}
+    - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Tutorial, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TutorialMusicHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 96454808565851974, guid: 0794325773421b64f86aff99f9497494,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2798690363034126114, guid: 0794325773421b64f86aff99f9497494,
@@ -15422,7 +15442,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6579643345208410690}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 628ae8f5fce2749479a8f7a3abe119cc, type: 3}
   m_Name: 

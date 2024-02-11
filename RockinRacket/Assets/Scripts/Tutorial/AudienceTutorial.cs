@@ -65,14 +65,14 @@ public class AudienceTutorial : Tutorial
 
     public override void PauseGame()
     {
-        Time.timeScale = 0;
-        Debug.Log("Time Paused"); 
+        TimeEvents.GamePaused();
+        //Debug.Log("Time Paused"); 
     }
 
     public override  void ResumeGame()
     {
-        Time.timeScale = 1; 
-        Debug.Log("Time Unpaused"); 
+        TimeEvents.GameResumed();
+        //Debug.Log("Time Unpaused"); 
     }
 
      public override void RestartMechanic()

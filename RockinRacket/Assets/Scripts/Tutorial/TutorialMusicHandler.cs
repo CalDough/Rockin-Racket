@@ -17,7 +17,6 @@ public class TutorialMusicHandler : MonoBehaviour
     private FMOD.Studio.EventInstance ConcertAudioInstance;    
 
     [Header("Current Song Details")]
-    public bool afterIntermission;
     public bool isMusicPlaying;
     public string audioPath;
     public float songTimer;
@@ -32,6 +31,19 @@ public class TutorialMusicHandler : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    public void Start()
+    {
+        ConcertEvents.instance.e_SongStarted.AddListener(StartLoopingAudio);
+        TimeEvents.OnGamePaused += PauseAudio;
+        TimeEvents.OnGameResumed += ResumeAudio;
+    }
+
+    private void OnDisable()
+    {
+        TimeEvents.OnGamePaused -= PauseAudio;
+        TimeEvents.OnGameResumed -= ResumeAudio;
     }
 
     public void StartLoopingAudio()

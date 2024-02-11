@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
@@ -11,9 +12,11 @@ public class TutorialManager : MonoBehaviour
     public int currentTutorialIndex = 0;
     public bool isWaitingForNextTutorial = false;
     public float delayTimer = 0f;
+    public bool afterIntermission;
 
-    [SerializeField] private Button EndConcertSegment;
-    
+    public SceneLoader sceneLoader;    
+    public TransitionData intermissionSwap;
+
     private void Awake()
     {
         if (Instance == null)
@@ -28,6 +31,9 @@ public class TutorialManager : MonoBehaviour
 
     public void StartTutorialSequence()
     {
+        ConcertEvents.instance.e_ConcertStarted.Invoke();
+        ConcertEvents.instance.e_SongStarted.Invoke();
+
         if (tutorials.Count > 0)
         {
             currentTutorialIndex = 0;
@@ -63,7 +69,13 @@ public class TutorialManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("All tutorials completed.");
+                    Debug.Log("All current tutorials completed.");
+                    if(!afterIntermission)
+                    {ChangeToIntermission();}
+                    else
+                    {
+                        Debug.Log("All tutorials completed.");
+                    }
                 }
             }
         }
@@ -71,6 +83,12 @@ public class TutorialManager : MonoBehaviour
         {
             NextTutorial();
         }
+    }
+
+    public void ChangeToIntermission()
+    {
+        TutorialMusicHandler.instance.StopAudio();
+        sceneLoader.SwitchScene(intermissionSwap);  
     }
 
 }

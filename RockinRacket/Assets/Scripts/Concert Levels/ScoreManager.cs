@@ -31,7 +31,8 @@ public class ScoreManager : MonoBehaviour
         if (ConcertController.instance.afterIntermission)
         {
             Debug.Log("<color=green> Loading Score From Post Intermission </color>");
-            currentScore = GameManager.Instance.currentConcertScore;
+            //currentScore = GameManager.Instance.currentConcertScore;
+            currentScore = GameManager.Instance.currentConcertData.currentConcertScore;
             scoreSlider.value = currentScore;
         }
         else
@@ -92,7 +93,9 @@ public class ScoreManager : MonoBehaviour
      */
     private void SaveScore()
     {
-        GameManager.Instance.currentConcertScore = currentScore;
-        GameManager.Instance.currentConcertLetter = letterText.text;
+        //GameManager.Instance.currentConcertScore = currentScore;
+        GameManager.Instance.currentConcertData.currentConcertScore = currentScore;
+        //GameManager.Instance.currentConcertLetter = letterText.text;
+        GameManager.Instance.currentConcertData.currentConcertLetter = letterText.text;
     }
 }

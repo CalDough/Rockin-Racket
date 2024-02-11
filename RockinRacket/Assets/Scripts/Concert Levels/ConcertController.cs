@@ -63,6 +63,8 @@ public class ConcertController : MonoBehaviour
         startConcert = GameObject.Find("StartButton").GetComponent<Button>();
         //resultsScreenButton = GameObject.Find("ReturnToHubButton").GetComponent<Button>();
 
+        GameManager.Instance.currentConcertData = cData;
+
         if (startScreen == null || startConcert == null)
         {
             Debug.LogError("<color=red> ERROR Initializing Concert Start Screen. Check ConcertController Script</color>");
@@ -73,7 +75,8 @@ public class ConcertController : MonoBehaviour
         resultsScreenButton.onClick.AddListener(() => ReturnToHub());
 
         // Then we check if it is after intermission, if so, we can skip the start screen
-        afterIntermission = GameManager.Instance.isPostIntermission;
+        //afterIntermission = GameManager.Instance.isPostIntermission;
+        afterIntermission = GameManager.Instance.currentConcertData.isPostIntermission;
 
         // Initializing our Song Data for the Concert
         InitializeConcertSongData(afterIntermission);
@@ -161,7 +164,8 @@ public class ConcertController : MonoBehaviour
                 Debug.Log("<color=green> Concert Ending - No Songs Remaining and After Intermission");
                 ConcertEvents.instance.e_ConcertEnded.Invoke();
                 resultsScreenButton.gameObject.SetActive(true);
-                GameManager.Instance.isPostIntermission = false;
+                //GameManager.Instance.isPostIntermission = false;
+                GameManager.Instance.currentConcertData.isPostIntermission = false;
             }
             else
             {
@@ -195,7 +199,8 @@ public class ConcertController : MonoBehaviour
     {
         //  TODO
         // Write any needed variables to Game Manager
-        sceneLoader.SwitchScene(returnToHub);
+        GameManager.Instance.SaveDataPostConcert();
+        //sceneLoader.SwitchScene(returnToHub);
     }
 
 

@@ -64,6 +64,8 @@ public class ConcertAudioManager : MonoBehaviour
         //SubscribeEvents();
         SceneManager.activeSceneChanged += OnSceneChange;
         ConcertEvents.instance.e_SongStarted.AddListener(StartConcertAudio);
+        TimeEvents.OnGamePaused += PauseConcert;
+        TimeEvents.OnGameResumed += ResumeConcert;
     }
 
     private void OnSceneChange(Scene arg0, Scene arg1)
@@ -75,6 +77,8 @@ public class ConcertAudioManager : MonoBehaviour
     {
         SceneManager.activeSceneChanged -= OnSceneChange;
         //UnsubscribeEvents();
+        TimeEvents.OnGamePaused -= PauseConcert;
+        TimeEvents.OnGameResumed -= ResumeConcert;
     }
 
     void Update()
