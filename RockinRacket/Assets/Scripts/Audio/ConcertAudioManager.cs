@@ -41,9 +41,6 @@ public class ConcertAudioManager : MonoBehaviour
     public bool KurtAvailable = true;
     [Range(-0,5)]public float KurtBrokenValue = 0;
 
-    public bool SpeakersAvailable = false;
-    [Range(-0,5)]public float SpeakersBrokenValue = 0;
-
     public bool HarveyAvailable = false;
     [Range(-0,5)]public float HarveyBrokenValue = 0;
 
@@ -95,7 +92,6 @@ public class ConcertAudioManager : MonoBehaviour
         SetInstrumentBrokenValue("Guitar", KurtBrokenValue);
         SetInstrumentBrokenValue("Drums", AceBrokenValue);
         SetInstrumentBrokenValue("Bass", MJBrokenValue);
-        SetInstrumentBrokenValue("Speakers", SpeakersBrokenValue);
     }
 
     public void SetInstrumentVolume(string instrumentName, float volume)
@@ -149,8 +145,6 @@ public class ConcertAudioManager : MonoBehaviour
                 return "Drums";
             case BandRoleName.MJ:
                 return "Bass";
-            case BandRoleName.Speakers:
-                return "Speakers";
             default:
                 Debug.Log("Trying to affect band member not on list: " + bandName);
                 return "";
@@ -200,7 +194,6 @@ public class ConcertAudioManager : MonoBehaviour
         if (MJAvailable) availableMembers.Add(BandRoleName.MJ);
         if (HaleyAvailable) availableMembers.Add(BandRoleName.Haley);
         if (KurtAvailable) availableMembers.Add(BandRoleName.Kurt);
-        if (SpeakersAvailable) availableMembers.Add(BandRoleName.Speakers);
         if (HarveyAvailable) availableMembers.Add(BandRoleName.Harvey);
 
         return availableMembers;
@@ -272,7 +265,6 @@ public class ConcertAudioManager : MonoBehaviour
     //    }
     //    else
     //    {
-
     //    }
     //}
 
@@ -327,9 +319,6 @@ public class ConcertAudioManager : MonoBehaviour
             case "Bass":
                 MJBrokenValue = Mathf.Clamp(MJBrokenValue + delta, 0, 5);
                 break;
-            case "Speakers":
-                SpeakersBrokenValue = Mathf.Clamp(SpeakersBrokenValue + delta, 0, 5);
-                break;
         }
     }
 
@@ -341,7 +330,6 @@ public class ConcertAudioManager : MonoBehaviour
             case "Guitar": return KurtBrokenValue;
             case "Drums": return AceBrokenValue;
             case "Bass": return MJBrokenValue;
-            case "Speakers": return SpeakersBrokenValue;
             default: return 0;
         }
     }

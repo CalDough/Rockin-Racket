@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class TutorialManager : MonoBehaviour
     public bool isWaitingForNextTutorial = false;
     public float delayTimer = 0f;
 
+    [SerializeField] private Button EndConcertSegment;
+    
     private void Awake()
     {
         if (Instance == null)
