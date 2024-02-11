@@ -15,7 +15,6 @@ public class ResultsScreenHandler : MonoBehaviour
     [Header("Object References")]
     [SerializeField] GameObject resultPanels;
     [SerializeField] TMP_Text concertResultsText;
-    [SerializeField] CrowdController crowdController;
     [SerializeField] AttendeeController attendeeController;
     [SerializeField] CrowdTrashcan crowdTrashcan;
 
@@ -25,9 +24,9 @@ public class ResultsScreenHandler : MonoBehaviour
     
     public int moneyEarned = 0;
 
-    [SerializeField] int minigamesFailed = 0;
-    [SerializeField] int minigamesCompleted = 0;
-    [SerializeField] int minigamesCanceled = 0;
+    //[SerializeField] int minigamesFailed = 0;
+    //[SerializeField] int minigamesCompleted = 0;
+    //[SerializeField] int minigamesCanceled = 0;
 
     public int AceStress = 0;
     public int HaleyStress = 0;

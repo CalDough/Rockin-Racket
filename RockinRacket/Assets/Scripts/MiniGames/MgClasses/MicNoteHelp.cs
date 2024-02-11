@@ -23,7 +23,7 @@ public class MicNoteHelp : MinigameController
     [Header("Settings Variables")]
     [SerializeField] float delayBetweenNotes = 1f; 
     [SerializeField] private int numberOfVocalNotes = 6;
-    [SerializeField] private int notesAtEnd = 0; 
+    //[SerializeField] private int notesAtEnd = 0; 
     [SerializeField] private int currentScore;
 
     /*
@@ -69,7 +69,7 @@ public class MicNoteHelp : MinigameController
         MinigameEvents.EventStart(this);
         // Start minigame logic        
         currentScore = 0;
-        notesAtEnd = 0;
+        //notesAtEnd = 0;
         RestartMiniGameLogic();
         ResetGameplayTimer();
         StopSpawnTimer();

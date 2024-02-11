@@ -11172,15 +11172,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultPanels: {fileID: 497403021}
   concertResultsText: {fileID: 638119010}
-  crowdController: {fileID: 1944390472}
   attendeeController: {fileID: 0}
   crowdTrashcan: {fileID: 2062995981}
   attendees: 5
   moneyMultiplier: 25
   moneyEarned: 0
-  minigamesFailed: 0
-  minigamesCompleted: 0
-  minigamesCanceled: 0
   AceStress: 0
   HaleyStress: 0
   KurtStress: 0
@@ -45448,7 +45444,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1944390471}
-  - component: {fileID: 1944390472}
   - component: {fileID: 1944390473}
   m_Layer: 0
   m_Name: CrowdController
@@ -45472,46 +45467,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1944390472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1944390470}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58d74469fb4d0194688ff8e79091a753, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crowdMembers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  maxTrashCount: 10
-  currentTrashCount: 0
-  trashSpawnIntervalMin: 12
-  trashSpawnIntervalMax: 22
-  trashCreatingMembers: 3
-  trashRatingBonus: 0.2
-  tshirtSpawningCooldown: 1
-  tshirtRequestIntervalMin: 18
-  tshirtRequestIntervalMax: 24
-  tshirtRequestMembers: 3
-  tShirtRatingBonus: 2
-  MinigameFailValue: -2
-  MinigameCompleteValue: 2
-  cheerSoundEvent: event:/Sound Effects/Cheers
-  booSoundEvent: event:/Sound Effects/Boos
-  cheerCooldown: 10
-  booCooldown: 10
-  lastCheerTime: -10
-  lastBooTime: -10
-  soundStartVolume: 1
-  PotentialConcertRatings: []
-  EarnedConcertRatings: []
 --- !u!114 &1944390473
 MonoBehaviour:
   m_ObjectHideFlags: 0

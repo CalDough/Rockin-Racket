@@ -23,7 +23,6 @@ public class TShirtCannon : MonoBehaviour
     public int steps = 100;
     public float stepDistance = 10;
     public float cooldown = 1f;
-    private bool onCooldown = false;
     public float lerpSpeed = 1f;
     public float gravityScale;
     [Header("Rotation Clamp")]
@@ -134,10 +133,9 @@ public class TShirtCannon : MonoBehaviour
     IEnumerator ShootCooldown()
     {
         readySprite.enabled = false;
-        onCooldown = true;
+        isReadyToShoot = false; 
         yield return new WaitForSeconds(cooldown);
         readySprite.enabled = true;
-        onCooldown = false;
         isReadyToShoot = true; 
     }
 
