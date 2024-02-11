@@ -18,4 +18,13 @@ public class ConcertData : ScriptableObject
     public Material concertBackground;
     public Sprite backstageBackground;
     public TransitionData returnToConcertLoader;
+    public SceneIndex currentLevel;
+
+    [Header("Concert Player Stats")]
+    public bool isPostIntermission = false;
+    public float currentAudienceRating = 0;
+    public int localMoney = 0;
+    public int numMerchTableCustomers = 0;
+    public int currentConcertScore = 0;
+    public string currentConcertLetter = "C";
 }

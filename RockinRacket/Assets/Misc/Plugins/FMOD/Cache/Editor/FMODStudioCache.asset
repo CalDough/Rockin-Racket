@@ -541,6 +541,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 58820
+--- !u!114 &-6360652242394163931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Tutorial/BrokenValue (Guitar)
+  m_EditorClassIdentifier: 
+  Name: BrokenValue (Guitar)
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1677415580
+    data2: 3693749427
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-6188183749464983636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1060,6 +1084,36 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-3012938924107530669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Full Tracks/Tutorial
+  m_EditorClassIdentifier: 
+  Path: event:/Full Tracks/Tutorial
+  Guid:
+    Data1: -1622107195
+    Data2: 1317354142
+    Data3: -1620921171
+    Data4: -59147737
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 4710415983901559568}
+  - {fileID: 3431816508011710514}
+  - {fileID: -6360652242394163931}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 62773
 --- !u!114 &-2747745210206156004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1718,12 +1772,13 @@ MonoBehaviour:
   - {fileID: -8265659145759596801}
   - {fileID: 7958876926478176465}
   - {fileID: -6973472861825920563}
+  - {fileID: -3012938924107530669}
   EditorParameters: []
   MasterBanks:
   - {fileID: 415837596568815990}
   StringsBanks:
   - {fileID: 2413609373349509689}
-  cacheTime: 638430886109725960
+  cacheTime: 638432572555489677
   cacheVersion: 131603
 --- !u!114 &75886067479314144
 MonoBehaviour:
@@ -1764,10 +1819,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638430886109686072
+  lastModified: 638432572555449785
   FileSizes:
   - Name: Desktop
-    Value: 27145536
+    Value: 27147648
   Exists: 1
 --- !u!114 &432812469506467807
 MonoBehaviour:
@@ -2173,10 +2228,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638430886109725960
+  lastModified: 638432572555489677
   FileSizes:
   - Name: Desktop
-    Value: 3980
+    Value: 4020
   Exists: 1
 --- !u!114 &2570375586446154887
 MonoBehaviour:
@@ -2358,6 +2413,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 62773
+--- !u!114 &3431816508011710514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Tutorial/BrokenValue (Drums)
+  m_EditorClassIdentifier: 
+  Name: BrokenValue (Drums)
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 2098492370
+    data2: 2101284429
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &3531890705175450597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2518,6 +2597,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 63066
+--- !u!114 &4710415983901559568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Tutorial/BrokenValue (Bass)
+  m_EditorClassIdentifier: 
+  Name: BrokenValue (Bass)
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 0
+  ID:
+    data1: 1659612302
+    data2: 112641694
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &4881114967355354094
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,14 +31,7 @@ public class GameManager : MonoBehaviour
     private string saveFolderPath = "Player/SaveFiles/";
     private string saveFileName = "GameData.json";
 
-    [Header("Concert Related Variables")]
-    public bool isPostIntermission = false;
-    public float currentAudienceRating = 0;
-    public int localMoney = 0;
-    public int numMerchTableCustomers = 5;
-    public SceneIndex currentLevel;
-    public int currentConcertScore;
-    public string currentConcertLetter;
+    [Header("Current Concert Data")]
     public ConcertData currentConcertData;
 
 
@@ -152,6 +145,13 @@ public class GameManager : MonoBehaviour
     public void IncrementMoney(int amount)
     {
         globalMoney += amount;
+    }
+
+    public void SaveDataPostConcert()
+    {
+        // TODO 
+        // Save data from the current concertData file
+        Debug.LogError("CONCERT DATA SAVING NOT IMPLEMENTED");
     }
 
 
