@@ -14,13 +14,16 @@ public class DrumGuide : MinigameController
 
     [Header("Reference Variables")]
     public GameObject ChildCanvasPanels; 
-    [SerializeField] public List<Button> Drums;
+    [SerializeField] public List<DrumSetPiece> Drums;
 
     [Header("Settings Variables")]
     [SerializeField]private int sequenceLength = 5;
     [SerializeField]private int currentDrumIndex = 0;
     [SerializeField] private List<int> drumSequence = new List<int>();
-    private List<Color> originalColors;
+
+    public GameObject starContainer; 
+    public GameObject starPrefab; 
+    private List<StarRating> stars = new List<StarRating>();
 
     /*
     Event and State Logic
@@ -30,14 +33,7 @@ public class DrumGuide : MinigameController
     {
         CanActivate = false;
         IsActive = false;
-        originalColors = new List<Color>();
-        for (int i = 0; i < Drums.Count; i++)
-        {
-            int index = i; 
-            Drums[i].onClick.AddListener(() => OnDrumClicked(index));
 
-            originalColors.Add(Drums[i].colors.normalColor);
-        }
         ConcertEvents.instance.e_SongStarted.AddListener(HandleGameStateStart);
         ConcertEvents.instance.e_SongEnded.AddListener(HandleGameStateEnd);
     }
@@ -126,99 +122,104 @@ public class DrumGuide : MinigameController
     public void RestartMiniGameLogic()
     {
         currentDrumIndex = 0;
+
+        foreach (var drum in Drums)
+        {
+            drum.HideDrum();
+        }
         RandomizeDrumSequence();
-        HighlightDrum(drumSequence[currentDrumIndex]);
+        if (drumSequence.Count > 0)
+        {
+            HighlightDrum(drumSequence[currentDrumIndex]);
+        }
+
+        ClearAndGenerateStars();
     }
+
     private void RandomizeDrumSequence()
     {
-        drumSequence.Clear();
-        int previousIndex = -1; 
+        drumSequence.Clear(); 
 
-        for (int i = 0; i < sequenceLength; i++)
+        List<int> availableIndices = new List<int>();
+        for (int i = 0; i < Drums.Count; i++)
         {
-            int randomIndex = Random.Range(0, Drums.Count);
+            availableIndices.Add(i);
+        }
 
-           
-            while (randomIndex == previousIndex)
-            {
-                randomIndex = Random.Range(0, Drums.Count);
-            }
-
-            drumSequence.Add(randomIndex);
-            previousIndex = randomIndex; 
+        for (int i = 0; i < sequenceLength && availableIndices.Count > 0; i++)
+        {
+            int randomIndex = Random.Range(0, availableIndices.Count); 
+            drumSequence.Add(availableIndices[randomIndex]);
+            availableIndices.RemoveAt(randomIndex); 
         }
     }
 
     private void HighlightDrum(int index)
     {
-        for (int i = 0; i < Drums.Count; i++)
+        if (index >= 0 && index < Drums.Count)
         {
-            Button drum = Drums[i];
-            ColorBlock colorBlock = drum.colors;
-
-            Outline outline = drum.GetComponent<Outline>();
-            if (outline != null)
-            {
-                outline.enabled = false;
-            }
-
-            if (i == index)
-            {
-                //not sure why but it literally requires all 4 to be white to look decent in game
-                colorBlock.normalColor = Color.white;
-                colorBlock.highlightedColor = Color.white;
-                colorBlock.pressedColor = Color.white;
-                colorBlock.selectedColor = Color.white;
-            }
-            else
-            {
-                colorBlock.normalColor = originalColors[i];
-                colorBlock.highlightedColor =  originalColors[i];
-                colorBlock.pressedColor = originalColors[i];
-                colorBlock.selectedColor = originalColors[i];
-            }
-
-            drum.colors = colorBlock;
+            Drums[index].HighlightDrum();
         }
-
-        // highlight the correct drum
-        Outline currentOutline = Drums[index].GetComponent<Outline>();
-        if (currentOutline == null)
+        else
         {
-            currentOutline = Drums[index].gameObject.AddComponent<Outline>();
-            currentOutline.effectColor = Color.white;
-            currentOutline.effectDistance = new Vector2(5, 5);
+            Debug.LogError("Attempted to highlight a drum with an index out of bounds.");
         }
-        currentOutline.enabled = true;
     }
 
-    public void OnDrumClicked(int drumIndex)
+    public void OnDrumClicked(GameObject clickedDrum)
     {
+        int drumIndex = Drums.IndexOf(clickedDrum.GetComponent<DrumSetPiece>());
+
+        if (drumIndex == -1)
+        {
+            Debug.LogError("Clicked drum is not part of the drum list.");
+            return;
+        }
+
         if (drumIndex == drumSequence[currentDrumIndex])
         {
+            Debug.Log("Correct drum clicked.");
+            stars[currentDrumIndex].HighlightStars(); 
             currentDrumIndex++;
 
-            Button drum = Drums[drumIndex];
-            ColorBlock colorBlock = drum.colors;
-
-            colorBlock.normalColor = originalColors[drumIndex];
-            colorBlock.highlightedColor =  originalColors[drumIndex];
-            colorBlock.pressedColor = originalColors[drumIndex];
-            colorBlock.selectedColor = originalColors[drumIndex];
-
-            if (currentDrumIndex == sequenceLength)
+            if (currentDrumIndex >= drumSequence.Count)
             {
+                Debug.Log("Sequence complete.");
                 FinishMinigame();
             }
             else
             {
-                HighlightDrum(drumSequence[currentDrumIndex]);
+                Drums[drumSequence[currentDrumIndex]].HighlightDrum();
             }
         }
         else
         {
+            Debug.Log("Incorrect drum clicked. Resetting sequence.");
+            foreach (var star in stars)
+            {
+                star.HideStars();
+            }
             RestartMiniGameLogic();
         }
     }
 
+    private void ClearAndGenerateStars()
+    {
+        foreach (Transform child in starContainer.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        stars.Clear();
+
+        for (int i = 0; i < sequenceLength; i++)
+        {
+            GameObject starObj = Instantiate(starPrefab, starContainer.transform);
+            StarRating star = starObj.GetComponent<StarRating>();
+            if (star != null)
+            {
+                stars.Add(star);
+                star.starImage.color = Color.black; 
+            }
+        }
+    }
 }
