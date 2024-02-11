@@ -26,5 +26,7 @@ public enum SceneIndex
     Cinematic6, //23
     Cinematic7, //24
     Cinematic8, //25
-    Cinematic9 //26
+    Cinematic9, //26
+    ConcertTutorial, //27
+    IntermissionTutorial //28
 };

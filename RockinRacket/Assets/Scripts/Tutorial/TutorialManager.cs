@@ -14,6 +14,7 @@ public class TutorialManager : MonoBehaviour
     public float delayTimer = 0f;
     public bool afterIntermission;
 
+    public ConcertData tutorialConcertData;
     public SceneLoader sceneLoader;    
     public TransitionData intermissionSwap;
 
@@ -27,6 +28,8 @@ public class TutorialManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        GameManager.Instance.currentConcertData = tutorialConcertData;
     }
 
     public void StartTutorialSequence()

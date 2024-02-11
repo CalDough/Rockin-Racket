@@ -36,7 +36,7 @@ public class TShirtCannon : MonoBehaviour
     private Vector3 initialMousePos;
     private Vector3 currentMousePos;
     private OverworldControls controls;
-    
+    public bool isCannonPaused = false;
 
     public void ChangeShirtType(ConcertAttendee.RequestableItem shirtType)
     {
@@ -74,16 +74,31 @@ public class TShirtCannon : MonoBehaviour
     private void OnEnable()
     {
         controls.Enable();
+        TimeEvents.OnGamePaused += PauseCannon;
+        TimeEvents.OnGameResumed += ResumeCannon;
     }
 
     private void OnDisable()
     {
         controls.Disable();
+        TimeEvents.OnGamePaused -= PauseCannon;
+        TimeEvents.OnGameResumed -= ResumeCannon;
+    }
+
+    private void ResumeCannon()
+    {isCannonPaused = false;}
+
+    private void PauseCannon()
+    {
+        isDragging = false;
+        isCannonPaused = true;
     }
 
     private void StartDrag()
     {
         //Debug.Log("Drag Start");
+        if(isCannonPaused){return;}
+
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
