@@ -19,5 +19,12 @@ public enum SceneIndex
     Intermission, //16
     LevelTwo, //17
     LevelThree, //18
-    LevelFour //19
+    LevelFour, //19
+    Cinematic3, //20
+    Cinematic4, //21
+    Cinematic5, //22
+    Cinematic6, //23
+    Cinematic7, //24
+    Cinematic8, //25
+    Cinematic9 //26
 };
