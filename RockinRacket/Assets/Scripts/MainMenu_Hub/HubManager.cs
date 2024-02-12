@@ -30,7 +30,7 @@ public class HubManager : MonoBehaviour
 
     private void Start()
     {
-        boardScreen.SetActive(false);
+        // boardScreen.SetActive(false);
     }
 
     private IEnumerator CarAnim()

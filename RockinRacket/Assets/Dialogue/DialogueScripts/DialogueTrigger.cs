@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,28 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
-    [SerializeField] public bool hasNewDialogue;
+    [Header("Character Details")]
+    [SerializeField] private string characterName;
+    
+    public bool hasNewDialogue;
+    
     private bool isShown = true;
 
+    private bool thisDialogueActive = false;
+    
+    
+    private void Awake()
+    {
+        DialogueEvents.DialogueEnd += onDialogueEnd;
+    }
+
+    private void Start()
+    {
+        hasNewDialogue = RoomManager.getInstance().CheckIfInteracted(RoomManager.getInstance().currentHub, characterName);
+        visualCue.SetActive(true);
+
+    }
+    
     private void Update()
     {
         if (DialogueManager.GetInstance().dialogueActive)
@@ -28,24 +48,32 @@ public class DialogueTrigger : MonoBehaviour
         {
             this.gameObject.GetComponent<Image>().enabled = true;
             isShown = true;
+            thisDialogueActive = false;
         }
     }
     
-    private void Awake()
-    {
-        hasNewDialogue = true;
-        visualCue.SetActive(true);
-    }
-
     public void Button_StartDialogue()
     {
         if (!DialogueManager.GetInstance().dialogueActive)
         {
-            hasNewDialogue = false;
             visualCue.SetActive(false);
             DialogueManager.GetInstance().StartDialogue(inkJSON);
             isShown = false;
             this.gameObject.GetComponent<Image>().enabled = false;
+            thisDialogueActive = true;
         }
+    }
+
+    private void onDialogueEnd(object sender, EventArgs args)
+    {
+        if (thisDialogueActive)
+        {
+            RoomManager.getInstance().setInteraction(RoomManager.getInstance().currentHub, characterName);
+        }
+    }
+
+    void OnDestroy()
+    {
+        DialogueEvents.DialogueEnd -= onDialogueEnd;
     }
 }
