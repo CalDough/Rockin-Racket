@@ -61,6 +61,7 @@ public class CatalogManager : MonoBehaviour
                 shopReceipt.ResetReceipt();
                 shopCatalog.UpdateItemOptions(shopReceipt);
                 shopSelection.UpdateText();
+                shopAudio.PlayCheckout();
             }
             else if (!moneyAnim)
                 StartCoroutine(NotEnoughMoneyAnim());
@@ -109,6 +110,8 @@ public class CatalogManager : MonoBehaviour
         moneyAnim = true;
         Color normalColor = new(1f, 1f, 1f);
         Color goalColor = new(1f, .1f, .1f);
+        Vector3 startSize = new(1f, 1f, 1f);
+        Vector3 goalSize = new(1.3f, 1.3f, 1f);
         float counter = 0;
 
         // choose the portion of the animation that is leadup vs retract
@@ -119,6 +122,7 @@ public class CatalogManager : MonoBehaviour
         {
             counter += Time.deltaTime;
             moneyText.color = Color.Lerp(normalColor, goalColor, counter / firstHalf);
+            moneyText.transform.localScale = Vector3.Lerp(startSize, goalSize, counter / firstHalf);
             yield return null;
         }
         counter = 0;
@@ -126,6 +130,7 @@ public class CatalogManager : MonoBehaviour
         {
             counter += Time.deltaTime;
             moneyText.color = Color.Lerp(goalColor, normalColor, counter / secondHalf);
+            moneyText.transform.localScale = Vector3.Lerp(goalSize, startSize, counter / secondHalf);
             yield return null;
         }
         moneyAnim = false;
