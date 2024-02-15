@@ -7,6 +7,9 @@ public class GameEnums : MonoBehaviour
 {
     //All Enums below here along with any helper class
 }
+
+public enum Bandmate { MJ, Kurt, Ace, Haley };
+
 [System.Serializable]
 public enum BandRoleName
 {
@@ -20,6 +23,7 @@ public enum BandRoleName
     Other
 
 }
+
 public static class BandRoleEnumHelper
 {
     private static System.Random random = new System.Random();

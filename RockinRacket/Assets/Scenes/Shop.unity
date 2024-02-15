@@ -483,7 +483,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hey there kiddo! What can I do for you today?
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f94f36071f3b748ea88382c3d76b62a5, type: 2}
   m_sharedMaterial: {fileID: -3744103153377559941, guid: f94f36071f3b748ea88382c3d76b62a5,
@@ -802,7 +802,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 875485321}
   - {fileID: 319223105}
   - {fileID: 766274005}
   - {fileID: 1862037620}
@@ -823,7 +822,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 134282571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 786232aaa80114c978fcad4bc8d23b52, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f4cd06abd0b44028acd4a54156d6c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueText: {fileID: 89827722}
@@ -1566,7 +1565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Up for a chat?
+  m_text: I'm done shopping
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f94f36071f3b748ea88382c3d76b62a5, type: 2}
   m_sharedMaterial: {fileID: -3744103153377559941, guid: f94f36071f3b748ea88382c3d76b62a5,
@@ -4837,7 +4836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &814749656
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5028,82 +5027,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 826045530}
-  m_CullTransparentMesh: 1
---- !u!1 &875485320
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 875485321}
-  - component: {fileID: 875485323}
-  - component: {fileID: 875485322}
-  m_Layer: 5
-  m_Name: Counter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &875485321
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875485320}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 134282572}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 690, y: -250}
-  m_SizeDelta: {x: 440, y: 480}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &875485322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875485320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.5471698, g: 0.4039426, b: 0.15744035, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &875485323
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875485320}
   m_CullTransparentMesh: 1
 --- !u!1 &884363549
 GameObject:
@@ -5481,7 +5404,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: What's for sale?
+  m_text: I'd like to checkout
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f94f36071f3b748ea88382c3d76b62a5, type: 2}
   m_sharedMaterial: {fileID: -3744103153377559941, guid: f94f36071f3b748ea88382c3d76b62a5,
@@ -11392,7 +11315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1960384872
 RectTransform:
   m_ObjectHideFlags: 0

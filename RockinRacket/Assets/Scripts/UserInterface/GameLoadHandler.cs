@@ -25,24 +25,28 @@ public class GameLoadHandler : MonoBehaviour
         //InventoryManager.Instance.LoadDefaultItems();
         GameManager.Instance.NewGame();
         ItemInventory.ResetInventory();
+        StickerSaver.Reset();
     }
 
     public void SaveAndExit()
     {
         GameManager.Instance.SaveGame();
         ItemInventory.Save();
+        StickerSaver.SaveStickerData();
         Application.Quit();
     }
     public void Save()
     {
         GameManager.Instance.SaveGame();
         ItemInventory.Save();
+        StickerSaver.SaveStickerData();
     }
 
     public void Load()
     {
         GameManager.Instance.LoadGame();
         ItemInventory.Load();
+        StickerSaver.LoadStickerData();
     }
 
     //public void GoBackScene()
