@@ -99,7 +99,7 @@ public class CatalogManager : MonoBehaviour
 
     public void BookmarkPressed(Bandmate bandmate)
     {
-        shopAudio.PlayPageFlip();
+        shopAudio.PlayPageTurn();
         currentBandmate = bandmate;
         shopSelection.ResetSelection();
         shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);

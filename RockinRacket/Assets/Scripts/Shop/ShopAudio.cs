@@ -7,8 +7,8 @@ using FMOD.Studio;
 public class ShopAudio : MonoBehaviour
 {
     public StudioEventEmitter checkout;
+    public StudioEventEmitter pageTurn;
     public StudioEventEmitter shopEnter;
-    public StudioEventEmitter pageFlip;
 
     //private void Start()
     //{
@@ -24,5 +24,5 @@ public class ShopAudio : MonoBehaviour
     // called by receipt button
     public void PlayCheckout() { checkout.Play(); }
     public void PlayShopEnter() { shopEnter.Play(); }
-    public void PlayPageFlip() { pageFlip.Play(); }
+    public void PlayPageTurn() { pageTurn.Play(); }
 }
