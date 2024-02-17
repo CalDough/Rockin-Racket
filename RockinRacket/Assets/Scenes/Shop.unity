@@ -1277,7 +1277,8 @@ MonoBehaviour:
   justChattingConvo: {fileID: 4900000, guid: 79f38e17f1aac41048720435c882b035, type: 3}
   catalogManager: {fileID: 1913471993}
   shopMenu: {fileID: 1612217561}
-  checkoutDialogue: {fileID: 0}
+  shopAudio: {fileID: 1432406043}
+  checkoutDialogue: {fileID: 134282573}
   dialogueManager: {fileID: 2143304284}
   gameLoadHandler: {fileID: 1947427573}
 --- !u!224 &186013530
@@ -8043,6 +8044,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2bda2e7f4b2da643beb589108bf15fe, type: 3}
+--- !u!114 &1432406043 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7641569490817236182, guid: c2bda2e7f4b2da643beb589108bf15fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 1432406040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c96c8d22b4c4acebbd3d531b582bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1442671916
 GameObject:
   m_ObjectHideFlags: 0
@@ -8293,7 +8306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1482962764
 Transform:
   m_ObjectHideFlags: 0
@@ -8961,8 +8974,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Item Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f94f36071f3b748ea88382c3d76b62a5, type: 2}
+  m_sharedMaterial: {fileID: -3744103153377559941, guid: f94f36071f3b748ea88382c3d76b62a5,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10795,7 +10809,7 @@ MonoBehaviour:
   shopReceipt: {fileID: 901119784}
   shopCatalog: {fileID: 1233983487}
   shopManager: {fileID: 186013529}
-  shopAudio: {fileID: 1482962765}
+  shopAudio: {fileID: 1432406043}
   moneyText: {fileID: 1029224173}
 --- !u!1 &1933927391
 GameObject:
@@ -11733,8 +11747,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Item Description
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f94f36071f3b748ea88382c3d76b62a5, type: 2}
+  m_sharedMaterial: {fileID: -3744103153377559941, guid: f94f36071f3b748ea88382c3d76b62a5,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

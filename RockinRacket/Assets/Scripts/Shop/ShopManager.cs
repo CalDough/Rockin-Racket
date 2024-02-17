@@ -24,6 +24,7 @@ public class ShopManager : MonoBehaviour
     [Header("Scripts")]
     [SerializeField] private CatalogManager catalogManager;
     [SerializeField] private ShopMenu shopMenu;
+    [SerializeField] private ShopAudio shopAudio;
     [SerializeField] private CheckoutDialogue checkoutDialogue;
     [SerializeField] private DialogueManager dialogueManager;
     [SerializeField] private GameLoadHandler gameLoadHandler;
@@ -43,6 +44,7 @@ public class ShopManager : MonoBehaviour
 
         catalogManager.UpdateMoneyText();
         OpenShopMenu();
+        shopAudio.PlayShopEnter();
         //OpenShopCatalog(); // for testing
     }
 
@@ -96,7 +98,6 @@ public class ShopManager : MonoBehaviour
     {
         shopMenu.Close();
         catalogManager.Open();
-        print("HIT");
     }
     private void OpenShopMenu()
     {

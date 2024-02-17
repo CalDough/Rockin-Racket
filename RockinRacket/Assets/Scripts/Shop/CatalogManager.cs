@@ -22,7 +22,7 @@ public class CatalogManager : MonoBehaviour
     private bool moneyAnim;
     private readonly float MoneyColorAnimTime = .5f;
 
-    public void Open() { gameObject.SetActive(true); UpdateMoneyText(); print("HIT2"); }
+    public void Open() { gameObject.SetActive(true); }
     public void Close() { gameObject.SetActive(false); }
     // called by shopmanager at start, then when items bought
     public void UpdateMoneyText() { moneyText.text = "$" + GameManager.Instance.globalMoney; print(GameManager.Instance.globalMoney); }
@@ -102,6 +102,7 @@ public class CatalogManager : MonoBehaviour
         shopAudio.PlayPageTurn();
         currentBandmate = bandmate;
         shopSelection.ResetSelection();
+        print(ItemInventory.GetItemsByBandmate(bandmate).Length);
         shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);
     }
 
