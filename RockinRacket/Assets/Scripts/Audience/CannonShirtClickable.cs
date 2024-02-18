@@ -7,7 +7,6 @@ using static ConcertAttendee;
 public class CannonShirtClickable : MonoBehaviour
 {
     public RequestableItem SelectedShirtType;
-    public Transform SelectedShirtSpot;
 
     private OverworldControls controls;
 
@@ -27,10 +26,6 @@ public class CannonShirtClickable : MonoBehaviour
         controls.Disable();
     }
 
-    public void Update()
-    {
-        this.transform.position = SelectedShirtSpot.position;
-    }
 
     private void OnShirtClick()
     {

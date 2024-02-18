@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class ConcertAttendee : Attendee
 {
     public enum MoodState { Hyped, Frustrated, Pleased }
-    public enum RequestableItem { RedShirt, GreenShirt,  BlueShirt }
+    public enum RequestableItem { RedShirt, WhiteShirt,  BlackShirt }
 
     [Header("Events")]
     public UnityEvent onItemUnfulfilledEvent;

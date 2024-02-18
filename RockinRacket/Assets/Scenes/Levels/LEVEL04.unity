@@ -18253,12 +18253,12 @@ PrefabInstance:
     - target: {fileID: 1987096553427625635, guid: e86222e5d055dbf4292e8c96098d45e3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.28
+      value: 6.9
       objectReference: {fileID: 0}
     - target: {fileID: 1987096553427625635, guid: e86222e5d055dbf4292e8c96098d45e3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2
+      value: -2.35
       objectReference: {fileID: 0}
     - target: {fileID: 1987096553427625635, guid: e86222e5d055dbf4292e8c96098d45e3,
         type: 3}
@@ -47938,6 +47938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2ef6bc7f9cc484a9f6b170334cadd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGamePaused: 0
 --- !u!61 &5890876877250226865
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -48092,8 +48093,6 @@ MonoBehaviour:
   HaleyBrokenValue: 0
   KurtAvailable: 1
   KurtBrokenValue: 0
-  SpeakersAvailable: 0
-  SpeakersBrokenValue: 0
   HarveyAvailable: 0
   HarveyBrokenValue: 0
 --- !u!212 &6621953103134224685

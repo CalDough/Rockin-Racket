@@ -309,12 +309,12 @@ PrefabInstance:
     - target: {fileID: 1987096553427625635, guid: e86222e5d055dbf4292e8c96098d45e3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.28
+      value: 6.9
       objectReference: {fileID: 0}
     - target: {fileID: 1987096553427625635, guid: e86222e5d055dbf4292e8c96098d45e3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2
+      value: -2.35
       objectReference: {fileID: 0}
     - target: {fileID: 1987096553427625635, guid: e86222e5d055dbf4292e8c96098d45e3,
         type: 3}
@@ -354,6 +354,16 @@ PrefabInstance:
     - target: {fileID: 1987096553427625635, guid: e86222e5d055dbf4292e8c96098d45e3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564206877936105461, guid: e86222e5d055dbf4292e8c96098d45e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432806298351296934, guid: e86222e5d055dbf4292e8c96098d45e3,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -47454,6 +47464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2ef6bc7f9cc484a9f6b170334cadd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGamePaused: 0
 --- !u!61 &5890876877250226865
 BoxCollider2D:
   m_ObjectHideFlags: 0

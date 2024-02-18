@@ -26,11 +26,11 @@ public class Shirt : MonoBehaviour
             case RequestableItem.RedShirt:
                 sr.color = Color.red;
                 break;
-            case RequestableItem.BlueShirt:
-                sr.color = Color.blue;
+            case RequestableItem.BlackShirt:
+                sr.color = Color.black;
                 break;
-            case RequestableItem.GreenShirt:
-                sr.color = Color.green;
+            case RequestableItem.WhiteShirt:
+                sr.color = Color.white;
                 break;
         }
     }
