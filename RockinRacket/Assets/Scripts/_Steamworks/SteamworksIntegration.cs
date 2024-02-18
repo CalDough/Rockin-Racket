@@ -5,6 +5,7 @@ using UnityEngine;
 public class SteamworksIntegration : MonoBehaviour
 {
     public static SteamworksIntegration instance;
+    public bool connectedWithSteam = false;
 
     void Awake()
     {
@@ -19,13 +20,13 @@ public class SteamworksIntegration : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         try
         {
             Steamworks.SteamClient.Init(2767790);
             PrintYourName();
+            connectedWithSteam = true;
         }
         catch (System.Exception e)
         {
@@ -61,11 +62,20 @@ public class SteamworksIntegration : MonoBehaviour
      */
 
     // Checks to see if an achievement is unlocked
-    public void IsThisAchievementUnlocked(string id)
+    public bool IsThisAchievementUnlocked(string id)
     {
         var ach = new Steamworks.Data.Achievement(id);
 
         Debug.Log($"Achievement {id} status: " + ach.State);
+
+        if (ach.State)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     // Unlocks an achievement

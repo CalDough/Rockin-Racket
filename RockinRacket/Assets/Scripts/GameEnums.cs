@@ -101,3 +101,13 @@ public enum PlayerTools
     TrashTool, 
     TShirtCannonTool 
 }
+
+[System.Serializable]
+public enum Achievements
+{
+    ACH_TUTORIAL_COMPLETE,
+    ACH_LEVEL_ONE_COMPLETE,
+    ACH_LEVEL_TWO_COMPLETE,
+    ACH_LEVEL_THREE_COMPLETE,
+    ACH_LEVEL_FOUR_COMPLETE
+}
