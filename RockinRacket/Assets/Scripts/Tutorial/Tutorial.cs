@@ -50,12 +50,14 @@ public class Tutorial : MonoBehaviour
     public virtual void PauseGame()
     {
         TimeEvents.GamePaused();
+
         //Debug.Log("Time Paused"); 
     }
 
     public virtual  void ResumeGame()
     {
         TimeEvents.GameResumed();
+
         //Debug.Log("Time Unpaused"); 
     }
 

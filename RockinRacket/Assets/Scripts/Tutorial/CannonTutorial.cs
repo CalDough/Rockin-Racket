@@ -109,12 +109,14 @@ public class CannonTutorial : Tutorial
     public override void PauseGame()
     {
         TimeEvents.GamePaused();
+
         //Debug.Log("Time Paused"); 
     }
 
     public override  void ResumeGame()
     {
         TimeEvents.GameResumed();
+
         //Debug.Log("Time Unpaused"); 
     }
 

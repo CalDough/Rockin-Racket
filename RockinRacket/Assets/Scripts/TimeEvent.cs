@@ -8,24 +8,33 @@ using System;
 */
 
 public static class TimeEvents 
-{
+{    
+    private static int pauseCounter = 0;
     public static event Action OnGamePaused;
     public static event Action OnGameResumed;
     public static event Action OnLevelReset;
     public static event Action OnSaveAndClose;
-    
+        
     public static void GamePaused()
     {
-        Debug.Log("Game Paused");
-        Time.timeScale = 0;
-        OnGamePaused?.Invoke();
+        if (pauseCounter == 0)
+        {
+            Time.timeScale = 0;
+            Debug.Log("Game Paused");
+            OnGamePaused?.Invoke();
+        }
+        pauseCounter++;
     }
 
     public static void GameResumed()
     {
-        Debug.Log("Game Resumed");
-        Time.timeScale = 1;
-        OnGameResumed?.Invoke();
+        pauseCounter = Mathf.Max(0, pauseCounter - 1);
+        if (pauseCounter == 0)
+        {
+            Time.timeScale = 1;
+            Debug.Log("Game Resumed");
+            OnGameResumed?.Invoke();
+        }
     }
 
     public static void LevelReset()
