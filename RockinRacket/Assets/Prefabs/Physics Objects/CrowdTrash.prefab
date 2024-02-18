@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1080598794430354281}
   - component: {fileID: 2962706118248824536}
   - component: {fileID: 4483398249197047775}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CrowdTrash
   m_TagString: Trash
   m_Icon: {fileID: 0}
@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827f2f780e80470429465fa6e33183f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxVelocity: 10
+  updateInterval: 0.1
 --- !u!58 &2962706118248824536
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -119,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 515591192731524116}
   - component: {fileID: 2664812090852220631}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -50,6 +50,7 @@ public class MerchTable : MonoBehaviour
 
     [Header("Debug Data")]
     public Button initializeMerchTableManually;
+    public bool AllCustomersFulfilled = false;
 
     /*
      * In Awake, we are initializing classes for each of our purchaseable items and our merch boxes
@@ -130,6 +131,7 @@ public class MerchTable : MonoBehaviour
         else
         {
             Debug.Log("<color=green> All Customers Fulfilled at Merch Stand </color>");
+            AllCustomersFulfilled = true;
         }
     }
 
@@ -190,6 +192,5 @@ public class MerchTable : MonoBehaviour
 
         merchTableUIHandler.ActivateAndUpdateCustomerWants(curCustomerList);
     }
-
 
 }

@@ -8,12 +8,13 @@ public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
     public List<Tutorial> tutorials;
+    public List<Tutorial> postIntermissionTutorials;
     public float tutorialActivationDelay = 2.5f;
     public int currentTutorialIndex = 0;
     public bool isWaitingForNextTutorial = false;
     public float delayTimer = 0f;
     public bool afterIntermission;
-
+    public bool isInIntermission;
     public ConcertData tutorialConcertData;
     public SceneLoader sceneLoader;    
     public TransitionData intermissionSwap;
@@ -30,26 +31,35 @@ public class TutorialManager : MonoBehaviour
         }
 
         GameManager.Instance.currentConcertData = tutorialConcertData;
+        afterIntermission = tutorialConcertData.isPostIntermission; 
     }
 
     public void StartTutorialSequence()
     {
-        ConcertEvents.instance.e_ConcertStarted.Invoke();
-        ConcertEvents.instance.e_SongStarted.Invoke();
+        var tutorialList = afterIntermission ? postIntermissionTutorials : tutorials;
 
-        if (tutorials.Count > 0)
+        if(ConcertEvents.instance != null)
+        {
+            ConcertEvents.instance.e_ConcertStarted.Invoke();
+            ConcertEvents.instance.e_SongStarted.Invoke();
+        }
+
+
+        if (tutorialList.Count > 0)
         {
             currentTutorialIndex = 0;
-            tutorials[currentTutorialIndex].StartTutorial();
+            tutorialList[currentTutorialIndex].StartTutorial();
         }
     }
 
     public void NextTutorial()
     {
-        if (currentTutorialIndex < tutorials.Count)
+        var tutorialList = afterIntermission ? postIntermissionTutorials : tutorials;
+
+        if (currentTutorialIndex < tutorialList.Count)
         {
-            Debug.Log("Completed  "+ tutorials[currentTutorialIndex].name);
-            tutorials[currentTutorialIndex].CompleteTutorial();
+            Debug.Log("Completed " + tutorialList[currentTutorialIndex].name);
+            tutorialList[currentTutorialIndex].CompleteTutorial();
             isWaitingForNextTutorial = true;
             delayTimer = 0f;
         }
@@ -57,6 +67,8 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
+        var tutorialList = afterIntermission ? postIntermissionTutorials : tutorials;
+
         if (isWaitingForNextTutorial)
         {
             delayTimer += Time.fixedUnscaledDeltaTime;
@@ -66,15 +78,17 @@ public class TutorialManager : MonoBehaviour
                 delayTimer = 0f;
                 currentTutorialIndex++;
 
-                if (currentTutorialIndex < tutorials.Count)
+                if (currentTutorialIndex < tutorialList.Count)
                 {
-                    tutorials[currentTutorialIndex].StartTutorial();
+                    tutorialList[currentTutorialIndex].StartTutorial();
                 }
                 else
                 {
-                    Debug.Log("All current tutorials completed.");
-                    if(!afterIntermission)
-                    {ChangeToIntermission();}
+                    if (!afterIntermission)
+                    {
+                        Debug.Log("All Pre Intermission Tutorials completed.");
+                        ChangeToIntermission();
+                    }
                     else
                     {
                         Debug.Log("All tutorials completed.");
@@ -82,7 +96,7 @@ public class TutorialManager : MonoBehaviour
                 }
             }
         }
-        else if (currentTutorialIndex < tutorials.Count && tutorials[currentTutorialIndex].isTutorialCompleted)
+        else if (currentTutorialIndex < tutorialList.Count && tutorialList[currentTutorialIndex].isTutorialCompleted)
         {
             NextTutorial();
         }
@@ -90,7 +104,15 @@ public class TutorialManager : MonoBehaviour
 
     public void ChangeToIntermission()
     {
-        TutorialMusicHandler.instance.StopAudio();
+        if(isInIntermission){return;}
+        
+        if(TutorialMusicHandler.instance)
+        {
+            TutorialMusicHandler.instance.StopAudio();
+        }
+
+        afterIntermission = true;
+
         sceneLoader.SwitchScene(intermissionSwap);  
     }
 

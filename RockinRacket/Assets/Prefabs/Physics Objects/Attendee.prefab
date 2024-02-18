@@ -5102,7 +5102,7 @@ Transform:
   - {fileID: 1898618882784208012}
   - {fileID: 5297383623231975652}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5207397047979551025
 Animator:
@@ -5177,8 +5177,8 @@ MonoBehaviour:
   itemWaitMax: 30
   itemPatienceMin: 15
   itemPatienceMax: 25
-  trashMinAngle: 0
-  trashMaxAngle: 90
+  trashMinAngle: -10
+  trashMaxAngle: 105
   jumpStrength: 5
   solidCollider2D: {fileID: 8691684461889386528}
   anim: {fileID: 5207397047979551025}

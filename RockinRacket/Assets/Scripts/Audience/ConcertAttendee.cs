@@ -76,6 +76,34 @@ public class ConcertAttendee : Attendee
  
     }
 
+    void OnDrawGizmos()
+    {
+        Vector3 directionMinAngle = Quaternion.Euler(0, 0, trashMinAngle) * transform.right;
+        Vector3 directionMaxAngle = Quaternion.Euler(0, 0, trashMaxAngle) * transform.right;
+
+ 
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, directionMinAngle * 5);
+        Gizmos.DrawRay(transform.position, directionMaxAngle * 5); 
+
+        DrawGizmoArc(transform.position, trashMinAngle, trashMaxAngle, 5); 
+    }
+
+    void DrawGizmoArc(Vector3 center, float startAngle, float endAngle, float radius)
+    {
+        int steps = 20; 
+        float angleStep = (endAngle - startAngle) / steps;
+
+        Vector3 previousPoint = center + Quaternion.Euler(0, 0, startAngle) * Vector3.right * radius;
+        for (int i = 1; i <= steps; i++)
+        {
+            Vector3 newDirection = Quaternion.Euler(0, 0, startAngle + angleStep * i) * Vector3.right;
+            Vector3 newPoint = center + newDirection * radius;
+            Gizmos.DrawLine(previousPoint, newPoint);
+            previousPoint = newPoint;
+        }
+    }
+
     private void Start()
     {
         sr = gameObject.GetComponent<SpriteRenderer>();
@@ -293,13 +321,14 @@ public class ConcertAttendee : Attendee
         if (Trash.Length > 0)
         {
             int randomIndex = Random.Range(0, Trash.Length);
-            Debug.Log("Creating trash object index: " + randomIndex);
             CrowdTrash trashObject = Instantiate(Trash[randomIndex], transform.position, Quaternion.identity);
             Rigidbody2D trashRb = trashObject.GetComponent<Rigidbody2D>();
-            trashObject.gameObject.layer = LayerMask.NameToLayer("Trash"); 
             if (trashRb != null)
             {
-                Vector2 forceDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+
+                float angle = UnityEngine.Random.Range(trashMinAngle, trashMaxAngle);
+                Vector2 forceDirection = Quaternion.Euler(0, 0, angle) * Vector2.right;
+
                 float forceMagnitude = Random.Range(minTrashForce, maxTrashForce);
                 trashRb.AddForce(forceDirection * forceMagnitude, ForceMode2D.Impulse);
             }

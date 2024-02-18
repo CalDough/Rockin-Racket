@@ -83,7 +83,7 @@ public class GameLoadHandler : MonoBehaviour
     }
 
     public void OpenStartMenu() { SwitchToScene((int)SceneIndex.StartMenu); }
-    public void OpenMainMenu() { SwitchToScene((int)SceneIndex.MainMenu); }
+    public void OpenMainMenu() { SwitchToScene((int)SceneIndex.Hub); }
     public void OpenVenueSelection() { SwitchToScene((int)SceneIndex.VenueSelection); }
     public void OpenBandManagement() { SwitchToScene((int)SceneIndex.BandManagement); }
     public void OpenShop() { SwitchToScene((int)SceneIndex.Shop); }

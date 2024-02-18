@@ -24,6 +24,7 @@ public class MinigameQueue : MonoBehaviour
     [SerializeField] private MinigameButton MJMinigameButton;
     [SerializeField] private MinigameButton ExtraMinigameButton;
 
+    public bool isQueueActive = false;
     public int MaxActiveMinigames = 1;
     public int MinigameQueueSize = 0;
     [SerializeField] private Queue<MinigameController> minigameQueue = new Queue<MinigameController>();
@@ -42,8 +43,15 @@ public class MinigameQueue : MonoBehaviour
     void Start()
     {
         SetupMinigames();
-        //ConcertEvents.instance.e_ConcertStarted.AddListener(SetupMinigames);
+        ConcertEvents.instance.e_ConcertStarted.AddListener(SetQueueActive);
+        ConcertEvents.instance.e_ConcertEnded.AddListener(SetQueueUnactive);
     }
+
+    public void SetQueueUnactive()
+    {isQueueActive = false;}
+
+    public void SetQueueActive()
+    {isQueueActive = true;}
 
     public void SetupMinigames()
     {
@@ -51,11 +59,14 @@ public class MinigameQueue : MonoBehaviour
         InstantiateMinigames();
     }
 
-    private void Update()
+    void Update()
     {
+        if(!isQueueActive){return;}
+        
         MinigameQueueSize = minigameQueue.Count;
         if (minigameQueue.Count > 0 && activeMinigamesCount < MaxActiveMinigames && Time.time >= nextMinigameActivationTime)
         {
+            Debug.Log("QUEUE UPDATE: Minigame dequeued ");
             ActivateNextMinigame();
         }
     }
@@ -77,6 +88,7 @@ public class MinigameQueue : MonoBehaviour
         {
             Debug.Log("QUEUE: Minigame Added to queue " + minigame.name);
             minigameQueue.Enqueue(minigame);
+            Debug.Log("QUEUE: Minigame Added to queue size" + minigameQueue.Count);
         }
     }
 
