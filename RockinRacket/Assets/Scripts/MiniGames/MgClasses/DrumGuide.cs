@@ -112,6 +112,8 @@ public class DrumGuide : MinigameController
     public override void OpenMinigame()
     {
         ChildCanvasPanels.SetActive(true);
+        HighlightDrum(drumSequence[currentDrumIndex]);
+        ClearAndGenerateStars();
     }
 
     public override void CloseMinigame()
