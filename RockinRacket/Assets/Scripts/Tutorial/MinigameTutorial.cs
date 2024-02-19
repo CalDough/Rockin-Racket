@@ -46,7 +46,7 @@ public class MinigameTutorial : Tutorial
 
     public override void CloseFailureInfo()
     {
-        tutorialInfoUI.HideNote();
+        failureInfoUI.HideNote();
         ResumeGame();
         RestartMechanic();
     }
