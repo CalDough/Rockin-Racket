@@ -14,7 +14,8 @@ public class DialTuning : MinigameController
     public GameObject ChildCanvasPanels; 
     public GameObject dialPrefab; 
     public List<RectTransform> positionObjects; // List of points where dials will be instantiated
-    public List<Dial> dials = new List<Dial>();
+    public List<AnimatedDial> dials = new List<AnimatedDial>();
+    public int unmatchedDialsCount;
 
     /*
     Event and State Logic
@@ -111,44 +112,28 @@ public class DialTuning : MinigameController
 
     public void SpawnDials()
     {
+        unmatchedDialsCount = positionObjects.Count; 
         foreach (RectTransform positionObject in positionObjects)
         {
             GameObject dialObject = Instantiate(dialPrefab, positionObject.position, Quaternion.identity, positionObject);
-            Dial newDial = dialObject.GetComponent<Dial>();
-            
-            if (newDial != null)
+            AnimatedDial newDial = dialObject.GetComponent<AnimatedDial>();
+            if (newDial)
             {
-                dialObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-
-                newDial.SetMarkerAngle(Random.Range(0f, 360f));
-                newDial.currentAngle = Random.Range(0f, 360f);
-                newDial.OnDialMatched += HandleDialMatched;
-                dials.Add(newDial);
-            }
-            else
-            {
-                Debug.LogError("object does not have a Dial component!");
+                newDial.RandomizeDial();
+                newDial.OnDialMatched += () => {
+                    unmatchedDialsCount--;
+                    if (unmatchedDialsCount <= 0) {
+                        FinishMinigame();
+                    }
+                };
             }
         }
-    }
-
-    private void HandleDialMatched()
-    {
-        foreach (Dial dial in dials)
-        {
-            if (!dial.MatchingAngle)
-            {return; }
-        }
-
-        // All dials are matched
-        FinishMinigame();
     }
 
     public void RestartMiniGameLogic()
     {
-        foreach (Dial dial in dials)
+        foreach (AnimatedDial dial in dials)
         {
-            dial.OnDialMatched -= HandleDialMatched;
             Destroy(dial.gameObject);
         }
         dials.Clear();

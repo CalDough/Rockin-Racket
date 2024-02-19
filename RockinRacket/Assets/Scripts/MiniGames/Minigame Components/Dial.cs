@@ -6,6 +6,9 @@ using TMPro;
 
 using FMODUnity;
 
+/*
+    Ignore this class, it's for an old loopable dial with many extra features
+*/
 public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     public TextMeshProUGUI angleText;
@@ -51,6 +54,7 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
             soundInstance.release();
         }
     }
+
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -125,22 +129,19 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         if (rectTransform != null)
         {
             Vector2 worldCenter = rectTransform.TransformPoint(centerPosition);
-            
-            // Draw line and sphere for start angle
+
             float startAngleInRadians = startAngle * Mathf.Deg2Rad;
             Vector2 worldStartHandlePos = worldCenter + new Vector2(Mathf.Cos(startAngleInRadians), Mathf.Sin(startAngleInRadians)) * radius;
             Gizmos.color = Color.red;
             Gizmos.DrawLine(worldCenter, worldStartHandlePos);
             Gizmos.DrawSphere(worldStartHandlePos, 5);
             
-            // Draw line and sphere for end angle
             float endAngleInRadians = endAngle * Mathf.Deg2Rad;
             Vector2 worldEndHandlePos = worldCenter + new Vector2(Mathf.Cos(endAngleInRadians), Mathf.Sin(endAngleInRadians)) * radius;
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(worldCenter, worldEndHandlePos);
             Gizmos.DrawSphere(worldEndHandlePos, 5);
             
-            // Draw line and sphere for current angle
             float currentAngleInRadians = currentAngle * Mathf.Deg2Rad;
             Vector2 worldCurrentHandlePos = worldCenter + new Vector2(Mathf.Cos(currentAngleInRadians), Mathf.Sin(currentAngleInRadians)) * radius;
             Gizmos.color = Color.green;
@@ -200,11 +201,23 @@ public class Dial : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
             UpdateHandle(currentAngle % 360);
             yield return null;
         }
-
+        PlaySound();
         currentAngle = markerAngle; 
         UpdateHandle(currentAngle % 360);
         MatchingAngle = true;
         OnDialMatched?.Invoke(); 
-        PlaySound();
+
     }
+
+    public void RandomizeDial()
+    {
+
+        currentAngle = Random.Range(startAngle, endAngle);
+        UpdateHandle(currentAngle % 360);
+
+        markerAngle = Random.Range(startAngle, endAngle);
+        SetMarkerAngle(markerAngle);
+        isLocked = false;
+    }
+
 }

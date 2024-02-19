@@ -572,10 +572,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorials:
   - {fileID: 1830863121}
-  - {fileID: 358278246}
-  - {fileID: 943897404}
-  - {fileID: 244478915}
   - {fileID: 1337091382}
+  - {fileID: 943897404}
+  - {fileID: 358278246}
+  - {fileID: 244478915}
   - {fileID: 853430084}
   - {fileID: 1649097368}
   - {fileID: 1088295024}
@@ -589,6 +589,7 @@ MonoBehaviour:
   isWaitingForNextTutorial: 0
   delayTimer: 0
   afterIntermission: 1
+  isInIntermission: 0
   tutorialConcertData: {fileID: 11400000, guid: 8fd4fdc08dfa29e4885e207792332725,
     type: 2}
   sceneLoader: {fileID: 1707261570}
@@ -23843,6 +23844,11 @@ PrefabInstance:
     - target: {fileID: 2431620007493499243, guid: 5efe4b70483da19498d8405a82cf6998,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813561327565604906, guid: 5efe4b70483da19498d8405a82cf6998,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

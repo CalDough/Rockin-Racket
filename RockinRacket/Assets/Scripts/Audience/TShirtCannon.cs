@@ -15,6 +15,7 @@ public class TShirtCannon : MonoBehaviour
     public LineRenderer trajectoryLineRenderer;
     public Transform cannonBody;
     public Transform cannonRestTransform; 
+    public string SoundEffectPath;
 
     [Header("Cannon Variables")]
     public List<RequestableItem> AvailableShirtTypes;
@@ -135,6 +136,7 @@ public class TShirtCannon : MonoBehaviour
             Debug.Log("Cannon is on cooldown. Cannot fire");
             return;
         }
+        FMODUnity.RuntimeManager.PlayOneShot(SoundEffectPath);
 
         Shirt firedShirt = Instantiate(tShirtPrefab, shirtSpawnLocation.transform.position, Quaternion.identity);
         Rigidbody2D rb = firedShirt.GetComponent<Rigidbody2D>();
