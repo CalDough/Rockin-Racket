@@ -14,13 +14,17 @@ public class VocalNote : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private float moveSpeed = 5f;
 
-    [SerializeField] private RawImage noteImage;
+    [SerializeField] private Image noteImage;
     [SerializeField] private RectTransform rectTransform;
 
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        noteImage = GetComponent<RawImage>();
+        noteImage = GetComponent<Image>(); 
+        if (AssignedChord != null)
+        {
+            noteImage.color = AssignedChord.GetChordColor(); 
+        }
     }
 
     void FixedUpdate()
@@ -52,13 +56,14 @@ public class VocalNote : MonoBehaviour, IPointerClickHandler
 
     private void ChangeOpacity(float opacity)
     {
-        var sprite = GetComponent<RawImage>();
+        var sprite = GetComponent<Image>();
         if (sprite != null)
         {
             Color color = sprite.color;
             color.a = opacity;
             sprite.color = color;
         }
+
     }
 
     public void DisableNote()

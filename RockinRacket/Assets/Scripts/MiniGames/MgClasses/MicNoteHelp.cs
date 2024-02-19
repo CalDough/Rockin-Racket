@@ -14,16 +14,16 @@ public class MicNoteHelp : MinigameController
 
     [Header("Reference Variables")]
     public GameObject ChildCanvasPanels; 
-    [SerializeField] private Gradient noteColorGradient = new Gradient();
     public RectTransform NoteParentRect;
     public GameObject vocalNotePrefab; 
     public List<VocalNote> notes; 
     public List<Chord> chords;
+    public RawImage BonusZone;
 
     [Header("Settings Variables")]
     [SerializeField] float delayBetweenNotes = 1f; 
     [SerializeField] private int numberOfVocalNotes = 6;
-    //[SerializeField] private int notesAtEnd = 0; 
+    [SerializeField] private int notesAtEnd = 0; 
     [SerializeField] private int currentScore;
 
     /*
@@ -145,31 +145,35 @@ public class MicNoteHelp : MinigameController
         vocalNote.AssignedChord = randomChord;
         vocalNote.GameInstance = this;
 
-        if (noteColorGradient != null)
-        {
-            float colorPosition = (float)notes.Count / numberOfVocalNotes;
-            RawImage noteImage = vocalNoteObject.GetComponent<RawImage>();
-            if (noteImage != null)
-            {
-                noteImage.color = noteColorGradient.Evaluate(colorPosition);
-            }
-        }
-
         notes.Add(vocalNote);
     }
 
     public void NoteClicked(VocalNote vocalNote)
     {
-        //Debug.Log("Note Clicked");
-        currentScore++;
+        if(!vocalNote.IsClickable){return;}
+
+        bool isInBonusZone = RectTransformUtility.RectangleContainsScreenPoint(BonusZone.rectTransform, Input.mousePosition, null);
+        
+        if (isInBonusZone)
+        {
+            Debug.Log("Note was in bonus");
+            currentScore += 2; 
+        }
+        else
+        {
+            Debug.Log("Note was in normal");
+            currentScore++; 
+        }
+
         CheckForCompletion();
     }
 
     public void NoteReachedEnd(VocalNote vocalNote)
     {
+        notesAtEnd++;
         if (!vocalNote.WasClicked)
         {
-            currentScore--;
+            currentScore -= 2;
         }
 
         vocalNote.DisableNote();
@@ -180,6 +184,8 @@ public class MicNoteHelp : MinigameController
 
     private void CheckForCompletion()
     {
+        if(notesAtEnd < numberOfVocalNotes){return;}
+
         bool allNotesProcessed = notes.TrueForAll(note => note.WasClicked || note.HasReachedEnd);
 
         if (allNotesProcessed || currentScore == numberOfVocalNotes)
