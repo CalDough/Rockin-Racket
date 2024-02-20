@@ -82,12 +82,12 @@ public class PauseManager : MonoBehaviour
         pauseAction.Dispose();
     }
 
-    public void PlayBtnDown()
+    public void PlayButtonDown()
     {
         buttonPress.Play();
     }
 
-    public void PlayBtnUp()
+    public void PlayButtonUp()
     {
         buttonRelease.Play();
     }

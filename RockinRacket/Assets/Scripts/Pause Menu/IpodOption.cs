@@ -17,11 +17,11 @@ public class IpodOption : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        pauseManeger.PlayBtnDown();
+        pauseManeger.PlayButtonDown();
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        pauseManeger.PlayBtnUp();
+        pauseManeger.PlayButtonUp();
     }
 
     private IEnumerator ScaleOverTime(Vector3 toScale, float duration)
