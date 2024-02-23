@@ -19,6 +19,7 @@ public class ConcertData : ScriptableObject
     public Sprite backstageBackground;
     public TransitionData returnToConcertLoader;
     public SceneIndex currentLevel;
+    public Levels concertLevelName;
 
     [Header("Concert Player Stats")]
     public bool isPostIntermission = false;

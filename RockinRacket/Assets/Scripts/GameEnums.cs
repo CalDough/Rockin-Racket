@@ -111,3 +111,13 @@ public enum Achievements
     ACH_LEVEL_THREE_COMPLETE,
     ACH_LEVEL_FOUR_COMPLETE
 }
+
+[System.Serializable]
+public enum Levels
+{
+    TUTORIAL,
+    LEVEL_ONE,
+    LEVEL_TWO,
+    LEVEL_THREE,
+    LEVEL_FOUR,
+}

@@ -193,14 +193,11 @@ public class ConcertController : MonoBehaviour
     }
 
     /*
-     *  The following method returns the user to the hub
+     *  The following method saves the relevant concert data
      */
     private void ReturnToHub()
     {
-        //  TODO
-        // Write any needed variables to Game Manager
-        GameManager.Instance.SaveDataPostConcert();
-        //sceneLoader.SwitchScene(returnToHub);
+        GameManager.Instance.UpdateLevelCompletionStatus(cData.concertLevelName, cData.currentConcertLetter[0], (short) cData.currentConcertScore, (short) cData.localMoney);
     }
 
 
