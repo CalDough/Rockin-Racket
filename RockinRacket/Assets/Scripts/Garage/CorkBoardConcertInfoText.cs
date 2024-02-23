@@ -18,29 +18,34 @@ public class CorkBoardConcertInfoText : ScriptableObject
     public string tutorialNotePadDescription;
     public string tutorialStartLevelText;
     public TransitionData tutorialTransitionData;
+    public ConcertData tutorialData;
 
     [Header("Level One")]
     public string levelOneNotePadTitle;
     public string levelOneNotePadDescription;
     public string levelOneStartLevelText;
     public TransitionData levelOneTransitionData;
+    public ConcertData levelOneData;
 
     [Header("Level Two")]
     public string levelTwoNotePadTitle;
     public string levelTwoNotePadDescription;
     public string levelTwoStartLevelText;
     public TransitionData levelTwoTransitionData;
+    public ConcertData levelTwoData;
 
     [Header("Level Three")]
     public string levelThreeNotePadTitle;
     public string levelThreeNotePadDescription;
     public string levelThreeStartLevelText;
     public TransitionData levelThreeTransitionData;
+    public ConcertData levelThreeData;
 
     [Header("Level Four")]
     public string levelFourNotePadTitle;
     public string levelFourNotePadDescription;
     public string levelFourStartLevelText;
     public TransitionData levelFourTransitionData;
+    public ConcertData levelFourData;
 
 }

@@ -79,30 +79,35 @@ public class ConcertBoardController : MonoBehaviour
                 notePadTitle = concertBoardTextData.tutorialNotePadTitle;
                 notePadText = CalculateNotePadText(Levels.TUTORIAL);
                 transition = concertBoardTextData.tutorialTransitionData;
+                GameManager.Instance.currentConcertData = concertBoardTextData.tutorialData;
                 break;
             case Levels.LEVEL_ONE:
                 stickyNoteText = concertBoardTextData.levelOneStartLevelText;
                 notePadTitle = concertBoardTextData.levelOneNotePadTitle;
                 notePadText = CalculateNotePadText(Levels.LEVEL_ONE);
                 transition = concertBoardTextData.levelOneTransitionData;
+                GameManager.Instance.currentConcertData = concertBoardTextData.levelOneData;
                 break;
             case Levels.LEVEL_TWO:
                 stickyNoteText = concertBoardTextData.levelTwoStartLevelText;
                 notePadTitle = concertBoardTextData.levelTwoNotePadTitle;
-                notePadText = CalculateNotePadText(Levels.LEVEL_ONE);
+                notePadText = CalculateNotePadText(Levels.LEVEL_TWO);
                 transition = concertBoardTextData.levelTwoTransitionData;
+                GameManager.Instance.currentConcertData = concertBoardTextData.levelTwoData;
                 break;
             case Levels.LEVEL_THREE:
                 stickyNoteText = concertBoardTextData.levelThreeStartLevelText;
                 notePadTitle = concertBoardTextData.levelThreeNotePadTitle;
-                notePadText = CalculateNotePadText(Levels.LEVEL_ONE);
+                notePadText = CalculateNotePadText(Levels.LEVEL_THREE);
                 transition = concertBoardTextData.levelThreeTransitionData;
+                GameManager.Instance.currentConcertData = concertBoardTextData.levelThreeData;
                 break;
             case Levels.LEVEL_FOUR:
                 stickyNoteText = concertBoardTextData.levelFourStartLevelText;
                 notePadTitle = concertBoardTextData.levelFourNotePadTitle;
-                notePadText = CalculateNotePadText(Levels.LEVEL_ONE);
+                notePadText = CalculateNotePadText(Levels.LEVEL_FOUR);
                 transition = concertBoardTextData.levelFourTransitionData;
+                GameManager.Instance.currentConcertData = concertBoardTextData.levelFourData;
                 break;
             default:
                 stickyNoteText = "Invalid Level";
@@ -127,8 +132,98 @@ public class ConcertBoardController : MonoBehaviour
         }
     }
 
+    /*
+     * 
+     * The following method calculates the text displayed in the description of a level based
+     * on whether or not the player has already completed it
+     * 
+     */
     private string CalculateNotePadText(Levels levelPressed) {
 
-        return "";
+        switch (levelPressed)
+        {
+            case Levels.TUTORIAL:
+                
+                if (GameManager.Instance.CompletedTutorial)
+                {
+                    Debug.Log($"Displaying results stats for {levelPressed.ToString()}");
+                    return FormatConcertScoreData(GameManager.Instance.concertResultsList[0]);
+                }
+                else
+                {
+                    Debug.Log($"Displaying default text for {levelPressed.ToString()}");
+                    return concertBoardTextData.tutorialNotePadDescription;
+                }
+
+                break;
+            case Levels.LEVEL_ONE:
+
+                if (GameManager.Instance.CompletedLevelOne)
+                {
+                    Debug.Log($"Displaying results stats for {levelPressed.ToString()}");
+                    return FormatConcertScoreData(GameManager.Instance.concertResultsList[1]);
+                }
+                else
+                {
+                    Debug.Log($"Displaying default text for {levelPressed.ToString()}");
+                    return concertBoardTextData.levelOneNotePadDescription;
+                }
+
+                break;
+            case Levels.LEVEL_TWO:
+
+                if (GameManager.Instance.CompletedLevelTwo)
+                {
+                    Debug.Log($"Displaying results stats for {levelPressed.ToString()}");
+                    return FormatConcertScoreData(GameManager.Instance.concertResultsList[2]);
+                }
+                else
+                {
+                    Debug.Log($"Displaying default text for {levelPressed.ToString()}");
+                    return concertBoardTextData.levelTwoNotePadDescription;
+                }
+
+                break;
+            case Levels.LEVEL_THREE:
+
+                if (GameManager.Instance.CompletedLevelThree)
+                {
+                    Debug.Log($"Displaying results stats for {levelPressed.ToString()}");
+                    return FormatConcertScoreData(GameManager.Instance.concertResultsList[3]);
+                }
+                else
+                {
+                    Debug.Log($"Displaying default text for {levelPressed.ToString()}");
+                    return concertBoardTextData.levelThreeNotePadDescription;
+                }
+
+                break;
+            case Levels.LEVEL_FOUR:
+
+                if (GameManager.Instance.CompletedLevelFour)
+                {
+                    Debug.Log($"Displaying results stats for {levelPressed.ToString()}");
+                    return FormatConcertScoreData(GameManager.Instance.concertResultsList[4]);
+                }
+                else
+                {
+                    Debug.Log($"Displaying default text for {levelPressed.ToString()}");
+                    return concertBoardTextData.levelFourNotePadDescription;
+                }
+
+                break;
+            default:
+                return "Invalid Level";
+                break;
+        }
+    }
+
+    /*
+     * The following method formats the concert results struct for the given level
+     * 
+     */
+    private string FormatConcertScoreData(ConcertResultData results)
+    {
+        return $"CONCERT GRADE: {results.gradeLetter}\nCONCERT SCORE: {results.gradeScore}\nPROFIT: {results.profitAmount}";
     }
 }

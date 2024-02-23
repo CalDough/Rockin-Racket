@@ -5,6 +5,8 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.Events;
+using Newtonsoft.Json;
+
 
 /*
     This script is a singleton which manages data that is very general or unfit for any specialized script.
@@ -34,17 +36,21 @@ public class GameManager : MonoBehaviour
     public bool CompletedLevelFour;
 
     [Header("Concert Score Data")]
-    public ConcertResultData[] concertResultsList; // This is a list of structs
+    public List<ConcertResultData> concertResultsList = new List<ConcertResultData>(); // This is a list of structs
 
     [Header("SaveFile Settings")]
     private string saveFolderPath = "Player/SaveFiles/";
     private string saveFileName = "GameData.json";
+    private string concertResultSaveFileName = "ConcertData.json";
 
     [Header("Current Concert Data")]
     public ConcertData currentConcertData;
 
     [Header("Events")]
     public UnityEvent e_updateBoardTextOnGameLoad;
+
+    [Header("DEBUG MODE")]
+    public bool isInDebugMode;
 
 
     public static GameManager Instance { get; private set; }
@@ -71,7 +77,15 @@ public class GameManager : MonoBehaviour
     {
         ItemInventory.Initialize(allItems);
         StickerSaver.LoadStickerData();
-        LoadGame();
+        
+        if (isInDebugMode)
+        {
+            NewGame();
+        }
+        else
+        {
+            LoadGame();
+        }
     }
 
     /*
@@ -105,7 +119,20 @@ public class GameManager : MonoBehaviour
         
         File.WriteAllText(saveFolderPath + saveFileName, jsonData);
 
+        SaveConcertResults(concertResultsList, concertResultSaveFileName);
+
         Debug.Log("Game saved to " + saveFolderPath + saveFileName);
+    }
+
+    /*
+    * This method specifically saves concert results data to a separate file
+    * 
+    */
+    private void SaveConcertResults(List<ConcertResultData> concertResults, string filename)
+    {
+        string jsonData = JsonConvert.SerializeObject(concertResults);
+        string filePath = Path.Combine(saveFolderPath, filename);
+        File.WriteAllText(filePath, jsonData);
     }
 
     /*
@@ -134,12 +161,35 @@ public class GameManager : MonoBehaviour
             this.CompletedLevelFour = loadedData.CompletedLevelFour;
             
             SetDifficulty(this.SetMode);
+
+            concertResultsList = LoadConcertResultsData(concertResultSaveFileName);
+
             Debug.Log("Game loaded from " + filePath);
         }
         else
         {
             NewGame();
             Debug.Log("No saved game data found. Loading default game data.");
+        }
+    }
+
+    /*
+    * This method specifically loads the concert results data
+    * 
+    */
+    public List<ConcertResultData> LoadConcertResultsData(string fileName)
+    {
+        string filePath = Path.Combine(saveFolderPath, fileName);
+
+        if (File.Exists(filePath))
+        {
+            string jsonData = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<List<ConcertResultData>>(jsonData);
+        }
+        else
+        {
+            Debug.LogError($"File not found at location {filePath}");
+            return null;
         }
     }
 
@@ -162,16 +212,17 @@ public class GameManager : MonoBehaviour
         CompletedLevelFour = false;
 
         ConcertResultData tutorialResults = new ConcertResultData('X', 0, 0);
-        concertResultsList[0] = tutorialResults;
+        concertResultsList.Add(tutorialResults);
         ConcertResultData levelOneResults = new ConcertResultData('X', 0, 0);
-        concertResultsList[1] = levelOneResults;
+        concertResultsList.Add(levelOneResults);
         ConcertResultData levelTwoResults = new ConcertResultData('X', 0, 0);
-        concertResultsList[2] = levelTwoResults;
+        concertResultsList.Add(levelTwoResults);
         ConcertResultData levelThreeResults = new ConcertResultData('X', 0, 0);
-        concertResultsList[3] = levelThreeResults;
+        concertResultsList.Add(levelThreeResults);
         ConcertResultData levelFourResults = new ConcertResultData('X', 0, 0);
-        concertResultsList[4] = levelFourResults;
+        concertResultsList.Add(levelFourResults);
     }
+
 
     /*
      * This method may be for a feature we are no longer using....
@@ -268,21 +319,25 @@ public class GameManager : MonoBehaviour
         public bool CompletedLevelThree;
         public bool CompletedLevelFour;
     }
+}
 
-    // The following struct is used to score concert score data for each concert
-    public struct ConcertResultData
+// The following class is used to score concert score data for each concert
+
+[System.Serializable]
+public class ConcertResultData
+{
+    public char gradeLetter;
+    public short gradeScore;
+    public short profitAmount;
+
+    public ConcertResultData(char letter, short score, short profit)
     {
-        public char gradeLetter;
-        public short gradeScore;
-        public short profitAmount;
-
-        public ConcertResultData(char letter, short score, short profit)
-        {
-            this.gradeLetter = letter;
-            this.gradeScore = score;
-            this.profitAmount = profit;
-        }
+        this.gradeLetter = letter;
+        this.gradeScore = score;
+        this.profitAmount = profit;
     }
-}   
+}
+
+
 
 
