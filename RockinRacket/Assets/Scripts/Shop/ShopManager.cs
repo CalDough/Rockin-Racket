@@ -83,7 +83,7 @@ public class ShopManager : MonoBehaviour
         {
             case Action.OpenShopMenu: OpenShopMenu(); break;
             case Action.OpenCatalog: OpenShopCatalog(); break;
-            case Action.ExitShop: gameLoadHandler.OpenMainMenu(); break;
+            case Action.ExitShop: gameLoadHandler.OpenBandManagement(); break;
         }
     }
 

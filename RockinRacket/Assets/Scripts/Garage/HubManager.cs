@@ -6,8 +6,7 @@ public class HubManager : MonoBehaviour
 {
     [SerializeField] private GameObject boardScreen;
     [SerializeField] private GameObject car;
-    [SerializeField] private SceneLoader sceneLoader;
-    [SerializeField] private TransitionData concertTransition;
+    [SerializeField] private GameLoadHandler gameLoadHandler;
 
     private readonly float animationDuration = 2f;
     private bool carAnim;
@@ -24,7 +23,7 @@ public class HubManager : MonoBehaviour
             StartCoroutine(CarAnim());
             carAnim = true;
             // start changing scene when animation is 1 second from finishing
-            StartCoroutine(ChangeScene(concertTransition, animationDuration - 1));
+            StartCoroutine(ChangeScene((int)SceneIndex.Shop, animationDuration - 1));
         }
     }
 
@@ -49,9 +48,9 @@ public class HubManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeScene(TransitionData transitionData, float seconds)
+    private IEnumerator ChangeScene(int sceneIndex, float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        sceneLoader.SwitchScene(transitionData);
+        gameLoadHandler.SwitchToScene(sceneIndex);
     }
 }
