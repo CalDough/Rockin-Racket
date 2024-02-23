@@ -32,9 +32,9 @@ public class PauseManager : MonoBehaviour
         UIBlocker.SetActive(false);
     }
 
-    public void OpenMainMenu() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.Hub); }
+    public void OpenMainMenu() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.Garage); }
     public void OpenStartMenu() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.StartMenu); }
-    public void OpenHub() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.Hub); }
+    //public void OpenHub() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.Garage); }
     public void OpenVenueSelection() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.VenueSelection); }
     public void OpenBandManagement() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.BandManagement); }
     public void OpenShop() { ToggleMenu(); gameLoadHandler.SwitchToScene((int)SceneIndex.Shop); }

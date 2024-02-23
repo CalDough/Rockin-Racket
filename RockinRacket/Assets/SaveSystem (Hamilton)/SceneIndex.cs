@@ -13,7 +13,7 @@ public enum SceneIndex
     Cinematic1, // 10
     Cinematic2, // 11
     BeforeFirstConcert, // 12
-    Hub, // 13
+    Garage, // 13
     LevelOne, //14
     Intermission, //15
     LevelTwo, //16
