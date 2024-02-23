@@ -40,12 +40,22 @@ public class RoomManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            StartingRoom();
         }
         else
         {
             Debug.Log("2 instances of room manager attempted to exist, destroying the new one");
             Destroy(this);
         }
+    }
+
+    private void StartingRoom()
+    {
+        foreach (GameObject room in roomList)
+        {
+            room.SetActive(false);
+        }
+        GoToRoom("Ace Room");
     }
 
     public void GoToRoom(String roomName)
