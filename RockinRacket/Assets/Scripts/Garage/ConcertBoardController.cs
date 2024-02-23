@@ -20,22 +20,15 @@ public class ConcertBoardController : MonoBehaviour
     public CorkBoardConcertInfoText concertBoardTextData; // Scriptable object... see file for more info
     public SceneLoader sceneLoader;
 
-    private void Awake()
-    {
-        GameManager.Instance.e_updateBoardTextOnGameLoad.AddListener(UpdateCorkBoardTextOnGameLoadIn);   
-    }
+    [Header("Concert Gating Info")]
+    public char requiredGrade;
+
+    [Header("Debug Mode")]
+    public bool accessAnyLevel;
 
     private void Start()
     {
         SetOnClickListenersForLevelSelectButtons();
-    }
-
-    /*
-     *  The following method updates the cork board text when the scene loads in
-     */
-    public void UpdateCorkBoardTextOnGameLoadIn()
-    {
-
     }
 
     /*
@@ -70,8 +63,10 @@ public class ConcertBoardController : MonoBehaviour
         string notePadTitle = "";
         string notePadText = "";
         TransitionData transition = null;
+        bool canAccessSelectedLevel = false;
 
         // This switch case updates the text info on screen based on the level pressed
+        // It also checks level gating
         switch (levelPressed)
         {
             case Levels.TUTORIAL:
@@ -80,6 +75,7 @@ public class ConcertBoardController : MonoBehaviour
                 notePadText = CalculateNotePadText(Levels.TUTORIAL);
                 transition = concertBoardTextData.tutorialTransitionData;
                 GameManager.Instance.currentConcertData = concertBoardTextData.tutorialData;
+                canAccessSelectedLevel = true;
                 break;
             case Levels.LEVEL_ONE:
                 stickyNoteText = concertBoardTextData.levelOneStartLevelText;
@@ -87,6 +83,12 @@ public class ConcertBoardController : MonoBehaviour
                 notePadText = CalculateNotePadText(Levels.LEVEL_ONE);
                 transition = concertBoardTextData.levelOneTransitionData;
                 GameManager.Instance.currentConcertData = concertBoardTextData.levelOneData;
+
+                if (GameManager.Instance.CompletedTutorial)
+                {
+                    canAccessSelectedLevel = true;
+                }
+
                 break;
             case Levels.LEVEL_TWO:
                 stickyNoteText = concertBoardTextData.levelTwoStartLevelText;
@@ -94,6 +96,12 @@ public class ConcertBoardController : MonoBehaviour
                 notePadText = CalculateNotePadText(Levels.LEVEL_TWO);
                 transition = concertBoardTextData.levelTwoTransitionData;
                 GameManager.Instance.currentConcertData = concertBoardTextData.levelTwoData;
+
+                if (GameManager.Instance.CompletedLevelOne && GameManager.Instance.concertResultsList[1].gradeLetter == requiredGrade)
+                {
+                    canAccessSelectedLevel = true;
+                }
+
                 break;
             case Levels.LEVEL_THREE:
                 stickyNoteText = concertBoardTextData.levelThreeStartLevelText;
@@ -101,6 +109,12 @@ public class ConcertBoardController : MonoBehaviour
                 notePadText = CalculateNotePadText(Levels.LEVEL_THREE);
                 transition = concertBoardTextData.levelThreeTransitionData;
                 GameManager.Instance.currentConcertData = concertBoardTextData.levelThreeData;
+
+                if (GameManager.Instance.CompletedLevelTwo && GameManager.Instance.concertResultsList[2].gradeLetter == requiredGrade)
+                {
+                    canAccessSelectedLevel = true;
+                }
+
                 break;
             case Levels.LEVEL_FOUR:
                 stickyNoteText = concertBoardTextData.levelFourStartLevelText;
@@ -108,6 +122,12 @@ public class ConcertBoardController : MonoBehaviour
                 notePadText = CalculateNotePadText(Levels.LEVEL_FOUR);
                 transition = concertBoardTextData.levelFourTransitionData;
                 GameManager.Instance.currentConcertData = concertBoardTextData.levelFourData;
+
+                if (GameManager.Instance.CompletedLevelThree && GameManager.Instance.concertResultsList[3].gradeLetter == requiredGrade)
+                {
+                    canAccessSelectedLevel = true;
+                }
+
                 break;
             default:
                 stickyNoteText = "Invalid Level";
@@ -122,11 +142,24 @@ public class ConcertBoardController : MonoBehaviour
         boardDescription.text = notePadText;
 
         // Adding the scene transition if the data is not null
-        if (transition != null)
+        if (transition != null && canAccessSelectedLevel)
         {
             startLevelButton.onClick.AddListener(() => sceneLoader.SwitchScene(transition));
         }
-        else
+        // Checking for debug mode override
+        else if (accessAnyLevel && transition != null)
+        {
+            startLevelButton.onClick.AddListener(() => sceneLoader.SwitchScene(transition));
+            Debug.Log("<color=blue> Level access override active </color>");
+        }
+        // Otherwise the player has not unlocked the next level, so we update the button text accordingly
+        else if (!canAccessSelectedLevel)
+        {
+            stickyNote.text = "Previous Concert Score Not High Enough";
+            Debug.Log("<color=orange>Player has not unlocked the selected level</color>");
+        }
+        // Null data check
+        else if (transition == null)
         {
             Debug.LogError("Transition data missing for selected concert");
         }
@@ -219,7 +252,7 @@ public class ConcertBoardController : MonoBehaviour
     }
 
     /*
-     * The following method formats the concert results struct for the given level
+     * The following method formats the concert results class for the given level
      * 
      */
     private string FormatConcertScoreData(ConcertResultData results)

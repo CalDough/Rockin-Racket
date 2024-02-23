@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     public bool CompletedLevelFour;
 
     [Header("Concert Score Data")]
-    public List<ConcertResultData> concertResultsList = new List<ConcertResultData>(); // This is a list of structs
+    public List<ConcertResultData> concertResultsList = new List<ConcertResultData>();
 
     [Header("SaveFile Settings")]
     private string saveFolderPath = "Player/SaveFiles/";
