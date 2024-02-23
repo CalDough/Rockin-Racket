@@ -302,6 +302,8 @@ public class GameManager : MonoBehaviour
         concertResultsList[resultIndex].gradeLetter = letter;
         concertResultsList[resultIndex].gradeScore = score;
         concertResultsList[resultIndex].profitAmount = profit;
+
+        IncrementMoney(profit);
     }
 
 

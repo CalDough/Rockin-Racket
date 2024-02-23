@@ -47,8 +47,10 @@ public class ResultsScreenHandler : MonoBehaviour
 
     private void UpdateResultText()
     {
-        Debug.LogError("<color=red> ERROR building result text </color>");
+        //Debug.LogError("<color=red> ERROR building result text </color>");
         resultPanels.SetActive(true);
+
+        concertResultsText.text = $"GRADE: {ConcertController.instance.cData.currentConcertLetter}\nSCORE: {ConcertController.instance.cData.currentConcertScore}\nPROFIT: {ConcertController.instance.cData.localMoney}";
 
         //StringBuilder resultsBuilder = new StringBuilder();
 
@@ -64,7 +66,7 @@ public class ResultsScreenHandler : MonoBehaviour
         //    string formattedSegmentEarnedRating = segmentEarnedrating.ToString("F2");
         //    resultsBuilder.AppendLine($"Song {i + 1}: {formattedSegmentEarnedRating}/{segmentPotentialrating} Rating");
         //}
-        
+
         //concertResultsText.text = resultsBuilder.ToString();
     }
 

@@ -20,6 +20,7 @@ public class MerchTableUIHandler : MonoBehaviour
     [SerializeField] private GameObject visualContainer;
     [SerializeField] private Image[] keyItemSprites;
     private List<PurchaseableItem> currentItemsList;
+    public int pricePerObject;
 
     [Header("Draggable Objected Related References")]
     public RectTransform destination;
@@ -81,6 +82,7 @@ public class MerchTableUIHandler : MonoBehaviour
             visualContainer.SetActive(false);
             merchTableClass.TriggerNextCustomer(true);
             Debug.Log("<color=green>Customer Fulfilled</color>");
+            GameManager.Instance.currentConcertData.localMoney += pricePerObject;
         }
     }
 }
