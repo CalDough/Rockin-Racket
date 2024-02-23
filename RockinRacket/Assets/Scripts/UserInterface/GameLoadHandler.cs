@@ -30,9 +30,7 @@ public class GameLoadHandler : MonoBehaviour
 
     public void SaveAndExit()
     {
-        GameManager.Instance.SaveGame();
-        ItemInventory.Save();
-        StickerSaver.SaveStickerData();
+        Save();
         Application.Quit();
     }
     public void Save()
