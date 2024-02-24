@@ -5,6 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+/*
+ * This class controls the level selection process in the hub scene
+ * 
+ * 
+ */
+
 public class ConcertBoardController : MonoBehaviour
 {
     [Header("Text Objects")]
