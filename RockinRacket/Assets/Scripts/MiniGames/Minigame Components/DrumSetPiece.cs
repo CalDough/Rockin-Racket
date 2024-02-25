@@ -9,14 +9,22 @@ public class DrumSetPiece : MonoBehaviour, IPointerClickHandler
     public DrumGuide drumGuide; 
     public Image highlightImage;
     public float fadeDuration = 0.5f; 
+    public GameObject alternativeObject; 
 
+    public Animator anim;
+    public Image drumSprite;
+    public string animationName;
+    
     private void Start()
     {
         SetImageOpacity(highlightImage, 0);
+        if (alternativeObject != null) alternativeObject.SetActive(false);
     }
 
     public void HighlightDrum()
     {
+        if (alternativeObject != null) alternativeObject.SetActive(false);
+
         if (highlightImage.gameObject.activeInHierarchy)
         {
             StopAllCoroutines(); 
@@ -28,7 +36,7 @@ public class DrumSetPiece : MonoBehaviour, IPointerClickHandler
         }
     }
     
-    public void HideDrum()
+    public void HideDrum(float fadeDuration)
     {
         if (highlightImage.gameObject.activeInHierarchy)
         {
@@ -73,7 +81,40 @@ public class DrumSetPiece : MonoBehaviour, IPointerClickHandler
         Debug.Log($"{gameObject.name} clicked.");
 
         drumGuide.OnDrumClicked(gameObject);
-
-        HideDrum();
+        if (anim != null)
+        {
+            anim.Play(animationName);
+            HideDrum(.1f);
+            drumSprite.enabled = false; 
+            if (alternativeObject != null) {
+                alternativeObject.SetActive(true); 
+            }
+            StartCoroutine(WaitForAnimation());
+        }
+        else
+        {
+            HideDrum(fadeDuration);
+        }
     }
+
+    IEnumerator WaitForAnimation()
+    {
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length); 
+        drumSprite.enabled = true;
+        if (alternativeObject != null)
+        {
+            alternativeObject.SetActive(false);
+            Debug.Log("Animation Done");
+        }
+    }
+
+    private void OnDisable()
+    {
+        
+        StopAllCoroutines();
+
+        if (drumSprite != null) drumSprite.enabled = true;
+        if (alternativeObject != null) alternativeObject.SetActive(false);
+    }
+
 }

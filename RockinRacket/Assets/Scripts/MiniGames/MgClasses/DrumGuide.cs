@@ -127,7 +127,7 @@ public class DrumGuide : MinigameController
 
         foreach (var drum in Drums)
         {
-            drum.HideDrum();
+            drum.HideDrum(drum.fadeDuration);
         }
         RandomizeDrumSequence();
         if (drumSequence.Count > 0)

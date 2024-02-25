@@ -117,6 +117,8 @@ public class DialTuning : MinigameController
         {
             GameObject dialObject = Instantiate(dialPrefab, positionObject.position, Quaternion.identity, positionObject);
             AnimatedDial newDial = dialObject.GetComponent<AnimatedDial>();
+
+            dials.Add(newDial);
             if (newDial)
             {
                 newDial.RandomizeDial();

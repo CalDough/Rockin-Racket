@@ -269,6 +269,10 @@ MonoBehaviour:
   drumGuide: {fileID: 978844511086182242}
   highlightImage: {fileID: 8698998491543168645}
   fadeDuration: 0.5
+  alternativeObject: {fileID: 0}
+  anim: {fileID: 0}
+  drumSprite: {fileID: 0}
+  animationName: 
 --- !u!1 &1932029503578014384
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,6 +933,10 @@ MonoBehaviour:
   drumGuide: {fileID: 978844511086182242}
   highlightImage: {fileID: 4566439781580976533}
   fadeDuration: 0.5
+  alternativeObject: {fileID: 0}
+  anim: {fileID: 0}
+  drumSprite: {fileID: 0}
+  animationName: 
 --- !u!1 &3030340112523217684
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,7 +949,7 @@ GameObject:
   - component: {fileID: 7515511519780883230}
   - component: {fileID: 406799805789398815}
   m_Layer: 5
-  m_Name: LeftCymbal
+  m_Name: LeftCymbalHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1005,6 +1013,82 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3447580031666556024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4956676690124161141}
+  - component: {fileID: 5216550946961254602}
+  - component: {fileID: 3144545629673364095}
+  m_Layer: 5
+  m_Name: LeftCymbalAnim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4956676690124161141
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447580031666556024}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2793337858568144338}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 44.52, y: -112.26903}
+  m_SizeDelta: {x: 545, y: 804}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5216550946961254602
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447580031666556024}
+  m_CullTransparentMesh: 1
+--- !u!114 &3144545629673364095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3447580031666556024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5bd366006b85e37439888d0689a1a3ba, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3457551094344223623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +1099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2793337858568144338}
   - component: {fileID: 9191895797931571777}
+  - component: {fileID: 6097467694206256265}
   m_Layer: 5
   m_Name: LeftCymbal
   m_TagString: Untagged
@@ -1034,6 +1119,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4956676690124161141}
   - {fileID: 1471947987910739931}
   - {fileID: 9119323390412767710}
   m_Father: {fileID: 4157133189209928389}
@@ -1059,6 +1145,31 @@ MonoBehaviour:
   drumGuide: {fileID: 978844511086182242}
   highlightImage: {fileID: 406799805789398815}
   fadeDuration: 0.5
+  alternativeObject: {fileID: 3447580031666556024}
+  anim: {fileID: 6097467694206256265}
+  drumSprite: {fileID: 2947232830591360508}
+  animationName: Cymbal
+--- !u!95 &6097467694206256265
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3457551094344223623}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 938d7619b9f3c274faebac82bab3ad65, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3533182265048143146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,6 +1452,10 @@ MonoBehaviour:
   drumGuide: {fileID: 978844511086182242}
   highlightImage: {fileID: 2297898324725318843}
   fadeDuration: 0.5
+  alternativeObject: {fileID: 0}
+  anim: {fileID: 0}
+  drumSprite: {fileID: 0}
+  animationName: 
 --- !u!1 &5755761192094674362
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,13 +1487,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 171197241754307648}
+  - {fileID: 1992599348413469737}
   - {fileID: 2793337858568144338}
   - {fileID: 4390512270638731111}
   - {fileID: 2438654738870765223}
   - {fileID: 4785598648750407946}
   - {fileID: 623544458390037855}
   - {fileID: 6208633036468812472}
-  - {fileID: 1992599348413469737}
   - {fileID: 9139682587831062399}
   m_Father: {fileID: 7372617407224212951}
   m_RootOrder: -1
@@ -1436,6 +1551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4785598648750407946}
   - component: {fileID: 4592055276397584674}
+  - component: {fileID: 3069274136641183649}
   m_Layer: 5
   m_Name: RightCymbal
   m_TagString: Untagged
@@ -1455,6 +1571,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3987304204896100418}
   - {fileID: 2836351565006299264}
   - {fileID: 4267763981617803661}
   m_Father: {fileID: 4157133189209928389}
@@ -1480,6 +1597,31 @@ MonoBehaviour:
   drumGuide: {fileID: 978844511086182242}
   highlightImage: {fileID: 4889687641250528687}
   fadeDuration: 0.5
+  alternativeObject: {fileID: 8517381706922102280}
+  anim: {fileID: 3069274136641183649}
+  drumSprite: {fileID: 612164541047729927}
+  animationName: Cymbal2
+--- !u!95 &3069274136641183649
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5920188225116279430}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65753668c64edbb44826190c17f94efa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7066955970754257063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,6 +2054,86 @@ MonoBehaviour:
   drumGuide: {fileID: 978844511086182242}
   highlightImage: {fileID: 8965586272840548372}
   fadeDuration: 0.5
+  alternativeObject: {fileID: 0}
+  anim: {fileID: 0}
+  drumSprite: {fileID: 0}
+  animationName: 
+--- !u!1 &8517381706922102280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3987304204896100418}
+  - component: {fileID: 1159616819702719902}
+  - component: {fileID: 2035064684574650809}
+  m_Layer: 5
+  m_Name: RightCymbalAnim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3987304204896100418
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517381706922102280}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4785598648750407946}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -80.5, y: -112.269}
+  m_SizeDelta: {x: 545, y: 804}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1159616819702719902
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517381706922102280}
+  m_CullTransparentMesh: 1
+--- !u!114 &2035064684574650809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517381706922102280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 6a2b6b29b7cfc9b498746ba6a6a407e3, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8838435117260277649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,6 +2188,10 @@ MonoBehaviour:
   drumGuide: {fileID: 978844511086182242}
   highlightImage: {fileID: 1380554805323322997}
   fadeDuration: 0.5
+  alternativeObject: {fileID: 0}
+  anim: {fileID: 0}
+  drumSprite: {fileID: 0}
+  animationName: 
 --- !u!1 &8840942351829230456
 GameObject:
   m_ObjectHideFlags: 0
