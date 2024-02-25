@@ -29,7 +29,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Start()
     {
-        hasNewDialogue = RoomManager.getInstance().CheckIfInteracted(RoomManager.getInstance().currentHub, characterName);
+        hasNewDialogue = RoomManager.GetInstance().CheckIfInteracted(RoomManager.GetInstance().currentHub, characterName);
         visualCue.SetActive(true);
 
     }
@@ -68,7 +68,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (thisDialogueActive)
         {
-            RoomManager.getInstance().setInteraction(RoomManager.getInstance().currentHub, characterName);
+            RoomManager.GetInstance().SetInteraction(RoomManager.GetInstance().currentHub, characterName);
         }
     }
 

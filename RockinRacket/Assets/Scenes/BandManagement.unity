@@ -1829,7 +1829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &538817067
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2255,7 +2255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &605618248
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6018,7 +6018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1575633563
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7302,6 +7302,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859244296100424239, guid: c149c61be4771ff4bac24868adcaafe9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859244296100424239, guid: c149c61be4771ff4bac24868adcaafe9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859244296100424239, guid: c149c61be4771ff4bac24868adcaafe9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1135687838}
+    - target: {fileID: 6859244296100424239, guid: c149c61be4771ff4bac24868adcaafe9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859244296100424239, guid: c149c61be4771ff4bac24868adcaafe9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SaveDialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859244296100424239, guid: c149c61be4771ff4bac24868adcaafe9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: RoomManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859244296100424239, guid: c149c61be4771ff4bac24868adcaafe9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

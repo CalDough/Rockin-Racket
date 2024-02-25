@@ -19,7 +19,6 @@ public static class StickerSaver
         {
             string filePath = saveFolderPath + stickerData.bandmate.ToString() + saveFileName;
             string jsonData = JsonUtility.ToJson(stickerData, prettyPrint: true);
-            Debug.Log("Saved: " + filePath);
             File.WriteAllText(filePath, jsonData);
         }
     }
@@ -32,7 +31,6 @@ public static class StickerSaver
         {
             string filePath = saveFolderPath + bandmate.ToString() + saveFileName;
             string jsonData = File.ReadAllText(filePath);
-            Debug.Log("Loaded: " + filePath);
             StickerData loadedData = JsonUtility.FromJson<StickerData>(jsonData);
             stickerDatas[(int)bandmate] = loadedData;
         }
