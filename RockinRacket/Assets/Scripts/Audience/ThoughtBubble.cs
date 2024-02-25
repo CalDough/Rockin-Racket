@@ -19,6 +19,7 @@ public class ThoughtBubble : MonoBehaviour
     public void ShowItemThought(RequestableItem requestableItem)
     {
         currentThought = requestableItem;
+        SetColor(currentThought);
         anim.Play("ThoughtBubbleExpand"); 
         srItem.sprite = requestableItemSprites[(int)requestableItem];
         IsOpenedBubble = true; 
@@ -45,6 +46,21 @@ public class ThoughtBubble : MonoBehaviour
         IsOpenedBubble = false; 
     }
 
+    public void SetColor(ConcertAttendee.RequestableItem item)
+    {
+        switch(item)
+        {
+            case RequestableItem.RedShirt:
+                srItem.color = Color.red;
+                break;
+            case RequestableItem.BlackShirt:
+                srItem.color = Color.black;
+                break;
+            case RequestableItem.WhiteShirt:
+                srItem.color = Color.white;
+                break;
+        }
+    }
     /*
     public void StartTimer(float duration)
     {

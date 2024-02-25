@@ -30,20 +30,14 @@ public class ConcertAttendee : Attendee
     public RequestableItem wantedItem = RequestableItem.RedShirt;
     [SerializeField] private CrowdTrash[] Trash; 
     [SerializeField] private ThoughtBubble thoughtBubble; 
-    public int maxMoodRating = 100;
-    public int minMoodRating = 0;
 
-    public int itemMoodBonus = 25;
-    public int itemMoodNegative = -10;
-    public int minigameMoodBonus = 15;
-    public int minigameMoodNegative = -15;
+    //0 = min, 90 = max
+    public int MoodScore = 45;
 
-    public int hypeMoodThreshold = 80;
-    public int pleasedMoodThreshold = 45;
-
+    //How long before an item is wanted
     public float itemWaitMin = 15f;
     public float itemWaitMax = 30f;
-
+    //How long they will have their thought bubble up
     public float itemPatienceMin = 15f;
     public float itemPatienceMax = 25f;
 
@@ -62,6 +56,8 @@ public class ConcertAttendee : Attendee
     [SerializeField] ParticleSystem pleasedParticles; 
     [SerializeField] ParticleSystem hypedParticles; 
 
+    [SerializeField] private string CheerAudioPath = "Audience_Excited";
+    [SerializeField] private string BooAudioPath = "Audience_Excited";
     [SerializeField] private string HypedAnimation = "Audience_Excited";
     [SerializeField] private string PleasedAnimation = "Audience_Happy";
     [SerializeField] private string FrustratedAnimation = "Audience_Normal";
@@ -74,34 +70,6 @@ public class ConcertAttendee : Attendee
     public override void Init()
     {
  
-    }
-
-    void OnDrawGizmos()
-    {
-        Vector3 directionMinAngle = Quaternion.Euler(0, 0, trashMinAngle) * transform.right;
-        Vector3 directionMaxAngle = Quaternion.Euler(0, 0, trashMaxAngle) * transform.right;
-
- 
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, directionMinAngle * 5);
-        Gizmos.DrawRay(transform.position, directionMaxAngle * 5); 
-
-        DrawGizmoArc(transform.position, trashMinAngle, trashMaxAngle, 5); 
-    }
-
-    void DrawGizmoArc(Vector3 center, float startAngle, float endAngle, float radius)
-    {
-        int steps = 20; 
-        float angleStep = (endAngle - startAngle) / steps;
-
-        Vector3 previousPoint = center + Quaternion.Euler(0, 0, startAngle) * Vector3.right * radius;
-        for (int i = 1; i <= steps; i++)
-        {
-            Vector3 newDirection = Quaternion.Euler(0, 0, startAngle + angleStep * i) * Vector3.right;
-            Vector3 newPoint = center + newDirection * radius;
-            Gizmos.DrawLine(previousPoint, newPoint);
-            previousPoint = newPoint;
-        }
     }
 
     private void Start()
@@ -183,15 +151,16 @@ public class ConcertAttendee : Attendee
         MinigameEvents.OnMinigameComplete -= HandleEventComplete;
     }
 
-    public void CalculateAttendeeMoodstate(int moodValueChange)
+    public void CalculateMoodstate(int moodValueChange)
     {
-        currentMoodRating += moodValueChange;
-        
-        if(currentMoodRating >= hypeMoodThreshold)
+        MoodScore += moodValueChange;
+        MoodScore = Mathf.Clamp(MoodScore,0,90);
+
+        if(MoodScore >= 65)
         {
             SetMood(MoodState.Hyped);
         }
-        else if(currentMoodRating >= pleasedMoodThreshold)
+        else if(MoodScore >= 30)
         {
             SetMood(MoodState.Pleased);
         }
@@ -237,7 +206,7 @@ public class ConcertAttendee : Attendee
 
     public override void RandomizeAppearance()
     {
-        sr.sprite = appearanceVariations[Random.Range(0, appearanceVariations.Length)];
+
     }
 
     protected override void EndLerp()
@@ -271,7 +240,7 @@ public class ConcertAttendee : Attendee
                 Debug.Log("Attendee Did not get any item");
                 OnItemUnfulfilled();
                 TriggerAttendeeAngryEffect();
-                CalculateAttendeeMoodstate(itemMoodNegative);
+                CalculateMoodstate(-15);
                 thoughtBubble.HideItemThought(wantedItem);
 
             }
@@ -282,18 +251,20 @@ public class ConcertAttendee : Attendee
     public void OnItemObtained()
     {
         TriggerAttendeeHappyEffect();
-        CalculateAttendeeMoodstate(itemMoodBonus);
+        CalculateMoodstate(15);
         onItemFulfilledEvent.Invoke();
         ConcertEvents.instance.e_ScoreChange.Invoke(ScoreBonus);
+        //FMODUnity.RuntimeManager.PlayOneShot(CheerAudioPath);
     }
 
     public void OnItemUnfulfilled()
     {
         TriggerAttendeeAngryEffect();
-        CalculateAttendeeMoodstate(itemMoodNegative);
+        CalculateMoodstate(-15);
         onItemUnfulfilledEvent.Invoke();
         ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);
         CreateTrash();
+        //FMODUnity.RuntimeManager.PlayOneShot(BooAudioPath);
     }
 
     IEnumerator JumpRoutine()
@@ -379,13 +350,13 @@ public class ConcertAttendee : Attendee
 
     public void HandleEventFail(object sender, GameEventArgs e)
     {
-        CalculateAttendeeMoodstate(minigameMoodNegative);
+        CalculateMoodstate(-10);
         CreateTrash();
     }
 
     public void HandleEventComplete(object sender, GameEventArgs e)
     {
-        CalculateAttendeeMoodstate(minigameMoodBonus);
+        CalculateMoodstate(5);
     }
 
     private void StopAllCoroutinesForState()
@@ -443,4 +414,34 @@ public class ConcertAttendee : Attendee
         //Debug.Log("Attendee starting move coroutine");
         MoveCoroutine = StartCoroutine(RandomMovementRoutine());
     }
+
+
+    void OnDrawGizmos()
+    {
+        Vector3 directionMinAngle = Quaternion.Euler(0, 0, trashMinAngle) * transform.right;
+        Vector3 directionMaxAngle = Quaternion.Euler(0, 0, trashMaxAngle) * transform.right;
+
+ 
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, directionMinAngle * 5);
+        Gizmos.DrawRay(transform.position, directionMaxAngle * 5); 
+
+        DrawGizmoArc(transform.position, trashMinAngle, trashMaxAngle, 5); 
+    }
+
+    void DrawGizmoArc(Vector3 center, float startAngle, float endAngle, float radius)
+    {
+        int steps = 20; 
+        float angleStep = (endAngle - startAngle) / steps;
+
+        Vector3 previousPoint = center + Quaternion.Euler(0, 0, startAngle) * Vector3.right * radius;
+        for (int i = 1; i <= steps; i++)
+        {
+            Vector3 newDirection = Quaternion.Euler(0, 0, startAngle + angleStep * i) * Vector3.right;
+            Vector3 newPoint = center + newDirection * radius;
+            Gizmos.DrawLine(previousPoint, newPoint);
+            previousPoint = newPoint;
+        }
+    }
+
 }

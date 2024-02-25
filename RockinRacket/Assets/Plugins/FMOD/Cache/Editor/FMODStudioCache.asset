@@ -1829,12 +1829,14 @@ MonoBehaviour:
   - {fileID: 4657789635970189142}
   - {fileID: -3211472646981073036}
   - {fileID: -5010054126297668996}
+  - {fileID: 460468715762602121}
+  - {fileID: 6606583729322441470}
   EditorParameters: []
   MasterBanks:
   - {fileID: 415837596568815990}
   StringsBanks:
   - {fileID: 2413609373349509689}
-  cacheTime: 638437831663751952
+  cacheTime: 638444780560758664
   cacheVersion: 131603
 --- !u!114 &75886067479314144
 MonoBehaviour:
@@ -1875,10 +1877,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638437831663096957
+  lastModified: 638444780560703654
   FileSizes:
   - Name: Desktop
-    Value: 27228032
+    Value: 27229312
   Exists: 1
 --- !u!114 &432812469506467807
 MonoBehaviour:
@@ -1928,6 +1930,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &460468715762602121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Crowd/Short Cheers
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Crowd/Short Cheers
+  Guid:
+    Data1: -1149261764
+    Data2: 1271476098
+    Data3: -1966112848
+    Data4: 1652062697
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &518613569249785500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2284,10 +2313,10 @@ MonoBehaviour:
   Path: ../FMODRockinRacket/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638437831663111957
+  lastModified: 638444780560758664
   FileSizes:
   - Name: Desktop
-    Value: 4130
+    Value: 4220
   Exists: 1
 --- !u!114 &2570375586446154887
 MonoBehaviour:
@@ -3046,6 +3075,33 @@ MonoBehaviour:
   - Name: Desktop
     Value: 7358560
   Exists: 1
+--- !u!114 &6606583729322441470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Crowd/Short Boos
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Crowd/Short Boos
+  Guid:
+    Data1: 1834151281
+    Data2: 1302277449
+    Data3: -512634706
+    Data4: 496631459
+  Banks:
+  - {fileID: 415837596568815990}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &6609718643870858500
 MonoBehaviour:
   m_ObjectHideFlags: 0

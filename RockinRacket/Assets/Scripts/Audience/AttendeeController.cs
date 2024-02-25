@@ -10,10 +10,9 @@ public class AttendeeController : MonoBehaviour
     Also still want the sound code to be easy to spot in the editor 
     */
     [Header("Attendees Variables")]
-    public List<ConcertAttendee> Attendees;
+    public List<ConcertAttendee> ActiveAttendees;
+    public List<ConcertAttendee> HiddenAttendees;
 
-    public List<float> PotentialConcertRatings;
-    public List<float> EarnedConcertRatings;
     public List<float> ConcertTrashPerSong;
 
     [Header("Trash Variables")]
@@ -38,79 +37,14 @@ public class AttendeeController : MonoBehaviour
 
     void Start()
     {
-        SubscribeEvents();
+        ConcertEvents.instance.e_SongEnded.AddListener(CalculateTotalTrash);
     }
 
     void OnDestroy()
     {
-        UnsubscribeEvents();
+
     }
 
-    private void SubscribeEvents()
-    {
-        MinigameEvents.OnMinigameFail += HandleEventFail;
-        MinigameEvents.OnMinigameComplete += HandleEventComplete;
-        //StateEvent.OnStateStart += HandleGameStateStart;
-        //StateEvent.OnStateEnd += HandleGameStateEnd;
-    }
-
-    private void UnsubscribeEvents()
-    {
-        MinigameEvents.OnMinigameFail -= HandleEventFail;
-        MinigameEvents.OnMinigameComplete -= HandleEventComplete;
-        //StateEvent.OnStateStart -= HandleGameStateStart;
-        //StateEvent.OnStateEnd -= HandleGameStateEnd;
-    }
-
-    public void HandleEventFail(object sender, GameEventArgs e)
-    {
-        //TODO 
-    }
-
-    public void HandleEventComplete(object sender, GameEventArgs e)
-    {
-        //TODO 
-    }
-
-    //public void HandleGameStateStart(object sender, StateEventArgs e)
-    //{
-    //    switch(e.state.stateType)
-    //    {
-    //        case StateType.Song:
-    //            //TODO 
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
-    
-    //private void HandleGameStateEnd(object sender, StateEventArgs e)
-    //{
-    //    switch(e.state.stateType)
-    //    {
-    //        case StateType.Song:
-    //            CalculateTotalTrash();
-    //            CalculateTotalRatings();
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
-
-    private void CalculateTotalRatings()
-    {
-        float totalPotentialRating = 0f;
-        float totalEarnedRating = 0f;
-
-        foreach (var attendee in Attendees)
-        {
-            totalPotentialRating += attendee.maxMoodRating;
-            totalEarnedRating += attendee.currentMoodRating;
-        }
-
-        PotentialConcertRatings.Add(totalPotentialRating);
-        EarnedConcertRatings.Add(totalEarnedRating);
-    }
 
     private void CalculateTotalTrash()
     {

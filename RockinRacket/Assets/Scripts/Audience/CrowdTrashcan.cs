@@ -7,6 +7,8 @@ public class CrowdTrashcan : MonoBehaviour
 {
     public UnityEvent TrashCleanedUp;
 
+    public string CleanUpEffectPath = "event:/Sound Effects/Mini-games/Trashcan";
+
     [Header("Score Variables")]
     public int ScoreBonus = 3;
     public int ScorePenalty = -3;
@@ -22,6 +24,8 @@ public class CrowdTrashcan : MonoBehaviour
             TotalTrashCleaned++;
             TrashCleanedUp.Invoke();        
             ConcertEvents.instance.e_ScoreChange.Invoke(ScoreBonus);
+            
+            FMODUnity.RuntimeManager.PlayOneShot(CleanUpEffectPath);
         }
     }
 

@@ -57,14 +57,14 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 15360
+    m_Bits: 0
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 7187
+    m_Bits: 0
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.9}
+  m_Offset: {x: 0, y: -4.91}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -75,7 +75,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.2, y: 8.1}
+  m_Size: {x: 5.2, y: 0.25}
   m_EdgeRadius: 0
 --- !u!1 &5256668154807988653
 GameObject:
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 8642647833533533493}
   - component: {fileID: 1699889833371348104}
   - component: {fileID: 3507822706125072179}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ThoughtBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5162,17 +5162,12 @@ MonoBehaviour:
   currentMood: 2
   wantedItem: 0
   Trash:
-  - {fileID: 1080598794430354281, guid: f7f4d8844342df4419c0daf7abf0df82, type: 3}
   - {fileID: 1080598794430354281, guid: af5a6c77146e6fa478b9c8e212cd3fe9, type: 3}
+  - {fileID: 1080598794430354281, guid: f7f4d8844342df4419c0daf7abf0df82, type: 3}
+  - {fileID: 6866343852478969176, guid: 52cd011bff0f3354fb0a63ed015fe9d6, type: 3}
+  - {fileID: 1677736789439724119, guid: e95f4ff694b920943addc6a68ae05e9f, type: 3}
   thoughtBubble: {fileID: 3507822706125072179}
-  maxMoodRating: 100
-  minMoodRating: 0
-  itemMoodBonus: 25
-  itemMoodNegative: -10
-  minigameMoodBonus: 15
-  minigameMoodNegative: -15
-  hypeMoodThreshold: 80
-  pleasedMoodThreshold: 45
+  MoodScore: 45
   itemWaitMin: 15
   itemWaitMax: 30
   itemPatienceMin: 15
@@ -5186,6 +5181,8 @@ MonoBehaviour:
   frustratedParticles: {fileID: 4891138970309009057}
   pleasedParticles: {fileID: 1846455452976399004}
   hypedParticles: {fileID: 6332795068849330023}
+  CheerAudioPath: event:/Sound Effects/Crowd/Short Cheers
+  BooAudioPath: event:/Sound Effects/Crowd/Short Boos
   HypedAnimation: Audience_Excited_0
   PleasedAnimation: Audience_Happy_0
   FrustratedAnimation: Audience_Normal_0
