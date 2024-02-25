@@ -481,6 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StringStart: {x: 360, y: 0}
   StringEnd: {x: -360, y: 0}
+  chordColor: {fileID: 0}
 --- !u!1 &1266647452268319580
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +644,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StringStart: {x: 360, y: 0}
   StringEnd: {x: -360, y: 0}
+  chordColor: {fileID: 0}
 --- !u!1 &2834771793529341829
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StringStart: {x: 360, y: 0}
   StringEnd: {x: -360, y: 0}
+  chordColor: {fileID: 0}
 --- !u!1 &3894513360037331929
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,6 +826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StringStart: {x: 360, y: 0}
   StringEnd: {x: -360, y: 0}
+  chordColor: {fileID: 0}
 --- !u!1 &4698080953133866123
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,9 +886,11 @@ MonoBehaviour:
   gameplayRemainingDuration: 0
   availabilityTimerDuration: 10
   availabilityRemainingDuration: 0
-  ChildCanvasPanels: {fileID: 7777167024035883679}
-  TargetBandMember: 5
+  ScoreBonus: 25
+  ScorePenalty: -25
   StressFactor: 1
+  TargetBandMember: 5
+  ChildCanvasPanels: {fileID: 7777167024035883679}
   NoteParentRect: {fileID: 8928984333999423367}
   chordnotePrefab: {fileID: 1600542717751180821, guid: e53a3234edc855c468d8130b4b6c48dc,
     type: 3}
@@ -989,6 +995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StringStart: {x: 360, y: 0}
   StringEnd: {x: -360, y: 0}
+  chordColor: {fileID: 0}
 --- !u!1 &5091163426406029330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,8 +1218,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 349.5}
-  m_SizeDelta: {x: 419.7107, y: 49}
+  m_AnchoredPosition: {x: 25, y: 370}
+  m_SizeDelta: {x: 420, y: 49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4877763038259203334
 CanvasRenderer:
@@ -1246,8 +1253,9 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cea1f2c566fd94728bbc6828b8a5ea8f, type: 2}
+  m_sharedMaterial: {fileID: 7046142564123649829, guid: cea1f2c566fd94728bbc6828b8a5ea8f,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1271,15 +1279,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1646,6 +1654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StringStart: {x: 360, y: 0}
   StringEnd: {x: -360, y: 0}
+  chordColor: {fileID: 0}
 --- !u!1 &6720414834655946763
 GameObject:
   m_ObjectHideFlags: 0

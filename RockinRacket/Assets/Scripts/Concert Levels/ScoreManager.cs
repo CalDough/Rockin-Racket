@@ -64,6 +64,12 @@ public class ScoreManager : MonoBehaviour
      */
     private void AdjustLetterText()
     {
+        if(letterText == null)
+        {
+            Debug.Log("LetterText is Null");
+            return;
+        }
+
         if (currentScore < 100)
         {
             letterText.text = "F";
