@@ -5,13 +5,12 @@ using UnityEngine;
 public class AttendeeController : MonoBehaviour
 {
     /*
-    Still redeciding to play a boo in the Attendee class or this class
-    The boo is sort of a multi-person boo sound which sounds odd considering the size of our concert
-    Also still want the sound code to be easy to spot in the editor 
+    Attendees manage their own boos and such
+    In the future, this class may involve swapping attendees out after getting a shirt or getting a low mood score
     */
     [Header("Attendees Variables")]
     public List<ConcertAttendee> ActiveAttendees;
-    public List<ConcertAttendee> HiddenAttendees;
+    //public List<ConcertAttendee> HiddenAttendees;
 
     public List<float> ConcertTrashPerSong;
 

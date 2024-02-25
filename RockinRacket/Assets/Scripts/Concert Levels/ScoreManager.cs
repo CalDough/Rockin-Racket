@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 /*
  * This class handles the score system for the concert
@@ -43,7 +44,7 @@ public class ScoreManager : MonoBehaviour
         }
 
         AdjustLetterText();
-
+        scoreSlider.maxValue = maxScoreValue;
         ConcertEvents.instance.e_ScoreChange.AddListener(AdjustScore);
         ConcertEvents.instance.e_ConcertEnded.AddListener(SaveScore);
     }
@@ -54,6 +55,7 @@ public class ScoreManager : MonoBehaviour
     private void AdjustScore(int scoreAmount)
     {
         currentScore += scoreAmount;
+        Mathf.Clamp(currentScore,0,maxScoreValue);
         scoreSlider.value = currentScore;
 
         AdjustLetterText();
