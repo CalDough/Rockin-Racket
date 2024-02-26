@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276797, g: 0.21589167, b: 0.29782546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1829,7 +1829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &538817067
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2813,6 +2813,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2079515387}
     m_Modifications:
+    - target: {fileID: 2234400780661979672, guid: 38970b50b3d1e49b2b6803db4903aa3a,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5dffbcb0916104580aecd80f5d26ef53,
+        type: 3}
     - target: {fileID: 3505039417798064840, guid: 38970b50b3d1e49b2b6803db4903aa3a,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2918,6 +2924,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 4347113517299101231, guid: 38970b50b3d1e49b2b6803db4903aa3a,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3b98e270ab8884591b612f3ee27308b5,
+        type: 3}
     - target: {fileID: 4347113517299101231, guid: 38970b50b3d1e49b2b6803db4903aa3a,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -6105,7 +6117,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -6119,7 +6131,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1581535227}
   m_OnClick:
     m_PersistentCalls:
@@ -6778,6 +6790,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 242875196}
     m_Modifications:
+    - target: {fileID: 2234400780661979672, guid: 68cc6a7b694634f38ad41d46d3306116,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8d2c81b4e94b4234963694f9cd8d484,
+        type: 3}
     - target: {fileID: 3505039417798064840, guid: 68cc6a7b694634f38ad41d46d3306116,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6883,6 +6901,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -6.98
       objectReference: {fileID: 0}
+    - target: {fileID: 4347113517299101231, guid: 68cc6a7b694634f38ad41d46d3306116,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 828ebfa387e7e4b14a421a89d32bdc82,
+        type: 3}
     - target: {fileID: 4347113517299101231, guid: 68cc6a7b694634f38ad41d46d3306116,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
