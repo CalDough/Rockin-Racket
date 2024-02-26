@@ -23,6 +23,11 @@ public class ShopSelection : MonoBehaviour
 
     public Item GetSelectedItem() { return selectedItem; }
 
+    private void Start()
+    {
+        UpdateText();
+    }
+
     public void SelectItem(Item itemTest)
     {
         selectedItem = itemTest;
@@ -32,17 +37,17 @@ public class ShopSelection : MonoBehaviour
     public void UpdateText()
     {
         // default values
-        nameText.text = "Item Name";
-        descriptionText.text = "Item Description";
+        nameText.text = "~Name~";
+        descriptionText.text = "~Description~";
         costText.text = "Item Cost";
         cartButtonText.text = "Cart";
         equipButtonText.text = "Equip";
 
         if (selectedItem != null)
         {
-            bool isInCart = shopReceipt.IsInCart(selectedItem);
-            bool isBought = ItemInventory.ContainsItem(selectedItem);
-            bool isEquipped = ItemInventory.IsEquipped(selectedItem);
+            //bool isInCart = shopReceipt.IsInCart(selectedItem);
+            //bool isBought = ItemInventory.ContainsItem(selectedItem);
+            //bool isEquipped = ItemInventory.IsEquipped(selectedItem);
             //cartBtn.SetActive(!isBought);
             //equipBtn.SetActive(isBought && !isEquipped);
             nameText.text = selectedItem.name;
