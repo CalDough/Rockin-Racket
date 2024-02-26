@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 public class MousePhysics : MonoBehaviour
 {
     private Camera mainCamera;
-    private CrowdTrash currentlyDragging;
+    [SerializeField] private CrowdTrash currentlyDragging;
     public bool isGamePaused = false;
+    public LayerMask draggableLayer;
     
     void Start()
     {
@@ -45,10 +46,12 @@ public class MousePhysics : MonoBehaviour
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector2.zero);
+            Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, draggableLayer);
 
             if (hit.collider != null)
             {
+                Debug.Log("Hit" + hit.collider.gameObject.name);
                 currentlyDragging = hit.collider.GetComponent<CrowdTrash>();
                 if (currentlyDragging != null)
                 {

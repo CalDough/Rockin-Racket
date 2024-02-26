@@ -254,7 +254,7 @@ public class ConcertAttendee : Attendee
         CalculateMoodstate(15);
         onItemFulfilledEvent.Invoke();
         ConcertEvents.instance.e_ScoreChange.Invoke(ScoreBonus);
-        //FMODUnity.RuntimeManager.PlayOneShot(CheerAudioPath);
+        FMODUnity.RuntimeManager.PlayOneShot(CheerAudioPath);
     }
 
     public void OnItemUnfulfilled()
@@ -264,7 +264,7 @@ public class ConcertAttendee : Attendee
         onItemUnfulfilledEvent.Invoke();
         ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);
         CreateTrash();
-        //FMODUnity.RuntimeManager.PlayOneShot(BooAudioPath);
+        FMODUnity.RuntimeManager.PlayOneShot(BooAudioPath);
     }
 
     IEnumerator JumpRoutine()

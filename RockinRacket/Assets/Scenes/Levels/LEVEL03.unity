@@ -39831,6 +39831,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8298851392785615590, guid: e86222e5d055dbf4292e8c96098d45e3,
+        type: 3}
+      propertyPath: AvailableShirtTypes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298851392785615590, guid: e86222e5d055dbf4292e8c96098d45e3,
+        type: 3}
+      propertyPath: AvailableShirtTypes.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298851392785615590, guid: e86222e5d055dbf4292e8c96098d45e3,
+        type: 3}
+      propertyPath: AvailableShirtTypes.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -45369,7 +45384,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveAttendees: []
-  HiddenAttendees: []
   ConcertTrashPerSong: []
   currentTrashCleanedCount: 0
   currentTrashCount: 0
@@ -47197,7 +47211,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2ef6bc7f9cc484a9f6b170334cadd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentlyDragging: {fileID: 0}
   isGamePaused: 0
+  draggableLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!61 &5890876877250226865
 BoxCollider2D:
   m_ObjectHideFlags: 0

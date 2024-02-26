@@ -12948,6 +12948,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  CleanUpEffectPath: event:/Sound Effects/Mini-games/Trashcan
   ScoreBonus: 3
   ScorePenalty: -3
   TotalTrashCleaned: 0
@@ -51546,7 +51547,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2ef6bc7f9cc484a9f6b170334cadd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentlyDragging: {fileID: 0}
   isGamePaused: 0
+  draggableLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &1830863120
 GameObject:
   m_ObjectHideFlags: 0
@@ -52991,13 +52996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bffb72c302ec444ada6972fd76053c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attendees:
-  - {fileID: 2041189755}
-  - {fileID: 1486208716}
-  - {fileID: 1236197013}
-  - {fileID: 1504458600}
-  PotentialConcertRatings: []
-  EarnedConcertRatings: []
+  ActiveAttendees: []
   ConcertTrashPerSong: []
   currentTrashCleanedCount: 0
   currentTrashCount: 0
@@ -54442,6 +54441,7 @@ MonoBehaviour:
   TrashCleanedUp:
     m_PersistentCalls:
       m_Calls: []
+  CleanUpEffectPath: event:/Sound Effects/Mini-games/Trashcan
   ScoreBonus: 3
   ScorePenalty: -3
   TotalTrashCleaned: 0
@@ -56618,7 +56618,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2ef6bc7f9cc484a9f6b170334cadd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentlyDragging: {fileID: 0}
   isGamePaused: 0
+  draggableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!61 &5890876877250226865
 BoxCollider2D:
   m_ObjectHideFlags: 0

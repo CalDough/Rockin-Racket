@@ -44786,7 +44786,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveAttendees: []
-  HiddenAttendees: []
   ConcertTrashPerSong: []
   currentTrashCleanedCount: 0
   currentTrashCount: 0
@@ -46747,7 +46746,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2ef6bc7f9cc484a9f6b170334cadd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentlyDragging: {fileID: 0}
   isGamePaused: 0
+  draggableLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!61 &5890876877250226865
 BoxCollider2D:
   m_ObjectHideFlags: 0
