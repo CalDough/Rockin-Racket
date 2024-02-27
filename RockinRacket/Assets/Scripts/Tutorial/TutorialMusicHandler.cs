@@ -40,7 +40,19 @@ public class TutorialMusicHandler : MonoBehaviour
         ConcertEvents.instance.e_SongStarted.AddListener(SelectAudio);
         TimeEvents.OnGamePaused += PauseAudio;
         TimeEvents.OnGameResumed += ResumeAudio;        
-        SceneManager.activeSceneChanged += OnSceneChange;
+        SceneManager.sceneUnloaded += OnSceneChange;
+    }
+
+    private void OnSceneChange(Scene arg0)
+    {
+        StopAudio();
+        Debug.Log("Stopping Audio");
+    }
+
+    private void OnSceneChange(Scene arg0, Scene arg1)
+    {
+        StopAudio();
+        Debug.Log("Stopping Audio - this one should not happen");
     }
 
     private void OnDisable()
@@ -50,10 +62,6 @@ public class TutorialMusicHandler : MonoBehaviour
         TimeEvents.OnGameResumed -= ResumeAudio;
     }
 
-    private void OnSceneChange(Scene arg0, Scene arg1)
-    {
-        StopAudio();
-    }
 
     public void SelectAudio()
     {
@@ -119,6 +127,8 @@ public class TutorialMusicHandler : MonoBehaviour
 
     public void StopAudio()
     {
+        ConcertAudioInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        ConcertAudioInstance.release();
         if (ConcertAudioEmitterInstance != null)
         {
             ConcertAudioEmitterInstance.Stop();

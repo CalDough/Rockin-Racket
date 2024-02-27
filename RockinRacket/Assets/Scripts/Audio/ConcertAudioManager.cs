@@ -62,7 +62,7 @@ public class ConcertAudioManager : MonoBehaviour
     void Start()
     {
         //SubscribeEvents();
-        SceneManager.activeSceneChanged += OnSceneChange;
+        SceneManager.sceneUnloaded += OnSceneChange;
         ConcertEvents.instance.e_SongStarted.AddListener(StartConcertAudio);
         TimeEvents.OnGamePaused += PauseConcert;
         TimeEvents.OnGameResumed += ResumeConcert;
@@ -73,6 +73,12 @@ public class ConcertAudioManager : MonoBehaviour
         StopSounds();
     }
 
+    private void OnSceneChange(Scene arg0)
+    {
+        StopSounds();
+        Debug.Log("Stopping Audio");
+    }
+    
     void OnDestroy()
     {
         SceneManager.activeSceneChanged -= OnSceneChange;
@@ -128,6 +134,8 @@ public class ConcertAudioManager : MonoBehaviour
 
     public void StopSounds()
     {
+        ConcertAudioInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        ConcertAudioInstance.release();
         if (ConcertAudioEmitterInstance != null)
         {
             ConcertAudioEmitterInstance.Stop();
@@ -203,61 +211,6 @@ public class ConcertAudioManager : MonoBehaviour
         return availableMembers;
     }
 
-
-    //void SubscribeEvents()
-    //{
-    //    TimeEvents.OnGamePaused += PauseConcert;    
-    //    TimeEvents.OnGameResumed += ResumeConcert;  
-    //    StateEvent.OnStateStart += HandleGameStateStart;
-    //    StateEvent.OnStateEnd += HandleGameStateEnd;
-
-    //    ConcertAudioEvent.OnAudioBroken += AudioBroken;
-    //    ConcertAudioEvent.OnAudioFixed += AudioFixed;
-
-    //    ConcertAudioEvent.OnConcertEnd += ConcertEnd;
-
-    //}
-
-    //void UnsubscribeEvents()
-    //{
-    //    TimeEvents.OnGamePaused -= PauseConcert; 
-    //    TimeEvents.OnGameResumed -= ResumeConcert; 
-    //    StateEvent.OnStateStart -= HandleGameStateStart;
-    //    StateEvent.OnStateEnd -= HandleGameStateEnd;
-
-    //    ConcertAudioEvent.OnAudioBroken -= AudioBroken;
-    //    ConcertAudioEvent.OnAudioFixed -= AudioFixed;
-        
-    //    ConcertAudioEvent.OnConcertEnd -= ConcertEnd;
-    //}
-
-    //public void HandleGameStateStart(object sender, StateEventArgs e)
-    //{
-    //    switch(e.state.stateType)
-    //    {
-    //        case StateType.Song:
-    //            StartConcertAudio();
-    //            break;
-    //        case StateType.Intermission:
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
-    
-    //public void HandleGameStateEnd(object sender, StateEventArgs e)
-    //{
-    //    switch(e.state.stateType)
-    //    {
-    //        case StateType.Song:
-    //            StopSounds();
-    //            break;
-    //        case StateType.Intermission:
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
 
     //public void AudioBroken(object sender, ConcertAudioEventArgs e)
     //{
