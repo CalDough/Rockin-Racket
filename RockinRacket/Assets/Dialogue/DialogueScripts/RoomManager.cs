@@ -240,6 +240,7 @@ public class RoomManager : MonoBehaviour
                 Debug.Log("You have entered an invalid hub, no value updated");
                 break;
         }
+        SaveDialogue();
     }
 
     public static RoomManager GetInstance()

@@ -17,7 +17,7 @@ public class Bookmark : MonoBehaviour, IPointerDownHandler
     {
         //this.color = color;
         image.color = color;
-        this.text.text = itemType.ToString();
+        //this.text.text = itemType.ToString();
         Show(show);
     }
 
