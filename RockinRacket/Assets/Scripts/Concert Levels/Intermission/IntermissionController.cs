@@ -23,6 +23,9 @@ public class IntermissionController : MonoBehaviour
     public Vector2[] merchTableScoreConversions;
     [SerializeField] private MerchTable merchTable;
 
+    [Header("Audio References")]
+    public IntermissionAudioManager intermissionAudioManager;
+
     [Header("Debug Mode")]
     public bool isInDebugMode;
     public ConcertData debugData;

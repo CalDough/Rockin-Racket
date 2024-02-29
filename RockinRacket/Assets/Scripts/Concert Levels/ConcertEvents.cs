@@ -20,6 +20,7 @@ public class ConcertEvents : MonoBehaviour
     public UnityEvent e_SongStarted;
     public UnityEvent e_SongEnded;
     public UnityEvent<int> e_ScoreChange;
+    public UnityEvent<string> e_TriggerSound;
 
 
 
@@ -63,6 +64,11 @@ public class ConcertEvents : MonoBehaviour
         if (e_ScoreChange == null)
         {
             e_ScoreChange = new UnityEvent<int>();
+        }
+
+        if (e_TriggerSound == null)
+        {
+            e_TriggerSound = new UnityEvent<string>();
         }
     }
 }

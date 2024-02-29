@@ -84,6 +84,7 @@ public class MerchTableUIHandler : MonoBehaviour
             merchTableClass.TriggerNextCustomer(true);
             Debug.Log("<color=green>Customer Fulfilled</color>");
             GameManager.Instance.currentConcertData.localMoney += pricePerObject;
+            ConcertEvents.instance.e_TriggerSound.Invoke("checkOut");
         }
     }
 }

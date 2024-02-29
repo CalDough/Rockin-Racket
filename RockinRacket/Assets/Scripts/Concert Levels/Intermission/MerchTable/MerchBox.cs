@@ -44,6 +44,7 @@ public class MerchBox : MonoBehaviour, IPointerDownHandler
             item.GetComponent<DraggablePurchaseableItem>().SetItemName(ownedItem.itemName);
             item.GetComponent<DraggablePurchaseableItem>().SetDestination(destination);
             numToSpawn--;
+            ConcertEvents.instance.e_TriggerSound.Invoke("itemClick");
         }
     }
 
