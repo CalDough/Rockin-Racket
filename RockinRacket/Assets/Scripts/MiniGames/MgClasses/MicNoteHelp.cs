@@ -19,6 +19,9 @@ public class MicNoteHelp : MinigameController
     public List<VocalNote> notes; 
     public List<Chord> chords;
     public RawImage BonusZone;
+    public GameObject starContainer; 
+    public GameObject starPrefab; 
+    private List<StarRating> stars = new List<StarRating>();
 
     [Header("Settings Variables")]
     [SerializeField] float delayBetweenNotes = 1f; 
@@ -69,14 +72,14 @@ public class MicNoteHelp : MinigameController
         MinigameEvents.EventStart(this);
         // Start minigame logic        
         currentScore = 0;
-        //notesAtEnd = 0;
+        notesAtEnd = 0;
         RestartMiniGameLogic();
         ResetGameplayTimer();
         StopSpawnTimer();
         StopAvailabilityTimer();
         StartCoroutine(SpawnVocalNotesWithDelay());
-
-
+        
+        GenerateStars();
     }
 
     public override void FailMinigame()
@@ -150,20 +153,15 @@ public class MicNoteHelp : MinigameController
 
     public void NoteClicked(VocalNote vocalNote)
     {
-        if(!vocalNote.IsClickable){return;}
+        if(!vocalNote.IsClickable){ return; }
 
         bool isInBonusZone = RectTransformUtility.RectangleContainsScreenPoint(BonusZone.rectTransform, Input.mousePosition, null);
-        
-        if (isInBonusZone)
-        {
-            Debug.Log("Note was in bonus");
-            currentScore += 2; 
-        }
-        else
-        {
-            Debug.Log("Note was in normal");
-            currentScore++; 
-        }
+
+        int scoreIncrease = isInBonusZone ? 2 : 1;
+        Debug.Log($"Note was in {(isInBonusZone ? "bonus" : "normal")}");
+        currentScore += scoreIncrease; 
+
+        UpdateStarHighlights();
 
         CheckForCompletion();
     }
@@ -173,18 +171,35 @@ public class MicNoteHelp : MinigameController
         notesAtEnd++;
         if (!vocalNote.WasClicked)
         {
-            currentScore -= 2;
+            currentScore -= 2; 
+            UpdateStarHighlights();
         }
 
         vocalNote.DisableNote();
-        vocalNote.HasReachedEnd = true; 
+        vocalNote.HasReachedEnd = true;
 
         CheckForCompletion();
     }
 
+    private void UpdateStarHighlights()
+    {
+        for (int i = 0; i < stars.Count; i++)
+        {
+            if (i < currentScore)
+            {
+                stars[i].HighlightStars(); 
+            }
+            else
+            {
+                stars[i].HideStars(); 
+            }
+        }
+    }
+
     private void CheckForCompletion()
     {
-        if(notesAtEnd < numberOfVocalNotes){return;}
+
+        if(notes.Count < numberOfVocalNotes){return;}
 
         bool allNotesProcessed = notes.TrueForAll(note => note.WasClicked || note.HasReachedEnd);
 
@@ -214,5 +229,31 @@ public class MicNoteHelp : MinigameController
             Destroy(vocalNote.gameObject);
         }
         notes.Clear();
+        notesAtEnd = 0;
+        currentScore = 0;
     }
+
+    private void GenerateStars()
+    {
+        Debug.Log("Making Stars");
+        for (int i = 0; i < stars.Count; i++)
+        {
+            Destroy(stars[i].gameObject);
+        }
+        stars.Clear();
+
+        int starsToGenerate = numberOfVocalNotes; 
+        for (int i = 0; i < starsToGenerate; i++)
+        {
+            GameObject starObj = Instantiate(starPrefab, starContainer.transform);
+            StarRating star = starObj.GetComponent<StarRating>();
+            if (star != null)
+            {
+                stars.Add(star);
+                star.HideStars();
+            }
+        }
+    }
+    
+
 }
