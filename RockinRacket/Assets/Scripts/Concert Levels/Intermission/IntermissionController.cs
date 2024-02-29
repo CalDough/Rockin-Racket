@@ -38,6 +38,7 @@ public class IntermissionController : MonoBehaviour
         {
             ConcertData gameManagerConcertData = debugData;
             ReadConcertData(gameManagerConcertData);
+            GameManager.Instance.currentConcertData = debugData;
         }
         else
         {

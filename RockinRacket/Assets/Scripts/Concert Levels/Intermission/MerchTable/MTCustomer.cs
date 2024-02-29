@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class MTCustomer : Attendee
 {
-    private bool isInitialized = false;
+    //private bool isInitialized = false;
     private bool markForDestruction = false;
 
     /*
@@ -17,7 +17,7 @@ public class MTCustomer : Attendee
      */
     public override void Init()
     {
-        isInitialized = true;
+        //isInitialized = true;
     }
 
     /*

@@ -72,6 +72,7 @@ public class MerchTableUIHandler : MonoBehaviour
             if (currentItemsList[i].itemName == name)
             {
                 currentItemsList.Remove(currentItemsList[i]);
+                break;
             }
         }
 

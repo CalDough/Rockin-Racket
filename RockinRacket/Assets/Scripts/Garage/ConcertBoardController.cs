@@ -194,7 +194,7 @@ public class ConcertBoardController : MonoBehaviour
                     return concertBoardTextData.tutorialNotePadDescription;
                 }
 
-                break;
+                //break;
             case Levels.LEVEL_ONE:
 
                 if (GameManager.Instance.CompletedLevelOne)
@@ -208,7 +208,7 @@ public class ConcertBoardController : MonoBehaviour
                     return concertBoardTextData.levelOneNotePadDescription;
                 }
 
-                break;
+                //break;
             case Levels.LEVEL_TWO:
 
                 if (GameManager.Instance.CompletedLevelTwo)
@@ -222,7 +222,7 @@ public class ConcertBoardController : MonoBehaviour
                     return concertBoardTextData.levelTwoNotePadDescription;
                 }
 
-                break;
+                //break;
             case Levels.LEVEL_THREE:
 
                 if (GameManager.Instance.CompletedLevelThree)
@@ -236,7 +236,7 @@ public class ConcertBoardController : MonoBehaviour
                     return concertBoardTextData.levelThreeNotePadDescription;
                 }
 
-                break;
+                //break;
             case Levels.LEVEL_FOUR:
 
                 if (GameManager.Instance.CompletedLevelFour)
@@ -250,10 +250,10 @@ public class ConcertBoardController : MonoBehaviour
                     return concertBoardTextData.levelFourNotePadDescription;
                 }
 
-                break;
+                //break;
             default:
                 return "Invalid Level";
-                break;
+                //break;
         }
     }
 

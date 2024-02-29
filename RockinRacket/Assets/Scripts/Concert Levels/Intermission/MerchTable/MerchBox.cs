@@ -31,12 +31,15 @@ public class MerchBox : MonoBehaviour, IPointerDownHandler
      */
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log($"Pointer down detected on {gameObject.name}");
         if (ownedItem != null && numToSpawn != 0)
         {
             GameObject item = Instantiate(ownedItem.itemPrefab, new Vector3(0, 200, 0), Quaternion.identity);
             Transform itemPos = item.transform;
             //item.transform.SetParent(GameObject.FindGameObjectWithTag("PurchaseableItemParent").transform, false);
-            item.transform.SetParent(gameObject.transform, false);
+            //item.transform.SetParent(gameObject.transform, false);
+            item.transform.SetParent(GameObject.FindGameObjectWithTag("MainCanvas").transform, false);
+            item.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 200, gameObject.transform.position.z);
             //item.transform.position = itemPos.position;
             item.GetComponent<DraggablePurchaseableItem>().SetItemName(ownedItem.itemName);
             item.GetComponent<DraggablePurchaseableItem>().SetDestination(destination);
