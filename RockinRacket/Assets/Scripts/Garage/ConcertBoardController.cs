@@ -98,6 +98,11 @@ public class ConcertBoardController : MonoBehaviour
                     canAccessSelectedLevel = true;
                 }
 
+                if (isDemo)
+                {
+                    canAccessSelectedLevel = true;
+                }
+
                 break;
             case Levels.LEVEL_TWO:
                 stickyNoteText = concertBoardTextData.levelTwoStartLevelText;
