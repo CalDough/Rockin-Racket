@@ -57,7 +57,20 @@ public class ScoreManager : MonoBehaviour
     private void AdjustScore(int scoreAmount)
     {
         currentScore += scoreAmount;
-        Mathf.Clamp(currentScore,0,maxScoreValue);
+
+        // Apparently this line isn't working...
+        //Mathf.Clamp(currentScore,0,maxScoreValue);
+
+        if (currentScore <= 0)
+        {
+            currentScore = 0;
+        }
+        else if (currentScore >= maxScoreValue)
+        {
+            currentScore = maxScoreValue;
+        }
+
+
         scoreSlider.value = currentScore;
 
         AdjustLetterText();
