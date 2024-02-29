@@ -65,6 +65,7 @@ public class RoomManager : MonoBehaviour
 
     public void GoToRoom(String roomName)
     {
+        print(roomName);
         if (roomName != "")
         {
             for (int i = 0; i < roomList.Count; i++)
@@ -72,6 +73,7 @@ public class RoomManager : MonoBehaviour
                 GameObject currentRoom = roomList[i];
                 if (currentRoom.name == roomName)
                 {
+                    print("found room");
                     currentRoom.SetActive(true);
                 }
                 else
