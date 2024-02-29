@@ -32,6 +32,9 @@ public class ConcertBoardController : MonoBehaviour
     [Header("Debug Mode")]
     public bool accessAnyLevel;
 
+    [Header("Demo Mode RESTRICTED ACCESS")]
+    public bool isDemo;
+
     private void Start()
     {
         SetOnClickListenersForLevelSelectButtons();
@@ -108,6 +111,11 @@ public class ConcertBoardController : MonoBehaviour
                     canAccessSelectedLevel = true;
                 }
 
+                if (isDemo)
+                {
+                    canAccessSelectedLevel = false;
+                }
+
                 break;
             case Levels.LEVEL_THREE:
                 stickyNoteText = concertBoardTextData.levelThreeStartLevelText;
@@ -121,6 +129,11 @@ public class ConcertBoardController : MonoBehaviour
                     canAccessSelectedLevel = true;
                 }
 
+                if (isDemo)
+                {
+                    canAccessSelectedLevel = false;
+                }
+
                 break;
             case Levels.LEVEL_FOUR:
                 stickyNoteText = concertBoardTextData.levelFourStartLevelText;
@@ -132,6 +145,11 @@ public class ConcertBoardController : MonoBehaviour
                 if (GameManager.Instance.CompletedLevelThree && GameManager.Instance.concertResultsList[3].gradeLetter == requiredGrade)
                 {
                     canAccessSelectedLevel = true;
+                }
+
+                if (isDemo)
+                {
+                    canAccessSelectedLevel = false;
                 }
 
                 break;
@@ -161,7 +179,17 @@ public class ConcertBoardController : MonoBehaviour
         // Otherwise the player has not unlocked the next level, so we update the button text accordingly
         else if (!canAccessSelectedLevel)
         {
-            stickyNote.text = "Previous Concert Score Not High Enough";
+
+            if (isDemo && levelPressed != Levels.LEVEL_ONE)
+            {
+                stickyNote.text = "Accessible in full game!";
+
+            }
+            else
+            {
+                stickyNote.text = "Previous Concert Score Not High Enough";
+
+            }
             Debug.Log("<color=orange>Player has not unlocked the selected level</color>");
         }
         // Null data check
