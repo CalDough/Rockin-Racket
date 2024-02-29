@@ -17,6 +17,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int currentScore;
     [SerializeField] private int scoreStartingValue;
     [SerializeField] private int maxScoreValue;
+    [SerializeField] private string scoreLetter;
 
     [Header("UI References")]
     public TMP_Text letterText;
@@ -35,6 +36,7 @@ public class ScoreManager : MonoBehaviour
             //currentScore = GameManager.Instance.currentConcertScore;
             currentScore = GameManager.Instance.currentConcertData.currentConcertScore;
             scoreSlider.value = currentScore;
+            scoreLetter = GameManager.Instance.currentConcertData.currentConcertLetter;
         }
         else
         {
@@ -75,22 +77,27 @@ public class ScoreManager : MonoBehaviour
         if (currentScore < 100)
         {
             letterText.text = "F";
+            scoreLetter = "F";
         }
         else if(currentScore < 200)
         {
             letterText.text = "D";
+            scoreLetter = "D";
         }
         else if (currentScore < 300)
         {
             letterText.text = "C";
+            scoreLetter = "C";
         }
         else if (currentScore < 400)
         {
             letterText.text = "B";
+            scoreLetter = "B";
         }
         else if (currentScore < 500)
         {
             letterText.text = "A";
+            scoreLetter = "A";
         }
 
         SaveScore();
@@ -104,6 +111,7 @@ public class ScoreManager : MonoBehaviour
         //GameManager.Instance.currentConcertScore = currentScore;
         GameManager.Instance.currentConcertData.currentConcertScore = currentScore;
         //GameManager.Instance.currentConcertLetter = letterText.text;
-        GameManager.Instance.currentConcertData.currentConcertLetter = letterText.text;
+        GameManager.Instance.currentConcertData.currentConcertLetter = scoreLetter;
+        //GameManager.Instance.currentConcertData.currentConcertLetter = letterText.text;
     }
 }
