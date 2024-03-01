@@ -16,7 +16,7 @@ I'm looking at you Haley. Shame on you.
         #speaker: Harvey #portrait: harvey_speaking_normal-alt #portrait: ace_chill_normal
         Good to hear that I'm not the only one that's gonna be tired. I was having a nice dream.
             
-            #speaker: Ace #portrait: harvey_chill_normal-alt #portrait: ace_speaking_normal-alt
+            #speaker: Ace #portrait: harvey_chill_normal-alt #portrait: ace_speaking_normal-alt2
             So was I! I was floating down a river of chocolate with a slice of pizza in one hand and a quesadilla in the other.
             
             #speaker: Ace #portrait: harvey_chill_intrigued #portrait: ace_speaking_very-bummed
