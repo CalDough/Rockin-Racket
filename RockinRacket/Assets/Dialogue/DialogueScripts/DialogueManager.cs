@@ -45,9 +45,9 @@ public class DialogueManager : MonoBehaviour
     public int numChoices = 0;
     
     //
-    private List<string> splitLines = new List<string>();
-    private bool isSplitLines = false;
-    private int splitLineIndex = 1;
+    // private List<string> splitLines = new List<string>();
+    // private bool isSplitLines = false;
+    // private int splitLineIndex = 1;
 
 
     // Used to determine if a DisplayLine() coroutine is already active
@@ -121,10 +121,7 @@ public class DialogueManager : MonoBehaviour
            && continuePressed)
         {
             ContinueStory();
-        }
-        else if (!canContinueToNextLine && isSplitLines)
-        {
-            ContinueStory();
+            continuePressed = false;
         }
         else if (currentStory.currentChoices.Count == 0 || !canContinueToNextLine)
         {
@@ -163,18 +160,18 @@ public class DialogueManager : MonoBehaviour
     // Method that does what it says
     private void ContinueStory() 
     {
-        if (isSplitLines)
-        {
-            string nextLine = splitLines[splitLineIndex];
-            displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
-            splitLineIndex++;
-            if (splitLineIndex >= splitLines.Count)
-            {
-                isSplitLines = false;
-                splitLineIndex = 1;
-                splitLines.Clear();
-            }
-        }
+        // if (isSplitLines)
+        // {
+        //     string nextLine = splitLines[splitLineIndex];
+        //     displayLineCoroutine = StartCoroutine(DisplayLine(nextLine));
+        //     splitLineIndex++;
+        //     if (splitLineIndex >= splitLines.Count)
+        //     {
+        //         isSplitLines = false;
+        //         splitLineIndex = 1;
+        //         splitLines.Clear();
+        //     }
+        // }
         if (currentStory.canContinue)
         {
             // Stops the active displayLineCoroutine, should it exist 
