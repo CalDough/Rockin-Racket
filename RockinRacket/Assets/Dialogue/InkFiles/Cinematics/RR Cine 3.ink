@@ -5,36 +5,45 @@ INCLUDE ../globals.ink
 === Cine_3 ===
 //Cine 3:
 
-//The band is sitting in their house's den, all watching TV. Harvey rushes in with a piece of paper in his hand.
+//The band is sitting in their house's den, all watching TV. Harvey rushes in with an envelope in his hand.
 
 #speaker: Harvey #portrait: harvey_speaking_normal
-Guys! You are not gonna believe what I have right here.
+Guys! Guess what I got us? Come on, guess!
 
-#speaker: Kurt #portrait: kurt_speaking_normal
-Tickets for a vacation?
+#speaker: Kurt #portrait: kurt_speaking_normal #portrait: harvey_chill_normal
+Oh, um. T-tickets for a vacation?
 
-#speaker: Ace #portrait: ace_speaking_normal
-Paid off medical bills?
+#speaker: Ace #portrait: ace_speaking_normal #portrait: kurt_chill_normal
+Nah, can't be that. Gotta be reservations for a high-end restaurant. Like on of those that cook it in front of you. Mmmmm, my mouths' watering already.
 
-#speaker: MJ #portrait: mj_speaking_normal
-A lease for a new house?
+#speaker: MJ #portrait: mj_speaking_normal #portrait: ace_chill_normal
+Do you literally ever think with your brain instead of your stomach? It's clearly the keys to a new house where we can all have more space.
 
-#speaker: Haley #portrait: haley_speaking_normal
-Checks for large amounts of money?
+#speaker: Haley #portrait: haley_speaking_normal #portrait: mj_chill_normal
+What are you talking about MJ? We don't need a new house. Maybe it's tickets to a concert? I heard that Parrotmore is touring soon. PLEASE be that!
 
-#speaker: Harvey #portrait: harvey_speaking_normal
-So maybe those are all better guesses than the truth, but no. I got us permission to use that old barn in the woods for our next concert!
+#speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_normal
+Why the fluff are you guys so expensive? You're literally all wrong. I got us permission to use the barn in the woods as a venue for us!
 
-#speaker: Haley #portrait: haley_speaking_normal
-That's great and all but are you talking about the run down one?
+#speaker: Haley #portrait: haley_speaking_normal #portrait: harvey_chill_normal
+Oh...
 
-#speaker: Harvey #portrait: harvey_speaking_normal
-I mean, it's been repaired and decorated, so it's not that bad anymore. But it's a way better venue than our garage, right? Let's at least give it a shot.
+#speaker: Haley #portrait: haley_speaking_normal #portrait: harvey_chill_normal
+Great...
 
-#speaker: Haley #portrait: haley_speaking_normal
-Might as well.
+#speaker: Haley #portrait: haley_speaking_normal #portrait: harvey_chill_normal
+We get an old, run-down, barn as a venue. Fun...
 
-#speaker: Harvey #portrait: harvey_speaking_normal
-Sweet. In the meantime, who wants to help hand out flyers?
+#speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_normal
+Don't get your fur in a knot Hals. It's been refurbished by the Criceto's. They have some kind of plans for it but said that we can use it if we want. Plus, it's better than the garage.
+
+#speaker: Ace #portrait: ace_speaking_normal #portrait: kurt_chill_normal
+Dude's got a point. The garage feels too cramped.
+
+#speaker: Haley #portrait: haley_speaking_normal #portrait: harvey_chill_normal
+Ugh, fine. If that's what everyone else wants then I guess we can check it out.
+
+#speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_normal
+Heck yeah! Now who wants to help with the flyers?
 
 -> END

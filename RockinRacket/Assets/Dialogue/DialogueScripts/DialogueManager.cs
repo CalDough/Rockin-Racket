@@ -340,24 +340,33 @@ public class DialogueManager : MonoBehaviour
                     }
                     break;
                 case PORTRAIT_TAG:
-                    switch(tagValue)
+                    string[] portraitSplit = tagValue.Split("_");
+                    if (portraitSplit[0] == "harvey")
                     {
-                        case "harvey_chill_normal": 
-                        {
-                            harveyAnimator.Play(tagValue);
-                            break;
-                        }
-                        case "harvey_speaking_normal": 
-                        {
-                            harveyAnimator.Play(tagValue);
-                            break;
-                        }
-                        default:
-                        {
-                            characterAnimator.Play(tagValue);
-                            break;
-                        }
+                        harveyAnimator.Play(tagValue);
                     }
+                    else
+                    {
+                        characterAnimator.Play(tagValue);
+                    }
+                    // switch(tagValue)
+                    // {
+                    //     case "harvey_chill_normal": 
+                    //     {
+                    //         harveyAnimator.Play(tagValue);
+                    //         break;
+                    //     }
+                    //     case "harvey_speaking_normal": 
+                    //     {
+                    //         harveyAnimator.Play(tagValue);
+                    //         break;
+                    //     }
+                    //     default:
+                    //     {
+                    //         characterAnimator.Play(tagValue);
+                    //         break;
+                    //     }
+                    // }
                     break;
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagValue);

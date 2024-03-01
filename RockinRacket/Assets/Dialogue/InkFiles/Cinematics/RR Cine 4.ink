@@ -5,32 +5,40 @@ INCLUDE ../globals.ink
 === Cine_4 ===
 //Cine 4:
 
-#speaker: Harvey #portrait: harvey_speaking_normal
-That was sick guys, great job!
-
-#speaker: Ace #portrait: ace_speaking_normal
-Give yourself some credit too dude.
-
-#speaker: MJ #portrait: mj_speaking_normal
-Can't believe I'm saying this but Ace's right. I didn't think you had it in you.
-
-#speaker: Haley #portrait: haley_speaking_normal
-Yeah, I hate to say it Harv, but you usually fail to stick around with anything this long.
+//The 5 of them are standing outside of the barn, talking
 
 #speaker: Harvey #portrait: harvey_speaking_normal
-That's not true-
+So? How'd that feel?
 
-#speaker: Kurt #portrait: kurt_speaking_normal
-Baseball, hockey, theater, painting, writing books -
+#speaker: Ace #portrait: ace_speaking_normal #portrait: harvey_chill_normal
+Like I just bit into a fresh cookie.
 
-#speaker: Harvey #portrait: harvey_speaking_normal
-Okay, I get it Kurt. But it's different this time, this is actaully fun.
+#speaker: MJ #portrait: mj_speaking_normal #portrait: ace_chill_normal
+I think what he's getting at was THAT ROCKED!
 
-#speaker: Haley #portrait: haley_speaking_normal
-Let's hope you keep that attitude then because it's only gonna get more hectic at the rate the crowds are growing
+#speaker: Haley #portrait: haley_speaking_normal #portrait: mj_chill_normal
+YES! Especially you Harv, didn't think you'd be able to handle this so well. I thought you'd have given up by now.
 
-#speaker: Harvey #portrait: harvey_speaking_normal
-You got a point. Ah, I forgot to shut out the lights. You guys go on ahead to the van and I'll be there in a second.
+#speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_normal
+When would I ever do that?
+
+#speaker: Kurt #portrait: kurt_speaking_normal #portrait: harvey_chill_normal
+Baseball, hockey, theater, p-painting, writing books -
+
+#speaker: Harvey #portrait: harvey_speaking_normal #portrait: kurt_chill_normal
+Okay, okay, okay, I get the point you little turd. But this time's different, it's ACTUALLY fun.
+
+#speaker: Haley #portrait: haley_speaking_normal #portrait: harvey_chill_normal
+Better keep that 'tude then because it's gonna get even wilder. Fans are gonna be screaming our names from the grand stands one day.
+
+#speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_normal
+Okay, now that's kinda nerve-wracking. I can't wait though. It's gonna be the best feeling in the world.
+
+#speaker: Kurt #portrait: kurt_speaking_normal #portrait: harvey_chill_normal
+Don't mean to b-break the mood, but should those lights in there still be on?
+
+#speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_normal
+Oh crap, I didn't even notice that. You guys head to the van and I'll be there in a sec.
 
 //Harvey pulls out the application and stares at it with a questioning face. After a second, he stuffs it back into his pocket.
 
