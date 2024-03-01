@@ -6,6 +6,7 @@ public class SteamworksIntegration : MonoBehaviour
 {
     public static SteamworksIntegration instance;
     public bool connectedWithSteam = false;
+    public bool isDemo;
 
     void Awake()
     {
@@ -64,6 +65,11 @@ public class SteamworksIntegration : MonoBehaviour
     // Checks to see if an achievement is unlocked
     public bool IsThisAchievementUnlocked(string id)
     {
+        if (isDemo)
+        {
+            return false;
+        }
+
         var ach = new Steamworks.Data.Achievement(id);
 
         Debug.Log($"Achievement {id} status: " + ach.State);
@@ -81,6 +87,12 @@ public class SteamworksIntegration : MonoBehaviour
     // Unlocks an achievement
     public void UnlockAchievement(string id)
     {
+        if (isDemo)
+        {
+            return;
+        }
+
+
         var ach = new Steamworks.Data.Achievement(id);
         ach.Trigger();
 
@@ -90,6 +102,11 @@ public class SteamworksIntegration : MonoBehaviour
     // Mainly for testing purposes
     public void ClearAchievementStatus(string id)
     {
+        if (isDemo)
+        {
+            return;
+        }
+
         var ach = new Steamworks.Data.Achievement(id);
         ach.Clear();
 
