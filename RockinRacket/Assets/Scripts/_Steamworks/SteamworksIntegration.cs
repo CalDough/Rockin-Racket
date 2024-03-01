@@ -25,7 +25,8 @@ public class SteamworksIntegration : MonoBehaviour
     {
         try
         {
-            Steamworks.SteamClient.Init(2767790);
+            //Steamworks.SteamClient.Init(2767790);
+            Steamworks.SteamClient.Init(2767800);
             PrintYourName();
             connectedWithSteam = true;
         }
