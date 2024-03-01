@@ -18,10 +18,7 @@ public class GameManager : MonoBehaviour
 {
     
     [Header("Global Variables Settings")]
-    public int globalFame; //Player Score
     public int globalMoney; //Currency for shops, items
-    public int praise; //Multiplies fame and money potentials for next level
-    public int attention; //Multiplies number of potential attendees
     public DifficultyMode SetMode = DifficultyMode.Normal;
     public float difficultyModifier;
 
@@ -103,10 +100,7 @@ public class GameManager : MonoBehaviour
 
         var gameData = new GameData
         {
-            GlobalFame = this.globalFame,
             GlobalMoney = this.globalMoney,
-            Praise = this.praise,
-            Attention = this.attention,
             SetMode = this.SetMode,
             CompletedTutorial = this.CompletedTutorial,
             CompletedLevelOne = this.CompletedLevelOne,
@@ -149,10 +143,7 @@ public class GameManager : MonoBehaviour
         {
             string jsonData = File.ReadAllText(filePath);
             GameData loadedData = JsonUtility.FromJson<GameData>(jsonData);
-            this.globalFame = loadedData.GlobalFame;
             this.globalMoney = loadedData.GlobalMoney;
-            this.praise = loadedData.Praise;
-            this.attention = loadedData.Attention;
             this.SetMode = loadedData.SetMode;
             this.CompletedTutorial = loadedData.CompletedTutorial;
             this.CompletedLevelOne = loadedData.CompletedLevelOne;
@@ -200,10 +191,7 @@ public class GameManager : MonoBehaviour
      */
     public void NewGame()
     {
-        this.globalFame = 100;
         this.globalMoney = 100;
-        this.praise = 1; 
-        this.attention = 1;
         SetDifficulty(this.SetMode);
         CompletedTutorial = false;
         CompletedLevelOne = false;
@@ -310,10 +298,7 @@ public class GameManager : MonoBehaviour
     [System.Serializable]
     private class GameData
     {
-        public int GlobalFame;
         public int GlobalMoney;
-        public int Praise;
-        public int Attention;
         public DifficultyMode SetMode;
         public bool CompletedTutorial;
         public bool CompletedLevelOne;

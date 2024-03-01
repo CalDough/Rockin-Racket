@@ -12,12 +12,12 @@ public class AttendeeController : MonoBehaviour
     public List<ConcertAttendee> ActiveAttendees;
     //public List<ConcertAttendee> HiddenAttendees;
 
-    public List<float> ConcertTrashPerSong;
+    public List<int> ConcertTrashPerSong;
 
     [Header("Trash Variables")]
     public int currentTrashCleanedCount = 0;
     public int currentTrashCount = 0;
-    public int maxTrashBeforePunishment = 5;
+    public int maxTrashBeforePunishment = 4;
     public float trashNegativeRatingBonus = 2f;
 
     public static AttendeeController Instance { get; private set; }
@@ -44,6 +44,25 @@ public class AttendeeController : MonoBehaviour
 
     }
 
+    public int GetScorePenalty()
+    {
+        int sum = 0;
+        foreach (int trashPerSong in ConcertTrashPerSong)
+        {
+            sum += trashPerSong;
+        }
+
+        int penalty = sum - 5;
+
+        if (penalty < 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return (int)(penalty * trashNegativeRatingBonus);
+        }
+    }
 
     private void CalculateTotalTrash()
     {

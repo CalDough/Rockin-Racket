@@ -81,35 +81,36 @@ public class ScoreManager : MonoBehaviour
      */
     private void AdjustLetterText()
     {
+        /*
         if(letterText == null)
         {
             Debug.Log("LetterText is Null");
             return;
         }
-
+        */
         if (currentScore < 100)
         {
-            letterText.text = "F";
+            //letterText.text = "F";
             scoreLetter = "F";
         }
         else if(currentScore < 200)
         {
-            letterText.text = "D";
+            //letterText.text = "D";
             scoreLetter = "D";
         }
         else if (currentScore < 300)
         {
-            letterText.text = "C";
+            //letterText.text = "C";
             scoreLetter = "C";
         }
         else if (currentScore < 400)
         {
-            letterText.text = "B";
+            //letterText.text = "B";
             scoreLetter = "B";
         }
         else if (currentScore < 500)
         {
-            letterText.text = "A";
+            //letterText.text = "A";
             scoreLetter = "A";
         }
 

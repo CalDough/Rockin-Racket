@@ -159,9 +159,18 @@ public class ConcertController : MonoBehaviour
         }
         else
         {
+            if(AttendeeController.Instance != null)
+            {
+                ConcertEvents.instance.e_ScoreChange.Invoke(-AttendeeController.Instance.GetScorePenalty());
+                Debug.Log("<color=green> Concert Ending - Penalty for trash being applied");
+            }
+
             if (afterIntermission)
             {
                 Debug.Log("<color=green> Concert Ending - No Songs Remaining and After Intermission");
+
+                
+
                 ConcertEvents.instance.e_ConcertEnded.Invoke();
                 resultsScreenButton.gameObject.SetActive(true);
                 //GameManager.Instance.isPostIntermission = false;

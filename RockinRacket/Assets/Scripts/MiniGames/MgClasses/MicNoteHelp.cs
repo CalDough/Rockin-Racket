@@ -203,7 +203,7 @@ public class MicNoteHelp : MinigameController
 
         bool allNotesProcessed = notes.TrueForAll(note => note.WasClicked || note.HasReachedEnd);
 
-        if (allNotesProcessed || currentScore == numberOfVocalNotes)
+        if (allNotesProcessed)
         {
             HandleChordsCompleted();
         }

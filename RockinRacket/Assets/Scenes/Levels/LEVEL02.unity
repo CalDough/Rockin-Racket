@@ -10995,9 +10995,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultPanels: {fileID: 497403021}
-  concertResultsText: {fileID: 638119010}
-  attendeeController: {fileID: 0}
-  crowdTrashcan: {fileID: 2062995981}
+  ScoreValue: {fileID: 0}
+  MoneyValue: {fileID: 0}
+  GradeImage: {fileID: 0}
+  LetterAImage: {fileID: 0}
+  LetterBImage: {fileID: 0}
+  LetterCImage: {fileID: 0}
+  LetterDImage: {fileID: 0}
+  LetterFImage: {fileID: 0}
   attendees: 5
   moneyMultiplier: 25
   moneyEarned: 0
@@ -17346,12 +17351,12 @@ RectTransform:
   - {fileID: 1690627986}
   - {fileID: 275514896}
   - {fileID: 1050360604}
-  - {fileID: 2096554350}
   - {fileID: 1521784918}
   - {fileID: 2017871371}
   - {fileID: 2037818391}
   - {fileID: 167365729}
   - {fileID: 701651686}
+  - {fileID: 2096554350}
   - {fileID: 1575585719}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -18100,6 +18105,9 @@ MonoBehaviour:
   e_ScoreChange:
     m_PersistentCalls:
       m_Calls: []
+  e_TriggerSound:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1147827188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18156,6 +18164,7 @@ MonoBehaviour:
   currentScore: 0
   scoreStartingValue: 250
   maxScoreValue: 500
+  scoreLetter: 
   letterText: {fileID: 1806571158}
   scoreSlider: {fileID: 1521784919}
 --- !u!1001 &1190669584
@@ -45384,7 +45393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActiveAttendees: []
-  ConcertTrashPerSong: []
+  ConcertTrashPerSong: 
   currentTrashCleanedCount: 0
   currentTrashCount: 0
   maxTrashBeforePunishment: 5

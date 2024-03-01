@@ -33,9 +33,6 @@ public class GlobalInfoUI : MonoBehaviour
         string playerInfo = "";
 
         playerInfo += "Money: " + gm.globalMoney + "\n";
-        playerInfo += "Fame: " +  gm.globalFame + "\n";
-        playerInfo += "Praise: " + gm.praise + "\n";
-        playerInfo += "Attention: " + gm.attention + "\n";
         playerInfo += "Difficulty Mode: " + gm.SetMode + "\n";
 
         InfoText.text = playerInfo;

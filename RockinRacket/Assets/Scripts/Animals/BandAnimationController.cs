@@ -80,7 +80,7 @@ public class BandAnimationController : MonoBehaviour
 
     public void StartMovementAnimation()
     {
-        MoveToTarget("Stage");
+        //MoveToTarget("Stage");
         PlayAnimation(playName); //For now i'll always force the characters to play with this
         musicParticleEffect.Play();
         if (moveAndPlay)
