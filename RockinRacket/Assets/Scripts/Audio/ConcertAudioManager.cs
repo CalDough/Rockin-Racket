@@ -27,6 +27,7 @@ public class ConcertAudioManager : MonoBehaviour
 
     [Header("Debug Variables")]
     public bool debugUpdateAudio = false; 
+    [SerializeField] private float brokenValueReduction = .004f;
 
     [Header("Band Variables")] 
     public bool AceAvailable = true;    
@@ -66,6 +67,7 @@ public class ConcertAudioManager : MonoBehaviour
         ConcertEvents.instance.e_SongStarted.AddListener(StartConcertAudio);
         TimeEvents.OnGamePaused += PauseConcert;
         TimeEvents.OnGameResumed += ResumeConcert;
+        ConcertAudioEvent.OnAudioBroken += AudioBroken;
     }
 
     private void OnSceneChange(Scene arg0, Scene arg1)
@@ -85,6 +87,7 @@ public class ConcertAudioManager : MonoBehaviour
         //UnsubscribeEvents();
         TimeEvents.OnGamePaused -= PauseConcert;
         TimeEvents.OnGameResumed -= ResumeConcert;
+        ConcertAudioEvent.OnAudioBroken -= AudioBroken;
     }
 
     void Update()
@@ -95,6 +98,10 @@ public class ConcertAudioManager : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        ReduceBrokenValues();
+    }
 
     private void UpdateFMODParameters()
     {
@@ -157,6 +164,8 @@ public class ConcertAudioManager : MonoBehaviour
                 return "Drums";
             case BandRoleName.MJ:
                 return "Bass";
+            case BandRoleName.Harvey:
+                return "Keyboard";
             default:
                 Debug.Log("Trying to affect band member not on list: " + bandName);
                 return "";
@@ -212,37 +221,20 @@ public class ConcertAudioManager : MonoBehaviour
     }
 
 
-    //public void AudioBroken(object sender, ConcertAudioEventArgs e)
-    //{
-    //    if(e.AffectInstrument)
-    //    {
-    //        string instrumentName = BandMemberToInstrument(e.ConcertPosition);
-    //        UpdateBrokenValue(instrumentName, e.StressFactor);
-    //        SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
-    //    }
-    //    else
-    //    {
-    //    }
-    //}
+    public void AudioBroken(object sender, ConcertAudioEventArgs e)
+    {
+        string instrumentName = BandMemberToInstrument(e.ConcertPosition);
+        UpdateBrokenValue(e.ConcertPosition, e.StressFactor);
+        SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
+    }
 
-    //public void AudioFixed(object sender, ConcertAudioEventArgs e)
-    //{
-    //    if(e.AffectInstrument)
-    //    {
-    //        string instrumentName = BandMemberToInstrument(e.ConcertPosition);
-    //        UpdateBrokenValue(instrumentName, -e.StressFactor); // Assuming negative value fixes the instrument
-    //        SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
-    //    }
-    //    else
-    //    {
 
-    //    }
-    //}
-
-    //public void ConcertEnd(object sender, ConcertAudioEventArgs e)
-    //{
-    //    this.StopSounds();
-    //}
+    public void AudioFixed(object sender, ConcertAudioEventArgs e)
+    {
+        string instrumentName = BandMemberToInstrument(e.ConcertPosition);
+        UpdateBrokenValue(e.ConcertPosition, -e.StressFactor); 
+        SetInstrumentBrokenValue(instrumentName, GetBrokenValue(instrumentName));
+    }
 
     private void CheckAndPrintTrackStatus()
     {
@@ -260,21 +252,26 @@ public class ConcertAudioManager : MonoBehaviour
         }
     }
 
-    private void UpdateBrokenValue(string instrumentName, float delta)
+    private void UpdateBrokenValue(BandRoleName concertPosition, float delta)
     {
-        switch(instrumentName)
+        switch(concertPosition)
         {
-            case "Voice":
+            case BandRoleName.Haley:
                 HaleyBrokenValue = Mathf.Clamp(HaleyBrokenValue + delta, 0, 5);
                 break;
-            case "Guitar":
+            case BandRoleName.Kurt:
                 KurtBrokenValue = Mathf.Clamp(KurtBrokenValue + delta, 0, 5);
                 break;
-            case "Drums":
+            case BandRoleName.Ace:
                 AceBrokenValue = Mathf.Clamp(AceBrokenValue + delta, 0, 5);
                 break;
-            case "Bass":
+            case BandRoleName.MJ:
                 MJBrokenValue = Mathf.Clamp(MJBrokenValue + delta, 0, 5);
+                break;
+            case BandRoleName.Harvey:
+                HarveyBrokenValue = Mathf.Clamp(HarveyBrokenValue + delta, 0, 5);
+                break;
+            default:
                 break;
         }
     }
@@ -288,6 +285,39 @@ public class ConcertAudioManager : MonoBehaviour
             case "Drums": return AceBrokenValue;
             case "Bass": return MJBrokenValue;
             default: return 0;
+        }
+    }
+
+    private void ReduceBrokenValues()
+    {
+        if (AceAvailable && AceBrokenValue > 0)
+        {
+            AceBrokenValue = Mathf.Max(0, AceBrokenValue - brokenValueReduction);
+            SetInstrumentBrokenValue("Drums", AceBrokenValue);
+        }
+
+        if (MJAvailable && MJBrokenValue > 0)
+        {
+            MJBrokenValue = Mathf.Max(0, MJBrokenValue - brokenValueReduction);
+            SetInstrumentBrokenValue("Bass", MJBrokenValue);
+        }
+
+        if (HaleyAvailable && HaleyBrokenValue > 0)
+        {
+            HaleyBrokenValue = Mathf.Max(0, HaleyBrokenValue - brokenValueReduction);
+            SetInstrumentBrokenValue("Voice", HaleyBrokenValue);
+        }
+
+        if (KurtAvailable && KurtBrokenValue > 0)
+        {
+            KurtBrokenValue = Mathf.Max(0, KurtBrokenValue - brokenValueReduction);
+            SetInstrumentBrokenValue("Guitar", KurtBrokenValue);
+        }
+
+        if (HarveyAvailable && HarveyBrokenValue > 0)
+        {
+            HarveyBrokenValue = Mathf.Max(0, HarveyBrokenValue - brokenValueReduction);
+            //SetInstrumentBrokenValue("HarveyInstrument", HarveyBrokenValue);
         }
     }
 }

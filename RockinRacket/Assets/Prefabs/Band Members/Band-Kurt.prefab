@@ -10282,7 +10282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 4
-  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 5419743990682039645}
   goodParticleEffect: {fileID: 4151976990858190601}
   musicParticleEffect: {fileID: 7915276580714518622}
@@ -10296,6 +10295,9 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   moveSpeed: 4
   isMoving: 0
+  reduceNoiseStrength: 1
+  particleStrength: 5
+  particleStrengthReduction: 0.004
   moveAndPlay: 0
   moveAndPlayRange: {x: 0.5, y: 1, z: 0.5}
   originalPosition: {x: -2.981818, y: -0.090909, z: -1.3}

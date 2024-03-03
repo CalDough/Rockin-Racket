@@ -284,8 +284,8 @@ MonoBehaviour:
   availabilityRemainingDuration: 0
   ScoreBonus: 25
   ScorePenalty: -25
-  StressFactor: 1
-  TargetBandMember: 4
+  StressFactor: 2.5
+  TargetBandMember: 5
   ChildCanvasPanels: {fileID: 2044143230226848267}
   dialPrefab: {fileID: 5848451508663610905, guid: df62f407fbbe34b409089e2ae6066f16,
     type: 3}
@@ -294,6 +294,7 @@ MonoBehaviour:
   - {fileID: 4889049844011295988}
   - {fileID: 9175006733798336988}
   dials: []
+  unmatchedDialsCount: 0
 --- !u!1 &2818773575204732747
 GameObject:
   m_ObjectHideFlags: 0

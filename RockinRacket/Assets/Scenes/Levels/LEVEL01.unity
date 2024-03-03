@@ -17108,7 +17108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 0
-  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 1373407410}
   goodParticleEffect: {fileID: 942603504}
   musicParticleEffect: {fileID: 0}
@@ -17120,6 +17119,9 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   moveSpeed: 5
   isMoving: 0
+  reduceNoiseStrength: 0
+  particleStrength: 2
+  particleStrengthReduction: 0.004
   moveAndPlay: 0
   moveAndPlayRange: {x: 0.5, y: 1, z: 0.5}
   originalPosition: {x: 0, y: 0, z: 0}
@@ -17255,7 +17257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 0
-  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 1589886730}
   goodParticleEffect: {fileID: 1348567872}
   musicParticleEffect: {fileID: 0}
@@ -17267,6 +17268,9 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   moveSpeed: 5
   isMoving: 0
+  reduceNoiseStrength: 0
+  particleStrength: 2
+  particleStrengthReduction: 0.004
   moveAndPlay: 0
   moveAndPlayRange: {x: 0.5, y: 1, z: 0.5}
   originalPosition: {x: 0, y: 0, z: 0}
@@ -17513,7 +17517,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 0
-  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 411267465}
   goodParticleEffect: {fileID: 1633145528}
   musicParticleEffect: {fileID: 0}
@@ -17525,6 +17528,9 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   moveSpeed: 5
   isMoving: 0
+  reduceNoiseStrength: 0
+  particleStrength: 2
+  particleStrengthReduction: 0.004
   moveAndPlay: 0
   moveAndPlayRange: {x: 0.5, y: 1, z: 0.5}
   originalPosition: {x: 0, y: 0, z: 0}
@@ -44561,7 +44567,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 0
-  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 1817976899}
   goodParticleEffect: {fileID: 427556179}
   musicParticleEffect: {fileID: 0}
@@ -44573,6 +44578,9 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   moveSpeed: 5
   isMoving: 0
+  reduceNoiseStrength: 0
+  particleStrength: 2
+  particleStrengthReduction: 0.004
   moveAndPlay: 0
   moveAndPlayRange: {x: 0.5, y: 1, z: 0.5}
   originalPosition: {x: 0, y: 0, z: 0}
@@ -45299,6 +45307,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7915276580714518622, guid: 40d865a79e9c83a46bd30f6cf0ceac8c,
+        type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8700643735080125814, guid: 40d865a79e9c83a46bd30f6cf0ceac8c,
         type: 3}
       propertyPath: m_Name
@@ -45456,6 +45469,11 @@ PrefabInstance:
         type: 3}
       propertyPath: originalPosition.z
       value: 8.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2687145916493040637, guid: c0db057f06c084e4080dc7771c5f8eb7,
+        type: 3}
+      propertyPath: reduceNoiseStrength
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2687145916493040637, guid: c0db057f06c084e4080dc7771c5f8eb7,
         type: 3}
@@ -46043,6 +46061,7 @@ MonoBehaviour:
   ConcertAudioPath: 
   isPlaying: 0
   debugUpdateAudio: 0
+  brokenValueReduction: 0.004
   AceAvailable: 1
   AceBrokenValue: 0
   MJAvailable: 1

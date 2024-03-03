@@ -75,6 +75,7 @@ public class DialTuning : MinigameController
         CloseMinigame();
         ResetSpawnTimer();
         ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);
+        ConcertAudioEvent.AudioBroken(this, StressFactor, TargetBandMember);
     }
 
     public override void FinishMinigame()

@@ -9,7 +9,6 @@ public class BandAnimationController : MonoBehaviour
     public BandRoleName bandName = BandRoleName.Default;
     
     [Header("Inspector Variables")] 
-    [SerializeField] BandAudioController BandMember;
     [SerializeField] ParticleSystem badParticleEffect;
     [SerializeField] ParticleSystem goodParticleEffect;
     [SerializeField] ParticleSystem musicParticleEffect;
@@ -29,6 +28,11 @@ public class BandAnimationController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool isMoving = false; 
 
+    [Header("Particle Effect Controls")]
+    [SerializeField] private bool reduceNoiseStrength = false;
+    [SerializeField] private float particleStrength = 2f;
+    [SerializeField] private float particleStrengthReduction = .004f;
+
     [Header("Move and Play Settings")]
     [SerializeField] private bool moveAndPlay = false;
     [SerializeField] private Vector3 moveAndPlayRange = new Vector3(.5f, 1f, .5f);  
@@ -36,8 +40,23 @@ public class BandAnimationController : MonoBehaviour
 
     private void Start()
     {
+        ConcertAudioEvent.OnAudioBroken += HandleAudioBroken;
         ConcertEvents.instance.e_ConcertStarted.AddListener(StartMovementAnimation);
         ConcertEvents.instance.e_ConcertEnded.AddListener(StopMovementAnimation);
+    }
+
+    private void FixedUpdate()
+    {
+        if (reduceNoiseStrength)
+        {
+            ReduceMusicParticleEffectNoiseStrength();
+        }
+    }
+
+    private void ReduceMusicParticleEffectNoiseStrength()
+    {
+        var noise = musicParticleEffect.noise;
+        noise.strength = Mathf.Max(0, noise.strength.constant - particleStrengthReduction);
     }
 
     public void PlayAnimation(string animationName)
@@ -95,79 +114,13 @@ public class BandAnimationController : MonoBehaviour
         musicParticleEffect.Stop(); 
     }
 
-    //public void HandleGameStateStart(object sender, StateEventArgs e)
-    //{
 
-    //    switch(e.state.stateType)
-    //    {
-    //        case StateType.SongIntro:
-    //            MoveToTarget("Stage");
-    //            break;
-    //        case StateType.Song:
-    //            MoveToTarget("Stage");
-    //            PlayAnimation(playName); //For now i'll always force the characters to play with this
-    //            musicParticleEffect.Play();
-    //            if(moveAndPlay)
-    //            {
-    //                StartCoroutine(MoveAndPlayRoutine());
-    //            }
-    //            break;
-    //        case StateType.SongOutro:
-    //            if(StateManager.Instance.GetNextStateType() == StateType.IntermissionIntro)
-    //            {MoveToTarget("Backstage");}
-    //            break;
-    //        case StateType.IntermissionIntro:
-    //            MoveToTarget("Backstage");
-    //            break;
-    //        case StateType.Intermission:
-    //            MoveToTarget("Backstage");
-    //            break;
-    //        case StateType.IntermissionOutro:
-    //            MoveToTarget("Stage");
-    //            break;
-    //        default:
-    //            break;
-    //    }
-
-    //}
-
-    //public void HandleGameStateEnd(object sender, StateEventArgs e)
-    //{
-    //    StopAnimation();
-    //    switch(e.state.stateType)
-    //    {
-    //        case StateType.Song:
-    //            PlayAnimation(idleName);
-    //            musicParticleEffect.Stop(); 
-    //            break;
-    //        case StateType.Intermission:
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
-
-    //private void Start()
-    //{
-    //    //ConcertAudioEvent.OnAudioBroken += HandleAudioBroken;
-    //    //ConcertAudioEvent.OnAudioFixed += HandleAudioFixed;
-    //    //ConcertAudioEvent.OnConcertEnd += HandleConcertEnd;
-
-    //    //ConcertAudioEvent.OnPlayingAudio += HandleAudioStart;
-
-    //    //StateEvent.OnStateStart += HandleGameStateStart;
-    //    //StateEvent.OnStateEnd += HandleGameStateEnd;
-    //}
-
-    //private void OnDestroy()
-    //{
-    //    //ConcertAudioEvent.OnAudioBroken -= HandleAudioBroken;
-    //    //ConcertAudioEvent.OnAudioFixed -= HandleAudioFixed;
-    //    //ConcertAudioEvent.OnConcertEnd -= HandleConcertEnd;
-
-    //    //StateEvent.OnStateStart -= HandleGameStateStart;
-    //    //StateEvent.OnStateEnd -= HandleGameStateEnd;
-    //}
+    private void OnDestroy()
+    {
+        ConcertAudioEvent.OnAudioBroken -= HandleAudioBroken;
+        //ConcertAudioEvent.OnAudioFixed -= HandleAudioFixed;
+        //ConcertAudioEvent.OnConcertEnd -= HandleConcertEnd;
+    }
 
     //private void HandleAudioStart(object sender, ConcertAudioEventArgs e)
     //{
@@ -177,25 +130,26 @@ public class BandAnimationController : MonoBehaviour
     //    }
     //}
 
-    //private void HandleAudioBroken(object sender, ConcertAudioEventArgs e)
-    //{
-    //    if (e.ConcertPosition == this.bandName)
-    //    {
-    //        PlayProblemParticles();
-    //        var noise = musicParticleEffect.noise; 
-    //        noise.strength = 3;
-    //    }
-    //}
+    private void HandleAudioBroken(object sender, ConcertAudioEventArgs e)
+    {
+        if (e.ConcertPosition == this.bandName)
+        {
+            PlayProblemParticles();
+            var noise = musicParticleEffect.noise; 
+            noise.strength = particleStrength;
 
-    //private void HandleAudioFixed(object sender, ConcertAudioEventArgs e)
-    //{
-    //    if (e.ConcertPosition == this.bandName)
-    //    {
-    //        PlayFixedParticles();
-    //        var noise = musicParticleEffect.noise; 
-    //        noise.strength = 0;
-    //    }
-    //}
+        }
+    }
+
+    private void HandleAudioFixed(object sender, ConcertAudioEventArgs e)
+    {
+        if (e.ConcertPosition == this.bandName)
+        {
+            PlayFixedParticles();
+            var noise = musicParticleEffect.noise; 
+            noise.strength = 0;
+        }
+    }
 
     //private void HandleConcertEnd(object sender, ConcertAudioEventArgs e)
     //{

@@ -19,7 +19,12 @@ public class DrumSetPiece : MonoBehaviour, IPointerClickHandler
     {
         SetImageOpacity(highlightImage, 0);
         if (alternativeObject != null) alternativeObject.SetActive(false);
+        if (anim != null)
+        {
+            anim.StopPlayback();
+        }
     }
+
 
     public void HighlightDrum()
     {
@@ -115,6 +120,11 @@ public class DrumSetPiece : MonoBehaviour, IPointerClickHandler
 
         if (drumSprite != null) drumSprite.enabled = true;
         if (alternativeObject != null) alternativeObject.SetActive(false);
+        
+        if (anim != null)
+        {
+            anim.StopPlayback();
+        }
     }
 
 }

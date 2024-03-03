@@ -240,7 +240,7 @@ public class BandAudioController : MonoBehaviour
     {
         if(e.ConcertPosition != this.bandName)
         {return;}
-
+        /*
         if(e.AffectInstrument)
         {
             instrumentBrokenValue += e.StressFactor;
@@ -251,13 +251,14 @@ public class BandAudioController : MonoBehaviour
             voiceBrokenValue += e.StressFactor;
             SetInstrumentBrokeLevel();
         }
+        */
     }
 
     public void AudioFixed(object sender, ConcertAudioEventArgs e)
     {
         if(e.ConcertPosition != this.bandName)
         {return;}
-
+        /*
         if(e.AffectInstrument)
         {
             instrumentBrokenValue -= e.StressFactor;
@@ -269,6 +270,7 @@ public class BandAudioController : MonoBehaviour
             voiceBrokenValue -= e.StressFactor;
             SetInstrumentBrokeLevel();
         }
+        */
     }
 
     public void ResyncAudio()
