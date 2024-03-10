@@ -27,17 +27,18 @@ public class KeyboardPlayer : MonoBehaviour
 
     [Header("Settings Variables")]
     [SerializeField] float delayBetweenNotes = 1f; 
-    [SerializeField] float delayBetweenScorePenalty = 2f;
+    //[SerializeField] float delayBetweenScorePenalty = 2f;
     [SerializeField] int notesNeededForScoreBonus = 10;
     [SerializeField] int currentNoteStreak = 0;
 
+    [SerializeField] private float spawnTimer = 0f;
     [SerializeField] float DifficultyModifier = 1.0f;
     [SerializeField] float DifficultyMaxModifier = 3.0f;
 
     void Start()
     {
-        ConcertEvents.instance.e_SongStarted.AddListener(StartNoteSpawning);
-        ConcertEvents.instance.e_SongEnded.AddListener(StopNoteSpawning);
+        ConcertEvents.instance?.e_SongStarted.AddListener(StartNoteSpawning);
+        ConcertEvents.instance?.e_SongEnded.AddListener(StopNoteSpawning);
     }
 
     void Update()
@@ -47,7 +48,18 @@ public class KeyboardPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        if (IsKeyboardPlayerSpawning)
+        {
+            spawnTimer -= Time.fixedDeltaTime;
+
+            if (spawnTimer <= 0f)
+            {
+                SpawnNote();
+                
+                spawnTimer = delayBetweenNotes / DifficultyModifier;
+                DifficultyModifier = Mathf.Min(DifficultyModifier, DifficultyMaxModifier);
+            }
+        }
     }
 
     void StartNoteSpawning()
@@ -65,6 +77,7 @@ public class KeyboardPlayer : MonoBehaviour
         KeyboardAnim.Play("OpenKeyboard");
         OpenButton.gameObject.SetActive(false);
         HideButton.gameObject.SetActive(true);
+        IsKeyboardPlayerOpen = true;
     }
 
     public void HideKeyboardPlayer()
@@ -72,6 +85,7 @@ public class KeyboardPlayer : MonoBehaviour
         KeyboardAnim.Play("HideKeyboard");        
         OpenButton.gameObject.SetActive(true);
         HideButton.gameObject.SetActive(false);
+        IsKeyboardPlayerOpen = false;
     }
 
     void SpawnNote()
@@ -90,7 +104,7 @@ public class KeyboardPlayer : MonoBehaviour
 
     public void NoteWasMissed()
     {
-        ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);        
+        ConcertEvents.instance?.e_ScoreChange.Invoke(ScorePenalty);        
         ConcertAudioEvent.AudioBroken(null, StressFactor, TargetBandMember);
         currentNoteStreak = 0;
     }
@@ -106,6 +120,7 @@ public class KeyboardPlayer : MonoBehaviour
         {
             KeyNote.WasClicked = true;
             currentNoteStreak++;
+            DifficultyModifier += .03f;
         }
         if(currentNoteStreak >= notesNeededForScoreBonus )
         {

@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class KeyboardNote : MonoBehaviour
+public class KeyboardNote : MonoBehaviour, IPointerClickHandler
 {
     [field:SerializeField] public bool IsClickable { get; private set; } = true;
     [field:SerializeField] public bool WasClicked { get; set; } = false;
     
-    public Chord AssignedChord { get; set; }
-    public KeyboardPlayer GameInstance { get; set; } 
+    [field:SerializeField] public Chord AssignedChord { get; set; }
+    [field:SerializeField] public KeyboardPlayer GameInstance { get; set; } 
 
     [SerializeField] private float moveSpeed = 5f;
 
@@ -25,6 +25,9 @@ public class KeyboardNote : MonoBehaviour
         if (AssignedChord != null)
         {
             noteImage.color = AssignedChord.GetChordColor(); 
+            Color color = noteImage.color;
+            color.a = .75f;
+            noteImage.color = color;
         }
     }
 
@@ -51,6 +54,7 @@ public class KeyboardNote : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Note CLicked");
         if (IsClickable && !WasClicked)
         {
             ChangeOpacity(0.25f); 
