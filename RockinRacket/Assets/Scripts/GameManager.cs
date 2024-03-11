@@ -294,6 +294,14 @@ public class GameManager : MonoBehaviour
         IncrementMoney(profit);
     }
 
+    /*
+     *  This method is called when transitioning back to the concert from the final level
+     */
+    public void SetIntermissionStateOverride()
+    {
+        currentConcertData.isPostIntermission = true;
+    }
+
 
     [System.Serializable]
     private class GameData

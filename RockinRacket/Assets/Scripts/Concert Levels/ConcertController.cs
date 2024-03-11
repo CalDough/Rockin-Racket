@@ -37,6 +37,10 @@ public class ConcertController : MonoBehaviour
     public bool afterIntermission;
     public List<SongData> localConcertSongList;
 
+    [Header("Final Level Details")]
+    public bool isFinalLevel;
+    public TransitionData cinematicEight;
+
 
     /*
      *  In our awake method we are declaring a singleton for this class
@@ -80,7 +84,7 @@ public class ConcertController : MonoBehaviour
 
         // Initializing our Song Data for the Concert
         InitializeConcertSongData(afterIntermission);
-        numSongsRemaining = 2;
+        //numSongsRemaining = 2;
 
         if (afterIntermission)
         {
@@ -107,10 +111,12 @@ public class ConcertController : MonoBehaviour
         if (isPostIntermission)
         {
             localConcertSongList = cData.concertSongsSecondHalf;
+            numSongsRemaining = cData.concertSongsSecondHalf.Count;
         }
         else
         {
             localConcertSongList = cData.concertSongsFirstHalf;
+            numSongsRemaining = cData.concertSongsFirstHalf.Count;
         }
 
         currentSong = localConcertSongList[0];
@@ -178,8 +184,16 @@ public class ConcertController : MonoBehaviour
             }
             else
             {
-                Debug.Log("<color=green> Swapping to Intermission Scene </color>");
-                sceneLoader.SwitchScene(intermissionSwap);
+                if (isFinalLevel)
+                {
+                    Debug.Log("<color=green> Swapping to Cinematic 8 </color>");
+                    sceneLoader.SwitchScene(cinematicEight);
+                }
+                else
+                {
+                    Debug.Log("<color=green> Swapping to Intermission Scene </color>");
+                    sceneLoader.SwitchScene(intermissionSwap);
+                }
             }
         }
     }
