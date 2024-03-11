@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TipPaper : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler
+public class DraggableUI : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler
 {
     private bool draggable = false;
     private Vector3 mouseDiff;
