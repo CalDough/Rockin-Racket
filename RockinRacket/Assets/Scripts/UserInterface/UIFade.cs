@@ -3,24 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
 public class UIFade : MonoBehaviour
 {
     [SerializeField] private MaskableGraphic UIElement;
-    public void FadeIn(float animationTime)
+    public void Fade(float animationTime)
     {
-        StartCoroutine(FadeElement(animationTime, new(UIElement.color.r, UIElement.color.g, UIElement.color.b, 1f)));
-    }
-    public void FadeOut(float animationTime)
-    {
-        StartCoroutine(FadeElement(animationTime, new(UIElement.color.r, UIElement.color.g, UIElement.color.b, 0f)));
+        StartCoroutine(FadeElement(animationTime));
     }
 
-    private IEnumerator FadeElement(float animationTime, Color endState)
+    private IEnumerator FadeElement(float animationTime)
     {
         float counter = 0f;
         Color startColor = UIElement.color;
-        Color endColor = endState;
+        Color endColor = new(UIElement.color.r, UIElement.color.g, UIElement.color.b, 0f);
         while (counter < animationTime)
         {
             counter += Time.unscaledDeltaTime;
