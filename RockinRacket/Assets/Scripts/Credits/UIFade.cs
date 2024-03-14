@@ -6,16 +6,19 @@ using UnityEngine.UI;
 public class UIFade : MonoBehaviour
 {
     [SerializeField] private MaskableGraphic UIElement;
-    public void Fade(float animationTime)
+    public void FadeIn(float animationTime)
     {
-        StartCoroutine(FadeElement(animationTime));
+        StartCoroutine(FadeElement(animationTime, new(UIElement.color.r, UIElement.color.g, UIElement.color.b, 1f)));
+    }
+    public void FadeOut(float animationTime)
+    {
+        StartCoroutine(FadeElement(animationTime, new(UIElement.color.r, UIElement.color.g, UIElement.color.b, 0f)));
     }
 
-    private IEnumerator FadeElement(float animationTime)
+    private IEnumerator FadeElement(float animationTime, Color endColor)
     {
         float counter = 0f;
         Color startColor = UIElement.color;
-        Color endColor = new(UIElement.color.r, UIElement.color.g, UIElement.color.b, 0f);
         while (counter < animationTime)
         {
             counter += Time.unscaledDeltaTime;
