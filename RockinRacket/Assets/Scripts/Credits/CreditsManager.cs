@@ -8,6 +8,7 @@ public class CreditsManager : MonoBehaviour
     [SerializeField] private CreditsPage[] creditsPages;
     //[SerializeField] private GameObject nextBtn;
     [SerializeField] private float animationTime;
+    [SerializeField] private float animationDelay;
     private int currentPage = -1;
     private bool isAnimating = false;
 
@@ -15,28 +16,51 @@ public class CreditsManager : MonoBehaviour
     {
         foreach (CreditsPage page in creditsPages)
         {
-            page.FadeOut(0f);
+            print(page.gameObject.name);
+            page.GetUIFades();
+            page.SetAlpha(0f);
         }
+        StartCoroutine(CreditsAnimation());
+    }
+
+    private IEnumerator CreditsAnimation()
+    {
+        while (creditsPages.Length - 1 > currentPage)
+        {
+            StartCoroutine(NextPage());
+            yield return new WaitForSeconds(animationTime * 2 + animationDelay);
+        }
+    }
+
+    public void NextBtn()
+    {
         StartCoroutine(NextPage());
     }
 
-    public IEnumerator NextPage()
+    private IEnumerator NextPage()
     {
-
+        // TODO: get rid of if statement
         if (creditsPages.Length - 1 > currentPage && !isAnimating)
         {
             isAnimating = true;
             // fade out old page
             if (currentPage >= 0)
             {
+                print("animating out");
                 creditsPages[currentPage].FadeOut(animationTime);
                 yield return new WaitForSeconds(animationTime);
             }
             // fade in new page
+            print("animating in");
             currentPage++;
             creditsPages[currentPage].FadeIn(animationTime);
             yield return new WaitForSeconds(animationTime);
+            print("done animating");
             isAnimating = false;
+        }
+        else
+        {
+            print("nextPage failure");
         }
     }
 }
