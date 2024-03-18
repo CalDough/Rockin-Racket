@@ -25,6 +25,7 @@ public class CreditsManager : MonoBehaviour
 
     private IEnumerator CreditsAnimation()
     {
+        yield return new WaitForSeconds(1f);
         while (creditsPages.Length - 1 > currentPage)
         {
             StartCoroutine(NextPage());
