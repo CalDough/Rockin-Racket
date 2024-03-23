@@ -31,5 +31,6 @@ public class ImageFade : MonoBehaviour, IUIFade
             image.color = Color.Lerp(startColor, endColor, counter / animationTime);
             yield return null;
         }
+        //InvokeRepeating()
     }
 }

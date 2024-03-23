@@ -31,5 +31,6 @@ public class TextFade : MonoBehaviour, IUIFade
             text.color = Color.Lerp(startColor, endColor, counter / animationTime);
             yield return null;
         }
+        text.color = endColor;
     }
 }
