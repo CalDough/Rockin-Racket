@@ -176,7 +176,7 @@ public class ConcertAttendee : Attendee
         switch (mood)
         {
             case MoodState.Hyped:
-                anim.Play(HypedAnimation);
+                anim.Play(PleasedAnimation);
                 break;
             case MoodState.Pleased:
                 anim.Play(PleasedAnimation);
@@ -274,7 +274,7 @@ public class ConcertAttendee : Attendee
             anim.Play(HypedAnimation);
             Jump();
             yield return new WaitForSeconds(.7f);
-            anim.Play(PleasedAnimation);
+            anim.Play(FrustratedAnimation);
             yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
     }
