@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public bool CompletedLevelTwo;
     public bool CompletedLevelThree;
     public bool CompletedLevelFour;
+    public bool hasStartedGame;
 
     [Header("Concert Score Data")]
     public List<ConcertResultData> concertResultsList = new List<ConcertResultData>();
@@ -77,7 +78,7 @@ public class GameManager : MonoBehaviour
         
         if (isInDebugMode)
         {
-            NewGame();
+            //NewGame();
         }
         else
         {
@@ -106,7 +107,8 @@ public class GameManager : MonoBehaviour
             CompletedLevelOne = this.CompletedLevelOne,
             CompletedLevelTwo = this.CompletedLevelTwo,
             CompletedLevelThree = this.CompletedLevelThree,
-            CompletedLevelFour = this.CompletedLevelFour
+            CompletedLevelFour = this.CompletedLevelFour,
+            hasStartedGame = this.hasStartedGame
         };
 
         string jsonData = JsonUtility.ToJson(gameData, prettyPrint: true);
@@ -150,6 +152,7 @@ public class GameManager : MonoBehaviour
             this.CompletedLevelTwo = loadedData.CompletedLevelTwo;
             this.CompletedLevelThree = loadedData.CompletedLevelThree;
             this.CompletedLevelFour = loadedData.CompletedLevelFour;
+            this.hasStartedGame = true;
             
             SetDifficulty(this.SetMode);
 
@@ -198,6 +201,8 @@ public class GameManager : MonoBehaviour
         CompletedLevelTwo = false;
         CompletedLevelThree = false;
         CompletedLevelFour = false;
+        hasStartedGame = true;
+        
 
         ConcertResultData tutorialResults = new ConcertResultData('X', 0, 0);
         concertResultsList.Add(tutorialResults);
@@ -313,6 +318,7 @@ public class GameManager : MonoBehaviour
         public bool CompletedLevelTwo;
         public bool CompletedLevelThree;
         public bool CompletedLevelFour;
+        public bool hasStartedGame;
     }
 }
 

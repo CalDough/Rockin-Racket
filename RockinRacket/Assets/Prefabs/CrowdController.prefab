@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3122116271738791589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8427212660213434811}
+  - component: {fileID: 1090648276321802800}
+  m_Layer: 0
+  m_Name: CrowdController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8427212660213434811
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122116271738791589}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1090648276321802800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122116271738791589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33bffb72c302ec444ada6972fd76053c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttendeePrefabs:
+  - {fileID: 1864546289901493832, guid: 0ab89d2e1eac8d54d9181a43d62cf1e8, type: 3}
+  - {fileID: 1864546289901493832, guid: 9a181d18b08d69d428ec69b55bb84bc9, type: 3}
+  - {fileID: 1864546289901493832, guid: f08881b462275e249a281cbdadcb8eb5, type: 3}
+  AttendeeLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ConcertTrashPerSong: 
+  currentTrashCleanedCount: 0
+  currentTrashCount: 0
+  maxTrashBeforePunishment: 5
+  trashNegativeRatingBonus: 4
