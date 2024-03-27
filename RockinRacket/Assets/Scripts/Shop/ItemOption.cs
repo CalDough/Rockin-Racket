@@ -66,12 +66,12 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
         this.equipped = equipped;
         if (forSale)
         {
-            soldImage.color = new Color(1f, 1f, 1f, 0f);
+            soldImage.color = new Color(1f, 0f, 0f, 0f);
             itemImage.color = new Color(1f, 1f, 1f, 1f);
         }
         else
         {
-            soldImage.color = new Color(1f, 1f, 1f, 1f);
+            soldImage.color = new Color(1f, 0f, 0f, 1f);
             itemImage.color = new Color(1f, 1f, 1f, .7f);
             if (equipped)
                 equipImageObject.SetActive(true);

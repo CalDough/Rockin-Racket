@@ -11,6 +11,7 @@ public class Item : ScriptableObject
 {
     public int ShopIndex;
     public Sprite sprite;
+    public Sprite selectedSprite;
     public Bandmate itemType;
     public string description;
     public int cost;
