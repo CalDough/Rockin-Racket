@@ -297,6 +297,8 @@ public class GameManager : MonoBehaviour
         concertResultsList[resultIndex].profitAmount = profit;
 
         IncrementMoney(profit);
+
+        e_updateBoardTextOnGameLoad.Invoke();
     }
 
     /*

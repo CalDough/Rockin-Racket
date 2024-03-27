@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.ProBuilder.MeshOperations;
 
 /*
  * This class controls the level selection process in the hub scene
@@ -35,9 +36,43 @@ public class ConcertBoardController : MonoBehaviour
     [Header("Demo Mode RESTRICTED ACCESS")]
     public bool isDemo;
 
+    [Header("Concert Direction Circles")]
+    public GameObject[] concertCircles;
+
     private void Start()
     {
         SetOnClickListenersForLevelSelectButtons();
+
+        GameManager.Instance.e_updateBoardTextOnGameLoad.AddListener(UpdateConcertCircle);
+    }
+
+    /*
+     *  The following method updates the circle on the concert board
+     */
+    public void UpdateConcertCircle()
+    {
+        if (GameManager.Instance.CompletedLevelOne)
+        {
+            concertCircles[0].SetActive(false);
+            concertCircles[1].SetActive(true);
+        }
+        
+        if (GameManager.Instance.CompletedLevelTwo)
+        {
+            concertCircles[1].SetActive(false);
+            concertCircles[2].SetActive(true);
+        }
+        
+        if (GameManager.Instance.CompletedLevelThree)
+        {
+            concertCircles[2].SetActive(true);
+            concertCircles[3].SetActive(true);
+        }
+        
+        if (GameManager.Instance.CompletedLevelFour)
+        {
+            concertCircles[3].SetActive(false);
+        }
     }
 
     /*
