@@ -21585,7 +21585,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 0
-  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 1373407410}
   goodParticleEffect: {fileID: 942603504}
   musicParticleEffect: {fileID: 0}
@@ -21597,6 +21596,9 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   moveSpeed: 5
   isMoving: 0
+  reduceNoiseStrength: 0
+  particleStrength: 2
+  particleStrengthReduction: 0.004
   moveAndPlay: 0
   moveAndPlayRange: {x: 0.5, y: 1, z: 0.5}
   originalPosition: {x: 0, y: 0, z: 0}
@@ -21964,7 +21966,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 0
-  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 1589886730}
   goodParticleEffect: {fileID: 1348567872}
   musicParticleEffect: {fileID: 0}
@@ -21976,6 +21977,9 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   moveSpeed: 5
   isMoving: 0
+  reduceNoiseStrength: 0
+  particleStrength: 2
+  particleStrengthReduction: 0.004
   moveAndPlay: 0
   moveAndPlayRange: {x: 0.5, y: 1, z: 0.5}
   originalPosition: {x: 0, y: 0, z: 0}
@@ -22057,6 +22061,8 @@ MonoBehaviour:
   songTimer: 0
   afterIntermission: 0
   localConcertSongList: []
+  isFinalLevel: 0
+  cinematicEight: {fileID: 0}
 --- !u!4 &1147827189
 Transform:
   m_ObjectHideFlags: 0
@@ -22460,7 +22466,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 0
-  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 411267465}
   goodParticleEffect: {fileID: 1633145528}
   musicParticleEffect: {fileID: 0}
@@ -22472,6 +22477,9 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   moveSpeed: 5
   isMoving: 0
+  reduceNoiseStrength: 0
+  particleStrength: 2
+  particleStrengthReduction: 0.004
   moveAndPlay: 0
   moveAndPlayRange: {x: 0.5, y: 1, z: 0.5}
   originalPosition: {x: 0, y: 0, z: 0}
@@ -52322,7 +52330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bffb72c302ec444ada6972fd76053c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActiveAttendees: []
+  AttendeePrefabs: []
+  AttendeeLocations: []
   ConcertTrashPerSong: 
   currentTrashCleanedCount: 0
   currentTrashCount: 0
@@ -52613,6 +52622,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5182784755325164939, guid: c149c61be4771ff4bac24868adcaafe9,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6421007262805249367, guid: c149c61be4771ff4bac24868adcaafe9,
         type: 3}
       propertyPath: m_Name
@@ -52622,6 +52636,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726017529303319216, guid: c149c61be4771ff4bac24868adcaafe9,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53784,7 +53803,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bandName: 0
-  BandMember: {fileID: 0}
   badParticleEffect: {fileID: 1817976899}
   goodParticleEffect: {fileID: 427556179}
   musicParticleEffect: {fileID: 0}
@@ -53796,6 +53814,9 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   moveSpeed: 5
   isMoving: 0
+  reduceNoiseStrength: 0
+  particleStrength: 2
+  particleStrengthReduction: 0.004
   moveAndPlay: 0
   moveAndPlayRange: {x: 0.5, y: 1, z: 0.5}
   originalPosition: {x: 0, y: 0, z: 0}
@@ -56083,6 +56104,7 @@ MonoBehaviour:
   ConcertAudioPath: 
   isPlaying: 0
   debugUpdateAudio: 0
+  brokenValueReduction: 0.004
   AceAvailable: 1
   AceBrokenValue: 0
   MJAvailable: 1
