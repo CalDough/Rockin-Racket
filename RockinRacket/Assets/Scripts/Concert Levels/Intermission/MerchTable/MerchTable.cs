@@ -26,6 +26,7 @@ public class MerchTable : MonoBehaviour
 
     [Header("Object/Prefab References")]
     public GameObject customerPrefab;
+    public GameObject[] customerPrefabVariations;
     [SerializeField] private MerchTableUIHandler merchTableUIHandler;
     [SerializeField] private RectTransform itemDestination;
     private GameObject currentCustomer;
@@ -98,7 +99,7 @@ public class MerchTable : MonoBehaviour
     {
         for (int i = 0; i < numCustomers; i++)
         {
-            GameObject curSpawnedPrefab = Instantiate(customerPrefab, customerSpawnPosition.position, Quaternion.identity);
+            GameObject curSpawnedPrefab = Instantiate(customerPrefabVariations[Random.Range(0, customerPrefabVariations.Length)], customerSpawnPosition.position, Quaternion.identity);
             //curSpawnedPrefab.GetComponent<MTCustomer>().RandomizeAppearance();
             customerQueue.Enqueue(curSpawnedPrefab);
         }
