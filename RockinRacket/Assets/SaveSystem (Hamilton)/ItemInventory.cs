@@ -9,9 +9,7 @@ using UnityEditor;
 
 public static class ItemInventory
 {
-    // CHANGE TO THIS FOR FINAL BUILD
     private static readonly string saveFolderPath = "Player/SaveFiles/";
-    //private static readonly string saveFolderPath = "Assets/SaveFiles/";
     private static readonly string saveFileName = "OwnedItems.txt";
     private static readonly string equippedSaveFileName = "EquippedItems.txt";
     // TODO get complete list of items by path at runtime
@@ -224,10 +222,10 @@ public static class ItemInventory
 
     private static void AddBandmateItems()
     {
-        BandmateItems.Add(Bandmate.MJ, new Item[4]);
-        BandmateItems.Add(Bandmate.Kurt, new Item[4]);
-        BandmateItems.Add(Bandmate.Ace, new Item[4]);
-        BandmateItems.Add(Bandmate.Haley, new Item[4]);
+        BandmateItems.Add(Bandmate.MJ, new Item[3]);
+        BandmateItems.Add(Bandmate.Kurt, new Item[3]);
+        BandmateItems.Add(Bandmate.Ace, new Item[3]);
+        BandmateItems.Add(Bandmate.Haley, new Item[3]);
         //BandmateItems.Add(Bandmate.Harvey, new ItemTest[4]);
 
         foreach (Item item in allItems)

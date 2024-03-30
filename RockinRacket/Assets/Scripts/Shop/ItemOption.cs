@@ -10,7 +10,7 @@ public class ItemOption : MonoBehaviour,
 IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     [SerializeField] private CatalogManager catalogManager;
-    [SerializeField] private Image highlightImage;
+    //[SerializeField] private Image highlightImage;
     [SerializeField] private Image itemImage;
     [SerializeField] private Image soldImage;
     [SerializeField] private GameObject equipImageObject;
@@ -39,13 +39,15 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         //if (forSale)
-            highlightImage.color = new Color(1f, 1f, 1f, 1f);
+            //highlightImage.color = new Color(1f, 1f, 1f, 1f);
         catalogManager.SelectItem(item);
+        itemImage.sprite = item.selectedSprite;
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         //if (forSale)
-            highlightImage.color = new Color(1f, 1f, 1f, 0f);
+            //highlightImage.color = new Color(1f, 1f, 1f, 0f);
+        itemImage.sprite = item.sprite;
     }
     public void OnPointerDown(PointerEventData eventData)
     {
