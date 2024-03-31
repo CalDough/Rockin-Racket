@@ -59,7 +59,12 @@ public class AttendeeController : MonoBehaviour
         shuffledAttendees.RemoveAt(shuffledAttendees.Count - 1);
 
         GameObject attendeeInstance = Instantiate(prefab.gameObject, location.position, Quaternion.identity, location);
-        AdjustHueAndScale(attendeeInstance);
+
+        ConcertAttendee attendee = attendeeInstance.GetComponent<ConcertAttendee>();
+        if(attendee)
+        {
+            attendee.RandomizeAppearance();
+        }
     }
 
     private void ShuffleList<T>(List<T> list)
@@ -73,28 +78,6 @@ public class AttendeeController : MonoBehaviour
         }
     }
 
-    private void AdjustHueAndScale(GameObject attendeeInstance)
-    {
-        SpriteRenderer spriteRenderer = attendeeInstance.GetComponentInChildren<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.color = Color.HSVToRGB(Random.value, 0.5f, 1f); 
-
-            Color.RGBToHSV(spriteRenderer.color, out float H, out float S, out float V);
-            H += Random.Range(-0.1f, 0.1f); 
-            H = Mathf.Repeat(H, 1); 
-            S = Mathf.Clamp(S * 0.5f, 0.3f, 0.6f); 
-            spriteRenderer.color = Color.HSVToRGB(H, S, V);
-        }
-
-        float scaleModifier = 1 + Random.Range(-0.05f, 0.1f); 
-        attendeeInstance.transform.localScale *= scaleModifier;
-    }
-
-    void OnDestroy()
-    {
-
-    }
 
     public int GetScorePenalty()
     {
