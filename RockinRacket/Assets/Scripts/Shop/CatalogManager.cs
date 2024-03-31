@@ -102,7 +102,6 @@ public class CatalogManager : MonoBehaviour
         shopAudio.PlayPageTurn();
         currentBandmate = bandmate;
         shopSelection.ResetSelection();
-        print(ItemInventory.GetItemsByBandmate(bandmate).Length);
         shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);
     }
 
