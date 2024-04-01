@@ -18,7 +18,7 @@ public class CatalogManager : MonoBehaviour
     [SerializeField] private ShopAudio shopAudio;
     [SerializeField] private TMP_Text moneyText;
 
-    private Bandmate currentBandmate;
+    public Bandmate CurrentBandmate { get; private set; }
     private bool moneyAnim;
     private readonly float MoneyColorAnimTime = .5f;
 
@@ -60,7 +60,7 @@ public class CatalogManager : MonoBehaviour
                 shopManager.Bought = true;
                 shopReceipt.ResetReceipt();
                 shopCatalog.UpdateItemOptions(shopReceipt);
-                shopSelection.UpdateText();
+                //shopSelection.UpdateText();
                 shopAudio.PlayCheckout();
             }
             else if (!moneyAnim)
@@ -85,7 +85,7 @@ public class CatalogManager : MonoBehaviour
     public void EquipBtnPressed()
     {
         Item currentItem = shopSelection.GetSelectedItem();
-        ItemInventory.EquipItem(currentBandmate, currentItem);
+        ItemInventory.EquipItem(CurrentBandmate, currentItem);
         shopCatalog.UpdateItemOptions(shopReceipt);
     }
 
@@ -100,7 +100,7 @@ public class CatalogManager : MonoBehaviour
     public void BookmarkPressed(Bandmate bandmate)
     {
         shopAudio.PlayPageTurn();
-        currentBandmate = bandmate;
+        CurrentBandmate = bandmate;
         shopSelection.ResetSelection();
         shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);
     }
@@ -150,7 +150,7 @@ public class CatalogManager : MonoBehaviour
     }
     private void Equip(Item item)
     {
-        ItemInventory.EquipItem(currentBandmate, item);
+        ItemInventory.EquipItem(CurrentBandmate, item);
         shopCatalog.UpdateItemOptions(shopReceipt);
     }
 }

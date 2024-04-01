@@ -13,11 +13,11 @@ public class ShopSelection : MonoBehaviour
     [SerializeField] private ShopReceipt shopReceipt;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text descriptionText;
-    [SerializeField] private TMP_Text costText;
-    [SerializeField] private GameObject cartBtn;
-    [SerializeField] private TMP_Text cartButtonText;
-    [SerializeField] private GameObject equipBtn;
-    [SerializeField] private TMP_Text equipButtonText;
+    //[SerializeField] private TMP_Text costText;
+    //[SerializeField] private GameObject cartBtn;
+    //[SerializeField] private TMP_Text cartButtonText;
+    //[SerializeField] private GameObject equipBtn;
+    //[SerializeField] private TMP_Text equipButtonText;
     [SerializeField] private InfoBar infobar;
 
     private Item selectedItem;
@@ -35,14 +35,14 @@ public class ShopSelection : MonoBehaviour
         UpdateText();
     }
 
-    public void UpdateText()
+    private void UpdateText()
     {
         // default values
         nameText.text = "~Name~";
         descriptionText.text = "~Description~";
-        costText.text = "Item Cost";
-        cartButtonText.text = "Cart";
-        equipButtonText.text = "Equip";
+        //costText.text = "Item Cost";
+        //cartButtonText.text = "Cart";
+        //equipButtonText.text = "Equip";
 
         if (selectedItem != null)
         {
@@ -67,17 +67,37 @@ public class ShopSelection : MonoBehaviour
         }
         else
         {
-            cartBtn.SetActive(false);
-            equipBtn.SetActive(false);
-            costText.text = "";
+            //cartBtn.SetActive(false);
+            //equipBtn.SetActive(false);
+            //costText.text = "";
             infobar.Hide();
         }
     }
 
-    // called by catalogManager when 
+    // called by catalogManager when bookmark pressed
     public void ResetSelection()
     {
         selectedItem = null;
+        UpdateText();
+    }
+
+    // called by ItemModifiers on mouse enter
+    public void ShowModifier(bool isScore, Bandmate bandmate)
+    {
+        if (isScore)
+        {
+            nameText.text = "Score Booster!";
+            descriptionText.text = $"This item increases your score from {bandmate}'s minigames\n";
+        }
+        else
+        {
+            nameText.text = "Complex Instrument";
+            descriptionText.text = $"This item makes {bandmate}'s minigames more difficult!\n";
+        }
+    }
+    // called by ItemModifiers on mouse exit
+    public void StopShowingModifiers()
+    {
         UpdateText();
     }
 }
