@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class ConcertAttendee : Attendee
 {
-    public enum MoodState { Hyped, Frustrated, Pleased }
+    public enum MoodState { Excited, Neutral, Requesting, Caught, Displeased }
     public enum RequestableItem { RedShirt, WhiteShirt,  BlackShirt }
 
     [Header("Events")]
@@ -26,13 +26,13 @@ public class ConcertAttendee : Attendee
     public bool isInConcert = false;
 
     [Header("Mood Variables")]
-    public MoodState currentMood = MoodState.Pleased;
+    public MoodState currentMood = MoodState.Neutral;
     public RequestableItem wantedItem = RequestableItem.RedShirt;
     [SerializeField] private CrowdTrash[] Trash; 
     [SerializeField] private ThoughtBubble thoughtBubble; 
 
     //0 = min, 90 = max
-    public int MoodScore = 45;
+    public int MoodScore = 50;
 
     //How long before an item is wanted
     public float itemWaitMin = 15f;
@@ -50,22 +50,27 @@ public class ConcertAttendee : Attendee
     //public Sprite[] appearanceVariations;
     //private SpriteRenderer sr;
     public Collider2D solidCollider2D;
+    [SerializeField] SpriteRenderer Clothes;
     [SerializeField] Animator anim;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] ParticleSystem frustratedParticles;
     [SerializeField] ParticleSystem pleasedParticles; 
     [SerializeField] ParticleSystem hypedParticles; 
 
-    [SerializeField] private string CheerAudioPath = "Audience_Excited";
-    [SerializeField] private string BooAudioPath = "Audience_Excited";
-    [SerializeField] private string HypedAnimation = "Audience_Excited";
-    [SerializeField] private string PleasedAnimation = "Audience_Happy";
-    [SerializeField] private string FrustratedAnimation = "Audience_Normal";
+    [SerializeField] private string CheerAudioPath = "Audience_Cheer";
+    [SerializeField] private string BooAudioPath = "Audience_Boo";
+
+    [SerializeField] private string RequestAnimation = "Audience_Request";
+    [SerializeField] private string CatchAnimation = "Audience_Catch";
+    [SerializeField] private string ExcitedAnimation = "Audience_Excited";
+    [SerializeField] private string NeutralAnimation = "Audience_Neutral";
+    [SerializeField] private string DispleasedAnimation = "Audience_Displeased";
 
     private Coroutine ShirtCoroutine;
     private Coroutine LerpAttendeeCoroutine;
     private Coroutine JumpCoroutine;
     private Coroutine MoveCoroutine;
+    private Coroutine AnimationHandlerCoroutine;
 
     public override void Init()
     {
@@ -89,11 +94,6 @@ public class ConcertAttendee : Attendee
     void OnDestroy()
     {
         UnsubscribeEvents();
-    }
-
-    private void Update()
-    {
-        
     }
 
     private IEnumerator RandomMovementRoutine()
@@ -151,45 +151,65 @@ public class ConcertAttendee : Attendee
         MinigameEvents.OnMinigameComplete -= HandleEventComplete;
     }
 
-    public void CalculateMoodstate(int moodValueChange)
+    private void SetMood(MoodState mood, bool temporary = false, float duration = 0f)
     {
-        MoodScore += moodValueChange;
-        MoodScore = Mathf.Clamp(MoodScore,0,90);
-
-        if(MoodScore >= 65)
+        if (temporary)
         {
-            SetMood(MoodState.Hyped);
+            if(AnimationHandlerCoroutine != null)
+            {
+                StopCoroutine(AnimationHandlerCoroutine);
+            }
+            AnimationHandlerCoroutine = StartCoroutine(RevertMoodAfterDelay(duration));
         }
-        else if(MoodScore >= 30)
-        {
-            SetMood(MoodState.Pleased);
-        }
-        else
-        {
-            SetMood(MoodState.Frustrated);
-        }
-    }
-
-    private void SetMood(MoodState mood)
-    {
         currentMood = mood;
         switch (mood)
         {
-            case MoodState.Hyped:
-                anim.Play(PleasedAnimation);
+            case MoodState.Excited:
+                anim.Play(ExcitedAnimation);
                 break;
-            case MoodState.Pleased:
-                anim.Play(PleasedAnimation);
+            case MoodState.Neutral:
+                anim.Play(NeutralAnimation);
                 break;
-            case MoodState.Frustrated:
-                anim.Play(FrustratedAnimation);
+            case MoodState.Requesting:
+                anim.Play(RequestAnimation);
                 break;
+            case MoodState.Caught:
+                anim.Play(CatchAnimation);
+                break;
+            case MoodState.Displeased:
+                anim.Play(DispleasedAnimation);
+                break;
+        }
+    }
+
+    private IEnumerator RevertMoodAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        CalculateMoodstate(0);
+    }
+
+    public void CalculateMoodstate(int moodValueChange)
+    {
+        MoodScore += moodValueChange;
+        MoodScore = Mathf.Clamp(MoodScore,0,100);
+
+        if(MoodScore >= 70)
+        {
+            SetMood(MoodState.Excited);
+        }
+        else if(MoodScore < 30)
+        {
+            SetMood(MoodState.Displeased);
+        }
+        else
+        {
+            SetMood(MoodState.Neutral);
         }
     }
 
     public override void TriggerAttendeeHappyEffect()
     {
-        if(currentMood == MoodState.Hyped)
+        if(currentMood == MoodState.Excited || currentMood == MoodState.Neutral)
         {
             hypedParticles.Play();
         }
@@ -206,7 +226,20 @@ public class ConcertAttendee : Attendee
 
     public override void RandomizeAppearance()
     {
+        SpriteRenderer spriteRenderer = Clothes;
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.HSVToRGB(Random.value, 0.65f, 1f); 
 
+            Color.RGBToHSV(spriteRenderer.color, out float H, out float S, out float V);
+            H += Random.Range(-0.1f, 0.1f); 
+            H = Mathf.Repeat(H, 1); 
+            S = Mathf.Clamp(S * 0.65f, 0.5f, 0.6f); 
+            spriteRenderer.color = Color.HSVToRGB(H, S, V);
+        }
+
+        float scaleModifier = 1 + Random.Range(-0.05f, 0.1f); 
+        this.gameObject.transform.localScale *= scaleModifier;
     }
 
     protected override void EndLerp()
@@ -230,7 +263,6 @@ public class ConcertAttendee : Attendee
             Debug.Log("Attendee wants " + wantedItem);
             thoughtBubble.ShowItemThought(wantedItem);
 
-
             float itemPatienceTimer = Random.Range(itemPatienceMin, itemPatienceMax);
             //thoughtBubble.StartTimer(itemPatienceTimer);
             yield return new WaitForSeconds(itemPatienceTimer);
@@ -240,7 +272,8 @@ public class ConcertAttendee : Attendee
                 Debug.Log("Attendee Did not get any item");
                 OnItemUnfulfilled();
                 TriggerAttendeeAngryEffect();
-                CalculateMoodstate(-15);
+                CalculateMoodstate(-10);
+                SetMood(MoodState.Displeased, true, 5);
                 thoughtBubble.HideItemThought(wantedItem);
 
             }
@@ -251,7 +284,8 @@ public class ConcertAttendee : Attendee
     public void OnItemObtained()
     {
         TriggerAttendeeHappyEffect();
-        CalculateMoodstate(15);
+        CalculateMoodstate(10);
+        SetMood(MoodState.Caught, true, 5);
         onItemFulfilledEvent.Invoke();
         ConcertEvents.instance.e_ScoreChange.Invoke(ScoreBonus);
         FMODUnity.RuntimeManager.PlayOneShot(CheerAudioPath);
@@ -260,7 +294,7 @@ public class ConcertAttendee : Attendee
     public void OnItemUnfulfilled()
     {
         TriggerAttendeeAngryEffect();
-        CalculateMoodstate(-15);
+        SetMood(MoodState.Displeased, true, 5);
         onItemUnfulfilledEvent.Invoke();
         ConcertEvents.instance.e_ScoreChange.Invoke(ScorePenalty);
         CreateTrash();
@@ -271,10 +305,10 @@ public class ConcertAttendee : Attendee
     {
         while (true)
         {
-            anim.Play(HypedAnimation);
+            anim.Play(RequestAnimation);
             Jump();
             yield return new WaitForSeconds(.7f);
-            anim.Play(FrustratedAnimation);
+            anim.Play(ExcitedAnimation);
             yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
     }
