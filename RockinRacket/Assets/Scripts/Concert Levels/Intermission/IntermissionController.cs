@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class IntermissionController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class IntermissionController : MonoBehaviour
     public GameObject intermissionGroup;
     public GameObject merchTableGroup;
     public GameObject merchTableBackWall;
+    public GameObject backstageBackground;
 
     [Header("Merch Table Initialization Values")]
     public Vector2[] merchTableScoreConversions;
@@ -78,6 +80,7 @@ public class IntermissionController : MonoBehaviour
             if (curConcert.concertBackground != null)
             {
                 concertBackgroundMaterial = curConcert.concertBackground;
+                merchTableBackWall.GetComponent<Renderer>().material = concertBackgroundMaterial;
             }
             else
             {
@@ -87,6 +90,7 @@ public class IntermissionController : MonoBehaviour
             if (curConcert.backstageBackground != null)
             {
                 concertBackstageBackground = curConcert.backstageBackground;
+                backstageBackground.GetComponent<Image>().sprite = curConcert.backstageBackground;
             }
             else
             {
