@@ -89,19 +89,19 @@ public class CatalogManager : MonoBehaviour
         shopCatalog.UpdateItemOptions(shopReceipt);
     }
 
-    public void ResetBtnPressed()
-    {
-        ItemInventory.ResetInventory();
-        shopSelection.ResetSelection();
-        shopReceipt.ResetReceipt();
-        shopCatalog.UpdateItemOptions(shopReceipt);
-    }
+    //public void ResetBtnPressed()
+    //{
+    //    ItemInventory.ResetInventory();
+    //    shopSelection.ResetSelection();
+    //    shopReceipt.ResetReceipt();
+    //    shopCatalog.UpdateItemOptions(shopReceipt);
+    //}
 
+    // called by BookmarkManager on start and when bookmark pressed
     public void BookmarkPressed(Bandmate bandmate)
     {
-        shopAudio.PlayPageTurn();
         CurrentBandmate = bandmate;
-        shopSelection.ResetSelection();
+        shopSelection.ResetSelection(bandmate);
         shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);
     }
 
@@ -146,7 +146,7 @@ public class CatalogManager : MonoBehaviour
         {
             shopReceipt.RemoveFromCart(item);
         }
-        shopCatalog.UpdateItemOptions(shopReceipt);
+        //shopCatalog.UpdateItemOptions(shopReceipt);
     }
     private void Equip(Item item)
     {

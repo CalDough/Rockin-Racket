@@ -13,16 +13,20 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     //[SerializeField] private Image highlightImage;
     [SerializeField] private Image itemImage;
     [SerializeField] private Image soldImage;
+    [SerializeField] private TMP_Text costText;
     [SerializeField] private GameObject equipImageObject;
 
     private Item item;
     private bool forSale;
+    private bool inCart;
     private bool equipped;
+    private string costString;
     public Item GetItem() { return item; }
 
     private void Awake()
     {
         Show(false);
+        soldImage.color = new Color(1f, 0f, 0f, 0f);
     }
     public void Show(bool show)
     {
@@ -33,61 +37,92 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         this.item = item;
         itemImage.sprite = item.sprite;
-        UpdateOption(forSale, inCart, equipped);
+        UpdateItem(forSale, inCart, equipped);
         Show(true);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //if (forSale)
-            //highlightImage.color = new Color(1f, 1f, 1f, 1f);
         catalogManager.SelectItem(item);
         itemImage.sprite = item.selectedSprite;
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        //if (forSale)
-            //highlightImage.color = new Color(1f, 1f, 1f, 0f);
-        itemImage.sprite = item.sprite;
+        if (!inCart)
+            itemImage.sprite = item.sprite;
     }
     public void OnPointerDown(PointerEventData eventData)
     {
         if (forSale)
+        {
+            if (inCart)
+            {
+                inCart = false;
+            }
+            else
+            {
+                inCart = true;
+            }
             catalogManager.CartItem(item);
+        }
         else
+        {
             catalogManager.EquipItem(item);
+        }
+            
     }
-    public void RemoveFromCart()
+    private void RemoveFromCart()
     {
-        if (forSale)
-        itemImage.color = new Color(1f, 1f, 1f, 1f);
+        if (inCart)
+        {
+            inCart = false;
+            Display();
+        }
+        //itemImage.color = new Color(1f, 1f, 1f, 1f);
     }
-    public void UpdateOption(bool forSale, bool inCart, bool equipped)
+    public void Display()
     {
         equipImageObject.SetActive(false);
-        this.forSale = forSale;
-        this.equipped = equipped;
         if (forSale)
         {
-            soldImage.color = new Color(1f, 0f, 0f, 0f);
-            itemImage.color = new Color(1f, 1f, 1f, 1f);
+            //soldImage.color = new Color(1f, 0f, 0f, 0f);
+            costString = $"${item.cost}";
+            costText.fontStyle = FontStyles.Normal;
+            costText.fontSize = 72;
+            //itemImage.color = new Color(1f, 1f, 1f, 1f);
+            if (inCart)
+                itemImage.sprite = item.selectedSprite;
+            else
+                itemImage.sprite = item.sprite;
         }
         else
         {
-            soldImage.color = new Color(1f, 0f, 0f, 1f);
-            itemImage.color = new Color(1f, 1f, 1f, .7f);
+            //soldImage.color = new Color(1f, 0f, 0f, 1f);
+            costString = "Owned";
+            costText.fontStyle = FontStyles.Underline;
+            costText.fontSize = 54;
+            //itemImage.color = new Color(1f, 1f, 1f, .7f);
             if (equipped)
                 equipImageObject.SetActive(true);
+            itemImage.sprite = item.sprite;
         }
-        if (inCart)
-            itemImage.color = new Color(1f, 1f, 1f, .7f);
+        
+
+        costText.text = costString;
+    }
+    public void UpdateItem(bool forSale, bool inCart, bool equipped)
+    {
+        this.forSale = forSale;
+        this.inCart = inCart;
+        this.equipped = equipped;
+        Display();
     }
     public void ResetItem()
     {
         print("hit!");
         // check if it's a default item
         if (item.cost == 0)
-            UpdateOption(true, false, true);
+            UpdateItem(true, false, true);
         else
-            UpdateOption(true, false, false);
+            UpdateItem(true, false, false);
     }
 }
