@@ -13,12 +13,6 @@ public class ShopSelection : MonoBehaviour
     [SerializeField] private ShopReceipt shopReceipt;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text descriptionText;
-    //[SerializeField] private TMP_Text costText;
-    //[SerializeField] private GameObject cartBtn;
-    //[SerializeField] private TMP_Text cartButtonText;
-    //[SerializeField] private GameObject equipBtn;
-    //[SerializeField] private TMP_Text equipButtonText;
-    [SerializeField] private InfoBar infobar;
 
     private Item selectedItem;
 
@@ -40,9 +34,6 @@ public class ShopSelection : MonoBehaviour
         // default values
         nameText.text = "~Name~";
         descriptionText.text = "~Description~";
-        //costText.text = "Item Cost";
-        //cartButtonText.text = "Cart";
-        //equipButtonText.text = "Equip";
 
         if (selectedItem != null)
         {
@@ -53,7 +44,6 @@ public class ShopSelection : MonoBehaviour
             //equipBtn.SetActive(isBought && !isEquipped);
             nameText.text = selectedItem.name;
             descriptionText.text = selectedItem.description;
-            infobar.Show(selectedItem);
             //costText.text = "Item Cost";
 
             //if (!isBought)
@@ -70,7 +60,6 @@ public class ShopSelection : MonoBehaviour
             //cartBtn.SetActive(false);
             //equipBtn.SetActive(false);
             //costText.text = "";
-            infobar.Hide();
         }
     }
 
