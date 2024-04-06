@@ -104,6 +104,11 @@ public class CatalogManager : MonoBehaviour
         shopSelection.ResetSelection(bandmate);
         shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);
     }
+    // called by itemOption when mouse exits
+    public void ResetSelection()
+    {
+        shopSelection.ResetSelection();
+    }
 
     private IEnumerator NotEnoughMoneyAnim()
     {

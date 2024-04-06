@@ -50,6 +50,12 @@ public class ShopSelection : MonoBehaviour
         this.bandmate = bandmate;
         UpdateText();
     }
+    // called by catalogManager when mouse exits itemOption
+    public void ResetSelection()
+    {
+        selectedItem = null;
+        UpdateText();
+    }
 
     // called by ItemModifiers on mouse enter
     public void ShowModifier(bool isScore, Bandmate bandmate)

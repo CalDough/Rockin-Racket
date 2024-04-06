@@ -47,6 +47,7 @@ IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     }
     public void OnPointerExit(PointerEventData eventData)
     {
+        catalogManager.ResetSelection();
         if (!inCart)
             itemImage.sprite = item.sprite;
     }
