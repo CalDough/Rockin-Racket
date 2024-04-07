@@ -176,7 +176,8 @@ public class BandAnimationController : MonoBehaviour
 
         // threshold distance for animation
         float thresholdDistance = 0.5f; 
-
+        // you'll have to ignore this code, i think there were plans for an animation where the characters move while playing, so
+        // thats why the code looks odd
         if (journeyLength > thresholdDistance)
         {characterAnimator.Play(idleName);}
         else
