@@ -50,6 +50,9 @@ public class AudioSettings : MonoBehaviour
         //ambientVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Ambient");
         if (masterVolumeSlider != null)
         {
+            masterVolumeSlider.minValue = 0f; 
+            masterVolumeSlider.maxValue = 1f; 
+            
             masterVolumeSlider.value = currentSettings.masterVolume;
             masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
         }

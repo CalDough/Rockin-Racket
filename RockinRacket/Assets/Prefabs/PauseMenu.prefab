@@ -868,7 +868,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2934084384220617184}
-  - component: {fileID: 3022395049550101942}
   m_Layer: 5
   m_Name: Volume
   m_TagString: Untagged
@@ -900,19 +899,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3022395049550101942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2853410007230011750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc1354a106800142abeb7371976aa06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  masterVolumeSlider: {fileID: 3243451437419727098}
 --- !u!1 &3116644508917357472
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,7 +2568,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3453769469160042547}
+        m_TargetAssemblyTypeName: AudioSettings, Assembly-CSharp
+        m_MethodName: SaveSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5519882545295579670
 GameObject:
   m_ObjectHideFlags: 0
@@ -3310,6 +3308,7 @@ GameObject:
   - component: {fileID: 2002043422355244811}
   - component: {fileID: 9177714591327278010}
   - component: {fileID: 4717022494723735906}
+  - component: {fileID: 3453769469160042547}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -3373,6 +3372,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a36027a2e347a6243b62768d3a68596b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3453769469160042547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421007262805249367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc1354a106800142abeb7371976aa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterVolumeSlider: {fileID: 3243451437419727098}
 --- !u!1 &6436753879071639603
 GameObject:
   m_ObjectHideFlags: 0
