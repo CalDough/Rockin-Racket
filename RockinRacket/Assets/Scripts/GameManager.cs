@@ -304,7 +304,7 @@ public class GameManager : MonoBehaviour
     // called by shopManager on start
     public int GetHub()
     {
-        int result = 0;
+        int result = 1;
         if (CompletedLevelOne)
             result++;
         if (CompletedLevelTwo)
