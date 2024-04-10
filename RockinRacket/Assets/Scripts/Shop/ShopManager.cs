@@ -19,7 +19,9 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextAsset openCatalogConvo;
     [SerializeField] private TextAsset leaveBoughtConvo;
     [SerializeField] private TextAsset leaveNotBoughtConvo;
-    [SerializeField] private TextAsset justChattingConvo;
+    [SerializeField] private TextAsset justChattingConvo1;
+    [SerializeField] private TextAsset justChattingConvo2;
+    [SerializeField] private TextAsset justChattingConvo3;
 
     [Header("Scripts")]
     [SerializeField] private CatalogManager catalogManager;
@@ -54,7 +56,17 @@ public class ShopManager : MonoBehaviour
         switch (choice)
         {
             case 0: StartShopkeeperDialogue(openCatalogConvo, Action.OpenCatalog); break;
-            case 1: StartShopkeeperDialogue(justChattingConvo, Action.OpenShopMenu); break;
+            case 1:
+                {
+                    switch (GameManager.Instance.GetHub())
+                    {
+                        case 1: StartShopkeeperDialogue(justChattingConvo1, Action.OpenShopMenu); break;
+                        case 2: StartShopkeeperDialogue(justChattingConvo2, Action.OpenShopMenu); break;
+                        case 3: StartShopkeeperDialogue(justChattingConvo3, Action.OpenShopMenu); break;
+                        default: StartShopkeeperDialogue(justChattingConvo1, Action.OpenShopMenu); break;
+                    }
+                    break;
+                }
             case 2:
                 {
                     if (Bought)
