@@ -38,17 +38,20 @@ public class ShopReceipt : MonoBehaviour
         foreach (Item item in selectedItems)
         {
             stringBuilder.Append(item.name);
-            for (int i=0; i<20-item.name.Length; i++)
+            for (int i=0; i<16-item.name.Length; i++)
                 stringBuilder.Append(".");
             stringBuilder.Append("$");
             stringBuilder.AppendLine(item.cost.ToString());
             cost += item.cost;
         }
-        stringBuilder.AppendLine();
+        
         if (cost > 0)
         {
             stringBuilder.Append("Total Cost: $");
             stringBuilder.Append(cost);
+            stringBuilder.AppendLine();
+            stringBuilder.AppendLine();
+            stringBuilder.Append("Talk To Jay to check out!");
         }
 
         cartText.text = stringBuilder.ToString();
