@@ -301,6 +301,21 @@ public class GameManager : MonoBehaviour
         e_updateBoardTextOnGameLoad.Invoke();
     }
 
+    // called by shopManager on start
+    public int GetHub()
+    {
+        int result = 0;
+        if (CompletedLevelOne)
+            result++;
+        if (CompletedLevelTwo)
+            result++;
+        if (CompletedLevelThree)
+            result++;
+        if (CompletedLevelFour)
+            result++;
+        return result;
+    }
+
     /*
      *  This method is called when transitioning back to the concert from the final level
      */
