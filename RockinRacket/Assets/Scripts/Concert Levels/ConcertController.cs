@@ -28,6 +28,7 @@ public class ConcertController : MonoBehaviour
     [Header("Start Screen Details")]
     [SerializeField] private GameObject startScreen;
     [SerializeField] private Button startConcert;
+    [SerializeField] private StartMenu startMenuController;
 
     [Header("Current Song Details")]
     public int numSongsRemaining;
@@ -99,6 +100,7 @@ public class ConcertController : MonoBehaviour
             {
                 startScreen.SetActive(true);
             }
+            startMenuController.ActivateStartScreenAnimationAndLoadingFaces();
         }
     }
 
