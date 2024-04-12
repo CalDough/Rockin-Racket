@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class MousePhysics : MonoBehaviour
 {
     private Camera mainCamera;
-    [SerializeField] private CrowdTrash currentlyDragging;
+    [SerializeField] public CrowdTrash currentlyDragging;
     public bool isGamePaused = false;
     public LayerMask draggableLayer;
     
