@@ -32,6 +32,7 @@ public class ConcertBoardController : MonoBehaviour
 
     [Header("Debug Mode")]
     public bool accessAnyLevel;
+    public bool updateConcertCircles;
 
     [Header("Demo Mode RESTRICTED ACCESS")]
     public bool isDemo;
@@ -46,32 +47,42 @@ public class ConcertBoardController : MonoBehaviour
         GameManager.Instance.e_updateBoardTextOnGameLoad.AddListener(UpdateConcertCircle);
     }
 
+    private void Update()
+    {
+        if (updateConcertCircles)
+        {
+            UpdateConcertCircle();
+        }
+    }
+
     /*
      *  The following method updates the circle on the concert board
      */
     public void UpdateConcertCircle()
     {
+        if (GameManager.Instance.CompletedTutorial)
+        {
+            concertCircles[0].SetActive(true);
+        }
+
         if (GameManager.Instance.CompletedLevelOne)
         {
-            concertCircles[0].SetActive(false);
             concertCircles[1].SetActive(true);
         }
         
         if (GameManager.Instance.CompletedLevelTwo)
         {
-            concertCircles[1].SetActive(false);
             concertCircles[2].SetActive(true);
         }
         
         if (GameManager.Instance.CompletedLevelThree)
         {
-            concertCircles[2].SetActive(true);
             concertCircles[3].SetActive(true);
         }
         
         if (GameManager.Instance.CompletedLevelFour)
         {
-            concertCircles[3].SetActive(false);
+            concertCircles[4].SetActive(true);
         }
     }
 
@@ -199,6 +210,9 @@ public class ConcertBoardController : MonoBehaviour
                 notePadText = "Invalid Level";
                 break;
         }
+
+        // Updating the concert circles
+        UpdateConcertCircle();
 
         // Setting the descriptions for our text objects
         stickyNote.text = stickyNoteText;
