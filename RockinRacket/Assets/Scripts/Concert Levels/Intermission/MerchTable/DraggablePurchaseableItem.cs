@@ -14,6 +14,7 @@ public class DraggablePurchaseableItem : MonoBehaviour, IBeginDragHandler, IDrag
     [Header("Destination Data")]
     [SerializeField] private RectTransform destination;
     [SerializeField] private string itemName;
+    [SerializeField] private RectTransform screenBoundary;
 
     /*
      * The following three methods are implemented from the DragHandler interface set
@@ -36,6 +37,11 @@ public class DraggablePurchaseableItem : MonoBehaviour, IBeginDragHandler, IDrag
             MerchTableEvents.instance.e_itemDeposited.Invoke(itemName);
             Destroy(gameObject);
         }
+
+        if (!RectTransformUtility.RectangleContainsScreenPoint(screenBoundary, eventData.position))
+        {
+            gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        }
     }
 
     /*
@@ -52,6 +58,14 @@ public class DraggablePurchaseableItem : MonoBehaviour, IBeginDragHandler, IDrag
     public void SetItemName(string name)
     {
         itemName = name;
+    }
+
+    /*
+     *  The following method sets the boundary of the world
+     */
+    public void SetScreenBoundary(RectTransform screenSpace)
+    {
+        screenBoundary = screenSpace;
     }
         
 }
