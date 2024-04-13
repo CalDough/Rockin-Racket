@@ -26,15 +26,14 @@ public class StartMenu : MonoBehaviour
     [Header("Start Button")]
     public GameObject startButton;
 
-    private void Start()
-    {
-        maxLineSegments = lineSegments.Length;
-        maxFaces = faces.Length;
-    }
-
     // This method is called by ConcertManager when the concert is loaded in for the first time
     public void ActivateStartScreenAnimationAndLoadingFaces()
     {
+        Debug.Log("<color=green> Activating loading screen animations </color>");
+
+        maxLineSegments = lineSegments.Length;
+        maxFaces = faces.Length;
+
         StartCoroutine(DisplayFaceLoading());
         StartCoroutine(DisplayLineAnimation());
     }

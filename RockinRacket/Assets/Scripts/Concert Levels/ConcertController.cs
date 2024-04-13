@@ -90,8 +90,8 @@ public class ConcertController : MonoBehaviour
         if (afterIntermission)
         {
             Debug.Log("<color=green> Post Intermission State Detected </color>");
-            //startScreen.SetActive(false);
-            //StartConcert();
+            startScreen.SetActive(false);
+            StartConcert();
         }
         else
         {
