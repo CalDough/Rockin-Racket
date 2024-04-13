@@ -20,7 +20,7 @@ public class IntermissionController : MonoBehaviour
     public GameObject merchTableGroup;
     public GameObject merchTableBackWall;
     public GameObject backstageBackground;
-    public GameObject[] characterLocations; // 0 = MJ | 1 = Kurt | 2 = Haley | 3 = Ace
+    public GameObject[] currentCharacterPositions;
 
     [Header("Merch Table Initialization Values")]
     public Vector2[] merchTableScoreConversions;
@@ -72,6 +72,19 @@ public class IntermissionController : MonoBehaviour
             if (curConcert.concertName != null)
             {
                 concertLevelName = curConcert.concertName;
+
+                if (concertLevelName == "LEVEL01")
+                {
+                    currentCharacterPositions[0].gameObject.SetActive(true);
+                }
+                else if (concertLevelName == "LEVEL02")
+                {
+                    currentCharacterPositions[1].gameObject.SetActive(true);
+                }
+                else if (concertLevelName == "LEVEL03")
+                {
+                    currentCharacterPositions[2].gameObject.SetActive(true);
+                }
             }
             else
             {

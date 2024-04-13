@@ -20,7 +20,7 @@ public class ConcertData : ScriptableObject
     public TransitionData returnToConcertLoader;
     public SceneIndex currentLevel;
     public Levels concertLevelName;
-    public Vector3[] intermissionCharacterLocations;
+    public Vector2[] intermissionCharacterLocations;
 
     [Header("Concert Player Stats")]
     public bool isPostIntermission = false;
