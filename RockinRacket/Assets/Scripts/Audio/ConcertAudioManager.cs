@@ -23,7 +23,7 @@ public class ConcertAudioManager : MonoBehaviour
     //public string parameterName = "BrokenValue";
     [Header("Test Variables")] 
     public bool isPlaying = false;
-    private List<string> logicTracks = new List<string> { "Guitar", "Bass", "Drums" };
+    private List<string> logicTracks = new List<string> { "Guitar", "Bass", "Drums", "Vocals" };
 
     [Header("Debug Variables")]
     public bool debugUpdateAudio = false; 
@@ -57,14 +57,15 @@ public class ConcertAudioManager : MonoBehaviour
         else
         {
             Instance = this;
+            ConcertEvents.instance.e_SongStarted.AddListener(StartConcertAudio);
         }
+
     }
 
     void Start()
     {
         //SubscribeEvents();
         SceneManager.sceneUnloaded += OnSceneChange;
-        ConcertEvents.instance.e_SongStarted.AddListener(StartConcertAudio);
         TimeEvents.OnGamePaused += PauseConcert;
         TimeEvents.OnGameResumed += ResumeConcert;
         ConcertAudioEvent.OnAudioBroken += AudioBroken;
@@ -105,7 +106,7 @@ public class ConcertAudioManager : MonoBehaviour
 
     private void UpdateFMODParameters()
     {
-        SetInstrumentBrokenValue("Voice", HaleyBrokenValue);
+        SetInstrumentBrokenValue("Vocals", HaleyBrokenValue);
         SetInstrumentBrokenValue("Guitar", KurtBrokenValue);
         SetInstrumentBrokenValue("Drums", AceBrokenValue);
         SetInstrumentBrokenValue("Bass", MJBrokenValue);
@@ -157,7 +158,7 @@ public class ConcertAudioManager : MonoBehaviour
         switch(bandName)
         {
             case BandRoleName.Haley:
-                return "Voice";
+                return "Vocals";
             case BandRoleName.Kurt:
                 return "Guitar";
             case BandRoleName.Ace:
@@ -280,7 +281,7 @@ public class ConcertAudioManager : MonoBehaviour
     {
         switch(instrumentName)
         {
-            case "Voice": return HaleyBrokenValue;
+            case "Vocals": return HaleyBrokenValue;
             case "Guitar": return KurtBrokenValue;
             case "Drums": return AceBrokenValue;
             case "Bass": return MJBrokenValue;
@@ -305,7 +306,7 @@ public class ConcertAudioManager : MonoBehaviour
         if (HaleyAvailable && HaleyBrokenValue > 0)
         {
             HaleyBrokenValue = Mathf.Max(0, HaleyBrokenValue - brokenValueReduction);
-            SetInstrumentBrokenValue("Voice", HaleyBrokenValue);
+            SetInstrumentBrokenValue("Vocals", HaleyBrokenValue);
         }
 
         if (KurtAvailable && KurtBrokenValue > 0)

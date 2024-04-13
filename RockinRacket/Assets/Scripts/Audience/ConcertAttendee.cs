@@ -74,7 +74,8 @@ public class ConcertAttendee : Attendee
 
     public override void Init()
     {
- 
+        ConcertEvents.instance.e_SongStarted.AddListener(StartAttendeeMovement);
+        ConcertEvents.instance.e_SongEnded.AddListener(StopAttendeeMovement);
     }
 
     private void Start()
@@ -87,8 +88,7 @@ public class ConcertAttendee : Attendee
         defaultLocation = this.gameObject.transform.position;
         //StartMoveCoroutine();
 
-        ConcertEvents.instance.e_ConcertStarted.AddListener(StartAttendeeMovement);
-        ConcertEvents.instance.e_ConcertEnded.AddListener(StopAttendeeMovement);
+
     }
 
     void OnDestroy()
