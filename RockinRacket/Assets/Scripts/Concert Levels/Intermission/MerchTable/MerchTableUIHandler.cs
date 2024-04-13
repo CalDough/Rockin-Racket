@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 /*
  * This class controls the UI elements associated with the Merch Table minigame. 
@@ -24,6 +25,7 @@ public class MerchTableUIHandler : MonoBehaviour
 
     [Header("Draggable Objected Related References")]
     public RectTransform destination;
+    public TMP_Text counterText;
 
     [Header("MerchTable Class Variables")]
     public MerchTable merchTableClass;
@@ -34,6 +36,8 @@ public class MerchTableUIHandler : MonoBehaviour
     private void Start()
     {
         MerchTableEvents.instance.e_itemDeposited.AddListener(PurchaseableItemFulfilled);
+
+        
     }
 
     /*
@@ -85,6 +89,15 @@ public class MerchTableUIHandler : MonoBehaviour
             Debug.Log("<color=green>Customer Fulfilled</color>");
             GameManager.Instance.currentConcertData.localMoney += pricePerObject;
             ConcertEvents.instance.e_TriggerSound.Invoke("checkOut");
+            UpdateCustomerCount();
         }
+    }
+
+    /*
+     *  This method updates the remaining customer count
+     */
+    public void UpdateCustomerCount()
+    {
+        counterText.text = $"Remaining Customers:\n{merchTableClass.ReturnCurrentCustomerCount()}";
     }
 }

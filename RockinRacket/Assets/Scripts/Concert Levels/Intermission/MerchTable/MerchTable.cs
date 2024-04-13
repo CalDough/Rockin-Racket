@@ -30,6 +30,7 @@ public class MerchTable : MonoBehaviour
     [SerializeField] private MerchTableUIHandler merchTableUIHandler;
     [SerializeField] private RectTransform itemDestination;
     private GameObject currentCustomer;
+    [SerializeField] private IntermissionController intermissionController;
 
     [Header("Purchaseable Item Details")]
     public Vector2 minMaxItemPurchaseAmounts;
@@ -90,6 +91,8 @@ public class MerchTable : MonoBehaviour
         currentCustomerCount = startingCustomerCount;
 
         SpawnCustomers(startingCustomerCount);
+
+        merchTableUIHandler.UpdateCustomerCount();
     }
 
     /*
@@ -133,6 +136,7 @@ public class MerchTable : MonoBehaviour
         {
             Debug.Log("<color=green> All Customers Fulfilled at Merch Stand </color>");
             AllCustomersFulfilled = true;
+            intermissionController.TransitionBackToConcert();
         }
     }
 
@@ -192,6 +196,14 @@ public class MerchTable : MonoBehaviour
         List<PurchaseableItem> curCustomerList = GenerateRandomPurchaseableItemList();
 
         merchTableUIHandler.ActivateAndUpdateCustomerWants(curCustomerList);
+    }
+
+    /*
+     *  This method returns the current number of customers remaining
+     */
+    public int ReturnCurrentCustomerCount()
+    {
+        return customerQueue.Count;
     }
 
 }
