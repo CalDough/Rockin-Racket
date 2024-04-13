@@ -51,13 +51,13 @@ public class ThoughtBubble : MonoBehaviour
         switch(item)
         {
             case RequestableItem.RedShirt:
-                srItem.color = Color.red;
+                srItem.sprite = requestableItemSprites[0];
                 break;
             case RequestableItem.BlackShirt:
-                srItem.color = Color.black;
+                srItem.sprite = requestableItemSprites[1];
                 break;
             case RequestableItem.WhiteShirt:
-                srItem.color = Color.white;
+                srItem.sprite = requestableItemSprites[2];
                 break;
         }
     }

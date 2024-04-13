@@ -9,7 +9,7 @@ public class Shirt : MonoBehaviour
     public RequestableItem ShirtType;
     public Rigidbody2D rb;
     [SerializeField] private SpriteRenderer sr;
-    //public List<Sprite> sprites;
+    public List<Sprite> sprites;
     //public Color color1 = Color.red;
 
     void Start()
@@ -24,13 +24,13 @@ public class Shirt : MonoBehaviour
         switch(ShirtType)
         {
             case RequestableItem.RedShirt:
-                sr.color = Color.red;
+                sr.sprite = sprites[0];
                 break;
             case RequestableItem.BlackShirt:
-                sr.color = Color.black;
+                sr.sprite = sprites[1];
                 break;
             case RequestableItem.WhiteShirt:
-                sr.color = Color.white;
+                sr.sprite = sprites[2];
                 break;
         }
     }
