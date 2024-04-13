@@ -1647,7 +1647,9 @@ MonoBehaviour:
   - {fileID: 967112919}
   pricePerObject: 10
   destination: {fileID: 2099918325}
+  counterText: {fileID: 0}
   merchTableClass: {fileID: 401254909}
+  isInTutorial: 1
 --- !u!114 &401254909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1674,6 +1676,7 @@ MonoBehaviour:
   - {fileID: 5893828084192702231, guid: 96325b8582d609b498b0247b170f7319, type: 3}
   merchTableUIHandler: {fileID: 401254908}
   itemDestination: {fileID: 2099918325}
+  intermissionController: {fileID: 1834701506}
   minMaxItemPurchaseAmounts: {x: 1, y: 5}
   tShirtSprite: {fileID: 21300000, guid: 0ed6e6750bfa1394cb343a443d5174f3, type: 3}
   buttonSprite: {fileID: 21300000, guid: e7e29b5d1517ed448b0acc5ce11a4bbc, type: 3}
@@ -3542,6 +3545,7 @@ MonoBehaviour:
   purchaseableItemName: 
   numToSpawn: 0
   destination: {fileID: 0}
+  screenSpace: {fileID: 119551775}
 --- !u!1 &1238035427
 GameObject:
   m_ObjectHideFlags: 0
@@ -4303,6 +4307,7 @@ MonoBehaviour:
   purchaseableItemName: 
   numToSpawn: 0
   destination: {fileID: 0}
+  screenSpace: {fileID: 119551775}
 --- !u!1 &1438522822
 GameObject:
   m_ObjectHideFlags: 0
@@ -5198,6 +5203,7 @@ MonoBehaviour:
   merchTableGroup: {fileID: 119551774}
   merchTableBackWall: {fileID: 1362993888}
   backstageBackground: {fileID: 1887745308}
+  currentCharacterPositions: []
   merchTableScoreConversions:
   - {x: 6, y: 12}
   - {x: 4, y: 8}
@@ -6008,3 +6014,4 @@ MonoBehaviour:
   purchaseableItemName: 
   numToSpawn: 0
   destination: {fileID: 0}
+  screenSpace: {fileID: 119551775}

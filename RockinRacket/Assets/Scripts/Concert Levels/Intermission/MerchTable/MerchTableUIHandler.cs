@@ -30,6 +30,9 @@ public class MerchTableUIHandler : MonoBehaviour
     [Header("MerchTable Class Variables")]
     public MerchTable merchTableClass;
 
+    [Header("Debug Mode")]
+    public bool isInTutorial;
+
     /*
      * In the Start method we are adding listeners for any relevant UI events
      */
@@ -98,6 +101,9 @@ public class MerchTableUIHandler : MonoBehaviour
      */
     public void UpdateCustomerCount()
     {
-        counterText.text = $"Remaining Customers:\n{merchTableClass.ReturnCurrentCustomerCount()}";
+        if (!isInTutorial)
+        {
+            counterText.text = $"Remaining Customers:\n{merchTableClass.ReturnCurrentCustomerCount()}";
+        }
     }
 }

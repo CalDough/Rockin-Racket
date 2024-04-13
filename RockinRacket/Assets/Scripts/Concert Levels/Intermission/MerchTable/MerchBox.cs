@@ -17,6 +17,7 @@ public class MerchBox : MonoBehaviour, IPointerDownHandler
     [SerializeField] private string purchaseableItemName;
     [SerializeField] int numToSpawn = 0;
     [SerializeField] RectTransform destination;
+    [SerializeField] RectTransform screenSpace;
 
     public void Init(PurchaseableItem item, string itemName, RectTransform destin)
     {
@@ -43,6 +44,7 @@ public class MerchBox : MonoBehaviour, IPointerDownHandler
             //item.transform.position = itemPos.position;
             item.GetComponent<DraggablePurchaseableItem>().SetItemName(ownedItem.itemName);
             item.GetComponent<DraggablePurchaseableItem>().SetDestination(destination);
+            item.GetComponent<DraggablePurchaseableItem>().SetScreenBoundary(screenSpace);
             numToSpawn--;
             ConcertEvents.instance.e_TriggerSound.Invoke("itemClick");
         }
