@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
         hasStartedGame = true;
         
 
-        ConcertResultData tutorialResults = new ConcertResultData('X', 0, 0);
+        ConcertResultData tutorialResults = new ConcertResultData('A', 0, 0);
         concertResultsList.Add(tutorialResults);
         ConcertResultData levelOneResults = new ConcertResultData('X', 0, 0);
         concertResultsList.Add(levelOneResults);
