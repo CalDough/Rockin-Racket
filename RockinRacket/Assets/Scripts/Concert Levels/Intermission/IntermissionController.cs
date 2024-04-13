@@ -20,6 +20,7 @@ public class IntermissionController : MonoBehaviour
     public GameObject merchTableGroup;
     public GameObject merchTableBackWall;
     public GameObject backstageBackground;
+    public GameObject[] characterLocations; // 0 = MJ | 1 = Kurt | 2 = Haley | 3 = Ace
 
     [Header("Merch Table Initialization Values")]
     public Vector2[] merchTableScoreConversions;
@@ -95,6 +96,19 @@ public class IntermissionController : MonoBehaviour
             else
             {
                 Debug.LogError("CONCERT BACKSTAGE MATERIAL IS NULL");
+            }
+
+            if (curConcert.intermissionCharacterLocations != null)
+            {
+                // 0 = MJ | 1 = Kurt | 2 = Haley | 3 = Ace
+                //characterLocations[0].gameObject.GetComponent<RectTransform>().anchoredPosition = curConcert.intermissionCharacterLocations[0];
+                //characterLocations[1].gameObject.GetComponent<RectTransform>().anchoredPosition = curConcert.intermissionCharacterLocations[1];
+                //characterLocations[1].gameObject.GetComponent<RectTransform>().anchoredPosition = curConcert.intermissionCharacterLocations[2];
+                //characterLocations[1].gameObject.GetComponent<RectTransform>().anchoredPosition = curConcert.intermissionCharacterLocations[3];
+            }
+            else
+            {
+                Debug.LogError("CHARACTER LOCATIONS MISSING FOR INTERMISSION");
             }
 
             if (curConcert.returnToConcertLoader != null)
