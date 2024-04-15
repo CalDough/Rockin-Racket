@@ -1597,7 +1597,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 688.9342, y: -479}
-  m_SizeDelta: {x: 518.1316, y: 100}
+  m_SizeDelta: {x: 483.33334, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1124860937
 MonoBehaviour:
@@ -1618,9 +1618,9 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
-    m_NormalColor: {r: 0.7398095, g: 0.8962264, b: 0.8657529, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1628,7 +1628,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 20ede96ae15684e4fb2227093a27275d,
+      type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -1676,7 +1677,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 596dbd2ce14f0408fa33bdd5b6af9690, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 45adcbe3734e048b8948800d5c4d796a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1845,11 +1846,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 223313898}
     m_Modifications:
-    - target: {fileID: 1849100968345326171, guid: e26d65456821027469438d9ec8ee8c4e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2775886212278926383, guid: e26d65456821027469438d9ec8ee8c4e,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1958,7 +1954,7 @@ PrefabInstance:
     - target: {fileID: 3268790181412063150, guid: e26d65456821027469438d9ec8ee8c4e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3328152773666570122, guid: e26d65456821027469438d9ec8ee8c4e,
         type: 3}
@@ -2843,8 +2839,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
