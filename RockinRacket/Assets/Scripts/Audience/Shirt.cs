@@ -26,10 +26,10 @@ public class Shirt : MonoBehaviour
             case RequestableItem.RedShirt:
                 sr.sprite = sprites[0];
                 break;
-            case RequestableItem.BlackShirt:
+            case RequestableItem.WhiteShirt:
                 sr.sprite = sprites[1];
                 break;
-            case RequestableItem.WhiteShirt:
+            case RequestableItem.BlackShirt:
                 sr.sprite = sprites[2];
                 break;
         }

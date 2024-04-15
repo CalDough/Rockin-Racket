@@ -18,7 +18,7 @@ public class LevelSegmentBar : MonoBehaviour
 
     void HandleConcertStarted()
     {
-        if(GameManager.Instance.currentConcertData.isPostIntermission)
+        if(ConcertController.instance.afterIntermission)
         {
             IncrementSegmentIndex(3); // Increment by 3 for post intermission
         }
