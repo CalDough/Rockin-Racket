@@ -41,8 +41,8 @@ public class BandAnimationController : MonoBehaviour
     private void Start()
     {
         ConcertAudioEvent.OnAudioBroken += HandleAudioBroken;
-        ConcertEvents.instance.e_ConcertStarted.AddListener(StartMovementAnimation);
-        ConcertEvents.instance.e_ConcertEnded.AddListener(StopMovementAnimation);
+        ConcertEvents.instance.e_SongStarted.AddListener(StartMovementAnimation);
+        ConcertEvents.instance.e_SongEnded.AddListener(StopMovementAnimation);
     }
 
     private void FixedUpdate()

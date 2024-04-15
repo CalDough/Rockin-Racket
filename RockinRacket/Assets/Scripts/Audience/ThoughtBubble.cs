@@ -53,10 +53,10 @@ public class ThoughtBubble : MonoBehaviour
             case RequestableItem.RedShirt:
                 srItem.sprite = requestableItemSprites[0];
                 break;
-            case RequestableItem.BlackShirt:
+            case RequestableItem.WhiteShirt:
                 srItem.sprite = requestableItemSprites[1];
                 break;
-            case RequestableItem.WhiteShirt:
+            case RequestableItem.BlackShirt:
                 srItem.sprite = requestableItemSprites[2];
                 break;
         }
