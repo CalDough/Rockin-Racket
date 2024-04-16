@@ -16,6 +16,7 @@ public class TShirtCannon : MonoBehaviour
     public Transform cannonBody;
     public Transform cannonRestTransform; 
     public string SoundEffectPath;
+    public List<CannonShirtClickable> shirtBoxes;
 
     [Header("Cannon Variables")]
     public List<RequestableItem> AvailableShirtTypes;
@@ -42,6 +43,14 @@ public class TShirtCannon : MonoBehaviour
     public void ChangeShirtType(ConcertAttendee.RequestableItem shirtType)
     {
         this.SelectedShirtType = shirtType;
+    }
+        
+    public void SelectShirtType(RequestableItem type)
+    {
+        foreach (var box in shirtBoxes)
+        {
+            box.UpdateHighlight(box.SelectedShirtType == type);
+        }
     }
 
     private void Awake()
@@ -70,6 +79,8 @@ public class TShirtCannon : MonoBehaviour
             Debug.LogError("tShirtPrefab does not have a Rigidbody2D");
             gravityScale = 1f; 
         }
+        this.SelectedShirtType = RequestableItem.RedShirt;
+        SelectShirtType(RequestableItem.RedShirt);
     }
 
     private void OnEnable()
@@ -98,6 +109,7 @@ public class TShirtCannon : MonoBehaviour
     private void StartDrag()
     {
         //Debug.Log("Drag Start");
+        if(GameManager.Instance.isMinigameOpen){return;}
         if(isCannonPaused){return;}
 
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());

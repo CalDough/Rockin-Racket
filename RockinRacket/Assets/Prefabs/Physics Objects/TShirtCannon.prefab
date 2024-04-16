@@ -39,7 +39,7 @@ Transform:
   - {fileID: 2801487089619416963}
   - {fileID: 8553040223159928673}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8298851392785615590
 MonoBehaviour:
@@ -61,6 +61,10 @@ MonoBehaviour:
   cannonBody: {fileID: 3795623211917347344}
   cannonRestTransform: {fileID: 8921489004505916333}
   SoundEffectPath: event:/Sound Effects/Mini-games/T-shirt cannon shoot
+  shirtBoxes:
+  - {fileID: 7834606844192704866}
+  - {fileID: 939226198970021785}
+  - {fileID: 6112226134690936382}
   AvailableShirtTypes: 00000000
   SelectedShirtType: 0
   power: 5
@@ -467,6 +471,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedShirtType: 1
+  boxSprite: {fileID: 6318147849431533025}
+  highlightedSprite: {fileID: 21300000, guid: eafc51bb0a43beb48bb5d6f98971dff9, type: 3}
+  unhighlightedSprite: {fileID: 21300000, guid: d0ce83c6ea890af4b93c5864fa0d0db1,
+    type: 3}
 --- !u!1 &2992300849278958171
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +780,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedShirtType: 0
+  boxSprite: {fileID: 4099408983241554448}
+  highlightedSprite: {fileID: 21300000, guid: 0fc65dae16cfa8941b4275628df9c54e, type: 3}
+  unhighlightedSprite: {fileID: 21300000, guid: 85db7e626b635d14ea18d811d7d12a2a,
+    type: 3}
 --- !u!1 &4541647704157973606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,6 +1044,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedShirtType: 2
+  boxSprite: {fileID: 7731590106339111458}
+  highlightedSprite: {fileID: 21300000, guid: bbe1295849151dd46a9e012ab4501d93, type: 3}
+  unhighlightedSprite: {fileID: 21300000, guid: bbb0945ab9ecedf4f867fbd3289207fa,
+    type: 3}
 --- !u!1 &7806505192084488109
 GameObject:
   m_ObjectHideFlags: 0

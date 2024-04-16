@@ -103,12 +103,14 @@ public class DialTuning : MinigameController
 
     public override void OpenMinigame()
     {
-        ChildCanvasPanels.SetActive(true);
+        ChildCanvasPanels.SetActive(true);        
+        GameManager.Instance.isMinigameOpen = true;
     }
 
     public override void CloseMinigame()
     {
-        ChildCanvasPanels.SetActive(false);
+        ChildCanvasPanels.SetActive(false);        
+        GameManager.Instance.isMinigameOpen = false;
     }
 
     public void SpawnDials()

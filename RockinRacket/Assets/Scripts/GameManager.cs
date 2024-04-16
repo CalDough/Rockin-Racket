@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     [Header("DEBUG MODE")]
     public bool isInDebugMode;
-
+    public bool isMinigameOpen = false;
 
     public static GameManager Instance { get; private set; }
 

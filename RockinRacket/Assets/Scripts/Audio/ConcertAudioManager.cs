@@ -46,7 +46,8 @@ public class ConcertAudioManager : MonoBehaviour
     [Range(-0,5)]public float HarveyBrokenValue = 0;
 
 
-
+    public bool OnFinalLevel = false;
+    public bool PastIntermission = false;
 
     void Awake()
     {

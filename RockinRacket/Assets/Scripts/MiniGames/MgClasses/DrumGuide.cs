@@ -115,11 +115,13 @@ public class DrumGuide : MinigameController
         ChildCanvasPanels.SetActive(true);
         HighlightDrum(drumSequence[currentDrumIndex]);
         ClearAndGenerateStars();
+        GameManager.Instance.isMinigameOpen = true;
     }
 
     public override void CloseMinigame()
     {
-        ChildCanvasPanels.SetActive(false);
+        ChildCanvasPanels.SetActive(false);        
+        GameManager.Instance.isMinigameOpen = false;
     }
 
     public void RestartMiniGameLogic()

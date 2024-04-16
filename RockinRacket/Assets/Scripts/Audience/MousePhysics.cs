@@ -42,6 +42,7 @@ public class MousePhysics : MonoBehaviour
     
     void Update()
     {
+        if(GameManager.Instance.isMinigameOpen){return;}
         if(isGamePaused) {return;}
 
         if (Mouse.current.leftButton.wasPressedThisFrame)

@@ -17,6 +17,7 @@ public class KeyboardNote : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private Image noteImage;
     [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private float fadeDuration = 2f;
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class KeyboardNote : MonoBehaviour, IPointerClickHandler
         {
             noteImage.color = AssignedChord.GetChordColor(); 
             Color color = noteImage.color;
-            color.a = .75f;
+            color.a = .7f;
             noteImage.color = color;
         }
     }
@@ -54,24 +55,38 @@ public class KeyboardNote : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Note CLicked");
+        Debug.Log("Note Clicked");
+        GameInstance?.NoteWasClicked(this);
+
+    }
+
+    public void ChangeOpacity()
+    {
         if (IsClickable && !WasClicked)
         {
-            ChangeOpacity(0.25f); 
-            GameInstance?.NoteWasClicked(this);
+            WasClicked = true; 
+            StartCoroutine(FadeOut(fadeDuration)); 
+
         }
     }
 
-    private void ChangeOpacity(float opacity)
+    IEnumerator FadeOut(float duration)
     {
-        var sprite = GetComponent<Image>();
-        if (sprite != null)
+        float startOpacity = noteImage.color.a;
+        float endOpacity = 0f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
         {
-            Color color = sprite.color;
-            color.a = opacity;
-            sprite.color = color;
+            elapsedTime += Time.deltaTime;
+            float newOpacity = Mathf.Lerp(startOpacity, endOpacity, elapsedTime / duration);
+            Color color = noteImage.color;
+            color.a = newOpacity;
+            noteImage.color = color;
+            yield return null;
         }
 
+        noteImage.color = new Color(noteImage.color.r, noteImage.color.g, noteImage.color.b, 0); 
     }
 
     public void DisableNote()
