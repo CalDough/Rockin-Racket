@@ -221,6 +221,9 @@ public class ConcertBoardController : MonoBehaviour
         boardTitle.text = notePadTitle;
         boardDescription.text = notePadText;
 
+        // Resetting scriptable object data
+        ResetConcertScriptableObject(GameManager.Instance.currentConcertData);
+
         // Adding the scene transition if the data is not null
         if (transition != null && canAccessSelectedLevel)
         {
@@ -348,5 +351,18 @@ public class ConcertBoardController : MonoBehaviour
     private string FormatConcertScoreData(ConcertResultData results)
     {
         return $"CONCERT GRADE: {results.gradeLetter}\nCONCERT SCORE: {results.gradeScore}\nPROFIT: {results.profitAmount}";
+    }
+
+    /*
+     *  The following method resets the scriptable object for the concert level that the player selects
+     */
+    public void ResetConcertScriptableObject(ConcertData concertData)
+    {
+        concertData.isPostIntermission = false;
+        concertData.currentAudienceRating = 0;
+        concertData.localMoney = 0;
+        concertData.numMerchTableCustomers = 0;
+        concertData.currentConcertScore = 250;
+        concertData.currentConcertLetter = "C";
     }
 }
