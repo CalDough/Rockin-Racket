@@ -16,6 +16,7 @@ public class StartMenu : MonoBehaviour
     public GameObject[] lineSegments;
     [SerializeField] private int lineSegmentCounter = 0;
     [SerializeField] private int maxLineSegments;
+    public float lineDisplayRate = .5f;
 
     [Header("Face Loading")]
     public GameObject[] faces;
@@ -73,7 +74,7 @@ public class StartMenu : MonoBehaviour
             lineSegments[lineSegmentCounter].gameObject.SetActive(true);
             lineSegmentCounter++;
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(lineDisplayRate);
         }
 
         RevealLevelStartButton();
