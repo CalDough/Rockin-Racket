@@ -7,13 +7,14 @@ INCLUDE ../globals.ink
 
 #speaker: Kurt #portrait: harvey_chill_normal #portrait: kurt_speaking_normal-alt
 Oh, h-hey Harvey. Do you need something?
-    * [Just checking in]
+    
+    * [Just checking in.]
         
         #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait: kurt_chill_confused
         Just wanted to see what you got going on. Are you looking for something?
         
         -> K_H1_C1
-    * [Yeah, I wanted to check...]
+    * [How's the bass?]
         
         #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait: kurt_chill_blank
         How's the bass holding up? It looked a bit banged up from where I was standing.
@@ -26,7 +27,8 @@ Oh, h-hey Harvey. Do you need something?
 
 #speaker: Kurt #portrait: harvey_chill_intrigued #portrait: kurt_speaking_sad
 Yeah, I am. I have a little c-case that mom got me that I've been putting my guitar p-picks in. I lost it somewhere.
-    * [That sucks]
+    
+    * [That sucks.]
         
         #speaker: Harvey #portrait: harvey_speaking_normal #portrait: kurt_chill_hurt
         Awe, dang. I'm sorry bro. I'm sure it's bound to show back up eventually!
@@ -36,7 +38,7 @@ Yeah, I am. I have a little c-case that mom got me that I've been putting my gui
         I know, It's just stressful that I can't f-find it right now.
         
             -> END
-    * [Have you thought about checking...]
+    * [Check with MJ.]
         
         #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait: kurt_chill_confused
         How about you ask MJ? Could she have taken it?
@@ -52,7 +54,8 @@ Yeah, I am. I have a little c-case that mom got me that I've been putting my gui
 
 #speaker: Kurt #portrait: harvey_chill_normal-alt #portrait: kurt_speaking_normal-alt
 Oh, n-no it's all good. I've just had it for a while. It w-was a Christmas gift a f-few years ago.
-    * [Now I remember]
+    
+    * [Now I remember.]
         
         #speaker: Harvey #portrait: harvey_speaking_normal-alt #portrait: kurt_chill_happy
         Oh yeah, now I remember. You were so happy you were bouncing around the room!
@@ -62,7 +65,7 @@ Oh, n-no it's all good. I've just had it for a while. It w-was a Christmas gift 
         Well yeah, I r-really wanted it! But, I may need a new one at some point before it t-totally dies out on me.
         
             -> END
-    * [Maybe I can...]
+    * [Maybe I'll buy one.]
         
         #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait: kurt_chill_normal
         Maybe I can buy you a new one here soon to replace it then. Surely if we hold enough concerts then we can save up the money for it.

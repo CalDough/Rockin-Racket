@@ -62,7 +62,7 @@ They just found out that Cassandra spent 10k on a purse. They are freaking out a
 = A_H1_C2
 #speaker: Ace #portrait: harvey_chill_normal-alt #portrait: ace_speaking_doubtful
 Honestly dude, no freaking clue. I put tape on it whenever I can and that seems to work.
-    * [You need a new one]
+    * [You need a new one.]
         
         #speaker: Harvey #portrait: harvey_speaking_ambitious #portrait: ace_chill_um
         You BADLY need a new one then man. One that's shiny and attractive.

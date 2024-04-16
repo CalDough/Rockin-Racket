@@ -7,19 +7,19 @@ using UnityEngine.UI;
 public class DialogueTrigger : MonoBehaviour
 {
     [Header("Visual Cue")]
-    [SerializeField] private GameObject visualCue;
+    [SerializeField] protected GameObject visualCue;
 
     [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON;
+    [SerializeField] protected TextAsset inkJSON;
 
     [Header("Character Details")]
     [SerializeField] private string characterName;
     
     public bool hasNewDialogue;
     
-    private bool isShown = true;
+    protected bool isShown = true;
 
-    private bool thisDialogueActive = false;
+    protected bool thisDialogueActive = false;
     
     
     private void Awake()
@@ -31,7 +31,6 @@ public class DialogueTrigger : MonoBehaviour
     {
         hasNewDialogue = RoomManager.GetInstance().CheckIfInteracted(RoomManager.GetInstance().currentHub, characterName);
         visualCue.SetActive(true);
-
     }
     
     private void Update()
@@ -52,7 +51,7 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
     
-    public void Button_StartDialogue()
+    virtual public void Button_StartDialogue()
     {
         if (!DialogueManager.GetInstance().dialogueActive)
         {

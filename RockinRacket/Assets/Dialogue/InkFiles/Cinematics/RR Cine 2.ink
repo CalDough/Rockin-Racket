@@ -37,6 +37,6 @@ Can we head in now? I'm getting hungry.
 
 
 #speaker: Ace #portrait: kurt_chill_happy #portrait: ace_speaking_tired
-Agreed.
+My stomach and I happily agree.
 
 -> END

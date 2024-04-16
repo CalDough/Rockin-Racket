@@ -10,7 +10,7 @@ INCLUDE ../globals.ink
 
 
 #speaker: Haley #portrait: harvey_chill_annoyed #portrait: haley_speaking_normal-alt1
-Get up you big grouch, we need you!
+Get up you big grouch!
 
 
 #speaker: Harvey #portrait: haley_chill_huh #portrait: harvey_speaking_annoyed
@@ -18,7 +18,7 @@ Ughhh. What do you want, Haley?
 
 
 #speaker: Haley #portrait: harvey_chill_annoyed #portrait: haley_speaking_bummed
-Please don't tell me you forgot about the gig today. You promised you would start helping us.
+Please don't tell me you already forgot about the gig today. We practiced just yesterday for it.
 
 
 #speaker: Harvey #portrait: haley_chill_concerned #portrait: harvey_speaking_normal

@@ -4,57 +4,74 @@ INCLUDE ../globals.ink
 
 === H2 ===
 = Kurt
-#speaker: Kurt #portrait: Kurt_neutral
-Hi there H-h-harvey. Can I help you?
-    * [Got any advice for me?]
-        #speaker: Harvey #portrait: Harvey_neutral
-        Got any advice for me? I feel like I'm starting to get the hang of being a stage manager, but I wanted to know if there was anything else to know?
+#speaker: Kurt #portrait: kurt_speaking_happy #portrait harvey_chill_normal
+Hey there H-harvey. Can I help you?
+
+    * [How are you feeling?]
+        #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait kurt_chill_happy
+        Are you okay? You really looked like you were about to pass out. It got a bit better in the second half, but still. I'm worried about you kid.
         
         -> K_H2_C1
-    * [Is your bass okay?]
-        #speaker: Harvey #portrait: Harvey_neutral
-        Is your bass okay or is there something I should know about?
+    
+    * [I like your figurines]
+        #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait kurt_chill_happy
+        Those figurines you got there are pretty cool. How long have you been collecting them?
         
         -> K_H2_C2
-    * [End convo]
-        -> END
+
 
 = K_H2_C1
-#speaker: Kurt #portrait: Kurt_neutral
-I d-d-don't think so. Just p-p-pay attention to both the st-st-stage and the audience. Make the experience a-a-amazing for them.
-    * [You have a good point]
-        #speaker: Harvey #portrait: Harvey_neutral
-        You have a good point. It's just a bit hectic, ya know?
+#speaker: Kurt #portrait: kurt_speaking_normal #portrait harvey_chill_normal-alt
+Oh, uh yeah. I'm fine. It was just really overwhelming for me. I just wasn't expecting that many people to show up.
+
+    * [You're getting popular]
+        #speaker: Harvey #portrait: harvey_speaking_normal-alt #portrait kurt_chill_blank
+        Yeah, you guys are getting more popular. Makes sense for more people to show up and support you guys. 
         
-        #speaker: Kurt #portrait: Kurt_neutral
-        We d-d-did warn you. But you're doing f-f-fine so far so don't worry about i-i-it.
+        #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait kurt_chill_normal
+        Being in a band has its challenges. Let any of us know if you need a breather, okay?
         
-            -> END
-    * [They can be really energetic]
-        #speaker: Harvey #portrait: Harvey_neutral
-        They can be really energetic and loud sometimes so I doubt I'll miss anything from them.
+        #speaker: Kurt #portrait: kurt_speaking_happy #portrait harvey_chill_intrigued
+        You got it. I really appreciate it, Harvey.
         
-        #speaker: Kurt #portrait: Kurt_neutral
-        Agreed. I worry about the d-d-day they are louder than u-u-us though because that would b-b-be t-t-terrifying.
+        -> END
         
-            -> END
+    * [Is there anything I can do?]
+        #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait kurt_chill_confused
+        Is there anything that I can do that would help? I, and I'm sure the rest of the band, don't want you up there suffering if it's a problem for you.
+        
+        #speaker: Kurt #portrait: kurt_speaking_sad #portrait harvey_chill_normal
+        Oh, no. I'll be okay. I'm k-kinda used to it by now. Plus I have some medicine that helps. I just need to remember to take it consistently. 
+        
+        #speaker: Kurt #portrait: kurt_speaking_normal #portrait harvey_chill_normal-alt
+        I appreciate the offer though, it means a lot.
+        
+        -> END
 
 = K_H2_C2
-#speaker: Kurt #portrait: Kurt_neutral
-Now that you mention it, yeah. The neck of it is starting to crack.
-    * [I'll take care of it]
-        #speaker: Harvey #portrait: Harvey_neutral
-        I'll take care of it and get a new one here soon then.
+#speaker: Kurt #portrait: kurt_speaking_happy #portrait harvey_chill_intrigued
+Oh! Those? Yeah, they're absolutely great. I started c-collecting them last year once I got into "The Three Mousekateers."
+
+#speaker: Kurt #portrait: kurt_speaking_normal-alt #portrait harvey_chill_intrigued
+I wanted them to just decorate my room, but then I started getting more so now I occasionally have them fight each other and p-play with them whenever I'm bored and want something to do.
+
+    * [A year?]
+        #speaker: Harvey #portrait: harvey_speaking_normal #portrait kurt_chill_hurt
+        You've been collecting them for a year now? I never realized that. I wish I knew, I would have gotten you some new ones for Christmas.
         
-        #speaker: Kurt #portrait: Kurt_neutral
-        You're the best!
+        #speaker: Kurt #portrait: kurt_speaking_normal-alt #portrait harvey_chill_intrigued
+        Well, you never really came to my room before so it makes sense. I also just like to keep this stuff to myself and within my room. That way nobody can break them.
         
-            -> END
-    * [Give me some time]
-        #speaker: Harvey #portrait: Harvey_neutral
-        Give me some time. Funds are low right now so hopefully it can last a bit longer.
+        -> END
         
-        #speaker: Kurt #portrait: Kurt_neutral
-        It should last a few more gigs as long as I'm careful.
+    * [Do you do anything else?]
+        #speaker: Harvey #portrait: harvey_speaking_normal-alt #portrait kurt_chill_confused
+        You play with them when you're bored? Do you not have any other hobbies or anything that you can do too?
         
-            -> END
+        #speaker: Kurt #portrait: kurt_speaking_normal #portrait harvey_chill_normal-alt
+        Oh, uh. I make origami sometimes too while listening to music. But my earbuds b-broke a few days ago so now I don't make origami as much.
+        
+        #speaker: Kurt #portrait: kurt_speaking_sad #portrait harvey_chill_normal-alt
+        It feels weird to do it without music playing in my ears.
+        
+        -> END
