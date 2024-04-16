@@ -1245,6 +1245,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1090648276321802800, guid: 1efac45c744dc92468ffefbf51264714,
         type: 3}
+      propertyPath: maxTrashBeforePunishment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090648276321802800, guid: 1efac45c744dc92468ffefbf51264714,
+        type: 3}
+      propertyPath: trashNegativeRatingBonus
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090648276321802800, guid: 1efac45c744dc92468ffefbf51264714,
+        type: 3}
       propertyPath: AttendeeLocations.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -17977,6 +17987,7 @@ MonoBehaviour:
   - {fileID: 1045741870}
   lineSegmentCounter: 0
   maxLineSegments: 16
+  lineDisplayRate: 0.5
   faces:
   - {fileID: 216323463}
   - {fileID: 311434161}
@@ -46241,6 +46252,8 @@ MonoBehaviour:
   KurtBrokenValue: 0
   HarveyAvailable: 0
   HarveyBrokenValue: 0
+  OnFinalLevel: 0
+  PastIntermission: 0
 --- !u!212 &6621953103134224685
 SpriteRenderer:
   m_ObjectHideFlags: 0

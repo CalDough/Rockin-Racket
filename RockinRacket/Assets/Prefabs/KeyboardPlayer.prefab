@@ -4914,7 +4914,7 @@ MonoBehaviour:
   TargetBandMember: 3
   ScoreBonus: 25
   ScorePenalty: -5
-  StressFactor: 1
+  StressFactor: 0.1
   ChildCanvasPanels: {fileID: 6746180252241724925}
   NoteParentRect: {fileID: 5777094479621525432}
   KeyboardAnim: {fileID: 7190699521661422281}
@@ -4959,8 +4959,9 @@ MonoBehaviour:
   notesNeededForScoreBonus: 10
   currentNoteStreak: 0
   spawnTimer: 0
-  DifficultyModifier: 1
-  DifficultyMaxModifier: 3
+  DifficultyModifier: 0.8
+  DifficultyMaxModifier: 2.5
+  lastNoteIndex: -1
 --- !u!95 &7190699521661422281
 Animator:
   serializedVersion: 5

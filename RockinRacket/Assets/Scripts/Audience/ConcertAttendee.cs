@@ -410,7 +410,8 @@ public class ConcertAttendee : Attendee
             StopCoroutine(MoveCoroutine);
             MoveCoroutine = null;
         }
-        thoughtBubble.HideItemThought(wantedItem);
+        if(thoughtBubble.IsOpenedBubble)
+        {thoughtBubble.HideItemThought(wantedItem);}
     }
 
     public void StartItemCoroutine()

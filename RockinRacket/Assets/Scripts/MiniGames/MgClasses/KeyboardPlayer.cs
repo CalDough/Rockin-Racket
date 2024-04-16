@@ -35,8 +35,9 @@ public class KeyboardPlayer : MonoBehaviour
     [SerializeField] int currentNoteStreak = 0;
 
     [SerializeField] private float spawnTimer = 0f;
-    [SerializeField] float DifficultyModifier = 1.0f;
-    [SerializeField] float DifficultyMaxModifier = 3.0f;
+    [SerializeField] float DifficultyModifier = 0.8f;
+    [SerializeField] float DifficultyMaxModifier = 2.5f;
+    [SerializeField] private int lastNoteIndex = -1; 
 
     void Start()
     {
@@ -97,16 +98,28 @@ public class KeyboardPlayer : MonoBehaviour
 
     void SpawnNote()
     {
-        Chord randomChord = chords[Random.Range(0, chords.Count)];
+        int noteRangeMin = 2; 
+        int noteRangeMax = 5; 
+
+        if (lastNoteIndex == -1) 
+        {
+
+            lastNoteIndex = Random.Range(0, chords.Count);
+        }
+        else
+        {
+            int minIndex = Mathf.Max(0, lastNoteIndex - noteRangeMax); 
+            int maxIndex = Mathf.Min(chords.Count - 1, lastNoteIndex + noteRangeMax); 
+            lastNoteIndex = Random.Range(minIndex, maxIndex + 1); 
+        }
+
+        Chord selectedChord = chords[lastNoteIndex];
         GameObject vocalNoteObject = Instantiate(KeyboardNotePrefab, Vector3.zero, Quaternion.identity, NoteParentRect);
-
         RectTransform rectTransform = vocalNoteObject.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = randomChord.GetWorldPosition(randomChord.StringStart);
-
-        KeyboardNote KeyNote = vocalNoteObject.GetComponent<KeyboardNote>();
-        KeyNote.AssignedChord = randomChord;
-        KeyNote.GameInstance = this;
-
+        rectTransform.anchoredPosition = selectedChord.GetWorldPosition(selectedChord.StringStart);
+        KeyboardNote keyNote = vocalNoteObject.GetComponent<KeyboardNote>();
+        keyNote.AssignedChord = selectedChord;
+        keyNote.GameInstance = this;
     }
 
     public void NoteWasMissed()
@@ -115,9 +128,9 @@ public class KeyboardPlayer : MonoBehaviour
         ConcertAudioEvent.AudioBroken(null, StressFactor, TargetBandMember);
         currentNoteStreak = 0;            
         DifficultyModifier -= .02f;
-        if(DifficultyModifier <= 1)
+        if(DifficultyModifier <= 0.8f)
         {
-            DifficultyModifier = 1;
+            DifficultyModifier = 0.8f;
         }
     }
 
@@ -152,7 +165,7 @@ public class KeyboardPlayer : MonoBehaviour
     void UpdateStreakText(int streak)
     {
         streakText.text = "STREAK: " + streak;
-        StartCoroutine(FadeTextToZeroAlpha(2f, streakText));
+        StartCoroutine(FadeTextToZeroAlpha(1f, streakText));
     }
 
     void ShowInstructionText(string message, float duration)
