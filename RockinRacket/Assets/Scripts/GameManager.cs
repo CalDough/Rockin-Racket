@@ -194,6 +194,7 @@ public class GameManager : MonoBehaviour
      */
     public void NewGame()
     {
+        Debug.Log("new GameData");
         this.globalMoney = 100;
         SetDifficulty(this.SetMode);
         CompletedTutorial = false;

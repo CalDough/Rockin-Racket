@@ -66,6 +66,7 @@ public class GameLoadHandler : MonoBehaviour
 
     public void SwitchToScene(int sceneIndex)
     {
+        Save();
         print("Switching from scene: " + currentSceneIndex + " to: " + sceneIndex);
         if (currentSceneIndex != sceneIndex)
         {
