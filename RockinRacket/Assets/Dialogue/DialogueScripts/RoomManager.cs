@@ -54,6 +54,11 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        currentHub = GameManager.Instance.GetHub();
+    }
+
     private void StartingRoom()
     {
         foreach (GameObject room in roomList)
