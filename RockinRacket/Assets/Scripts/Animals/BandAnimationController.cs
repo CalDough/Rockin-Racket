@@ -42,7 +42,7 @@ public class BandAnimationController : MonoBehaviour
     {
         ConcertAudioEvent.OnAudioBroken += HandleAudioBroken;
         ConcertEvents.instance.e_SongStarted.AddListener(StartMovementAnimation);
-        ConcertEvents.instance.e_SongEnded.AddListener(StopMovementAnimation);
+        ConcertEvents.instance.e_ConcertEnded.AddListener(StopMovementAnimation);
     }
 
     private void FixedUpdate()
@@ -99,6 +99,7 @@ public class BandAnimationController : MonoBehaviour
 
     public void StartMovementAnimation()
     {
+        Debug.Log("Starting Band Movement");
         //MoveToTarget("Stage");
         PlayAnimation(playName); //For now i'll always force the characters to play with this
         musicParticleEffect.Play();
@@ -110,6 +111,7 @@ public class BandAnimationController : MonoBehaviour
 
     public void StopMovementAnimation()
     {
+        Debug.Log("Stopping Band Movement");
         PlayAnimation(idleName);
         musicParticleEffect.Stop(); 
     }
@@ -179,9 +181,9 @@ public class BandAnimationController : MonoBehaviour
         // you'll have to ignore this code, i think there were plans for an animation where the characters move while playing, so
         // thats why the code looks odd
         if (journeyLength > thresholdDistance)
-        {characterAnimator.Play(idleName);}
+        {characterAnimator.Play(playName);}
         else
-        {characterAnimator.Play(idleName);}
+        {characterAnimator.Play(playName);}
 
         float journeyDuration = journeyLength / moveSpeed;
         float elapsedTime = 0f;

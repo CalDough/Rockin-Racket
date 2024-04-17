@@ -1071,6 +1071,7 @@ MonoBehaviour:
     type: 2}
   sceneLoader: {fileID: 1707261570}
   intermissionSwap: {fileID: 11400000, guid: ce8d7725c4b59eb4db353428e7ee0af3, type: 2}
+  postIntTutorialHandler: {fileID: 158951866}
 --- !u!4 &158951864
 Transform:
   m_ObjectHideFlags: 0
@@ -1117,6 +1118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousTutorials: {fileID: 1438522822}
+  levelSegmentBar: {fileID: 319467534}
   minigameQueue: {fileID: 275514897}
   cannon: {fileID: 382752325}
   cannonLocation: {fileID: 51260350}
@@ -2216,6 +2218,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &319467534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6828417570789815587, guid: e731f9b6f6ba9db48a2d310e74d36235,
+    type: 3}
+  m_PrefabInstance: {fileID: 189003947}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68e79ab2a6eaa240b8afb17ecf129d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -22723,6 +22737,11 @@ PrefabInstance:
     - target: {fileID: 2431620007493499243, guid: 5efe4b70483da19498d8405a82cf6998,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3034599059307885391, guid: 5efe4b70483da19498d8405a82cf6998,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5813561327565604906, guid: 5efe4b70483da19498d8405a82cf6998,
@@ -54258,7 +54277,7 @@ PrefabInstance:
     - target: {fileID: 7028688347791623655, guid: 40d865a79e9c83a46bd30f6cf0ceac8c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.21
+      value: 8.68
       objectReference: {fileID: 0}
     - target: {fileID: 7028688347791623655, guid: 40d865a79e9c83a46bd30f6cf0ceac8c,
         type: 3}
@@ -54366,7 +54385,7 @@ PrefabInstance:
     - target: {fileID: 176536320155520800, guid: c0db057f06c084e4080dc7771c5f8eb7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.21
+      value: 8.95
       objectReference: {fileID: 0}
     - target: {fileID: 176536320155520800, guid: c0db057f06c084e4080dc7771c5f8eb7,
         type: 3}

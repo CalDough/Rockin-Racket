@@ -91,7 +91,7 @@ public class ConcertController : MonoBehaviour
         {
             Debug.Log("<color=green> Post Intermission State Detected </color>");
             startScreen.SetActive(false);
-            StartConcert();
+            StartCoroutine(DelayedStartConcert(.1f));
         }
         else
         {
@@ -102,6 +102,12 @@ public class ConcertController : MonoBehaviour
             }
             startMenuController.ActivateStartScreenAnimationAndLoadingFaces();
         }
+    }
+
+    private IEnumerator DelayedStartConcert(float delaySeconds)
+    {
+        yield return new WaitForSeconds(delaySeconds); 
+        StartConcert(); 
     }
 
     /*
@@ -189,6 +195,7 @@ public class ConcertController : MonoBehaviour
                 if (isFinalLevel)
                 {
                     Debug.Log("<color=green> Swapping to Cinematic 8 </color>");
+                    cData.isPostIntermission = true;
                     sceneLoader.SwitchScene(cinematicEight);
                 }
                 else
@@ -214,6 +221,7 @@ public class ConcertController : MonoBehaviour
         }
 
         ConcertEvents.instance.e_SongEnded.Invoke();
+        Debug.Log("Song Ended");
         StartNextSong();
     }
 

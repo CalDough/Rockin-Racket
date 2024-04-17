@@ -13,16 +13,15 @@ public class Level4ObjectEnabler : MonoBehaviour
 
     void Start()
     {
-        if(ConcertController.instance.afterIntermission)
-        {
-            UpdateObjectStates();
-        }
+        ConcertEvents.instance.e_ConcertStarted.AddListener(UpdateObjectStates);
     }
 
     private void UpdateObjectStates()
     {
+        PastIntermission = ConcertController.instance.afterIntermission;
         if (PastIntermission)
         {
+            Debug.Log("Disabling Pre-Int Objects");
             foreach (GameObject obj in objectsToEnable)
             {
                 if (obj != null)
@@ -36,6 +35,24 @@ public class Level4ObjectEnabler : MonoBehaviour
                 if (obj != null)
                 {
                     obj.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            foreach (GameObject obj in objectsToEnable)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
+            }
+
+            foreach (GameObject obj in objectsToDisable)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(true);
                 }
             }
         }

@@ -8,9 +8,14 @@ public class Level4MiniTutorial : MonoBehaviour
 
     void Start()
     {
+        ConcertEvents.instance.e_ConcertStarted.AddListener(UpdateTutorialState);
+    }
+
+    void UpdateTutorialState()
+    {
         if(ConcertController.instance.afterIntermission == false)
         {
-            ConcertEvents.instance?.e_ConcertStarted.AddListener(ShowConcertInfo);
+            ShowConcertInfo();
         }
     }
     

@@ -18,6 +18,7 @@ public class TutorialManager : MonoBehaviour
     public ConcertData tutorialConcertData;
     public SceneLoader sceneLoader;    
     public TransitionData intermissionSwap;
+    public PostIntTutorialHandler postIntTutorialHandler;
 
     private void Awake()
     {
@@ -36,6 +37,11 @@ public class TutorialManager : MonoBehaviour
 
     public void StartTutorialSequence()
     {
+        if(afterIntermission)
+        {
+            postIntTutorialHandler.MoveAndEnableObjects();
+        }
+
         var tutorialList = afterIntermission ? postIntermissionTutorials : tutorials;
 
         if(ConcertEvents.instance != null)
