@@ -17,6 +17,7 @@ public class CreditsManager : MonoBehaviour
         foreach (CreditsPage page in creditsPages)
         {
             print(page.gameObject.name);
+            page.gameObject.SetActive(true);
             page.GetUIFades();
             page.SetAlpha(0f);
         }
