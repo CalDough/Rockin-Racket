@@ -6,7 +6,8 @@ public class BookmarkPair : MonoBehaviour
 {
     [SerializeField] private BookmarkManager bookmarkManager;
     [SerializeField] private Bookmark leftBookmark;
-    [SerializeField] private Bookmark rightBookmark;
+    [SerializeField] private Bookmark rightBookmarkBack;
+    [SerializeField] private Bookmark rightBookmarkFront;
     [SerializeField] private Color color;
     [SerializeField] private Bandmate category;
     [SerializeField] private int index;
@@ -15,7 +16,8 @@ public class BookmarkPair : MonoBehaviour
     private void Start()
     {
         leftBookmark.Initialize(color, category, false);
-        rightBookmark.Initialize(color, category, true);
+        rightBookmarkBack.Initialize(color, category, true);
+        rightBookmarkFront.Initialize(color, category, false);
     }
 
     public void BookmarkSelected()
@@ -25,23 +27,27 @@ public class BookmarkPair : MonoBehaviour
     // called by bookmark manager on selected bookmark after resetting bookmarks
     public void Select()
     {
-        rightBookmark.Open();
+        rightBookmarkFront.Open();
+        rightBookmarkBack.Show(false);
+        rightBookmarkFront.Show(true);
     }
     // called by bookmark manager when resetting bookmarks
     public void Unselect()
     {
-        rightBookmark.Close();
+        rightBookmarkBack.Open();
+        rightBookmarkFront.Show(false);
     }
 
     public void FlipLeft()
     {
         leftBookmark.Show(true);
-        rightBookmark.Show(false);
+        rightBookmarkBack.Show(false);
+        rightBookmarkFront.Show(false);
     }
 
     public void ResetFlip()
     {
         leftBookmark.Show(false);
-        rightBookmark.Show(true);
+        rightBookmarkBack.Show(true);
     }
 }
