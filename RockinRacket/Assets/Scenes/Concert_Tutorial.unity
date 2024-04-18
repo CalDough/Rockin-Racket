@@ -22304,6 +22304,31 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4773859990658966473, guid: ec0626a9d767e47d39617ad20113afe8,
+        type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 2057172728}
+    - target: {fileID: 5586342614093266927, guid: ec0626a9d767e47d39617ad20113afe8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 158951863}
+    - target: {fileID: 5586342614093266927, guid: ec0626a9d767e47d39617ad20113afe8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StartTutorialSequence
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586342614093266927, guid: ec0626a9d767e47d39617ad20113afe8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TutorialManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586342614093266927, guid: ec0626a9d767e47d39617ad20113afe8,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7929665518681466388, guid: ec0626a9d767e47d39617ad20113afe8,
         type: 3}
       propertyPath: m_Pivot.x
@@ -53683,6 +53708,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2bda2e7f4b2da643beb589108bf15fe, type: 3}
+--- !u!114 &2057172728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3181027690787307850, guid: c2bda2e7f4b2da643beb589108bf15fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 2057172727}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d892530edf90146f794afb0f720cdbb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2060180602
 PrefabInstance:
   m_ObjectHideFlags: 0
