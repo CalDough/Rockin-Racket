@@ -98,7 +98,6 @@ public class KeyboardPlayer : MonoBehaviour
 
     void SpawnNote()
     {
-        int noteRangeMin = 2; 
         int noteRangeMax = 5; 
 
         if (lastNoteIndex == -1) 
