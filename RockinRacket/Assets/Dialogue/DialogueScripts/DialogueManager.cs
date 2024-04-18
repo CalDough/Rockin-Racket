@@ -72,6 +72,7 @@ public class DialogueManager : MonoBehaviour
 
     private const string PORTRAIT_TAG = "portrait";
     private const string LAYOUT_TAG = "layout";
+    private const string CINEMATIC_TAG = "cinematic";
     private DialogueVariables dialogueVariables;
 
     private void Awake()
@@ -367,6 +368,13 @@ public class DialogueManager : MonoBehaviour
                     break;
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagValue);
+                    break;
+                case CINEMATIC_TAG:
+                    CinematicLoader loader;
+                    if (gameObject.TryGetComponent(out loader))
+                    {
+                        loader.ShowCinematic();
+                    }
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently handled: " + tag);
