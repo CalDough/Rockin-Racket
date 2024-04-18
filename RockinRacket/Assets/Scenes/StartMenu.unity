@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731707, g: 0.13414726, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -672,6 +672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 297627862}
+  - component: {fileID: 297627863}
   m_Layer: 5
   m_Name: No
   m_TagString: Untagged
@@ -701,6 +702,19 @@ RectTransform:
   m_AnchoredPosition: {x: 417, y: -12}
   m_SizeDelta: {x: 446.6329, y: 276.0143}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &297627863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297627861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac8e207e637846f7a721a64c90c25a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioManager: {fileID: 2121952603}
 --- !u!1 &306942351
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,6 +2601,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1630113689}
+  - component: {fileID: 1630113690}
   m_Layer: 5
   m_Name: Yes
   m_TagString: Untagged
@@ -2616,6 +2631,19 @@ RectTransform:
   m_AnchoredPosition: {x: -448, y: -12}
   m_SizeDelta: {x: 446.6329, y: 276.0143}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1630113690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630113688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac8e207e637846f7a721a64c90c25a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioManager: {fileID: 2121952603}
 --- !u!1 &1636943616
 GameObject:
   m_ObjectHideFlags: 0
