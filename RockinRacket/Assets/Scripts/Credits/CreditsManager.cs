@@ -9,6 +9,8 @@ public class CreditsManager : MonoBehaviour
     //[SerializeField] private GameObject nextBtn;
     [SerializeField] private float animationTime;
     [SerializeField] private float animationDelay;
+    [SerializeField] private SceneLoader sceneLoader;
+    [SerializeField] private TransitionData transition;
     private int currentPage = -1;
     private bool isAnimating = false;
 
@@ -32,6 +34,7 @@ public class CreditsManager : MonoBehaviour
             StartCoroutine(NextPage());
             yield return new WaitForSeconds(animationTime * 2 + animationDelay);
         }
+        sceneLoader.SwitchScene(transition);
     }
 
     public void NextBtn()
