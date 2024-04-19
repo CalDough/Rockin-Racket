@@ -10,8 +10,15 @@ public class RoomManager : MonoBehaviour
     private readonly string fileName = "Dialogue.json";
 
     [SerializeField] private List<GameObject> roomList; 
+    private GameManager gameManager;
 
-    public int currentHub = 1;
+    public int currentHub = 0;
+    
+    // Hub 1 Dialogue Interacted Booleans
+    private bool hub0_Ace_Interacted = false;
+    private bool hub0_MJ_Interacted = false;
+    private bool hub0_Kurt_Interacted = false;
+    private bool hub0_Haley_Interacted = false;
 
     // Hub 1 Dialogue Interacted Booleans
     private bool hub1_Ace_Interacted = false;
@@ -56,7 +63,34 @@ public class RoomManager : MonoBehaviour
 
     void Start()
     {
-        currentHub = GameManager.Instance.GetHub();
+        Debug.Log("Current Hub: " + currentHub);
+    }
+
+    private void SetHubNumber()
+    {
+        gameManager = GameManager.Instance;
+
+        if (gameManager.CompletedLevelOne)
+        {
+            currentHub = 1;
+        }
+        else
+        {
+            currentHub = 0;
+        }
+        if (gameManager.CompletedLevelTwo)
+        {
+            currentHub = 2;
+        }
+        if (gameManager.CompletedLevelThree)
+        {
+            currentHub = 3;
+        }
+        
+        if (gameManager.CompletedLevelFour)
+        {
+            currentHub = 4;
+        }
     }
 
     private void StartingRoom()
@@ -89,8 +123,25 @@ public class RoomManager : MonoBehaviour
 
     public bool CheckIfInteracted(int hub, string character)
     {
+        SetHubNumber();
+
         switch (hub)
         {
+            case 0:
+                switch(character)
+                {
+                    case "Ace":
+                        return hub0_Ace_Interacted;
+                    case "Haley":
+                        return hub0_Haley_Interacted;
+                    case "Kurt":
+                        return hub0_Kurt_Interacted;
+                    case "MJ":
+                        return hub0_MJ_Interacted;
+                    default:
+                        Debug.Log("You have entered an invalid character, bool is automatically false");
+                        return false;
+                }
             case 1:
                 switch(character)
                 {
@@ -161,6 +212,26 @@ public class RoomManager : MonoBehaviour
     {
         switch (hub)
         {
+            case 0:
+                switch(character)
+                {
+                    case "Ace":
+                        hub0_Ace_Interacted = true;
+                        break;
+                    case "Haley":
+                        hub0_Haley_Interacted = true;
+                        break;
+                    case "Kurt":
+                        hub0_Kurt_Interacted = true;
+                        break;
+                    case "MJ":
+                        hub0_MJ_Interacted = true;
+                        break;
+                    default:
+                        Debug.Log("You have entered an invalid character, no value updated");
+                        break;
+                }
+                break;
             case 1:
                 switch(character)
                 {
@@ -263,6 +334,11 @@ public class RoomManager : MonoBehaviour
 
         var dialogueData = new DialogueData
         {
+            hub0_Ace_Interacted = hub0_Ace_Interacted,
+            hub0_MJ_Interacted = hub0_MJ_Interacted,
+            hub0_Kurt_Interacted = hub0_Kurt_Interacted,
+            hub0_Haley_Interacted = hub0_Haley_Interacted,
+
             hub1_Ace_Interacted = hub1_Ace_Interacted,
             hub1_MJ_Interacted = hub1_MJ_Interacted,
             hub1_Kurt_Interacted = hub1_Kurt_Interacted,
@@ -297,6 +373,12 @@ public class RoomManager : MonoBehaviour
             string jsonData = File.ReadAllText(filePath);
             DialogueData loadedData = JsonUtility.FromJson<DialogueData>(jsonData);
 
+            hub0_Ace_Interacted = loadedData.hub0_Ace_Interacted;
+            hub0_MJ_Interacted = loadedData.hub0_MJ_Interacted;
+            hub0_Kurt_Interacted = loadedData.hub0_Kurt_Interacted;
+            hub0_Haley_Interacted = loadedData.hub0_Haley_Interacted;
+
+
             hub1_Ace_Interacted = loadedData.hub1_Ace_Interacted;
             hub1_MJ_Interacted = loadedData.hub1_MJ_Interacted;
             hub1_Kurt_Interacted = loadedData.hub1_Kurt_Interacted;
@@ -328,6 +410,11 @@ public class RoomManager : MonoBehaviour
 
     public void ResetDialogue()
     {
+        hub0_Ace_Interacted = false;
+        hub0_MJ_Interacted = false;
+        hub0_Kurt_Interacted = false;
+        hub0_Haley_Interacted = false;
+        
         hub1_Ace_Interacted = false;
         hub1_MJ_Interacted = false;
         hub1_Kurt_Interacted = false;
@@ -352,6 +439,12 @@ public class RoomManager : MonoBehaviour
     // used to save conversations
     private class DialogueData
     {
+        // Hub 2 Dialogue Interacted Booleans
+        public bool hub0_Ace_Interacted = false;
+        public bool hub0_MJ_Interacted = false;
+        public bool hub0_Kurt_Interacted = false;
+        public bool hub0_Haley_Interacted = false;
+
         // Hub 1 Dialogue Interacted Booleans
         public bool hub1_Ace_Interacted = false;
         public bool hub1_MJ_Interacted = false;

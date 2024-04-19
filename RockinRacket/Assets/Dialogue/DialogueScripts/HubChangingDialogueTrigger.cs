@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HubChangingDialogueTrigger : DialogueTrigger
 {
     [Header("Ink JSONs")]
-    // [SerializeField] TextAsset inkJSON_Hub0;
+    [SerializeField] TextAsset inkJSON_Hub0;
     [SerializeField] TextAsset inkJSON_Hub1;
     [SerializeField] TextAsset inkJSON_Hub2;
     [SerializeField] TextAsset inkJSON_Hub3;
@@ -18,11 +18,11 @@ public class HubChangingDialogueTrigger : DialogueTrigger
         {   
             switch(RoomManager.GetInstance().currentHub)
             {
-                // case 0:
-                // {
-                //     currentDialogue = inkJSON_Hub0;
-                //     break;
-                // }
+                case 0:
+                {
+                    inkJSON = inkJSON_Hub0;
+                    break;
+                }
                 case 1:
                 {
                     inkJSON = inkJSON_Hub1;
