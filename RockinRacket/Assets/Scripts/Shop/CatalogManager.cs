@@ -21,6 +21,7 @@ public class CatalogManager : MonoBehaviour
     public Bandmate CurrentBandmate { get; private set; }
     private bool moneyAnim;
     private readonly float MoneyColorAnimTime = .5f;
+    private bool startingPage = true;
 
     public void Open() { gameObject.SetActive(true); }
     public void Close() { gameObject.SetActive(false); }
@@ -97,12 +98,24 @@ public class CatalogManager : MonoBehaviour
     //    shopCatalog.UpdateItemOptions(shopReceipt);
     //}
 
-    // called by BookmarkManager on start and when bookmark pressed
-    public void BookmarkPressed(Bandmate bandmate)
+    // called by BookmarkManager on start
+    public void InitBookmarks(Bandmate bandmate)
     {
         CurrentBandmate = bandmate;
         shopSelection.ResetSelection(bandmate);
         shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);
+    }
+    // called by BookmarkManager when bookmark pressed
+    public void BookmarkPressed(Bandmate bandmate)
+    {
+        if (CurrentBandmate != bandmate)
+        {
+            CurrentBandmate = bandmate;
+            shopSelection.ResetSelection(bandmate);
+            shopCatalog.DisplayItemsByBandmate(ItemInventory.GetItemsByBandmate(bandmate), shopReceipt);
+            shopAudio.PlayPageTurn();
+        }
+        
     }
     // called by itemOption when mouse exits
     public void ResetSelection()

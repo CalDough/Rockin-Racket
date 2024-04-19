@@ -11,7 +11,9 @@ public class BookmarkManager : MonoBehaviour
     private void Start()
     {
         // show initial items
-        SelectBookmark(selectedIndex);
+        FlipBookmarks(selectedIndex);
+        // pass info to Catalog Manager
+        catalogManager.InitBookmarks(bookmarkPairs[selectedIndex].GetCategory());
     }
 
     public void SelectBookmark(int index)
