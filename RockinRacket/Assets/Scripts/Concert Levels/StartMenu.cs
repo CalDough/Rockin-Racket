@@ -27,6 +27,10 @@ public class StartMenu : MonoBehaviour
     [Header("Start Button")]
     public GameObject startButton;
 
+    void Start()
+    {
+        startButton.SetActive(false);
+    }
     // This method is called by ConcertManager when the concert is loaded in for the first time
     public void ActivateStartScreenAnimationAndLoadingFaces()
     {
@@ -86,6 +90,7 @@ public class StartMenu : MonoBehaviour
         Debug.Log("Activating Start Button");
         StopCoroutine(DisplayFaceLoading());
         faceBox.gameObject.SetActive(false);
+        startButton.SetActive(true);
         startButton.gameObject.GetComponent<Image>().enabled = true;
         startButton.gameObject.GetComponent<Button>().interactable = true;
     }
