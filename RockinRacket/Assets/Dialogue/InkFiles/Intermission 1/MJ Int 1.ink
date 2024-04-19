@@ -15,7 +15,7 @@ What do you want?
         -> C1
         
     
-    * [Fix your face]
+    * [Fix your face.]
     
     #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait: mj_chill_offended
     I was hoping that you could change your face out there to not look like you want to attack the audience?
@@ -27,7 +27,7 @@ What do you want?
 #speaker: MJ #portrait: harvey_chill_normal #portrait: mj_speaking_normal-alt
 Sorry, force of habit. Usually when you come to me you need help with something mundane because you're too lazy to do it yourself.
 
-    * [Okay, ouch]
+    * [Okay, ouch.]
     
     #speaker: Harvey #portrait: harvey_speaking_normal-alt #portrait: mj_chill_happy
     Ouch! So no confidence in me then? I'll just have to prove you wrong then.
@@ -37,7 +37,7 @@ Sorry, force of habit. Usually when you come to me you need help with something 
     Good luck with that. You're gonna have to do a lot better than what you're doing out there.
         -> END
 
-    * [I'm trying here]
+    * [I'm trying here.]
     
     #speaker: Harvey #portrait: harvey_speaking_normal #portrait: mj_chill_normal
     Okay, I get it. You don't have any confidence in me and my ability to help. But I'm trying to change that by helping you guys here.

@@ -12,7 +12,7 @@ Hey Harv, you getting the hang of it now?
         Yeah, actually, I am. It's really fun!
             -> C1
 
-    * [I'm struggling to]
+    * [I'm struggling to.]
     
         #speaker: Harvey #portrait: harvey_speaking_normal-alt #portrait: haley_chill_concerned
         It's actually a bit challenging right now. So many things going on and all.
@@ -23,7 +23,7 @@ Hey Harv, you getting the hang of it now?
 #speaker: Haley #portrait: harvey_chill_intrigued #portrait: haley_speaking_woah-alt1
 REALLY!? I figured you would have had a harder time adjusting to it. THIS IS SO EXCITING!!!
 
-    * [No way]
+    * [No way.]
     
         #speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_woah
         I admit that there's a bit of a learning curve to it, but it's not a problem at all.

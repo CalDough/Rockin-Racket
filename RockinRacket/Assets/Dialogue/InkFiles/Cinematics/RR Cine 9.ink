@@ -10,10 +10,10 @@ INCLUDE ../globals.ink
 #speaker: Ace #portrait: ace_speaking_normal-alt2 #portrait: harvey_chill_intrigued
 Gotta say bro. That plan of yours took some major guts.
 
-#speaker: MJ #portrait: mj_speaking_normal #portrait: ace_chill_normal
+#speaker: MJ #portrait: mj_speaking_normal #portrait: harvey_chill_normal-alt
 It was insanely stupid of you, but we all appreciate it.
 
-#speaker: Haley #portrait: haley_speaking_bummed #portrait: mj_chill_normal
+#speaker: Haley #portrait: haley_speaking_bummed #portrait: harvey_chill_normal
 Sucks we didn't win though.
 
 #speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_bummed
@@ -22,7 +22,7 @@ Technically we did switch out band members mid-way through. So it makes sense th
 #speaker: Kurt #portrait: kurt_speaking_happy #portrait: harvey_chill_normal-alt
 That was a-amazing though! That had to be one of our best performances.
 
-#speaker: Ace #portrait: ace_speaking_normal #portrait: kurt_chill_normal
+#speaker: Ace #portrait: ace_speaking_normal #portrait: harvey_chill_normal-alt
 It for sure was.
 
 #speaker: Harvey #portrait: harvey_speaking_normal #portrait: ace_chill_um
@@ -37,10 +37,10 @@ Phew. I was worried you guys were still gonna hate me for it.
 #speaker: MJ #portrait: mj_speaking_normal-alt1 #portrait: harvey_chill_normal-alt
 We still kinda do, but you were coming from a good place. And you said it yourself, you gave up on it to be with us.
 
-#speaker: Ace #portrait: ace_speaking_normal-alt2 #portrait: mj_chill_happy
+#speaker: Ace #portrait: ace_speaking_normal-alt2 #portrait: harvey_chill_normal-alt
 That makes it alright in our eyes dude.
 
-#speaker: Haley #portrait: haley_speaking_intrigued #portrait: ace_chill_normal
+#speaker: Haley #portrait: haley_speaking_intrigued #portrait: harvey_chill_normal-alt
 Well now that all that's settled, what next?
 
 #speaker: Harvey #portrait: harvey_speaking_ambitious #portrait: haley_chill_woah

@@ -8,7 +8,7 @@ INCLUDE ../globals.ink
 #speaker: Ace #portrait: harvey_chill_normal #portrait: ace_speaking_normal
 Yooo, Harv-man. What up?
 
-    * [You're killing it]
+    * [You're killing it!]
     
         #speaker: Harvey #portrait: harvey_speaking_normal-alt #portrait: ace_chill_friendly
         You're absolutely killing it out there!
@@ -37,7 +37,7 @@ You're too kind, my guy. I'm just vibing with the others and playing from the he
         Well that and a bunch of practice. As MJ says, "practice makes pizza." Or something like that I guess. Pizza's pretty good so it checks out.
             -> END
             
-    * [It's still...]
+    * [It's still cool.]
     
         #speaker: Harvey #portrait: harvey_speaking_ambitious #portrait: ace_chill_okiedokie
         Regardless of what it is, it's still pretty cool dude. You have some serious talent. Keep up the good work!
@@ -52,7 +52,7 @@ You're too kind, my guy. I'm just vibing with the others and playing from the he
 #speaker: Ace #portrait: harvey_chill_normal-alt #portrait: ace_speaking_doubtful
 Honestly man, sometimes I just zone out and let muscle memory from practicing take over. It's been working out so far.
 
-    * [There's no way]
+    * [There's no way.]
     
         #speaker: Harvey #portrait: harvey_speaking_normal #portrait: ace_chill_normal
         No way does that actually work. How would it even work?
@@ -65,7 +65,7 @@ Honestly man, sometimes I just zone out and let muscle memory from practicing ta
         You'll get there eventually yourself man.
             -> END
 
-    * [That can't be good]
+    * [That can't be good.]
     
         #speaker: Harvey #portrait: harvey_speaking_annoyed #portrait: ace_chill_um
         Zoning out in the middle of playing can't be good. Do the others care not care or something?

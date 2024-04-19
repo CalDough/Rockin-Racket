@@ -5,16 +5,16 @@ INCLUDE ../globals.ink
 === Cine_7 ===
 //Cine 7:
 
-#speaker: Harvey #portrait: harvey_speaking_ambitious
+#speaker: Harvey #portrait: harvey_speaking_ambitious #portrait: 
 Everyone ready to go out there and kick some fuzz?
 
 #speaker: MJ #portrait: mj_speaking_normal-alt1 #portrait: harvey_chill_normal-alt
 Let's kick it all!
 
-#speaker: Haley #portrait: haley_speaking_happy #portrait: mj_chill_happy
+#speaker: Haley #portrait: haley_speaking_happy #portrait: harvey_chill_ambitious
 Yeah! Let's make them wish they never played against us! WOOHOO!
 
-#speaker: Kurt #portrait: kurt_speaking_normal #portrait: haley_chill_concerned
+#speaker: Kurt #portrait: kurt_speaking_normal #portrait: harvey_chill_intrigued
 Wait! Harvey, you dropped something. I can g-grab it for you.
 
 #speaker: Harvey #portrait: harvey_speaking_annoyed #portrait: kurt_chill_confused
@@ -23,19 +23,19 @@ Thanks- no wait, don't!
 #speaker: Kurt #portrait: kurt_speaking_confused #portrait: harvey_chill_annoyed
 Bearington's University of Music? Experience needed?
 
-#speaker: Haley #portrait: haley_speaking_confused-alt1 #portrait: kurt_chill_confused
+#speaker: Haley #portrait: haley_speaking_confused-alt1 #portrait: harvey_chill_annoyed
 Let me see that.
 
-#speaker: Haley #portrait: haley_speaking_confused #portrait: kurt_chill_hurt
+#speaker: Haley #portrait: haley_speaking_confused #portrait: harvey_chill_annoyed
 "We regret to inform you that you lack the necessary experience to enroll in our school." 
 
-#speaker: Haley #portrait: haley_speaking_confused #portrait: kurt_chill_hurt
+#speaker: Haley #portrait: haley_speaking_confused #portrait: harvey_chill_annoyed
 "If you happen to gain some over the summer, you can resubmit your application for review."
 
-#speaker: MJ #portrait: mj_speaking_disgusted #portrait: haley_chill_bummed
+#speaker: MJ #portrait: mj_speaking_disgusted #portrait: harvey_chill_normal
 Sounds like he's gonna leave us.
 
-#speaker: Haley #portrait: haley_speaking_bummed #portrait: mj_chill_irritated
+#speaker: Haley #portrait: haley_speaking_bummed #portrait: harvey_chill_normal
 Is that why you've been helping the band? So you can just use us as "experience" and run off to college?!
 
 #speaker: Harvey #portrait: harvey_speaking_normal #portrait: haley_chill_normal
@@ -44,28 +44,28 @@ It's not what you think, I-
 #speaker: Kurt #portrait: kurt_speaking_sad #portrait: harvey_chill_normal
 But, I thought you l-liked this. Was working with us just a lie?
 
-#speaker: Haley #portrait: haley_speaking_normal-alt1 #portrait: kurt_chill_annoyed
+#speaker: Haley #portrait: haley_speaking_normal-alt1 #portrait: harvey_chill_normal
 I'm not gonna let you use us like this anymore. We don't want your help anymore, so just leave us alone.
 
-#speaker: Ace #portrait: ace_speaking_normal-alt1 #portrait: haley_chill_normal
+#speaker: Ace #portrait: ace_speaking_normal-alt1 #portrait: harvey_chill_normal
 We're on in 10 minutes though? What are we gonna do without him helping? 
 
-#speaker: Kurt #portrait: kurt_speaking_normal #portrait: ace_chill_um
+#speaker: Kurt #portrait: kurt_speaking_normal #portrait: harvey_chill_normal
 We'd fail horribly out there and be a laughing stock. I don't wanna go through that.
 
-#speaker: Haley #portrait: haley_speaking_bummed #portrait: kurt_chill_blank
+#speaker: Haley #portrait: haley_speaking_bummed #portrait: harvey_chill_normal
 So what? We just give up on it? Come on guys, it's our dream!
 
-#speaker: MJ #portrait: mj_speaking_offended #portrait: haley_chill_bummed
+#speaker: MJ #portrait: mj_speaking_offended #portrait: harvey_chill_normal-alt
 Hate to say it but I agree with the guys. We can't do it without him.
 
-#speaker: Harvey #portrait: harvey_speaking_normal #portrait: mj_chill_irritated
+#speaker: Harvey #portrait: harvey_speaking_normal-alt #portrait: mj_chill_irritated
 How about we all just play through this and we can talk about it after?
 
 #speaker: Haley #portrait: haley_speaking_normal #portrait: harvey_chill_annoyed
 NO! We can't play with someone we can't trust.
 
-#speaker: Ace #portrait: ace_speaking_bummed #portrait: haley_chill_normal-alt
+#speaker: Ace #portrait: ace_speaking_bummed #portrait: harvey_chill_normal
 Then let's just give up on this one Haley. We'll get 'em next time. 
 
 #speaker: Harvey #portrait: harvey_speaking_normal #portrait: ace_chill_disappointed

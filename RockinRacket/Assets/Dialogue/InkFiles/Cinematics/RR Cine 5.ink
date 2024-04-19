@@ -46,14 +46,14 @@ We're up against "Racoonz" first. Spelled with a "z" instead of an "s."
 #speaker: Ace #portrait: ace_speaking_normal-alt1 #portrait: harvey_chill_normal-alt
 They for sure mean business with that "z." 
 
-#speaker: MJ #portrait: mj_speaking_normal-alt1 #portrait: ace_chill_um
+#speaker: MJ #portrait: mj_speaking_normal-alt1 #portrait: harvey_chill_normal-alt
 Should we look 'em up? Gotta do research before we can even think of practicing.
 
-#speaker: Kurt #portrait: kurt_speaking_normal-alt #portrait: mj_chill_happy
+#speaker: Kurt #portrait: kurt_speaking_normal-alt #portrait: harvey_chill_intrigued
 Already on it. Oh, they look so cool.
 
-#speaker: Haley #portrait: haley_speaking_happy #portrait: kurt_chill_happy
-Harvey. YOU ARE LITERALLY THE FLUFFING BEST!
+#speaker: Haley #portrait: haley_speaking_happy #portrait: harvey_chill_intrigued
+Harvey. YOU ARE LITERALLY THE FLUFFING BEST!!
 
 #speaker: Harvey #portrait: harvey_speaking_normal-alt #portrait: haley_chill_woah
 'Preciate it! Now what are you waiting for? Go and start practicing or we don't stand a chance!

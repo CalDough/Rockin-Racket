@@ -7,16 +7,16 @@ INCLUDE ../globals.ink
 
 //The 5 of them are standing outside of the barn, talking
 
-#speaker: Harvey #portrait: harvey_speaking_intrigued
+#speaker: Harvey #portrait: harvey_speaking_intrigued #portrait: 
 So? How'd that feel?
 
 #speaker: Ace #portrait: ace_speaking_tired #portrait: harvey_chill_normal-alt
 Like I just bit into a fresh cookie.
 
-#speaker: MJ #portrait: mj_speaking_normal-alt1 #portrait: ace_chill_exasperated
+#speaker: MJ #portrait: mj_speaking_normal-alt1 #portrait: harvey_chill_normal-alt
 I think what he's getting at was THAT ROCKED!
 
-#speaker: Haley #portrait: haley_speaking_happy #portrait: mj_chill_happy
+#speaker: Haley #portrait: haley_speaking_happy #portrait: harvey_chill_intrigued
 YES! Especially you Harvey. I didn't think you'd be able to handle this so well. I thought you'd have given up by now.
 
 #speaker: Harvey #portrait: harvey_speaking_intrigued #portrait: haley_chill_huh
