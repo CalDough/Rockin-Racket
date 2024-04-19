@@ -61,7 +61,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnQuitGameClick()
     {
-        gameLoadHandler.SaveAndExit();
+        //gameLoadHandler.SaveAndExit();
         sceneLoader.ExitGame();
     }
 
