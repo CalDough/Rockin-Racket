@@ -43,8 +43,8 @@ public class MinigameQueue : MonoBehaviour
     void Start()
     {
         SetupMinigames();
-        ConcertEvents.instance.e_ConcertStarted.AddListener(SetQueueActive);
-        ConcertEvents.instance.e_ConcertEnded.AddListener(SetQueueUnactive);
+        ConcertEvents.instance.e_SongStarted.AddListener(SetQueueActive);
+        ConcertEvents.instance.e_SongEnded.AddListener(SetQueueUnactive);
     }
 
     public void SetQueueUnactive()

@@ -35,12 +35,16 @@ public class TutorialManager : MonoBehaviour
         afterIntermission = tutorialConcertData.isPostIntermission; 
     }
 
-    public void StartTutorialSequence()
+    void Start()
     {
         if(afterIntermission)
         {
             postIntTutorialHandler.MoveAndEnableObjects();
         }
+    }
+
+    public void StartTutorialSequence()
+    {
 
         var tutorialList = afterIntermission ? postIntermissionTutorials : tutorials;
 
