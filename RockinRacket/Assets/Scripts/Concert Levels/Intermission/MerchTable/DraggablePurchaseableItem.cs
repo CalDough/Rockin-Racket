@@ -9,12 +9,18 @@ using UnityEngine.XR;
  * The following script is used on the PurchaseableItem prefab and allows it to drag and find a destination
  */
 
-public class DraggablePurchaseableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggablePurchaseableItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("Destination Data")]
     [SerializeField] private RectTransform destination;
     [SerializeField] private string itemName;
     [SerializeField] private RectTransform screenBoundary;
+
+    // these allow the arrow to show up on click
+    private GameObject arrow;
+    public void SetArrow(GameObject arrow) { this.arrow = arrow; }
+    public void OnPointerDown(PointerEventData eventData) { arrow.SetActive(true); }
+    public void OnPointerUp(PointerEventData eventData) { arrow.SetActive(false); }
 
     /*
      * The following three methods are implemented from the DragHandler interface set
@@ -42,6 +48,7 @@ public class DraggablePurchaseableItem : MonoBehaviour, IBeginDragHandler, IDrag
         {
             gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         }
+        arrow.SetActive(false);
     }
 
     /*
