@@ -18,7 +18,6 @@ public class CreditsManager : MonoBehaviour
     {
         foreach (CreditsPage page in creditsPages)
         {
-            print(page.gameObject.name);
             page.gameObject.SetActive(true);
             page.GetUIFades();
             page.SetAlpha(0f);
@@ -37,11 +36,6 @@ public class CreditsManager : MonoBehaviour
         sceneLoader.SwitchScene(transition);
     }
 
-    public void NextBtn()
-    {
-        StartCoroutine(NextPage());
-    }
-
     private IEnumerator NextPage()
     {
         // TODO: get rid of if statement
@@ -51,13 +45,13 @@ public class CreditsManager : MonoBehaviour
             // fade out old page
             if (currentPage >= 0)
             {
-                print("animating out");
+                print($"animating out {creditsPages[currentPage].name}");
                 creditsPages[currentPage].FadeOut(animationTime);
                 yield return new WaitForSeconds(animationTime);
             }
             // fade in new page
-            print("animating in");
             currentPage++;
+            print($"animating in {creditsPages[currentPage].name}");
             creditsPages[currentPage].FadeIn(animationTime);
             yield return new WaitForSeconds(animationTime);
             print("done animating");

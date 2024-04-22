@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIBounce : MonoBehaviour
 {
+    [SerializeField] private int startX = 0;
     [SerializeField] private int startHeight;
     [SerializeField] private int bounceHeight;
     [SerializeField] private float animTime;
@@ -12,7 +13,7 @@ public class UIBounce : MonoBehaviour
 
     private void Awake()
     {
-        initPos = new(0, startHeight, 0);
+        initPos = new(startX, startHeight, 0);
         //initPos = transform.localPosition;
     }
 
