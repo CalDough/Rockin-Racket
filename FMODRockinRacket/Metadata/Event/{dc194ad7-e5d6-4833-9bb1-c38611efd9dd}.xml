@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{dc194ad7-e5d6-4833-9bb1-c38611efd9dd}">
 		<property name="name">
-			<value>S2_DRUMS_COUNTOFF</value>
+			<value>S2_DRUMS</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -60,7 +60,7 @@
 	<object class="MarkerTrack" id="{d77eb122-9554-43f5-bb2b-480b046d1cad}" />
 	<object class="GroupTrack" id="{5a485eb2-c3c5-4f1c-b7c1-f34205041de1}">
 		<relationship name="modules">
-			<destination>{155c6012-2176-4c97-812f-9af46e5b5aa9}</destination>
+			<destination>{7a8c7cb0-259e-4c6b-8d2e-6cf6cbde035e}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{bff9121f-9f47-47f9-9e4d-945656168214}</destination>
@@ -68,7 +68,7 @@
 	</object>
 	<object class="Timeline" id="{1958bdc1-11aa-4588-aabe-22d00cb53e0f}">
 		<relationship name="modules">
-			<destination>{155c6012-2176-4c97-812f-9af46e5b5aa9}</destination>
+			<destination>{7a8c7cb0-259e-4c6b-8d2e-6cf6cbde035e}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{27be88b3-6a7d-4967-92aa-a03c53192bc1}">
@@ -88,12 +88,12 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{d42a3472-ece6-422c-a47f-1f28d0eb21df}" />
-	<object class="SingleSound" id="{155c6012-2176-4c97-812f-9af46e5b5aa9}">
+	<object class="SingleSound" id="{7a8c7cb0-259e-4c6b-8d2e-6cf6cbde035e}">
 		<property name="length">
-			<value>58.820317460317462</value>
+			<value>55.5</value>
 		</property>
 		<relationship name="audioFile">
-			<destination>{28e2337e-e53e-408e-bddd-e3c85e26cdb2}</destination>
+			<destination>{3cb5de7f-c410-49d9-9d4f-910b482d3c00}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{bff9121f-9f47-47f9-9e4d-945656168214}">
