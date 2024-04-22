@@ -55,6 +55,9 @@ public class CatalogManager : MonoBehaviour
 
             if (cost <= GameManager.Instance.globalMoney)
             {
+                // equip items you buy
+                foreach (Item item in itemsToBuy)
+                    EquipItem(item);
                 GameManager.Instance.globalMoney -= cost;
                 UpdateMoneyText();
                 ItemInventory.AddItems(shopReceipt.GetItemsToBuy());
@@ -86,7 +89,7 @@ public class CatalogManager : MonoBehaviour
     public void EquipBtnPressed()
     {
         Item currentItem = shopSelection.GetSelectedItem();
-        ItemInventory.EquipItem(CurrentBandmate, currentItem);
+        ItemInventory.EquipItem(currentItem);
         shopCatalog.UpdateItemOptions(shopReceipt);
     }
 
@@ -168,7 +171,7 @@ public class CatalogManager : MonoBehaviour
     }
     private void Equip(Item item)
     {
-        ItemInventory.EquipItem(CurrentBandmate, item);
+        ItemInventory.EquipItem(item);
         shopCatalog.UpdateItemOptions(shopReceipt);
     }
 }

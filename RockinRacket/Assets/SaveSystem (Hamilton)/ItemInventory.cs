@@ -119,10 +119,10 @@ public static class ItemInventory
             File.WriteAllText(filePath, "");
 
         List<string> equippedItemStrings = new();
-        foreach (Item item in equippedItem.Values)
+        foreach (Bandmate bandmate in Enum.GetValues(typeof(Bandmate)))
         {
-            Debug.Log("equipped item: " + item.name);
-            equippedItemStrings.Add("" + item.ShopIndex);
+            Debug.Log("equipped item: " + equippedItem[bandmate].name);
+            equippedItemStrings.Add("" + equippedItem[bandmate].ShopIndex);
         }
         Debug.Log("equipped items: " + equippedItem.Values.Count);
         Debug.Log("equipped items to save: " + equippedItemStrings.Count);
@@ -131,9 +131,9 @@ public static class ItemInventory
         return equippedItemStrings.Count;
     }
     // called by CatalogManager when equip btn pressed
-    public static void EquipItem(Bandmate bandmate, Item item)
+    public static void EquipItem(Item item)
     {
-        equippedItem[bandmate] = item;
+        equippedItem[item.itemType] = item;
     }
 
     public static void Load()
