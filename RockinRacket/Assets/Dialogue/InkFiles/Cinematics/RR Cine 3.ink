@@ -10,7 +10,7 @@ INCLUDE ../globals.ink
 #speaker: Harvey #portrait: harvey_speaking_ambitious #portrait: #cinematic: 
 Guys! Guess what I got us? Come on, guess!
 
-#speaker: Kurt #portrait: kurt_speaking_curious #portrait: harvey_chill_normal-alt
+#speaker: Kurt #portrait: kurt_speaking_confused #portrait: harvey_chill_normal-alt
 Oh, um. T-tickets for a vacation?
 
 #speaker: Ace #portrait: ace_speaking_challenging #portrait: Harvey_chill_normal
