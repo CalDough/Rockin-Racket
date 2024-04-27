@@ -79,16 +79,13 @@ public class TutorialManager : MonoBehaviour
     private void Update()
     {
         var tutorialList = afterIntermission ? postIntermissionTutorials : tutorials;
-
         if (isWaitingForNextTutorial)
         {
             delayTimer += Time.fixedUnscaledDeltaTime;
             if (delayTimer >= tutorialActivationDelay)
             {
                 isWaitingForNextTutorial = false;
-                delayTimer = 0f;
                 currentTutorialIndex++;
-
                 if (currentTutorialIndex < tutorialList.Count)
                 {
                     tutorialList[currentTutorialIndex].StartTutorial();
@@ -105,6 +102,7 @@ public class TutorialManager : MonoBehaviour
                         Debug.Log("All tutorials completed.");
                     }
                 }
+                delayTimer = 0f; 
             }
         }
         else if (currentTutorialIndex < tutorialList.Count && tutorialList[currentTutorialIndex].isTutorialCompleted)

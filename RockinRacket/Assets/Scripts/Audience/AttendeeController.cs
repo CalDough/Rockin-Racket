@@ -47,8 +47,11 @@ public class AttendeeController : MonoBehaviour
         }
     }
 
+    public static int currentOrderInLayer = 0;
+
     private void SpawnAttendeeAtLocation(Transform location)
     {
+        Debug.Log("Spawning Attendee");
         if (shuffledAttendees.Count == 0)
         {
             shuffledAttendees = new List<ConcertAttendee>(AttendeePrefabs);
@@ -64,6 +67,9 @@ public class AttendeeController : MonoBehaviour
         if(attendee)
         {
             attendee.RandomizeAppearance();
+            attendee.IncreaseSortingOrder(currentOrderInLayer);
+            currentOrderInLayer++;            
+            currentOrderInLayer++;
         }
     }
 

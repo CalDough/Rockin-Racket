@@ -173,8 +173,7 @@ public class TShirtCannon : MonoBehaviour
         if (AvailableShirtTypes.Count > 0)
         {
             int randomIndex = Random.Range(0, AvailableShirtTypes.Count);
-            SelectedShirtType = AvailableShirtTypes[randomIndex];
-            return SelectedShirtType;
+            return AvailableShirtTypes[randomIndex];
         }
         else
         {

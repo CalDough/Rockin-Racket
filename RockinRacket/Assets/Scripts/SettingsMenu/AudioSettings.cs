@@ -14,11 +14,13 @@ using UnityEngine.Rendering;
 */
 public class AudioSettings : MonoBehaviour
 {
-    private string saveFolderPath = "Player/";
+    private string saveFolderPath = "Player/SaveFiles/";
     private string saveFileName = "AudioSettings.json";
-    private string fullSavePath;
+    private string fullSavePath = "";
 
     public Slider masterVolumeSlider;
+    public Slider ambientVolumeSlider;
+    public Slider musicVolumeSlider;
 
     private FMOD.Studio.VCA masterVCA;
     private FMOD.Studio.VCA musicVCA;
@@ -28,7 +30,7 @@ public class AudioSettings : MonoBehaviour
 
     //This is a serialized script with data that we read and write from
     //It is below this script
-    private AudioSettingsData currentSettings = new AudioSettingsData(); 
+    public AudioSettingsData currentSettings = new AudioSettingsData(); 
 
     private void Awake()
     {
@@ -40,32 +42,79 @@ public class AudioSettings : MonoBehaviour
     
     private void Start()
     {
-        
-        LoadSettings();
-        
         masterVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Master");
-        //musicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
-        //voiceVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Voice");
-        //soundeffectVCA = FMODUnity.RuntimeManager.GetVCA("vca:/SoundEffects");
-        //ambientVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Ambient");
+        musicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
+        ambientVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Ambient");
+
+
+        LoadSettings();
+        Debug.Log("Settings Loaded Finished");
+        SetUpSliders();
+        Debug.Log("Sliders  Finished");
+        ApplySettings();
+        Debug.Log("Settings Applied  Finished");
+    }
+
+
+    public void SetUpSliders()
+    {
+        Debug.Log("Audio Settings: " + currentSettings.masterVolume + "," + currentSettings.ambientVolume + "," + currentSettings.musicVolume);
+
+
         if (masterVolumeSlider != null)
-        {
-            masterVolumeSlider.minValue = 0f; 
-            masterVolumeSlider.maxValue = 1f; 
-            
+        {            
+            //masterVolumeSlider.minValue = 0f;
+            //masterVolumeSlider.maxValue = 1f;
             masterVolumeSlider.value = currentSettings.masterVolume;
             masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
+            Debug.Log("Audio Set: " + currentSettings.masterVolume);
         }
-        ApplySettings();
+        else
+        {
+            Debug.Log("Slider is null");
+        }
+
+        if (ambientVolumeSlider != null)
+        {
+            //ambientVolumeSlider.minValue = 0f;
+            //ambientVolumeSlider.maxValue = 1f;
+            ambientVolumeSlider.value = currentSettings.ambientVolume;
+            ambientVolumeSlider.onValueChanged.AddListener(SetBackgroundVolume);
+            Debug.Log("Audio Set: " + currentSettings.ambientVolume);
+        }        
+        else
+        {
+            Debug.Log("Slider is null");
+        }
+
+        if (musicVolumeSlider != null)
+        { 
+            //musicVolumeSlider.minValue = 0f;
+            //musicVolumeSlider.maxValue = 1f;
+            musicVolumeSlider.value = currentSettings.musicVolume;
+            musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
+            Debug.Log("Audio Set: " + currentSettings.musicVolume);
+        }        
+        else
+        {
+            Debug.Log("Slider is null");
+        }
     }
 
     public void SaveSettings()
     {
-        currentSettings.masterVolume = masterVolumeSlider.value;
-
+        Debug.Log("Saving Audio Settings");
         string json = JsonUtility.ToJson(currentSettings);
         File.WriteAllText(fullSavePath, json);
         ApplySettings();
+    }
+
+    private void CreateDefaultSaveFile()
+    {
+        SetDefaultSettings();
+        Debug.Log("Audio Set to default");
+        string json = JsonUtility.ToJson(currentSettings);
+        File.WriteAllText(fullSavePath, json);
     }
 
     public void LoadSettings()
@@ -74,53 +123,83 @@ public class AudioSettings : MonoBehaviour
         {
             string json = File.ReadAllText(fullSavePath);
             currentSettings = JsonUtility.FromJson<AudioSettingsData>(json);
+            //Debug.Log("AUDIO LOADED VALUES: " + currentSettings.masterVolume + "," + currentSettings.ambientVolume + "," + currentSettings.musicVolume);
+
         }
         else
         {
-            SetDefaultSettings();
+            CreateDefaultSaveFile();
         }
-    }
 
-    private void SetMasterVolume(float volume)
-    {
-        currentSettings.masterVolume = volume;
-        ApplySettings();
     }
 
     public void ApplySettings()
     {
-
         if (masterVCA.isValid())
         {
             masterVCA.setVolume(currentSettings.masterVolume);
+           // Debug.Log("Setting Master Volume: " + currentSettings.masterVolume);
         }
-        //musicVCA.setVolume(currentSettings.musicVolume);
-        //voiceVCA.setVolume(currentSettings.voiceVolume);
-        //soundeffectVCA.setVolume(currentSettings.soundEffectsVolume);
-        //ambientVCA.setVolume(currentSettings.ambientVolume);
+        if (ambientVCA.isValid())
+        {
+            ambientVCA.setVolume(currentSettings.ambientVolume);
+           // Debug.Log("Setting Ambient Volume: " + currentSettings.ambientVolume);
+        }
+        if (musicVCA.isValid())
+        {
+            musicVCA.setVolume(currentSettings.musicVolume);
+            //Debug.Log("Setting Music Volume: " + currentSettings.musicVolume);
+        }
     }
 
 
-    public void ResetToDefault()
-    {
-        SetDefaultSettings();
-        ApplySettings();
-        SaveSettings(); 
-    }
 
     private void SetDefaultSettings()
     {
         currentSettings = new AudioSettingsData
         {
             masterVolume = 1.0f,
+            ambientVolume = 1.0f,
+            musicVolume = 1.0f
         };
     }
 
+    private void SetBackgroundVolume(float volume)
+    {
+        
+        currentSettings.ambientVolume = volume;
+        if (ambientVCA.isValid())
+        {
+            ambientVCA.setVolume(currentSettings.ambientVolume);
+            //Debug.Log("Setting Ambient Volume: " + currentSettings.ambientVolume);
+        }
+    }
+
+    private void SetMusicVolume(float volume)
+    {
+        currentSettings.musicVolume = volume;
+        if (musicVCA.isValid())
+        {
+            musicVCA.setVolume(currentSettings.musicVolume);
+            //Debug.Log("Setting Music Volume: " + currentSettings.musicVolume);
+        }
+    }
+
+    private void SetMasterVolume(float volume)
+    {
+        currentSettings.masterVolume = volume;
+        if (masterVCA.isValid())
+        {
+            masterVCA.setVolume(currentSettings.masterVolume);
+           // Debug.Log("Setting Master Volume: " + currentSettings.masterVolume);
+        }
+    }
 }
 
 [System.Serializable]
 public class AudioSettingsData
 {
     public float masterVolume;
-
+    public float ambientVolume;
+    public float musicVolume;
 }

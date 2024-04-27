@@ -51,6 +51,7 @@ public class ConcertAttendee : Attendee
     //private SpriteRenderer sr;
     public Collider2D solidCollider2D;
     [SerializeField] SpriteRenderer Clothes;
+    [SerializeField] SpriteRenderer Body;
     [SerializeField] Animator anim;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] ParticleSystem frustratedParticles;
@@ -240,6 +241,12 @@ public class ConcertAttendee : Attendee
 
         float scaleModifier = 1 + Random.Range(-0.05f, 0.1f); 
         this.gameObject.transform.localScale *= scaleModifier;
+    }
+
+    public void IncreaseSortingOrder(int orderIncrement)
+    {
+        Clothes.sortingOrder += orderIncrement;
+        Body.sortingOrder += orderIncrement;
     }
 
     protected override void EndLerp()
