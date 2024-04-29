@@ -159,8 +159,8 @@ public class AudioSettings : MonoBehaviour
         currentSettings = new AudioSettingsData
         {
             masterVolume = 1.0f,
-            ambientVolume = 1.0f,
-            musicVolume = 1.0f
+            ambientVolume = 0.5f,
+            musicVolume = 0.5f
         };
     }
 
