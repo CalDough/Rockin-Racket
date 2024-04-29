@@ -66,6 +66,7 @@ public class CatalogManager : MonoBehaviour
                 shopCatalog.UpdateItemOptions(shopReceipt);
                 //shopSelection.UpdateText();
                 shopAudio.PlayCheckout();
+                shopManager.ReturnToShop();
             }
             else if (!moneyAnim)
                 StartCoroutine(NotEnoughMoneyAnim());
